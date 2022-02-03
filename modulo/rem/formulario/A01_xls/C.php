@@ -208,9 +208,6 @@ $FILA_HEAD_SQL = [
                         $total = 0;
                     }
                     $fila .= '<td>' . $total . '</td>';
-                    if ($c < 17) {
-                        $total_fila += $total;
-                    }
                 }
                 echo $fila;
 
