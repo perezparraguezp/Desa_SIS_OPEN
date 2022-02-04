@@ -46,7 +46,7 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                          data-position="bottom" data-delay="50" data-tooltip="BAJO PESO">
                                         <div class="row center-align">
                                             <label class="white-text" for="imc_bp">
-                                                <img src="../../images/pscv/bp.png" height="100px" />
+                                                <img src="../../images/am/BP.png" height="100px" />
                                             </label><br />
                                             <input type="radio"
                                                    style="position: relative;visibility: visible;left: 0px;"
@@ -58,7 +58,7 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                          data-position="bottom" data-delay="50" data-tooltip="NORMAL">
                                         <div class="row center-align">
                                             <label class="white-text" for="imc_n">
-                                                <img src="../../images/pscv/n.png" height="100px" />
+                                                <img src="../../images/am/N.png" height="100px" />
                                             </label><br />
                                             <input type="radio"
                                                    style="position: relative;visibility: visible;left: 0px;"
@@ -70,7 +70,7 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                          data-position="bottom" data-delay="50" data-tooltip="SOBRE PESO">
                                         <div class="row center-align">
                                             <label class="white-text" for="imc_sp">
-                                                <img src="../../images/pscv/sp.png" height="100px"  />
+                                                <img src="../../images/am/SP.png" height="100px"  />
                                             </label><br />
                                             <input type="radio"
                                                    style="position: relative;visibility: visible;left: 0px;"
@@ -82,7 +82,7 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                          data-position="bottom" data-delay="50" data-tooltip="OBESIDAD">
                                         <div class="row center-align">
                                             <label class="white-text" for="imc_ob">
-                                                <img src="../../images/pscv/ob.png" height="100px"  />
+                                                <img src="../../images/am/OB.png" height="100px"  />
                                             </label><br />
                                             <input type="radio"
                                                    style="position: relative;visibility: visible;left: 0px;"
@@ -116,7 +116,7 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                          data-position="bottom" data-delay="50" data-tooltip="CON ACTIVIDAD">
                                         <div class="row center-align" title="SI">
                                             <label class="white-text" for="af_si">
-                                                <img src="../../images/am/activiad_fisica_si.png" height="100px" />
+                                                <img src="../../images/am/actividad_fisica_si.png" height="100px" />
                                             </label><br />
                                             <input type="radio"
                                                    style="position: relative;visibility: visible;left: 0px;"
@@ -128,7 +128,7 @@ $yesavage = $paciente->getParametro_AM('yesavage');
                                          data-position="bottom" data-delay="50" data-tooltip="SIN ACTIVIDAD">
                                         <div class="row center-align">
                                             <label class="white-text" for="af_no">
-                                                <img src="../../images/am/activiad_fisica_no.png"
+                                                <img src="../../images/am/actividad_fisica_no.png"
                                                      height="100px" />
                                             </label><br />
                                             <input type="radio"
