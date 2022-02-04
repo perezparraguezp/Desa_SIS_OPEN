@@ -42,10 +42,10 @@ $preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col l2 s1 m2">DESDE</div>
-                            <div class="col l4 s4 m8">TIPO</div>
-                            <div class="col l2 s1 m2">VENCIMIENTO</div>
-                            <div class="col l4 s1 m4">RETIRO</div>
+                            <div class="col l2 s2 m2">DESDE</div>
+                            <div class="col l6 s6 m6">TIPO</div>
+                            <div class="col l2 s2 m2">VENCIMIENTO</div>
+                            <div class="col l2 s2 m2">RETIRO</div>
                         </div>
                         <hr class="row" />
                         <?php
@@ -55,14 +55,14 @@ $preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer
                             ?>
                             <div class="row tooltipped rowInfoSis <?php echo 'H_'.$row1['estado_hormona']; ?>"
                                  data-position="bottom" data-delay="50" data-tooltip='Estado: <?php echo $row1['estado_hormona']; ?> | Obs: <?php echo $row1['observacion']; ?>' >
-                                <div class="col l2 s4 m2"><?PHP echo fechaNormal($row1['fecha_registro']); ?></div>
-                                <div class="col l4 s4 m8"><?PHP echo $row1['tipo']; ?></div>
-                                <div class="col l2 s4 m2"><?PHP echo fechaNormal($row1['vencimiento']); ?></div>
-                                <div class="col l4 s4 m4">
+                                <div class="col l2 s2 m2"><?PHP echo fechaNormal($row1['fecha_registro']); ?></div>
+                                <div class="col l6 s6 m6"><?PHP echo $row1['tipo']; ?></div>
+                                <div class="col l2 s2 m2"><?PHP echo fechaNormal($row1['vencimiento']); ?></div>
+                                <div class="col l2 s2 m2">
                                     <?PHP
                                     IF($row1['fecha_registro']==date('Y-m-d')){
                                         ?>
-                                        <a href="#" onclick="deleteHormonaSQL('<?php echo $row1['id_historial']; ?> ')">ELIMINAR</a>
+                                        <a href="#" style="color: rgba(255,95,105,0.86);font-weight: bold;" onclick="deleteHormonaSQL('<?php echo $row1['id_historial']; ?> ')">ELIMINAR</a>
                                     <?php
                                     }else{
                                         if($row1['estado_hormona']=='ACTIVA'){
@@ -124,7 +124,7 @@ $preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer
                                                onchange="updateIndicadorM_sexual('regulacion_mas_preservativo')"
                                             <?php echo $regulacion_mas_preservativo=='SI'?'checked="checked"':'' ?>
                                                name="regulacion_mas_preservativo"  />
-                                        <label class="white-text" for="regulacion_mas_preservativo">REGULACIÓN FERTILIDAD MAS PRESERVATIVO</label>
+                                        <label class="black-text" for="regulacion_mas_preservativo">REGULACIÓN FERTILIDAD MAS PRESERVATIVO</label>
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +135,7 @@ $preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer
                                                onchange="updateIndicadorM_sexual('lubricante')"
                                             <?php echo $lubricante=='SI'?'checked="checked"':'' ?>
                                                name="lubricante"  />
-                                        <label class="white-text" for="lubricante">LUBRICANTE</label>
+                                        <label class="black-text" for="lubricante">LUBRICANTE</label>
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +146,7 @@ $preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer
                                                onchange="updateIndicadorM_sexual('condon_femenino')"
                                             <?php echo $condon_femenino=='SI'?'checked="checked"':'' ?>
                                                name="condon_femenino"  />
-                                        <label class="white-text" for="condon_femenino">CONDÓN FEMENINO</label>
+                                        <label class="black-text" for="condon_femenino">CONDÓN FEMENINO</label>
                                     </div>
                                 </div>
                             </div>
@@ -157,7 +157,7 @@ $preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer
                                                onchange="updateIndicadorM_sexual('preservativo_masculino')"
                                             <?php echo $preservativo_masculino=='SI'?'checked="checked"':'' ?>
                                                name="preservativo_masculino"  />
-                                        <label class="white-text" for="preservativo_masculino">PRESERVATIVO MASCULINO</label>
+                                        <label class="black-text" for="preservativo_masculino">PRESERVATIVO MASCULINO</label>
                                     </div>
                                 </div>
                             </div>

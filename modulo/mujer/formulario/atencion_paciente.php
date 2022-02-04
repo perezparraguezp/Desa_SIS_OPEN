@@ -43,7 +43,7 @@ if($paciente->getModuloPaciente('m_mujer')=='NO'){
             <div class="col l12">
                 <input type="button"
                        style="width: 100%;"
-                       onclick="loadMenu_AM('menu_1','registro_atencion','<?php echo $rut; ?>')"
+                       onclick="loadMenu_M('menu_1','registro_atencion','<?php echo $rut; ?>')"
                        class="btn-large red lighten-2 white-text"
                        value=" <-- VOLVER" />
             </div>
@@ -181,6 +181,17 @@ if($paciente->getModuloPaciente('m_mujer')=='NO'){
                 }
             });
         }
+        function boxEditarPaciente(rut) {
+            $.post('../default/formulario/editar_paciente.php',{
+                rut:rut,
+            },function(data){
+                if(data !== 'ERROR_SQL'){
+                    $("#modal").html(data);
+                    $("#modal").css({'width':'1100px'});
+                    document.getElementById("btn-modal").click();
+                }
+            });
+        }
 
 
     </script>
@@ -195,7 +206,7 @@ if($paciente->getModuloPaciente('m_mujer')=='NO'){
                 <div class="card center" style="font-size: 0.7em;">
                     <div class="row">
                         <button style="width: 100%;height: 30px;line-height: 20px;"
-                                onclick="boxEditarPaciente_PSCV('<?php echo $rut; ?>')"
+                                onclick="boxEditarPaciente('<?php echo $rut; ?>')"
                                 class="btn-large open_principal white-text">
                             <i class="mdi-image-edit right " style="font-size: 0.9em;"></i> EDITAR
                         </button>

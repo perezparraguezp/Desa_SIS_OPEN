@@ -53,7 +53,7 @@ $paciente = new persona($rut);
                             <?PHP
                             IF($row1['fecha_examen']==date('Y-m-d')){
                                 ?>
-                                <a href="#" onclick="delte_examen('PAP','<?php echo $row1['id_examen']; ?> ')">ELIMINAR</a>
+                                <a href="#" style="color: rgba(255,95,105,0.86);font-weight: bold;" onclick="delte_examen('PAP','<?php echo $row1['id_examen']; ?> ')">ELIMINAR</a>
                                 <?php
                             }
                             ?>
@@ -98,7 +98,7 @@ $paciente = new persona($rut);
                             <?PHP
                             IF($row1['fecha_examen']==date('Y-m-d')){
                                 ?>
-                                <a href="#" onclick="delte_examen('VPH','<?php echo $row1['id_examen']; ?> ')">ELIMINAR</a>
+                                <a href="#" style="color: rgba(255,95,105,0.86);font-weight: bold;" onclick="delte_examen('VPH','<?php echo $row1['id_examen']; ?> ')">ELIMINAR</a>
                                 <?php
                             }
                             ?>
@@ -145,7 +145,7 @@ $paciente = new persona($rut);
                             <?PHP
                             IF($row1['fecha_examen']==date('Y-m-d')){
                                 ?>
-                                <a href="#" onclick="delte_examen('MAMOGRAFIA','<?php echo $row1['id_examen']; ?> ')">ELIMINAR</a>
+                                <a href="#" style="color: rgba(255,95,105,0.86);font-weight: bold;" onclick="delte_examen('MAMOGRAFIA','<?php echo $row1['id_examen']; ?> ')">ELIMINAR</a>
                                 <?php
                             }
                             ?>
@@ -191,7 +191,7 @@ $paciente = new persona($rut);
                             <?PHP
                             IF($row1['fecha_examen']==date('Y-m-d')){
                                 ?>
-                                <a href="#" onclick="delte_examen('MAMOGRAFIA','<?php echo $row1['id_examen']; ?> ')">ELIMINAR</a>
+                                <a href="#" style="color: rgba(255,95,105,0.86);font-weight: bold;" onclick="delte_examen('MAMOGRAFIA','<?php echo $row1['id_examen']; ?> ')">ELIMINAR</a>
                                 <?php
                             }
                             ?>
@@ -236,7 +236,7 @@ $paciente = new persona($rut);
                             <?PHP
                             IF($row1['fecha_examen']==date('Y-m-d')){
                                 ?>
-                                <a href="#" onclick="delte_examen('MAMOGRAFIA','<?php echo $row1['id_examen']; ?> ')">ELIMINAR</a>
+                                <a href="#" style="color: rgba(255,95,105,0.86);font-weight: bold;" onclick="delte_examen('MAMOGRAFIA','<?php echo $row1['id_examen']; ?> ')">ELIMINAR</a>
                                 <?php
                             }
                             ?>

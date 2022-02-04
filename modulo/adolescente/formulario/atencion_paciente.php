@@ -166,6 +166,17 @@ if($paciente->getModuloPaciente('m_adolescente')=='NO'){
             });
         }
 
+        function boxEditarPaciente(rut) {
+            $.post('../default/formulario/editar_paciente.php',{
+                rut:rut,
+            },function(data){
+                if(data !== 'ERROR_SQL'){
+                    $("#modal").html(data);
+                    $("#modal").css({'width':'1100px'});
+                    document.getElementById("btn-modal").click();
+                }
+            });
+        }
     </script>
     <div class="col l12" style="padding-top: 10px;">
         <div class="row">
@@ -178,7 +189,7 @@ if($paciente->getModuloPaciente('m_adolescente')=='NO'){
                 <div class="card center" style="font-size: 0.7em;">
                     <div class="row">
                         <button style="width: 100%;height: 30px;line-height: 20px;"
-                                onclick="boxEditarPaciente_PSCV('<?php echo $rut; ?>')"
+                                onclick="boxEditarPaciente('<?php echo $rut; ?>')"
                                 class="btn-large open_principal white-text">
                             <i class="mdi-image-edit right " style="font-size: 0.9em;"></i> EDITAR
                         </button>
