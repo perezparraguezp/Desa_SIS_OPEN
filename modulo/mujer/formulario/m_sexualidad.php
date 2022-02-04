@@ -45,7 +45,7 @@ $preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer
                             <div class="col l2 s2 m2">DESDE</div>
                             <div class="col l6 s6 m6">TIPO</div>
                             <div class="col l2 s2 m2">VENCIMIENTO</div>
-                            <div class="col l2 s2 m2">RETIRO</div>
+                            <div class="col l2 s2 m2"></div>
                         </div>
                         <hr class="row" />
                         <?php
@@ -60,14 +60,14 @@ $preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer
                                 <div class="col l2 s2 m2"><?PHP echo fechaNormal($row1['vencimiento']); ?></div>
                                 <div class="col l2 s2 m2">
                                     <?PHP
-                                    IF($row1['fecha_registro']==date('Y-m-d')){
+                                    if($row1['fecha_registro']==date('Y-m-d')){
                                         ?>
                                         <a href="#" style="color: rgba(255,95,105,0.86);font-weight: bold;" onclick="deleteHormonaSQL('<?php echo $row1['id_historial']; ?> ')">ELIMINAR</a>
                                     <?php
                                     }else{
                                         if($row1['estado_hormona']=='ACTIVA'){
                                             ?>
-                                            <a href="#" onclick="boxRetiroHormonalAnticipado('<?php echo $row1['id_historial']; ?> ')">RETIRO ANTICIPADO</a>
+                                            <a href="#" style="color: rgba(255,95,105,0.86);font-weight: bold;" onclick="boxRetiroHormonalAnticipado('<?php echo $row1['id_historial']; ?> ')">RETIRO ANTICIPADO</a>
                                             <?php
                                         }else{
                                             if($row1['estado_hormona']=='SUSPENDIDA'){

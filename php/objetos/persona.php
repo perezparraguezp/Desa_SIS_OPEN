@@ -1661,7 +1661,7 @@ class persona{
             $sql = "insert into historial_gestacion_m(rut,id_profesional,indicador,valor,fecha_registro,edad_dias,id_gestacion,obs) 
                 values('$this->rut','$this->myID','$column','$value','$fecha','$fecha_dias','$id_gestacion',upper('$obs'))";
             mysql_query($sql);
-            echo $sql;
+//            echo $sql;
 
         }
     }

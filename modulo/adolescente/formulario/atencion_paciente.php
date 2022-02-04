@@ -144,7 +144,7 @@ if($paciente->getModuloPaciente('m_adolescente')=='NO'){
             });
         }
         function boxAgendamiento(){
-            $.post('modal/agenda/proxima_cita.php',{
+            $.post('../default/modal/agenda/proxima_cita.php',{
                 rut:'<?php echo $rut; ?>'
             },function(data){
                 if(data !== 'ERROR_SQL'){
