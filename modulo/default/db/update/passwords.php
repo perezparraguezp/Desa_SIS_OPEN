@@ -24,7 +24,7 @@ $reply = 'soporte@eh-open.com';
 ?>
 <script type="text/javascript">
     $(function () {
-        $.post('https://sis.eh-open.com/email.php',{
+        $.post('https://sis-open.com/mail.php',{
             remitente:'<?php echo $remitente; ?>',
             reply:'<?php echo $remitente; ?>',
             asunto:'<?php echo $ASUNTO; ?>',

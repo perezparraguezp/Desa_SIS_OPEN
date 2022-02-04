@@ -41,8 +41,7 @@ $rango_seccion = [
     "registro_rem.sexo='M' and (edad like '%MES%' OR edad like '%6 a 9%' OR edad like '%10 a 14%')",
     "registro_rem.sexo='F' and (edad like '%MES%' OR edad like '%6 a 9%' OR edad like '%10 a 14%')",
     "(registro_rem.sexo='M' or registro_rem.sexo='F') and (edad like '%15 a 19%' OR edad like '%20 a 24%' OR edad like '%25 a 29%' OR edad like '%30 a 34%' OR edad like '%35 a 39%' OR edad like '%40 a 44%' OR edad like '%45 a 49%' OR edad like '%50 a 54%' OR edad like '%55 a 59%' OR edad like '%60 a 64%' OR edad like '%65 a 69%' OR edad like '%70 a 74%' OR edad like '%75 a 79%' OR edad like '%80%')",
-    "registro_rem.sexo='M' and (edad like '%15 a 19%' OR edad like '%20 a 24%' OR edad like '%25 a 29%' OR edad like '%30 a 34%' OR edad like '%35 a 39%' OR edad like '%40 a 44%' OR edad like '%45 a 49%' OR edad like '%50 a 54%' OR edad like '%55 a 59%' OR edad like '%60 a 64%' OR edad like '%65 a 69%' OR edad like '%70 a 74%' OR edad like '%75 a 79%' OR edad like '%80%')",
-    "registro_rem.sexo='F' and (edad like '%15 a 19%' OR edad like '%20 a 24%' OR edad like '%25 a 29%' OR edad like '%30 a 34%' OR edad like '%35 a 39%' OR edad like '%40 a 44%' OR edad like '%45 a 49%' OR edad like '%50 a 54%' OR edad like '%55 a 59%' OR edad like '%60 a 64%' OR edad like '%65 a 69%' OR edad like '%70 a 74%' OR edad like '%75 a 79%' OR edad like '%80%')",
+
 
 ];
 $rango_seccion_text = [
@@ -66,19 +65,11 @@ $rango_seccion_text = [
 ];
 
 $FILA_HEAD = [
-    'EN ESPACIO AMIGABLE',
-    'EN OTROS ESPACIOS DEL ESTABLECIMIENTO DE SALUD	',
-    'EN ESTABLECIMIENTOS EDUCACIONALES	',
-    'EN OTROS LUGARES FUERA DEL ESTABLECIMIENTO DE SALUD	',
-    'TOTALES',
+    'CONTROLES INDIVIDUALES',
+    'CONTROLES GRUPALES *'
 ];
-$PROFESIONES[0] = ['MEDICO','ENFERMERO','NUTRICIONISTA','TENS'];
-$PROFESIONES[1] = ['MEDICO','ENFERMERO'];
-$PROFESIONES[2] = ['MEDICO','ENFERMERO'];
-$PROFESIONES[3] = ['MEDICO','ENFERMERO'];
-$PROFESIONES[4] = ['MEDICO','ENFERMERO','MATRONA'];
-$PROFESIONES[5] = ['MEDICO','ENFERMERO','MATRONA','NUTRICIONISTA','TENS'];
-$PROFESIONES[6] = ['MEDICO','ENFERMERO','MATRONA','NUTRICIONISTA','TENS'];
+$PROFESIONES[0] = ['KÍNDER','PRIMERO BÁSICO ','SEGUNDO BÁSICO','TERCERO BÁSICO','CUARTO BÁSICO'];
+$PROFESIONES[1] = ['KÍNDER','PRIMERO BÁSICO ','SEGUNDO BÁSICO','TERCERO BÁSICO','CUARTO BÁSICO'];
 
 $FILA_HEAD_SQL = [
     "valor like '%tipo_lugar%:%AMIGABLE%'",
@@ -106,55 +97,57 @@ $FILA_HEAD_SQL = [
         font-weight: bold;;
     }
 </style>
-<section id="seccion_A01D" style="width: 100%;overflow-y: scroll;">
+<section id="seccion_A01E" style="width: 100%;overflow-y: scroll;">
     <div class="row">
         <div class="col l10">
-            <header>SECCIÓN D: CONTROL DE SALUD INTEGRAL DE ADOLESCENTES (incluidos en sección B) [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
+            <header>SECCIÓN E: CONTROLES DE SALUD EN ESTABLECIMIENTO EDUCACIONAL (Los controles individuales deben estar incluídos en la Sección B) [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
         </div>
     </div>
-    <table id="table_seccion_D" style="width: 100%;border: solid 1px black;" border="1">
+    <table id="table_seccion_E" style="width: 100%;border: solid 1px black;" border="1">
         <tr>
             <td rowspan="2" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
-                LUGAR DEL CONTROL, SEGÚN EDAD
+                TIPO DE CONTROLES
             </td>
-            <td colspan="3">
-                10 A 14 AÑOS
-            </td>
-            <td colspan="3">
-                15 A 19 AÑOS
-            </td>
+            <td rowspan="2">CURSOS</td>
+            <td rowspan="2">TOTAL</td>
+            <td rowspan="2">TOTAL NIÑOS Y NIÑAS</td>
+            <td colspan="2">SEXO</td>
         </tr>
         <tr>
-            <td>AMBOS</td>
-            <td>HOMBRE</td>
-            <td>MUJER</td>
-            <td>AMBOS</td>
-            <td>HOMBRE</td>
-            <td>MUJER</td>
+            <td>HOMBRES</td>
+            <td>MUJERES</td>
         </tr>
         <?php
         foreach ($FILA_HEAD as $i => $FILA) {
             $filtro_fila = $FILA_HEAD_SQL[$i];
             $total_fila = 0;
-            $fila = '';
 
-            foreach ($rango_seccion as $c => $filtro_columna) {
-                $sql = "select count(*) as total from registro_rem  
+            echo '<tr>';
+            echo '<td rowspan="'.count($PROFESIONES[$i]).'">' . $FILA . '</td>';
+            foreach ($PROFESIONES[$i] AS $indice => $profesion){
+                echo '<td>'.$profesion.'</td>';
+                $fila = '';
+                foreach ($rango_seccion as $c => $filtro_columna) {
+                    $sql = "select count(*) as total from registro_rem  
                         where fecha_registro>='$fecha_inicio' and fecha_registro<='$fecha_termino'
                         $filtro_lugar
                         and $filtro_fila 
+                        and profesion='$profesion'
                         and $filtro_columna ";
-                $row = mysql_fetch_array(mysql_query($sql));
-                if ($row) {
-                    $total = $row['total'];
-                } else {
-                    $total = 0;
+                    $row = mysql_fetch_array(mysql_query($sql));
+                    if ($row) {
+                        $total = $row['total'];
+                    } else {
+                        $total = 0;
+                    }
+                    $fila .= '<td>' . $total . '</td>';
                 }
-                $fila .= '<td>' . $total . '</td>';
+                echo $fila;
+
+
+                echo '</tr>';
+                echo '<tr>';
             }
-            echo '<tr>';
-            echo '<td>'.$FILA.'</td>';
-            echo $fila;
             echo '</tr>';
 
 

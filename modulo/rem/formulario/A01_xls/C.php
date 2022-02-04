@@ -148,7 +148,7 @@ $FILA_HEAD_SQL = [
             <header>SECCIÓN C: CONTROLES DE SALUD SEGÚN PROBLEMA DE SALUD [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
         </div>
     </div>
-    <table id="table_seccion_A" style="width: 100%;border: solid 1px black;" border="1">
+    <table id="table_seccion_C" style="width: 100%;border: solid 1px black;" border="1">
         <tr>
             <td rowspan="3" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
                 TIPO DE CONTROL
