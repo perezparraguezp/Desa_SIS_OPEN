@@ -3,8 +3,7 @@
     <div class="col l2">
         <i class="mdi-action-info ultra-small" title="INFO"></i>
     </div>
-    <div class="col l3">INDICADOR</div>
-    <div class="col l3">EVALUACION</div>
+    <div class="col l6">EVALUACION</div>
     <div class="col l4">EDAD</div>
 </div>
 
@@ -46,8 +45,7 @@ while($row1 = mysql_fetch_array($res1)){
             <div class="col l2">
                 <?php echo fechaNormal($row1['fecha_registro']); ?>
             </div>
-            <div class="col l3"><?php echo $indidcador; ?></div>
-            <div class="col l3 <?php echo $color; ?>"><?php echo $value; ?></div>
+            <div class="col l6 <?php echo $color; ?>"><?php echo $value; ?></div>
             <div class="col l3"><?php echo $persona->edad; ?></div>
             <div class="col l1">
                 <?php
@@ -75,11 +73,13 @@ while($row1 = mysql_fetch_array($res1)){
         if(confirm('DESEA ELIMINAR ESTE REGISTRO')){
             $.post('db/delete/historial.php',{
                 table:table,
+                rut:'<?php echo $rut; ?>',
                 id:id
             },function (data) {
                 if(data!=='ERROR_SQL'){
                     alertaLateral('REGISTRO ELIMINADO');
-                    <?php echo $funcion_javascript; ?>
+                    <?php echo $funcion_javascript; ?>;
+                    loadHistorialParametroAM_funcionalidad('<?php echo $rut; ?>','<?php echo $indicador; ?>');
                 }
             });
         }

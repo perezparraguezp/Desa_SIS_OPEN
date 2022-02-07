@@ -314,6 +314,7 @@ $yesavage = $paciente->getParametro_AM('yesavage');
             rut:'<?php echo $rut ?>'
         },function (data) {
             alertaLateral(data);
+            loadHistorialParametroAM_funcionalidad('<?php echo $rut; ?>','funcionalidad');
         });
     }
     function updateParametroAM_IMC(value) {
