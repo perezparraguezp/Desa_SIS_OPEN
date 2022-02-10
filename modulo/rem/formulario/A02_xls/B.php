@@ -107,7 +107,7 @@ $FILA_HEAD_SQL = [
         font-weight: bold;;
     }
 </style>
-<section id="seccion_A01A" style="width: 100%;overflow-y: scroll;">
+<section id="seccion_A02B" style="width: 100%;overflow-y: scroll;">
     <div class="row">
         <div class="col l10">
             <header>SECCIÓN B: EMP SEGÚN RESULTADO DEL ESTADO NUTRICIONAL [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
