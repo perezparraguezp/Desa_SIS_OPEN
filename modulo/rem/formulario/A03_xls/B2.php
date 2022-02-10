@@ -37,35 +37,26 @@ $filtro_lugar .= 'and tipo_form=\''.$form.'\' and valor like \'%"seccion":"B"%\'
 
 //rango de meses en dias
 $rango_seccion = [
-    "registro_rem.edad like '%'",
+    "",
+    "RIESGO",
+    "DERIVADA",
+    "VIOLENCIA",
 
 ];
 $rango_seccion_text = [
-    '< 1 MES', //menor 1 MES
-    '1 MES', //menor 1 MES
-    '2 MESES', //menor 1 MES
-    '3 MESES', //menor 1 MES
-    '4 MESES', //menor 1 MES
-    '5 MESES', //menor 1 MES
-    '6 MESES', //menor 1 MES
-    '7 A 11 MESES', //menor 1 MES
-    '12 A 17 MESES', //menor 1 MES
-    '18 A 24 MESES', //menor 1 MES
+    'TOTAL DE APLICACIONES',
+    'RIESGO',
+    'DERIVADAS A EQUIPO DE CABECERA',
+    'VIOLENCIA INTRAFAMILIAR',
 ];
 
 $FILA_HEAD = [
-    'TOTAL',
-    'OBESA',
-    'SOBREPESO',
-    'NORMAL',
-    'BAJO PESO',
+    'EVALUACIÓN AL INGRESO',
+    'EVALUACIÓN AL TERCER TRIMESTRE	',
 ];
 $FILA_HEAD_SQL = [
-    "valor like '%imc%:%'",
-    "valor like '%imc%:%OBES%'",
-    "valor like '%imc%:%SOBRE%'",
-    "valor like '%imc%:%NORMAL%'",
-    "valor like '%imc%:%BAJO%'",
+    "valor like '%tipo_riesgo_social_ingreso%:%##%'",
+    "valor like '%tipo_riesgo_social_trimestre%:%##%'",
 ];
 
 
@@ -98,9 +89,12 @@ $FILA_HEAD_SQL = [
             <td  style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
                 ESTADO NUTRICIONAL
             </td>
-            <td>
-                TOTAL
-            </td>
+            <?php
+            foreach ($rango_seccion_text as $i => $item){
+                echo '<td>'.$item.'</td>';
+
+            }
+            ?>
         </tr>
 
         <?php
@@ -111,12 +105,12 @@ $FILA_HEAD_SQL = [
             $total_hombre = 0;
             $total_mujer = 0;
             foreach ($rango_seccion as $c => $filtro_columna){
+                $filtro_fila1 = str_replace("##",$filtro_columna,$filtro_fila);
                 $sql = "select count(*) as total from registro_rem  
                         where fecha_registro>='$fecha_inicio' 
                           and fecha_registro<='$fecha_termino'
                         $filtro_lugar
-                        and $filtro_fila 
-                        and $filtro_columna ";
+                        and $filtro_fila1 ";
 
                 $row = mysql_fetch_array(mysql_query($sql));
                 if($row){
