@@ -32,7 +32,7 @@ if($lugar!='TODOS'){
 }else{
     $filtro_lugar = '';
 }
-$filtro_lugar .= "and tipo_form='$form' and seccion_form like 'A%' ";
+$filtro_lugar .= "and tipo_form='$form' and valor like '%sub_seccion%:%$seccion%' ";
 
 
 //rango de meses en dias

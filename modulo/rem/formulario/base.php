@@ -81,7 +81,7 @@
                 on_success: function (){
                     var rut = $('#rut').val();
                     buscarDatosPersona(rut,'nombre_completo','nombre');
-                    buscarDatosPersona(rut,'sexo','sexo');
+                    // buscarDatosPersona(rut,'sexo','sexo');
                 }
             });
         });
