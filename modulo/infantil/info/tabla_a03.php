@@ -22,11 +22,13 @@ if($id_centro!=''){
 }else{
     $nombre_centro = 'TODOS LOS CENTROS';
 }
+$desde = $_POST['desde'];
+$hasta = $_POST['hasta'];
 
 
 //rango de meses en dias
 $rango_seccion_d7 = [
-    'persona.edad_total_dias>=0 and persona.edad_total_dias<365', //menor 1 año
+    'persona.edad_total_dias>=0 and persona.edad_total_dias<365 ', //menor 1 año
     'persona.edad_total>=(1) and persona.edad_total<=(12)',//1 año
     'persona.edad_total>(12) and persona.edad_total<=(12*2)',//2 año
     'persona.edad_total>((12*2)) and persona.edad_total<=(12*3)',//3 año
@@ -160,13 +162,15 @@ $sexo = [
                         inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                         inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno 
                         where sectores_centros_internos.id_centro_interno='$id_centro'
+                        and historial_dental.fecha_registro>='$desde' and  historial_dental.fecha_registro<='$hasta'
                         limit 1";
                     }else{
                         $sql = "select sum(upper(indicador)=upper('riesgo') and valor='$valor' and $rango and $sex) as total 
                         from historial_dental 
                         inner join persona using(rut) 
                         inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
-                        inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno 
+                        inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                        where historial_dental.fecha_registro>='$desde' and historial_dental.fecha_registro<='$hasta'  
                         limit 1";
                     }
                     $row = mysql_fetch_array(mysql_query($sql));
@@ -184,13 +188,15 @@ $sexo = [
                         inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                         inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno 
                         where sectores_centros_internos.id_centro_interno='$id_centro'
+                        and historial_dental.fecha_registro>='$desde' and  historial_dental.fecha_registro<='$hasta'
                         limit 1";
                     }else{
                         $sql = "select sum(upper(indicador)=upper('riesgo') and valor='$valor' and $rango and $sex) as total 
                         from historial_dental 
                         inner join persona using(rut) 
                         inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
-                        inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno 
+                        inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                        where historial_dental.fecha_registro>='$desde' and  historial_dental.fecha_registro<='$hasta' 
                         limit 1";
                     }
                     $row = mysql_fetch_array(mysql_query($sql));
@@ -241,13 +247,15 @@ $sexo = [
                         inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                         inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno 
                         where sectores_centros_internos.id_centro_interno='$id_centro'
+                        and historial_dental.fecha_registro>='$desde' and  historial_dental.fecha_registro<='$hasta'
                         limit 1";
                     }else{
                         $sql = "select sum(upper(indicador)=upper('riesgo') and valor='$valor' and $rango and $sex) as total 
                         from historial_dental 
                         inner join persona using(rut) 
                         inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
-                        inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno 
+                        inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                        where historial_dental.fecha_registro>='$desde' and  historial_dental.fecha_registro<='$hasta' 
                         limit 1";
                     }
                     $row = mysql_fetch_array(mysql_query($sql));
@@ -265,13 +273,15 @@ $sexo = [
                         inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                         inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno 
                         where sectores_centros_internos.id_centro_interno='$id_centro'
+                        and historial_dental.fecha_registro>='$desde' and  historial_dental.fecha_registro<='$hasta'
                         limit 1";
                     }else{
                         $sql = "select sum(upper(indicador)=upper('riesgo') and valor='$valor' and $rango and $sex) as total 
                         from historial_dental 
                         inner join persona using(rut) 
                         inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
-                        inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno 
+                        inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                        where historial_dental.fecha_registro>='$desde' and  historial_dental.fecha_registro<='$hasta'
                         limit 1";
                     }
                     $row = mysql_fetch_array(mysql_query($sql));
@@ -303,6 +313,7 @@ $sexo = [
                 <td colspan="2">TOTAL</td>
                 <?php
                 $fila = '';
+                $TOTAL_GENERAL = Array();
                 foreach ($rango_seccion_d7 as $i => $rango){
 
                     $total_hombres = $TOTAL['ALTO'][$rango]['HOMBRES'] + $TOTAL['BAJO'][$rango]['HOMBRES'];

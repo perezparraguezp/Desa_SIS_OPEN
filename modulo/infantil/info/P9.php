@@ -118,28 +118,54 @@ $indice_dientes_label = [
     }
     function loadP9() {
         var id = $("#centro_interno").val();
+        var desde = $("#fecha_desde").val();
+        var hasta = $("#fecha_hasta").val();
         var div = 'tabla_a09';
-        loading_div(div);
-        $.post('info/tabla_a09.php',{
-            id:id
-        },function(data){
-            if(data !=='ERROR_SQL' ){
-                $("#"+div).html(data);
-            }else{
+        if(id!==''){
+            loading_div(div);
+            $.post('info/tabla_a09.php',{
+                id:id,
+                desde:desde,
+                hasta:hasta
+            },function(data){
+                if(data !=='ERROR_SQL' ){
+                    $("#"+div).html(data);
+                }else{
 
-            }
-        });
+                }
+            });
+        }
+
     }
 </script>
 <form action="../../exportar/table.php" method="post" target="_blank" id="formExport">
     <input type="hidden" id="data_to_send" name="data_to_send" />
     <input type="hidden" id="file" name="file" value="archivo" />
 </form>
-<div class="row">
-    <div class="col l8 m12 s12">
-        <div class="col l12">
+<div class="row eh-open_fondo" style="padding: 10px;color: black; ">
+    <div class="row">
+        <label>GENERAR REM A09</label>
+    </div>
+    <div class="row">
+        <div class="col l6 m6 s6">
+            <?php
+            $fecha_actual = date("Y-m-d");
+            //resto 1 año
+            $fecha_anterior =  date("Y-m-d",strtotime($fecha_actual."- 1 year"));
+            ?>
+            <div class="row">
+                <div class="col l6 m6 s6">
+                    <label>FECHA DESDE <input style="font-size: 1em;height:3em;width: 90%;margin: 5px;" onchange="loadP9()" type="date" name="fecha_desde" id="fecha_desde" value="<?php echo $fecha_anterior; ?>" /></label>
+                </div>
+                <div class="col l6 m6 s6">
+                    <label>FECHA HASTA <input style="font-size: 1em;height:3em;width: 90%;margin: 5px;" onchange="loadP9()" type="date" name="fecha_hasta" id="fecha_hasta" value="<?php echo $fecha_actual; ?>" /></label>
+                </div>
+            </div>
+        </div>
+        <div class="col l6 m6 s6">
             <label>CENTRO MEDICO
                 <select class="browser-default"
+                        style="font-size: 1em;height:3em;width: 90%;margin: 5px;"
                         name="centro_interno"
                         id="centro_interno"
                         onchange="loadP9()" >

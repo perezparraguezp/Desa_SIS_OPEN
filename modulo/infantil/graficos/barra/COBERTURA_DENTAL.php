@@ -51,7 +51,8 @@ if($row_total){
     $general_ges6 = $row_total['total'];
 }
 $sql_json = "select * from persona inner join paciente_establecimiento using(rut) 
-              where m_infancia='SI'";
+              where m_infancia='SI' 
+              group by persona.rut";
 $res_json = mysql_query($sql_json);
 $coma = 0;
 $json = '';
@@ -80,37 +81,40 @@ while($row_json = mysql_fetch_array($res_json)){
         if($coma>0){
             $json .= ',';
         }
-        $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.limpiaCadena($persona->nombre).'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador.'","EDAD":"'.$persona->edad_total.'"}';
+//        $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'"}';
+        $json .= '{"IR":"'.$persona->rut.'","RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.limpiaCadena($persona->nombre).'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador.'","EDAD":"'.$persona->edad_total.'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
         $coma++;
-    }
-
-
-    if($persona->total_meses>(6*12)){
-        //ges6
-        $sql11 = "select * from paciente_dental where rut='$persona->rut' limit 1";
-        $row11 = mysql_fetch_array(mysql_query($sql11));
-        if($row11){
-            $ges6 = $row11['ges6'];
-            if($ges6==''){
-                $indicador = 'GES6 [PENDIENTE]';
-            }else{
-                if($ges6=='NO'){
+    }else{
+        if($persona->total_meses>(6*12)){
+            //ges6
+            $sql11 = "select * from paciente_dental where rut='$persona->rut' limit 1";
+            $row11 = mysql_fetch_array(mysql_query($sql11));
+            if($row11){
+                $ges6 = $row11['ges6'];
+                if($ges6==''){
                     $indicador = 'GES6 [PENDIENTE]';
                 }else{
-                    $indicador = 'GES6 ['.$ges6.']';
+                    if($ges6=='NO'){
+                        $indicador = 'GES6 [PENDIENTE]';
+                    }else{
+                        $indicador = 'GES6 ['.$ges6.']';
+                    }
                 }
+            }else{
+                $indicador = 'GES6 [PENDIENTE]';
             }
-        }else{
-            $indicador = 'GES6 [PENDIENTE]';
-        }
-        if($coma>0){
-            $json .= ',';
-        }
+            if($coma>0){
+                $json .= ',';
+            }
 
-        $json .= '{"RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.limpiaCadena($persona->nombre).'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador.'","EDAD":"'.$persona->edad_total.'"}';
-        $coma++;
+            $json .= '{"RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.limpiaCadena($persona->nombre).'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$indicador.'","EDAD":"'.$persona->edad_total.'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
+            $coma++;
 
+        }
     }
+
+
+
 
 }
 
@@ -546,6 +550,9 @@ if($comunal==true){
                     { name: 'NOMBRE', type: 'string' },
                     { name: 'CONTACTO', type: 'string' },
                     { name: 'EDAD', type: 'string' },
+                    { name: 'anios', type: 'string' },
+                    { name: 'meses', type: 'string' },
+                    { name: 'dias', type: 'string' },
                     { name: 'COMUNAL', type: 'string' },
                     { name: 'ESTABLECIMIENTO', type: 'string' },
                     { name: 'SECTOR_INTERNO', type: 'string' },
@@ -610,14 +617,16 @@ if($comunal==true){
                             renderstring += "</div>";
                             return renderstring;
                         }},
-                    { text: 'EDAD', dataField: 'EDAD', cellsalign: 'left', width: 250,cellsrenderer:cellEdadAnios},
+                    { text: 'AÑO', datafield: 'anios', width: 80 ,filtertype: 'checkedlist', cellsalign: 'center'},
+                    { text: 'MES', datafield: 'meses', width: 80 ,filtertype: 'checkedlist', cellsalign: 'center'},
+                    { text: 'DIA', datafield: 'dias', width: 80 ,filtertype: 'checkedlist', cellsalign: 'center'},
                     { text: 'CONTACTO', dataField: 'CONTACTO', cellsalign: 'left', width: 250},
                     { text: 'INDICADOR', dataField: 'INDICADOR', cellsalign: 'left', width: 250,filtertype: 'checkedlist' },
                     { text: 'S. COMUNAL', dataField: 'COMUNAL', cellsalign: 'left', width: 250,filtertype: 'checkedlist' },
                     { text: 'ESTABLECIMIENTO', dataField: 'ESTABLECIMIENTO', cellsalign: 'left', width: 250,filtertype: 'checkedlist' },
                     { text: 'SECTOR_INTERNO', dataField: 'SECTOR_INTERNO', cellsalign: 'left', width: 250,filtertype: 'checkedlist' },
-
                 ]
+
             });
         $("#excelExport").click(function () {
 
