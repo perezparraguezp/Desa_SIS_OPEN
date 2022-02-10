@@ -7,6 +7,7 @@
         <option value="A1">SECCIÓN A.1</option>
         <option value="A2">SECCIÓN A.2</option>
         <option value="A3">SECCIÓN A.3</option>
+        <option value="A4">SECCIÓN A.4</option>
     </select>
 </div>
 <script type="text/javascript">

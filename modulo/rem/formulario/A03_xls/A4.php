@@ -85,17 +85,17 @@ $FILA_HEAD_SQL = [
         font-weight: bold;;
     }
 </style>
-<section id="seccion_A03A3" style="width: 100%;overflow-y: scroll;">
+<section id="seccion_A03A4" style="width: 100%;overflow-y: scroll;">
     <div class="row">
         <div class="col l10">
             <header>SECCIÓN A: APLICACIÓN DE INSTRUMENTO Y RESULTADO EN EL NIÑO (A)
-                <BR />SECCIÓN A.3: NIÑOS Y NIÑAS CON REZAGO, DÉFICIT U OTRA VULNERABILIDAD DERIVADOS A ALGUNA MODALIDAD DE ESTIMULACIÓN EN LA PRIMERA EVALUACIÓN [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
+                <BR />SECCIÓN A.4: RESULTADOS DE LA APLICACIÓN DE PROTOCOLO NEUROSENSORIAL [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
         </div>
     </div>
-    <table id="table_seccion_A3" style="width: 100%;border: solid 1px black;" border="1">
+    <table id="table_seccion_A4" style="width: 100%;border: solid 1px black;" border="1">
         <tr>
             <td rowspan="3" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
-                NIÑOS/AS
+                RESULTADOS
             </td>
             <td colspan="3" rowspan="2">
                 TOTAL
