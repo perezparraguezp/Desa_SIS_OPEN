@@ -38,25 +38,29 @@ $filtro_lugar .= 'and tipo_form=\''.$form.'\' and valor like \'%"seccion":"B"%\'
 //rango de meses en dias
 $rango_seccion = [
     "",
-    "RIESGO",
-    "DERIVADA",
-    "VIOLENCIA",
+    "PUERPERA",
+    "GESTANTE",
+    "SALUD MENTAL",
 
 ];
 $rango_seccion_text = [
     'TOTAL DE APLICACIONES',
-    'RIESGO',
-    'DERIVADAS A EQUIPO DE CABECERA',
-    'VIOLENCIA INTRAFAMILIAR',
+    'RESULTADOS 10 O MÁS PTOS. O RESULTADO DISTINTO DE 0 EN PREG 10 . (PUERPERAS)',
+    'RESULTADOS 13 O MÁS PTOS O RESULTADO DISTINTO DE 0 EN PREG 10. (GESTANTES)',
+    'TOTAL DE CASOS ALTERADOS DERIVADOS A SALUD MENTAL'
 ];
 
 $FILA_HEAD = [
-    'EVALUACIÓN AL INGRESO',
-    'EVALUACIÓN AL TERCER TRIMESTRE	',
+    'PRIMERA EVALUACIÓN (2º control prenatal)',
+    'REEVALUACIÓN (con puntaje elevado en la primera evaluación)',
+    'A los 2 meses',
+    'A los 6 meses',
 ];
 $FILA_HEAD_SQL = [
-    "valor like '%tipo_riesgo_social_ingreso%:%##%'",
-    "valor like '%tipo_riesgo_social_trimestre%:%##%'",
+    "valor like '%edimburgo_gestante_primera%:%##%'",
+    "valor like '%edimburgo_gestante_reevaluacion%:%##%'",
+    "valor like '%edimburgo_mujer_2%:%##%'",
+    "valor like '%edimburgo_mujer_6%:%##%'",
 ];
 
 
@@ -81,7 +85,7 @@ $FILA_HEAD_SQL = [
     <div class="row">
         <div class="col l10">
             <header>SECCION B: EVALUACIÓN, APLICACIÓN Y RESULTADOS DE ESCALAS EN  LA MUJER
-                <BR />SECCIÓN B.2: APLICACIÓN DE ESCALA SEGÚN EVALUACIÓN DE RIESGO PSICOSOCIAL ABREVIADA A GESTANTES [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
+                <BR />SECCIÓN B.3: APLICACIÓN DE ESCALA DE EDIMBURGO A GESTANTES Y MUJERES POST PARTO [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
         </div>
     </div>
     <table id="table_seccion_B1" style="width: 100%;border: solid 1px black;" border="1">

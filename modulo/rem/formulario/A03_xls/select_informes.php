@@ -11,6 +11,7 @@
         <option value="A5">SECCIÓN A.5</option>
         <option value="B1">SECCIÓN B.1</option>
         <option value="B2">SECCIÓN B.2</option>
+        <option value="B3">SECCIÓN B.3</option>
     </select>
 </div>
 <script type="text/javascript">
