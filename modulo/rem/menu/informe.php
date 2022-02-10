@@ -98,6 +98,7 @@ $rut = $_SESSION['rut'];
             <select name="formulario" id="formulario_informe">
                 <option selected="selected" disabled="disabled">SELECCIONE TIPO DE PRESTACION</option>
                 <option value="A01">A01 - CONTROLES DE SALUD</option>
+                <option value="A02">A02 - EMP</option>
             </select>
         </div>
     </div>
