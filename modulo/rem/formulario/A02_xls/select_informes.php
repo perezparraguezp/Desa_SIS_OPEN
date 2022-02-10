@@ -5,7 +5,7 @@
     <select name="seccion" id="seccion">
         <option disabled="disabled" selected="selected">SELECCIONE UNA CATEGORIA A REALIZAR EVALUACIÓN</option>
         <option value="A">REALIZADO POR PROFESIONAL</option>
-        <option value="B">CONTROLES DE SALUD SEGUN SICLO VITAL</option>
+        <option value="B">SEGÚN RESULTADO DEL ESTADO NUTRICIONAL</option>
         <option value="C">CONTROLES SEGÚN PROBLEMAS DE SALUD</option>
         <option value="D">CONTROLES DE SALUD INTEGRAL DE ADOLESCENTES</option>
         <option value="E">CONTROLES DE SALUD EN ESTABLECIMIENTO EDUCACIONAL</option>
