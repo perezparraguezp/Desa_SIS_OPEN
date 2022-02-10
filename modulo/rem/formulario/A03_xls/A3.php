@@ -37,40 +37,34 @@ $filtro_lugar .= "and tipo_form='$form' and valor like '%sub_seccion%:%$seccion%
 
 //rango de meses en dias
 $rango_seccion = [
-    "registro_rem.edad like '%MENOR%'",
-    "registro_rem.edad like '1 MESES'",
-    "registro_rem.edad like '2 MESES'",
-    "registro_rem.edad like '3 MESES'",
-    "registro_rem.edad like '4 MESES'",
-    "registro_rem.edad like '5 MESES'",
-    "registro_rem.edad like '6 MESES'",
+    "registro_rem.edad like 'MENOR 7 MESES'",
     "registro_rem.edad like '7 A 11 MESES'",
     "registro_rem.edad like '12 A 17 MESES'",
-    "registro_rem.edad like '18 A 24 MESES'",
+    "registro_rem.edad like '18 A 23 MESES'",
+    "registro_rem.edad like '24 A 47 MESES'",
+    "registro_rem.edad like '48 A 59 MESES'",
 
 ];
 $rango_seccion_text = [
-    '< 1 MES', //menor 1 MES
-    '1 MES', //menor 1 MES
-    '2 MESES', //menor 1 MES
-    '3 MESES', //menor 1 MES
-    '4 MESES', //menor 1 MES
-    '5 MESES', //menor 1 MES
-    '6 MESES', //menor 1 MES
-    '7 A 11 MESES', //menor 1 MES
+    '< 7 MESES', //menor 1 MES
+    '7 A 11 MESES',
     '12 A 17 MESES', //menor 1 MES
-    '18 A 24 MESES', //menor 1 MES
+    '18 A 23 MESES', //menor 1 MES
+    '24 A 47 MESES', //menor 1 MES
+    '48 A 59 MESES', //menor 1 MES
 ];
 
 $FILA_HEAD = [
-    'APLICACION PAUTA BREVE',
-    'RESULTADO NORMAL',
-    'RESULTADO ALTERADO',
+    'NORMAL CON REZAGO',
+    'RIESGO',
+    'RETRASO',
+    'OTRA VULNERABILIDAD',
 ];
 $FILA_HEAD_SQL = [
-    "valor like '%pauta_breve%:%AL%'",
-    "valor like '%pauta_breve%:%NORMAL%'",
-    "valor like '%pauta_breve%:%ALTERAD%'",
+    "valor like '%primera_evaluacion%:%NORMAL%'",
+    "valor like '%primera_evaluacion%:%RIESGO%'",
+    "valor like '%primera_evaluacion%:%RETRASO%'",
+    "valor like '%primera_evaluacion%:%VULNERABILIDAD%'",
 ];
 
 
@@ -91,14 +85,14 @@ $FILA_HEAD_SQL = [
         font-weight: bold;;
     }
 </style>
-<section id="seccion_A01A1" style="width: 100%;overflow-y: scroll;">
+<section id="seccion_A03A3" style="width: 100%;overflow-y: scroll;">
     <div class="row">
         <div class="col l10">
             <header>SECCIÓN A: APLICACIÓN DE INSTRUMENTO Y RESULTADO EN EL NIÑO (A)
-                <BR />SECCIÓN A.1: APLICACIÓN Y RESULTADOS DE PAUTA BREVE [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
+                <BR />SECCIÓN A.3: NIÑOS Y NIÑAS CON REZAGO, DÉFICIT U OTRA VULNERABILIDAD DERIVADOS A ALGUNA MODALIDAD DE ESTIMULACIÓN EN LA PRIMERA EVALUACIÓN [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
         </div>
     </div>
-    <table id="table_seccion_A1" style="width: 100%;border: solid 1px black;" border="1">
+    <table id="table_seccion_A3" style="width: 100%;border: solid 1px black;" border="1">
         <tr>
             <td rowspan="3" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
                 EVALUACIONES POR EDAD DEL NIÑO

@@ -6,6 +6,7 @@
         <option disabled="disabled" selected="selected">SELECCIONE UNA CATEGORIA A REALIZAR EVALUACIÓN</option>
         <option value="A1">SECCIÓN A.1</option>
         <option value="A2">SECCIÓN A.2</option>
+        <option value="A3">SECCIÓN A.3</option>
     </select>
 </div>
 <script type="text/javascript">
