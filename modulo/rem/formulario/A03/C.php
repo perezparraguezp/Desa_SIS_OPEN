@@ -88,10 +88,11 @@ $tipo_profesional = $profesional->tipo_profesional;
                     <div class="col l8">
                         <select name="imc" id="imc">
                             <option>NO APLICA</option>
-                            <option>OBESA</option>
-                            <option>SOBREPESO</option>
                             <option>NORMAL</option>
                             <option>BAJO PESO</option>
+                            <option>SOBREPESO</option>
+                            <option>OBESOS</option>
+                            <option>OBESOS SEVEROS</option>
                         </select>
                         <script type="text/javascript">
                             $(function(){
