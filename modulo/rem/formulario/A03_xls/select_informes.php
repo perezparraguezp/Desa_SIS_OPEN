@@ -13,6 +13,7 @@
         <option value="B2">SECCIÓN B.2</option>
         <option value="B3">SECCIÓN B.3</option>
         <option value="C">SECCIÓN C</option>
+        <option value="D1">SECCIÓN D.1</option>
     </select>
 </div>
 <script type="text/javascript">
