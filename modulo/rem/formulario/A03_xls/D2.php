@@ -32,7 +32,7 @@ if($lugar!='TODOS'){
 }else{
     $filtro_lugar = '';
 }
-$filtro_lugar .= "and tipo_form='$form' and valor like '%seccion%:%D%' ";
+$filtro_lugar .= 'and tipo_form=\''.$form.'\' and valor like \'%"seccion":"D"%\' ';
 
 
 //rango de meses en dias
@@ -75,14 +75,12 @@ $FILA_HEAD = [
     'ORIGEN MÚLTIPLE',
 ];
 $FILA_HEAD_SQL = [
-    "valor like '%origen_fisico%:%##%'",
-    "valor like '%origen_sensorial_visual%:%##%'",
-    "valor like '%origen_sensorial_auditivo%:%##%'",
-    "valor like '%origen_mental_psiquico%:%##%'",
-    "valor like '%origen_mental_intelectual%:%##%'",
-    "valor like '%origen_multiple%:%##%'",
-    "valor like '%evaluacion_ingreso%:%##%'",
-    "valor like '%evaluacion_egreso%:%##%'",
+    'valor like \'%"origen_fisico":"##"%\'',
+    'valor like \'%"origen_sensorial_visual":"##"%\'',
+    'valor like \'%"origen_sensorial_auditivo":"##"%\'',
+    'valor like \'%"origen_mental_psiquico":"##"%\'',
+    'valor like \'%"origen_mental_intelectual":"##"%\'',
+    'valor like \'%"origen_multiple":"##"%\'',
 ];
 
 $PROFESIONES[0] = ['SIN DISCAPACIDAD',
@@ -149,6 +147,135 @@ $PROFESIONES[0] = ['SIN DISCAPACIDAD',
             ?>
         </tr>
         <?php
+        $TOTAL['HOMBRE']=Array(0);
+        $TOTAL['MUJER']=Array(0);
+        foreach ($FILA_HEAD as $i => $FILA){
+            $filtro_fila = $FILA_HEAD_SQL[$i];
+            $total_fila = 0;
+
+
+            echo '<tr>';
+            echo '<td rowspan="'.count($PROFESIONES[0]).'">' . $FILA . '</td>';
+            foreach ($PROFESIONES[0] AS $indice => $profesion){
+                $total_hombre = 0;
+                $total_mujer = 0;
+                echo '<td>'.$profesion.'</td>';
+                $fila = '';
+                foreach ($rango_seccion as $c => $filtro_columna) {
+                    $filtro_fila_1 = str_replace("##",$profesion,$filtro_fila);
+                    $sql = "select count(*) as total from registro_rem  
+                        where fecha_registro>='$fecha_inicio' 
+                          and fecha_registro<='$fecha_termino'
+                          and sexo='M'
+                        $filtro_lugar
+                        and $filtro_fila_1 
+                        and $filtro_columna ";
+
+                    $row = mysql_fetch_array(mysql_query($sql));
+                    if($row){
+                        $total = $row['total'];
+                    }else{
+                        $total = 0;
+                    }
+                    $fila .= '<td>'.$total.'</td>';
+                    $total_hombre+=$total;
+                    $TOTAL['HOMBRE'][$filtro_columna] +=$total;
+
+                    $sql = "select count(*) as total from registro_rem  
+                        where fecha_registro>='$fecha_inicio' 
+                          and fecha_registro<='$fecha_termino'
+                          and sexo='F'
+                        $filtro_lugar
+                        and $filtro_fila_1 
+                        and $filtro_columna ";
+
+                    $row = mysql_fetch_array(mysql_query($sql));
+                    if($row){
+                        $total = $row['total'];
+                    }else{
+                        $total = 0;
+                    }
+                    $fila .= '<td>'.$total.'</td>';
+                    $total_mujer+=$total;
+                    $TOTAL['MUJER'][$filtro_columna] +=$total;
+                }
+
+                echo '<td>'.($total_mujer+$total_hombre).'</td>';
+                echo '<td>'.$total_hombre.'</td>';
+                echo '<td>'.$total_mujer.'</td>';
+                echo $fila;
+                echo '</tr>';
+                echo '<tr>';
+            }
+            echo '</tr>';
+        }
+        //total
+        echo '<tr>';
+        echo '<td colspan="2">TOTAL EVALUACIONES</td>';
+
+        $total_hombre = 0;
+        $total_mujer = 0;
+        $fila = '';
+        foreach ($rango_seccion as $c => $filtro_columna) {
+            $sql = "select count(*) as total from registro_rem  
+                        where fecha_registro>='$fecha_inicio' 
+                          and fecha_registro<='$fecha_termino'
+                          and sexo='M'
+                        $filtro_lugar
+                        and $filtro_columna ";
+
+            $row = mysql_fetch_array(mysql_query($sql));
+            if($row){
+                $total = $row['total'];
+            }else{
+                $total = 0;
+            }
+            $fila .= '<td>'.$total.'</td>';
+            $total_hombre+=$total;
+
+            $sql = "select count(*) as total from registro_rem  
+                        where fecha_registro>='$fecha_inicio' 
+                          and fecha_registro<='$fecha_termino'
+                          and sexo='F'
+                          $filtro_lugar
+                        and $filtro_columna ";
+
+            $row = mysql_fetch_array(mysql_query($sql));
+            if($row){
+                $total = $row['total'];
+            }else{
+                $total = 0;
+            }
+            $fila .= '<td>'.$total.'</td>';
+            $total_mujer+=$total;
+        }
+
+        echo '<td>'.($total_mujer+$total_hombre).'</td>';
+        echo '<td>'.$total_hombre.'</td>';
+        echo '<td>'.$total_mujer.'</td>';
+        echo $fila;
+        echo '</tr>';
+        ?>
+
+
+        <?php
+
+        $FILA_HEAD = [
+            'EVALUACIÓN INGRESO',
+            'EVALUACIÓN EGRESO',
+        ];
+        $FILA_HEAD_SQL = [
+            'valor like \'%"evaluacion_ingreso":"##"%\'',
+            'valor like \'%"evaluacion_egreso":"##"%\'',
+        ];
+
+
+        $PROFESIONES[0] = ['SIN DISCAPACIDAD',
+            'DISCAPACIDAD LEVE',
+            'DISCAPACIDAD MODERADA',
+            'DISCAPACIDAD SEVERA',
+            'DISCAPACIDAD PROFUNDA',];
+
         foreach ($FILA_HEAD as $i => $FILA){
             $filtro_fila = $FILA_HEAD_SQL[$i];
             $total_fila = 0;
@@ -204,13 +331,58 @@ $PROFESIONES[0] = ['SIN DISCAPACIDAD',
                 echo '<td>'.$total_hombre.'</td>';
                 echo '<td>'.$total_mujer.'</td>';
                 echo $fila;
-
-
                 echo '</tr>';
                 echo '<tr>';
             }
             echo '</tr>';
         }
+        //total
+        echo '<tr>';
+        echo '<td colspan="2">TOTAL EVALUACIONES</td>';
+
+        $total_hombre = 0;
+        $total_mujer = 0;
+        $fila = '';
+        foreach ($rango_seccion as $c => $filtro_columna) {
+            $sql = "select count(*) as total from registro_rem  
+                        where fecha_registro>='$fecha_inicio' 
+                          and fecha_registro<='$fecha_termino'
+                          and sexo='M'
+                        $filtro_lugar
+                        and $filtro_columna ";
+
+            $row = mysql_fetch_array(mysql_query($sql));
+            if($row){
+                $total = $row['total'];
+            }else{
+                $total = 0;
+            }
+            $fila .= '<td>'.$total.'</td>';
+            $total_hombre+=$total;
+
+            $sql = "select count(*) as total from registro_rem  
+                        where fecha_registro>='$fecha_inicio' 
+                          and fecha_registro<='$fecha_termino'
+                          and sexo='F'
+                          $filtro_lugar
+                        and $filtro_columna ";
+
+            $row = mysql_fetch_array(mysql_query($sql));
+            if($row){
+                $total = $row['total'];
+            }else{
+                $total = 0;
+            }
+            $fila .= '<td>'.$total.'</td>';
+            $total_mujer+=$total;
+        }
+
+        echo '<td>'.($total_mujer+$total_hombre).'</td>';
+        echo '<td>'.$total_hombre.'</td>';
+        echo '<td>'.$total_mujer.'</td>';
+        echo $fila;
+        echo '</tr>';
         ?>
+
     </table>
 </section>

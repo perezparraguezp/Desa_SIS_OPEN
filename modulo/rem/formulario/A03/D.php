@@ -82,6 +82,8 @@ $tipo_profesional = $profesional->tipo_profesional;
                             <option value="" selected="selected" disabled="disabled">INDICAR OPCIÓN</option>
                             <option value="D1">APLICACIÓN DE TAMIZAJE PARA EVALUAR EL NIVEL DE RIESGO DE CONSUMO DE  ALCOHOL, TABACO Y OTRAS DROGAS</option>
                             <option value="D2">RESULTADOS DE LA APLICACIÓN DE INSTRUMENTO DE VALORACIÓN DE DESEMPEÑO EN COMUNIDAD (IVADEC-CIF)</option>
+                            <option value="D3">APLICACIÓN Y RESULTADO DE PAUTA DE EVALUACIÓN Y SALUD MENTAL</option>
+                            <option value="D4">RESULTADO DE APLICACIÓN DE CONDICIÓN DE FUNCIONALIDAD AL EGRESO PROGRAMA MÁS ADULTOS MAYORES AUTOVALENTES</option>
 
                         </select>
                     </div>
