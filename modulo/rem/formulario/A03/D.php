@@ -84,6 +84,7 @@ $tipo_profesional = $profesional->tipo_profesional;
                             <option value="D2">RESULTADOS DE LA APLICACIÓN DE INSTRUMENTO DE VALORACIÓN DE DESEMPEÑO EN COMUNIDAD (IVADEC-CIF)</option>
                             <option value="D3">APLICACIÓN Y RESULTADO DE PAUTA DE EVALUACIÓN Y SALUD MENTAL</option>
                             <option value="D4">RESULTADO DE APLICACIÓN DE CONDICIÓN DE FUNCIONALIDAD AL EGRESO PROGRAMA MÁS ADULTOS MAYORES AUTOVALENTES</option>
+                            <option value="D5">VARIACIÓN  DE RESULTADO DE APLICACIÓN DEL ÍNDICE DE BARTHEL ENTRE EL INGRESO Y EGRESO HOSPITALARIO</option>
 
                         </select>
                     </div>

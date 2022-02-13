@@ -17,6 +17,7 @@
         <option value="D2">SECCIÓN D.2</option>
         <option value="D3">SECCIÓN D.3</option>
         <option value="D4">SECCIÓN D.4</option>
+        <option value="D5">SECCIÓN D.5</option>
     </select>
 </div>
 <script type="text/javascript">
