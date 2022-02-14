@@ -70,7 +70,7 @@ $FILA_HEAD_SQL = [
     'valor like \'%"componente":%AUDIT (EMP/EMPAM)%\'',
     'valor like \'%"componente":%AUDIT APLICADO%\'',
     'valor like \'%"componente":%ASSIST (EMP/EMPAM)%\'',
-    'valor like \'%"componente":%ASSIST APLICADO%\'',
+    'valorº like \'%"componente":%ASSIST APLICADO%\'',
     'valor like \'%"componente":%CRAFFT EN CONTROL DE SALUD INTEGRAL%\'',
     'valor like \'%"componente":%CRAFFT APLICADO%\'',
 ];
