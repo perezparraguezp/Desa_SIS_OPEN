@@ -58,7 +58,7 @@
         <div class="col l7">
             <div class="container" id="info_evaluacion">
                 <div class="row">
-                    <div class="col l4">EDA aaaa</div>
+                    <div class="col l4">RANGO EDAD</div>
                     <div class="col l8">
                         <select name="edad" id="edad">
                             <option>MENOR 1 </option>
