@@ -52,13 +52,14 @@
     <div class="row">
         <div class="col l5">
             <div class="container eh-open_fondo" id="info_paciente">
-                <strong>DATOS PACIENT aaaE</strong>
+                <strong>DATOS PACIENTE</strong>
             </div>
         </div>
         <div class="col l7">
             <div class="container" id="info_evaluacion">
                 <div class="row">
-                    <div class="col l4">RANGO EDAD</div>
+                    <div class="col l4">RANGO EDADES</div>
+
                     <div class="col l8">
                         <select name="edad" id="edad">
                             <option>MENOR 1 </option>

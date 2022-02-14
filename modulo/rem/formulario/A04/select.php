@@ -5,6 +5,7 @@
     <select name="seccion" id="seccion">
         <option disabled="disabled" selected="selected">SELECCIONE UNA CATEGORIA A REALIZAR EVALUACIÓN</option>
         <option value="A">CONSULTAS MÉDICAS </option>
+        <option value="B">CONSULTAS DE PROFESIONALES NO MEDICOS </option>
 
     </select>
 </div>
