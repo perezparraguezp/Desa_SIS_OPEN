@@ -57,7 +57,7 @@ $paciente = new persona($rut);
                             }else{
                                 if($row1['fecha_egreso']==''){
                                     ?>
-                                    <a href="#" onclick="AltaFarmaco('<?php echo $row1['id_registro']; ?>')">DAR ALTA</a>
+                                    <a href="#" onclick="AltaFarmaco('<?php echo $row1['id_registro']; ?>')">SUSPENDER</a>
                                     <?php
                                 }else{
                                     echo fechaNormal($row1['fecha_egreso']).' <strong class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="OBS EGRESO: '.$row1['obs_alta'].'">(?)</strong>';

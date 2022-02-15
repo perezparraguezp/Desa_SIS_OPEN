@@ -14,18 +14,18 @@ $fecha_registro = $_POST['fecha_registro'];
             <select name="tipo" id="tipo">
                 <option value="" disabled="disabled" selected="selected">SELECCIONE UN FARMACO</option>
                 <option disabled="disabled">-------------------------------------</option>
-                <option>FLUOXETINA 20MG</option>
-                <option>SERTRALINA 50MG</option>
-                <option>PAROXETINA 20MG</option>
-                <option>VENLAFAXINA 75MG</option>
-                <option>DIAZEPAM 10MG</option>
+                <option>ALPLAZOLAM 0.5MG</option>
                 <option>CLONAZEPAM 0.5MG</option>
                 <option>CLONAZEPAM 2MG</option>
-                <option>ALPLAZOLAM 0.5MG</option>
-                <option>FENOBARBITAL 100MG</option>
-                <option>FLUFENAZINA 25MG/ML</option>
+                <option>DIAZEPAM 10MG</option>
                 <option>ESCITALOPRAM 10MG</option>
                 <option>ESCITALOPRAM 20MG</option>
+                <option>FENOBARBITAL 100MG</option>
+                <option>FLUFENAZINA 25MG/ML</option>
+                <option>FLUOXETINA 20MG</option>
+                <option>PAROXETINA 20MG</option>
+                <option>SERTRALINA 50MG</option>
+                <option>VENLAFAXINA 75MG</option>
                 <option>ZOPICLONA 7.5MG</option>
             </select>
         </div>
