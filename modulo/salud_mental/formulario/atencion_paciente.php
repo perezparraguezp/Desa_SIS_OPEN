@@ -60,12 +60,9 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
 
             load_sm_antecedentes2('<?php echo $rut; ?>');
             load_sm_diagnosticos('<?php echo $rut; ?>');
-            load_sm_dependiente('<?php echo $rut; ?>');
+            load_sm_farmacos('<?php echo $rut; ?>');
             load_sm_actividad('<?php echo $rut; ?>');
-
-
         });
-
         function loadInfoPaciente(rut){
             $.post('info/banner_paciente.php',{
                 rut:rut,
@@ -96,12 +93,19 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
             });
         }
         function load_sm_farmacos(rut){
-
-        }
-        function load_sm_antecedentes(rut) {
             var div = 'form_farmacos';
             loading_div(div);
             $.post('formulario/farmacos.php',{
+                rut:rut,
+                fecha_registro:'<?php echo $fecha_registro; ?>'
+            },function(data){
+                $("#"+div).html(data);
+            });
+        }
+        function load_sm_antecedentes(rut) {
+            var div = 'form_antecedentes';
+            loading_div(div);
+            $.post('formulario/antecedentes.php',{
                 rut:rut,
                 fecha_registro:'<?php echo $fecha_registro; ?>'
             },function(data){
@@ -223,7 +227,7 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
                 <li style="margin-left: 30px;text-align: center" onclick="load_sm_actividad('<?php echo $rut; ?>')">ACTIVIDAD</li>
                 <li style="margin-left: 30px;text-align: center" onclick="load_sm_antecedentes2('<?php echo $rut; ?>')">ANTECEDENTES</li>
                 <li style="margin-left: 30px;text-align: center" onclick="('<?php echo $rut; ?>')">DIAGNOSTICOS</li>
-                <li style="margin-left: 30px;" onclick="load_sm_farmacos('<?php echo $rut; ?>//')">FARMACOS</li>
+                <li style="margin-left: 30px;" onclick="load_sm_farmacos('<?php echo $rut; ?>')">FARMACOS</li>
                 <li style="background-color: #0a73a7;cursor: pointer;color: white" onclick="boxAgendamiento()">FINALIZAR ATENCIÓN</li>
             </ul>
             <div>

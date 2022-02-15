@@ -18,7 +18,13 @@ $row = mysql_fetch_array(mysql_query($sql));
 <form id="form_alta_farmaco" class="container" style="padding: 20px;">
     <input type="hidden" name="rut" value="<?php echo $rut; ?>" />
     <input type="hidden" name="id" value="<?php echo $id; ?>" />
-
+    <div class="row">
+        <div class="col l4 s4 m4">FARMACO EN ALTA</div>
+        <div class="col l8 s8 m8">
+            <?php echo $row['nombre_farmaco']; ?>
+        </div>
+    </div>
+    <hr class="row" />
     <div class="row">
         <div class="col l4 s4 m4">FECHA ALTA</div>
         <div class="col l8 s8 m8">

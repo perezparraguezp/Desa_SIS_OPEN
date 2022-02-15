@@ -1809,7 +1809,7 @@ class persona{
     function Alta_Farmaco($id,$fecha,$obs){
         $sql = "update paciente_farmacos_sm 
                 set 
-                    estado='ALTA',
+                    estado_farmaco='ALTA',
                     fecha_egreso='$fecha',
                     obs_alta=upper('$obs')
                 where id_registro='$id'";

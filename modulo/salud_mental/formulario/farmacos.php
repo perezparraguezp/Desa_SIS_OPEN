@@ -46,7 +46,7 @@ $paciente = new persona($rut);
                     <div class="row rowInfoSis" >
                         <div class="col l2 s4 m2"><?PHP echo fechaNormal($row1['fecha_inicio']).' 
                                 <strong class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="OBS INGRESO: '.$row1['obs'].'">(?)</strong>'; ?></div>
-                        <div class="col l5 s5 m5"><?PHP echo $row1['nombre_farmaco']; ?></div>
+                        <div class="col l8 s8 m8"><?PHP echo $row1['nombre_farmaco']; ?></div>
                         <div class="col l2 s2 m2">
                             <?PHP
 
@@ -81,7 +81,7 @@ $paciente = new persona($rut);
     });
     function AltaFarmaco(id){
         $.post('formulario/alta_farmaco.php',{
-            rut:'<?php echo $rut ?>',
+            rut:'<?php echo $paciente->rut ?>',
             id:id
         },function(data){
             if(data !== 'ERROR_SQL'){
@@ -127,6 +127,7 @@ $paciente = new persona($rut);
             }
         });
     }
+
     function boxNewEcoMamaria(){
         $.post('formulario/new_ecomamaria.php',{
             rut:'<?php echo $rut ?>',
@@ -151,6 +152,7 @@ $paciente = new persona($rut);
             }
         });
     }
+
     function boxNewEXAMENFISICOMAMAS(){
         $.post('formulario/new_examen_mamas.php',{
             rut:'<?php echo $rut ?>',

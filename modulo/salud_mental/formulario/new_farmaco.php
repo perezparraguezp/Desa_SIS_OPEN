@@ -65,7 +65,7 @@ $fecha_registro = $_POST['fecha_registro'];
         var farmaco = $("#tipo").val();
         if(farmaco !== '' ){
             if(obs !== ''){
-                if(confirm("¿Seguro que desea asignar este Diagnostico al Paciente?")){
+                if(confirm("¿Seguro que desea asignar este Farmaco al Paciente?")){
                     $.post('db/insert/farmaco.php',
                         $("#form_farmaco").serialize()
                         ,function (data) {
