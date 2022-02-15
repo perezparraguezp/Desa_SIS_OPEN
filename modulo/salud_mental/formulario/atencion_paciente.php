@@ -95,10 +95,13 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
                 $("#"+div).html(data);
             });
         }
+        function load_sm_farmacos(rut){
+
+        }
         function load_sm_antecedentes(rut) {
-            var div = 'form_antecedentes';
+            var div = 'form_farmacos';
             loading_div(div);
-            $.post('formulario/antecedentes.php',{
+            $.post('formulario/farmacos.php',{
                 rut:rut,
                 fecha_registro:'<?php echo $fecha_registro; ?>'
             },function(data){
@@ -220,7 +223,7 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
                 <li style="margin-left: 30px;text-align: center" onclick="load_sm_actividad('<?php echo $rut; ?>')">ACTIVIDAD</li>
                 <li style="margin-left: 30px;text-align: center" onclick="load_sm_antecedentes2('<?php echo $rut; ?>')">ANTECEDENTES</li>
                 <li style="margin-left: 30px;text-align: center" onclick="('<?php echo $rut; ?>')">DIAGNOSTICOS</li>
-<!--                <li style="margin-left: 30px;" onclick="load_sm_dependiente('<?php //echo $rut; ?>//')">ACOMPAÑAMIENTO</li>-->
+                <li style="margin-left: 30px;" onclick="load_sm_farmacos('<?php echo $rut; ?>//')">FARMACOS</li>
                 <li style="background-color: #0a73a7;cursor: pointer;color: white" onclick="boxAgendamiento()">FINALIZAR ATENCIÓN</li>
             </ul>
             <div>
@@ -235,10 +238,10 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
                 <!-- DIAGNOSTICOS -->
                 <form name="form_examenes" id="form_examenes" class="col l12"></form>
             </div>
-<!--            <div>-->
-<!--                ACOMPAÑAMIENTO -->
-<!--                <form name="form_climaterio" id="form_climaterio" class="col l12"></form>-->
-<!--            </div>-->
+            <div>
+
+                <form name="form_farmacos" id="form_farmacos" class="col l12"></form>
+            </div>
             <div>
                 <!-- FINALIZAR -->
                 <form name="fin" id="fin" class="col l12"></form>

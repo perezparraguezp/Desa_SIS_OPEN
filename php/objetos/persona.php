@@ -1806,6 +1806,16 @@ class persona{
         $this->addHistorial('SALUD MENTAL','SE DIO DE ALTA UN DIAGNOSTICO LA FECHA '.$fecha);
 
     }
+    function Alta_Farmaco($id,$fecha,$obs){
+        $sql = "update paciente_farmacos_sm 
+                set 
+                    estado='ALTA',
+                    fecha_egreso='$fecha',
+                    obs_alta=upper('$obs')
+                where id_registro='$id'";
+        mysql_query($sql);
+        $this->addHistorial('SALUD MENTAL','SE DIO DE ALTA UN FARMACO EN LA FECHA '.$fecha);
+    }
 
 
 }
