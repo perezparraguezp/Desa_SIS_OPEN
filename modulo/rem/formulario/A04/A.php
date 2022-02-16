@@ -13,6 +13,7 @@
         });
     })
 </script>
+
 <style type="text/css">
     #formulario_final .container{
         border: solid 1px rgba(204,204,221,0.86);
@@ -57,7 +58,38 @@
         <div class="col l7">
             <div class="container" id="info_evaluacion">
                 <div class="row">
-                    <div class="col l4">EDAD</div>
+                    <div class="col l4">TIPO ATENCION</div>
+                    <div class="col l8">
+                        <select name="tipo_atencion" id="tipo_atencion">
+                            <option>IRA ALTA</option>
+                            <option>SÍNDROME BRONQUIAL OBSTRUCTIVO</option>
+                            <option>NEUMONÍA</option>
+                            <option>ASMA</option>
+                            <option>ENFERMEDAD PULMONAR OBSTRUCTIVA CRÓNICA</option>
+                            <option>OTRAS RESPIRATORIAS</option>
+                            <option>OBSTÉTRICA</option>
+                            <option>GINECOLÓGICA</option>
+                            <option>GINECOLÓGICA  POR INFERTILIDAD</option>
+                            <option>INFECCIÓN TRANSMISIÓN SEXUAL</option>
+                            <option>VIH-SIDA</option>
+                            <option>SALUD MENTAL</option>
+                            <option>CARDIOVASCULAR</option>
+                            <option>OTRAS MORBILIDADES</option>
+                        </select>
+                        <script type="text/javascript">
+                            $(function(){
+                                $('#tipo_atencion').jqxDropDownList({
+                                    width: '100%',
+                                    theme: 'eh-open',
+                                    height: '25px'
+                                });
+
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l4">RANGO EDADES</div>
                     <div class="col l8">
                         <select name="edad" id="edad">
                             <option>MENOR 1 </option>
@@ -79,28 +111,6 @@
                             <option>75 A 79</option>
                             <option>80 y Más</option>
                         </select>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col l4">TIPO ATENCION</div>
-                    <div class="col l8">
-                        <select name="tipo_atencion" id="tipo_atencion">
-                            <option>IRA ALTA</option>
-                            <option>IRA ALTA</option>
-                            <option>IRA ALTA</option>
-                            <option>IRA ALTA</option>
-                        </select>
-                        <script type="text/javascript">
-                            $(function(){
-                                $('#tipo_atencion').jqxDropDownList({
-                                    width: '100%',
-                                    theme: 'eh-open',
-                                    height: '25px'
-                                });
-
-                            });
-                        </script>
                     </div>
                 </div>
                 <div class="row">
@@ -150,7 +160,7 @@
                                     offLabel:'NO',
                                 });
                                 $('#invierno').on('change',function(){
-                                    if($('#beneficiario').val()===true){
+                                    if($('#invierno').val()===true){
                                         $("#input_invierno").val('SI');
                                     }else{
                                         $("#input_invierno").val('NO');
@@ -183,6 +193,64 @@
                                         $("#input_sename").val('SI');
                                     }else{
                                         $("#input_sename").val('NO');
+                                    }
+                                });
+
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l12">
+                        <div class="settings-section">
+                            <div class="settings-label">Entrega de anticoncepción Emergencia</div>
+                            <div class="settings-setter">
+                                <div id="anticoncepción"></div>
+                            </div>
+                            <input type="hidden" name="input_anticoncepción" id="input_anticoncepción" value="NO" />
+                        </div>
+                        <script type="text/javascript">
+                            $(function(){
+                                $('#anticoncepción').jqxSwitchButton({
+                                    height: 27, width: 81,
+                                    theme: 'eh-open',
+                                    onLabel:'SI',
+                                    offLabel:'NO',
+                                });
+                                $('#anticoncepción').on('change',function(){
+                                    if($('#anticoncepción').val()===true){
+                                        $("#input_anticoncepción").val('SI');
+                                    }else{
+                                        $("#input_anticoncepción").val('NO');
+                                    }
+                                });
+
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l12">
+                        <div class="settings-section">
+                            <div class="settings-label">Horario Continuado</div>
+                            <div class="settings-setter">
+                                <div id="horario"></div>
+                            </div>
+                            <input type="hidden" name="input_horario" id="input_horario" value="NO" />
+                        </div>
+                        <script type="text/javascript">
+                            $(function(){
+                                $('#horario').jqxSwitchButton({
+                                    height: 27, width: 81,
+                                    theme: 'eh-open',
+                                    onLabel:'SI',
+                                    offLabel:'NO',
+                                });
+                                $('#horario').on('change',function(){
+                                    if($('#horario').val()===true){
+                                        $("#input_horario").val('SI');
+                                    }else{
+                                        $("#input_horario").val('NO');
                                     }
                                 });
 

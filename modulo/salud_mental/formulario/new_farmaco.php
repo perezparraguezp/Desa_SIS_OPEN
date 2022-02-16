@@ -18,11 +18,13 @@ $fecha_registro = $_POST['fecha_registro'];
                 <option>CLONAZEPAM 0.5MG</option>
                 <option>CLONAZEPAM 2MG</option>
                 <option>DIAZEPAM 10MG</option>
+                <option>DISULFIRAM 500MG</option>
                 <option>ESCITALOPRAM 10MG</option>
                 <option>ESCITALOPRAM 20MG</option>
                 <option>FENOBARBITAL 100MG</option>
                 <option>FLUFENAZINA 25MG/ML</option>
                 <option>FLUOXETINA 20MG</option>
+                <option>OLANZAPINA 10MG</option>
                 <option>PAROXETINA 20MG</option>
                 <option>SERTRALINA 50MG</option>
                 <option>VENLAFAXINA 75MG</option>
