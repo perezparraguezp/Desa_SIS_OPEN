@@ -58,23 +58,14 @@
         <div class="col l7">
             <div class="container" id="info_evaluacion">
                 <div class="row">
-                    <div class="col l4">TIPO ATENCION</div>
+                    <div class="col l4">CONCEPTO</div>
                     <div class="col l8">
                         <select name="tipo_atencion" id="tipo_atencion">
-                            <option>IRA ALTA</option>
-                            <option>SÍNDROME BRONQUIAL OBSTRUCTIVO</option>
-                            <option>NEUMONÍA</option>
-                            <option>ASMA</option>
-                            <option>ENFERMEDAD PULMONAR OBSTRUCTIVA CRÓNICA</option>
-                            <option>OTRAS RESPIRATORIAS</option>
-                            <option>OBSTÉTRICA</option>
-                            <option>GINECOLÓGICA</option>
-                            <option>GINECOLÓGICA  POR INFERTILIDAD</option>
-                            <option>INFECCIÓN TRANSMISIÓN SEXUAL</option>
-                            <option>VIH-SIDA</option>
-                            <option>SALUD MENTAL</option>
-                            <option>CARDIOVASCULAR</option>
-                            <option>OTRAS MORBILIDADES</option>
+                            <option>HIPERTENSIÓN ARTERIAL</option>
+                            <option>DIABETES MELLITUS</option>
+                            <option>DISLIPIDEMIA</option>
+                            <option>ANTECEDENTES ENF. CARDIOVASCULAR ATEROSCLERÓTICA</option>
+                            <option>TABAQUISMO</option>
                         </select>
                         <script type="text/javascript">
                             $(function(){
@@ -89,13 +80,31 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col l4">CAUSAL DE EGRESO</div>
+                    <div class="col l8">
+                        <select name="tipo_egreso" id="tipo_egreso">
+                            <option>Abandono</option>
+                            <option>Traslado</option>
+                            <option>Fallecimiento</option>
+                            <option>No cumple criterio</option>
+                        </select>
+                        <script type="text/javascript">
+                            $(function(){
+                                $('#tipo_egreso').jqxDropDownList({
+                                    width: '100%',
+                                    theme: 'eh-open',
+                                    height: '25px'
+                                });
+
+                            });
+                        </script>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col l4">RANGO EDADES</div>
                     <div class="col l8">
                         <select name="edad" id="edad">
-                            <option>MENOR 1 </option>
-                            <option>1 A 4</option>
-                            <option>5 A 9</option>
-                            <option>10 A 14</option>
                             <option>15 A 19</option>
                             <option>20 A 24</option>
                             <option>25 A 29</option>
@@ -145,25 +154,25 @@
                 <div class="row">
                     <div class="col l12">
                         <div class="settings-section">
-                            <div class="settings-label">CAMPAÑA INVIERNO</div>
+                            <div class="settings-label">REALIZADO EN DOMICILIO</div>
                             <div class="settings-setter">
-                                <div id="invierno"></div>
-                                <input type="hidden" name="input_invierno" id="input_invierno" value="NO" />
+                                <div id="domicilio"></div>
+                                <input type="hidden" name="input_domicilio" id="input_domicilio" value="NO" />
                             </div>
                         </div>
                         <script type="text/javascript">
                             $(function(){
-                                $('#invierno').jqxSwitchButton({
+                                $('#domicilio').jqxSwitchButton({
                                     height: 27, width: 81,
                                     theme: 'eh-open',
                                     onLabel:'SI',
                                     offLabel:'NO',
                                 });
-                                $('#invierno').on('change',function(){
-                                    if($('#invierno').val()===true){
-                                        $("#input_invierno").val('SI');
+                                $('#domicilio').on('change',function(){
+                                    if($('#domicilio').val()===true){
+                                        $("#input_domicilio").val('SI');
                                     }else{
-                                        $("#input_invierno").val('NO');
+                                        $("#input_domicilio").val('NO');
                                     }
                                 });
 
@@ -172,93 +181,25 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col l12">
-                        <div class="settings-section">
-                            <div class="settings-label">Niños, Niñas, Adolescentes y Jóvenes Población SENAME</div>
-                            <div class="settings-setter">
-                                <div id="sename"></div>
-                            </div>
-                            <input type="hidden" name="input_sename" id="input_sename" value="NO" />
-                        </div>
+                    <div class="col l4">REALIZADO POR</div>
+                    <div class="col l8">
+                        <select name="tipo_realizado" id="tipo_realizado">
+                            <option>Dupla (Medico + Profesional no médico)</option>
+                            <option>Médico</option>
+                            <option>Profesional No Médico</option>
+                        </select>
                         <script type="text/javascript">
                             $(function(){
-                                $('#sename').jqxSwitchButton({
-                                    height: 27, width: 81,
+                                $('#tipo_realizado').jqxDropDownList({
+                                    width: '100%',
                                     theme: 'eh-open',
-                                    onLabel:'SI',
-                                    offLabel:'NO',
-                                });
-                                $('#sename').on('change',function(){
-                                    if($('#sename').val()===true){
-                                        $("#input_sename").val('SI');
-                                    }else{
-                                        $("#input_sename").val('NO');
-                                    }
+                                    height: '25px'
                                 });
 
                             });
                         </script>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col l12">
-                        <div class="settings-section">
-                            <div class="settings-label">Entrega de anticoncepción Emergencia</div>
-                            <div class="settings-setter">
-                                <div id="anticoncepción"></div>
-                            </div>
-                            <input type="hidden" name="input_anticoncepción" id="input_anticoncepción" value="NO" />
-                        </div>
-                        <script type="text/javascript">
-                            $(function(){
-                                $('#anticoncepción').jqxSwitchButton({
-                                    height: 27, width: 81,
-                                    theme: 'eh-open',
-                                    onLabel:'SI',
-                                    offLabel:'NO',
-                                });
-                                $('#anticoncepción').on('change',function(){
-                                    if($('#anticoncepción').val()===true){
-                                        $("#input_anticoncepción").val('SI');
-                                    }else{
-                                        $("#input_anticoncepción").val('NO');
-                                    }
-                                });
-
-                            });
-                        </script>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col l12">
-                        <div class="settings-section">
-                            <div class="settings-label">Horario Continuado</div>
-                            <div class="settings-setter">
-                                <div id="horario"></div>
-                            </div>
-                            <input type="hidden" name="input_horario" id="input_horario" value="NO" />
-                        </div>
-                        <script type="text/javascript">
-                            $(function(){
-                                $('#horario').jqxSwitchButton({
-                                    height: 27, width: 81,
-                                    theme: 'eh-open',
-                                    onLabel:'SI',
-                                    offLabel:'NO',
-                                });
-                                $('#horario').on('change',function(){
-                                    if($('#horario').val()===true){
-                                        $("#input_horario").val('SI');
-                                    }else{
-                                        $("#input_horario").val('NO');
-                                    }
-                                });
-
-                            });
-                        </script>
-                    </div>
-                </div>
-
                 <div class="row">
                     <div class="col l6">
                         <input type="button"
@@ -280,3 +221,4 @@
         </div>
     </div>
 </div>
+

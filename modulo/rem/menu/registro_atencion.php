@@ -91,6 +91,7 @@ $rut = $_SESSION['rut'];
                 <option value="A02">A02 - EMP</option>
                 <option value="A03">A03 - APLICACIÓN Y RESULTADOS DE ESCALAS DE EVALUACIÓN</option>
                 <option value="A04">A04 - APLICACIÓN Y RESULTADOS DE ESCALAS DE EVALUACIÓN</option>
+                <option value="A05">A05 - INGRESOS Y EGRESOS POR CONDICIÓN Y PROBLEMAS DE SALUD</option>
             </select>
         </div>
     </div>

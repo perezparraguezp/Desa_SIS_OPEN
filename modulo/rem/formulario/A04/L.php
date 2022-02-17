@@ -61,20 +61,9 @@
                     <div class="col l4">TIPO ATENCION</div>
                     <div class="col l8">
                         <select name="tipo_atencion" id="tipo_atencion">
-                            <option>IRA ALTA</option>
-                            <option>SÍNDROME BRONQUIAL OBSTRUCTIVO</option>
-                            <option>NEUMONÍA</option>
-                            <option>ASMA</option>
-                            <option>ENFERMEDAD PULMONAR OBSTRUCTIVA CRÓNICA</option>
-                            <option>OTRAS RESPIRATORIAS</option>
-                            <option>OBSTÉTRICA</option>
-                            <option>GINECOLÓGICA</option>
-                            <option>GINECOLÓGICA  POR INFERTILIDAD</option>
-                            <option>INFECCIÓN TRANSMISIÓN SEXUAL</option>
-                            <option>VIH-SIDA</option>
-                            <option>SALUD MENTAL</option>
-                            <option>CARDIOVASCULAR</option>
-                            <option>OTRAS MORBILIDADES</option>
+                            <option>MAL NUTRICIÓN POR DÉFICIT</option>
+                            <option>MAL NUTRICIÓN POR EXCESO</option>
+                            <option>ESTADO NUTRICIONAL NORMAL</option>
                         </select>
                         <script type="text/javascript">
                             $(function(){
@@ -145,112 +134,25 @@
                 <div class="row">
                     <div class="col l12">
                         <div class="settings-section">
-                            <div class="settings-label">CAMPAÑA INVIERNO</div>
+                            <div class="settings-label">EMBARAZADA</div>
                             <div class="settings-setter">
-                                <div id="invierno"></div>
-                                <input type="hidden" name="input_invierno" id="input_invierno" value="NO" />
+                                <div id="embarazada"></div>
+                                <input type="hidden" name="input_embarazada" id="input_invierno" value="NO" />
                             </div>
                         </div>
                         <script type="text/javascript">
                             $(function(){
-                                $('#invierno').jqxSwitchButton({
+                                $('#embarazada').jqxSwitchButton({
                                     height: 27, width: 81,
                                     theme: 'eh-open',
                                     onLabel:'SI',
                                     offLabel:'NO',
                                 });
-                                $('#invierno').on('change',function(){
-                                    if($('#invierno').val()===true){
-                                        $("#input_invierno").val('SI');
+                                $('#embarazada').on('change',function(){
+                                    if($('#embarazada').val()===true){
+                                        $("#input_embarazada").val('SI');
                                     }else{
-                                        $("#input_invierno").val('NO');
-                                    }
-                                });
-
-                            });
-                        </script>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col l12">
-                        <div class="settings-section">
-                            <div class="settings-label">Niños, Niñas, Adolescentes y Jóvenes Población SENAME</div>
-                            <div class="settings-setter">
-                                <div id="sename"></div>
-                            </div>
-                            <input type="hidden" name="input_sename" id="input_sename" value="NO" />
-                        </div>
-                        <script type="text/javascript">
-                            $(function(){
-                                $('#sename').jqxSwitchButton({
-                                    height: 27, width: 81,
-                                    theme: 'eh-open',
-                                    onLabel:'SI',
-                                    offLabel:'NO',
-                                });
-                                $('#sename').on('change',function(){
-                                    if($('#sename').val()===true){
-                                        $("#input_sename").val('SI');
-                                    }else{
-                                        $("#input_sename").val('NO');
-                                    }
-                                });
-
-                            });
-                        </script>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col l12">
-                        <div class="settings-section">
-                            <div class="settings-label">Entrega de anticoncepción Emergencia</div>
-                            <div class="settings-setter">
-                                <div id="anticoncepción"></div>
-                            </div>
-                            <input type="hidden" name="input_anticoncepción" id="input_anticoncepción" value="NO" />
-                        </div>
-                        <script type="text/javascript">
-                            $(function(){
-                                $('#anticoncepción').jqxSwitchButton({
-                                    height: 27, width: 81,
-                                    theme: 'eh-open',
-                                    onLabel:'SI',
-                                    offLabel:'NO',
-                                });
-                                $('#anticoncepción').on('change',function(){
-                                    if($('#anticoncepción').val()===true){
-                                        $("#input_anticoncepción").val('SI');
-                                    }else{
-                                        $("#input_anticoncepción").val('NO');
-                                    }
-                                });
-
-                            });
-                        </script>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col l12">
-                        <div class="settings-section">
-                            <div class="settings-label">Horario Continuado</div>
-                            <div class="settings-setter">
-                                <div id="horario"></div>
-                            </div>
-                            <input type="hidden" name="input_horario" id="input_horario" value="NO" />
-                        </div>
-                        <script type="text/javascript">
-                            $(function(){
-                                $('#horario').jqxSwitchButton({
-                                    height: 27, width: 81,
-                                    theme: 'eh-open',
-                                    onLabel:'SI',
-                                    offLabel:'NO',
-                                });
-                                $('#horario').on('change',function(){
-                                    if($('#horario').val()===true){
-                                        $("#input_horario").val('SI');
-                                    }else{
-                                        $("#input_horario").val('NO');
+                                        $("#input_embarazada").val('NO');
                                     }
                                 });
 

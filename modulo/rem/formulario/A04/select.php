@@ -6,7 +6,10 @@
         <option disabled="disabled" selected="selected">SELECCIONE UNA CATEGORIA A REALIZAR EVALUACIÓN</option>
         <option value="A">CONSULTAS MÉDICAS </option>
         <option value="B">CONSULTAS DE PROFESIONALES NO MEDICOS </option>
-
+        <option value="H">INTERVENCIÓN INDIVIDUAL DEL USUARIO EN PROGRAMA ELIGE VIDA SANA </option>
+        <option value="L">CLASIFICACIÓN DE CONSULTA NUTRICIONAL POR GRUPO DE EDAD </option>
+        <option value="M">CONSULTA DE LACTANCIA MATERNA EN MENORES CONTROLADOS </option>
+        <option value="N">ATENCIONES AMBULATORIAS POR  EL PROGRAMA TUBERCULOSIS </option>
     </select>
 </div>
 <script type="text/javascript">
