@@ -256,6 +256,9 @@ $profesional = new profesional($myId);
         background-color: #0a73a7;
         color: white;
         font-family: Helvetica, Arial, Verdana, sans-serif;
+        cursor: pointer;
+        text-align: center;
+        padding: 10px;
     }
     .eh-open_principal:hover{
         color: black;
