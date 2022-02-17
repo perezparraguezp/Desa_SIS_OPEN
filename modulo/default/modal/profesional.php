@@ -16,6 +16,17 @@ $persona = new persona($profesional->rut);
 
 ?>
 <script type="text/javascript">
+    $(function(){
+        $("#tipo_contrato").on('change',function(){
+            $.post('../default/db/update/tipo_contrato.php',{
+                tipo:$("#tipo_contrato").val(),
+                id_profesional:'<?php echo $id ?>',
+            },function(data){
+                alertaLateral(data);
+
+            });
+        });
+    })
     function asignarModulo(modulo){
         if($('#modulo-'+modulo).prop('checked')){
             var activo = 'SI';

@@ -76,7 +76,8 @@ $rut = $_SESSION['rut'];
                     </select></label>
             </div>
         </div>
-        <div class="col l10" style="padding: 20px;">
+        <div class="col l10"
+             style="padding: 20px;">
             <div class="row" id="id_seccion"></div>
             <div class="row" id="div_seccion"></div>
         </div>
