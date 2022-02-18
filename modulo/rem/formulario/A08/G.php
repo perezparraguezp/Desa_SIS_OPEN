@@ -58,11 +58,11 @@
         <div class="col l7">
             <div class="container" id="info_evaluacion">
                 <div class="row">
-                    <div class="col l4">ACTIVIDAD</div>
+                    <div class="col l4">CONCEPTO</div>
                     <div class="col l8">
                         <select name="tipo_atencion" id="tipo_atencion">
-                            <option>INGRESOS</option>
-                            <option>PLAN DE CUIDADO ELABORADO</option>
+                            <option>VIOLENCIA INTRAFAMILIAR</option>
+                            <option>OTRAS VIOLENCIAS</option>
                         </select>
                         <script type="text/javascript">
                             $(function(){
@@ -77,16 +77,63 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col l4">RIESGO</div>
+                    <div class="col l4">RANGO EDADES</div>
                     <div class="col l8">
-                        <select name="tipo_riesgo" id="tipo_riesgo">
-                            <option>RIESGO LEVE (G1)</option>
-                            <option>RIESGO MODERADO (G2)</option>
-                            <option>RIESGO ALTO (G3)</option>
+                        <select name="edad" id="edad">
+                            <option>0 A 9 </option>
+                            <option>10 A 17 </option>
+                            <option>15 A 19</option>
+                            <option>18 A 24</option>
+                            <option>25 A 34</option>
+                            <option>35 A 44</option>
+                            <option>45 A 54</option>
+                            <option>55 y 64</option>
+                            <option>65 y 74</option>
+                            <option>75 y MAS</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l12">
+                        <div class="settings-section">
+                            <div class="settings-label">EMBARAZADA</div>
+                            <div class="settings-setter">
+                                <div id="embarazada"></div>
+                                <input type="hidden" name="input_embarazada" id="input_embarazada" value="NO" />
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $(function(){
+                                $('#embarazada').jqxSwitchButton({
+                                    height: 27, width: 81,
+                                    theme: 'eh-open',
+                                    onLabel:'SI',
+                                    offLabel:'NO',
+                                });
+                                $('#embarazada').on('change',function(){
+                                    if($('#embarazada').val()===true){
+                                        $("#input_embarazada").val('SI');
+                                    }else{
+                                        $("#input_embarazada").val('NO');
+                                    }
+                                });
+
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l4">AGRESOR /A</div>
+                    <div class="col l8">
+                        <select name="tipo_agresor" id="tipo_agresor">
+                            <option>Pareja/ Ex pareja</option>
+                            <option>Familiar</option>
+                            <option>Conocido/a</option>
+                            <option>Desconocido/a</option>
                         </select>
                         <script type="text/javascript">
                             $(function(){
-                                $('#tipo_riesgo').jqxDropDownList({
+                                $('#tipo_agresor').jqxDropDownList({
                                     width: '100%',
                                     theme: 'eh-open',
                                     height: '25px'
@@ -97,37 +144,17 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col l4">RANGO EDADES</div>
+                    <div class="col l4">LESIONES DE LA VÍCTIMA</div>
                     <div class="col l8">
-                        <select name="edad" id="edad">
-                            <option>15 A 19</option>
-                            <option>20 A 24</option>
-                            <option>25 A 29</option>
-                            <option>30 A 34</option>
-                            <option>35 A 39</option>
-                            <option>40 A 44</option>
-                            <option>45 A 49</option>
-                            <option>50 A 54</option>
-                            <option>55 A 59</option>
-                            <option>60 A 64</option>
-                            <option>65 A 69</option>
-                            <option>70 A 74</option>
-                            <option>75 A 79</option>
-                            <option>80 y Más</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col l4">REALIZADO POR</div>
-                    <div class="col l8">
-                        <select name="tipo_profesional" id="tipo_profesional">
-                            <option>Dupla (Medico + Profesional no médico)</option>
-                            <option>Médico</option>
-                            <option>Profesional No Médico</option>
+                        <select name="tipo_lesiones" id="tipo_lesiones">
+                            <option>Traumatológicas</option>
+                            <option>Odontológicas</option>
+                            <option>Contusionales</option>
+                            <option>Por Arma</option>
                         </select>
                         <script type="text/javascript">
                             $(function(){
-                                $('#tipo_profesional').jqxDropDownList({
+                                $('#tipo_lesiones').jqxDropDownList({
                                     width: '100%',
                                     theme: 'eh-open',
                                     height: '25px'
@@ -140,25 +167,25 @@
                 <div class="row">
                     <div class="col l12">
                         <div class="settings-section">
-                            <div class="settings-label">REALIZADO EN DOMICILIO</div>
+                            <div class="settings-label">Sin lesiones constatables</div>
                             <div class="settings-setter">
-                                <div id="domicilio"></div>
-                                <input type="hidden" name="input_domicilio" id="input_domicilio" value="NO" />
+                                <div id="sinlesiones"></div>
+                                <input type="hidden" name="input_sinlesiones" id="input_sinlesiones" value="NO" />
                             </div>
                         </div>
                         <script type="text/javascript">
                             $(function(){
-                                $('#domicilio').jqxSwitchButton({
+                                $('#sinlesiones').jqxSwitchButton({
                                     height: 27, width: 81,
                                     theme: 'eh-open',
                                     onLabel:'SI',
                                     offLabel:'NO',
                                 });
-                                $('#domicilio').on('change',function(){
-                                    if($('#domicilio').val()===true){
-                                        $("#input_domicilio").val('SI');
+                                $('#sinlesiones').on('change',function(){
+                                    if($('#sinlesiones').val()===true){
+                                        $("#input_sinlesiones").val('SI');
                                     }else{
-                                        $("#input_domicilio").val('NO');
+                                        $("#input_sinlesiones").val('NO');
                                     }
                                 });
 
@@ -187,3 +214,6 @@
         </div>
     </div>
 </div>
+
+
+

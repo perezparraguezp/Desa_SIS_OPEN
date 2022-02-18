@@ -61,8 +61,7 @@
                     <div class="col l4">ACTIVIDAD</div>
                     <div class="col l8">
                         <select name="tipo_atencion" id="tipo_atencion">
-                            <option>INGRESOS</option>
-                            <option>PLAN DE CUIDADO ELABORADO</option>
+                            <option>PLAN DE CUIDADO INTEGRAL (PCI) ELABORADOS</option>
                         </select>
                         <script type="text/javascript">
                             $(function(){
@@ -77,29 +76,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col l4">RIESGO</div>
-                    <div class="col l8">
-                        <select name="tipo_riesgo" id="tipo_riesgo">
-                            <option>RIESGO LEVE (G1)</option>
-                            <option>RIESGO MODERADO (G2)</option>
-                            <option>RIESGO ALTO (G3)</option>
-                        </select>
-                        <script type="text/javascript">
-                            $(function(){
-                                $('#tipo_riesgo').jqxDropDownList({
-                                    width: '100%',
-                                    theme: 'eh-open',
-                                    height: '25px'
-                                });
-
-                            });
-                        </script>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col l4">RANGO EDADES</div>
                     <div class="col l8">
                         <select name="edad" id="edad">
+                            <option>0 A 4 </option>
+                            <option>5 A 9 </option>
+                            <option>10 A 14 </option>
                             <option>15 A 19</option>
                             <option>20 A 24</option>
                             <option>25 A 29</option>
@@ -108,57 +90,37 @@
                             <option>40 A 44</option>
                             <option>45 A 49</option>
                             <option>50 A 54</option>
-                            <option>55 A 59</option>
-                            <option>60 A 64</option>
-                            <option>65 A 69</option>
-                            <option>70 A 74</option>
-                            <option>75 A 79</option>
-                            <option>80 y Más</option>
+                            <option>55 y 59</option>
+                            <option>60 y 64</option>
+                            <option>65 y 69</option>
+                            <option>70 y 74</option>
+                            <option>75 y 79</option>
+                            <option>80 y MAS</option>
                         </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col l4">REALIZADO POR</div>
-                    <div class="col l8">
-                        <select name="tipo_profesional" id="tipo_profesional">
-                            <option>Dupla (Medico + Profesional no médico)</option>
-                            <option>Médico</option>
-                            <option>Profesional No Médico</option>
-                        </select>
-                        <script type="text/javascript">
-                            $(function(){
-                                $('#tipo_profesional').jqxDropDownList({
-                                    width: '100%',
-                                    theme: 'eh-open',
-                                    height: '25px'
-                                });
-
-                            });
-                        </script>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col l12">
                         <div class="settings-section">
-                            <div class="settings-label">REALIZADO EN DOMICILIO</div>
+                            <div class="settings-label">Niños, Niñas, Adolescentes y Jóvenes Población SENAME</div>
                             <div class="settings-setter">
-                                <div id="domicilio"></div>
-                                <input type="hidden" name="input_domicilio" id="input_domicilio" value="NO" />
+                                <div id="sename"></div>
+                                <input type="hidden" name="input_sename" id="input_sename" value="NO" />
                             </div>
                         </div>
                         <script type="text/javascript">
                             $(function(){
-                                $('#domicilio').jqxSwitchButton({
+                                $('#sename').jqxSwitchButton({
                                     height: 27, width: 81,
                                     theme: 'eh-open',
                                     onLabel:'SI',
                                     offLabel:'NO',
                                 });
-                                $('#domicilio').on('change',function(){
-                                    if($('#domicilio').val()===true){
-                                        $("#input_domicilio").val('SI');
+                                $('#sename').on('change',function(){
+                                    if($('#sename').val()===true){
+                                        $("#input_sename").val('SI');
                                     }else{
-                                        $("#input_domicilio").val('NO');
+                                        $("#input_sename").val('NO');
                                     }
                                 });
 

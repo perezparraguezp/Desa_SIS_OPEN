@@ -61,8 +61,8 @@
                     <div class="col l4">ACTIVIDAD</div>
                     <div class="col l8">
                         <select name="tipo_atencion" id="tipo_atencion">
-                            <option>INGRESOS</option>
-                            <option>PLAN DE CUIDADO ELABORADO</option>
+                            <option>CONSULTORÍAS DE SALUD MENTAL</option>
+                            <option>TELECONSULTORÍAS DE SALUD MENTAL</option>
                         </select>
                         <script type="text/javascript">
                             $(function(){
@@ -77,16 +77,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col l4">RIESGO</div>
+                    <div class="col l4">CONSULTORÍAS Y TELECONSULTORÍAS RECIBIDAS</div>
                     <div class="col l8">
-                        <select name="tipo_riesgo" id="tipo_riesgo">
-                            <option>RIESGO LEVE (G1)</option>
-                            <option>RIESGO MODERADO (G2)</option>
-                            <option>RIESGO ALTO (G3)</option>
+                        <select name="tipo_consultaria" id="tipo_consultaria">
+                            <option>CONSULTORÍAS Y TELECONSULTORÍAS DE SALUD MENTAL INFANTO ADOLESCENTE</option>
+                            <option>CONSULTORÍAS Y TELECONSULTORÍAS DE SALUD MENTAL ADULTO</option>
                         </select>
                         <script type="text/javascript">
                             $(function(){
-                                $('#tipo_riesgo').jqxDropDownList({
+                                $('#tipo_consultaria').jqxDropDownList({
                                     width: '100%',
                                     theme: 'eh-open',
                                     height: '25px'
@@ -100,6 +99,9 @@
                     <div class="col l4">RANGO EDADES</div>
                     <div class="col l8">
                         <select name="edad" id="edad">
+                            <option>0 A 4</option>
+                            <option>5 A 9</option>
+                            <option>10 A 14</option>
                             <option>15 A 19</option>
                             <option>20 A 24</option>
                             <option>25 A 29</option>
@@ -113,57 +115,8 @@
                             <option>65 A 69</option>
                             <option>70 A 74</option>
                             <option>75 A 79</option>
-                            <option>80 y Más</option>
+                            <option>80 A MAS</option>
                         </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col l4">REALIZADO POR</div>
-                    <div class="col l8">
-                        <select name="tipo_profesional" id="tipo_profesional">
-                            <option>Dupla (Medico + Profesional no médico)</option>
-                            <option>Médico</option>
-                            <option>Profesional No Médico</option>
-                        </select>
-                        <script type="text/javascript">
-                            $(function(){
-                                $('#tipo_profesional').jqxDropDownList({
-                                    width: '100%',
-                                    theme: 'eh-open',
-                                    height: '25px'
-                                });
-
-                            });
-                        </script>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col l12">
-                        <div class="settings-section">
-                            <div class="settings-label">REALIZADO EN DOMICILIO</div>
-                            <div class="settings-setter">
-                                <div id="domicilio"></div>
-                                <input type="hidden" name="input_domicilio" id="input_domicilio" value="NO" />
-                            </div>
-                        </div>
-                        <script type="text/javascript">
-                            $(function(){
-                                $('#domicilio').jqxSwitchButton({
-                                    height: 27, width: 81,
-                                    theme: 'eh-open',
-                                    onLabel:'SI',
-                                    offLabel:'NO',
-                                });
-                                $('#domicilio').on('change',function(){
-                                    if($('#domicilio').val()===true){
-                                        $("#input_domicilio").val('SI');
-                                    }else{
-                                        $("#input_domicilio").val('NO');
-                                    }
-                                });
-
-                            });
-                        </script>
                     </div>
                 </div>
                 <div class="row">

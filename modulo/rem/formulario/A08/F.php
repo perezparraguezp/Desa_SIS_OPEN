@@ -58,11 +58,12 @@
         <div class="col l7">
             <div class="container" id="info_evaluacion">
                 <div class="row">
-                    <div class="col l4">ACTIVIDAD</div>
+                    <div class="col l4">TIPO DE PACIENTES</div>
                     <div class="col l8">
                         <select name="tipo_atencion" id="tipo_atencion">
-                            <option>INGRESOS</option>
-                            <option>PLAN DE CUIDADO ELABORADO</option>
+                            <option>PACIENTES FALLECIDOS EN ESPERA DE ATENCIÓN MÉDICA</option>
+                            <option>PACIENTES FALLECIDOS EN PROCESO DE ATENCIÓN</option>
+                            <option>PACIENTES FALLECIDOS EN ESPERA DE CAMA HOSPITALARIA</option>
                         </select>
                         <script type="text/javascript">
                             $(function(){
@@ -77,29 +78,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col l4">RIESGO</div>
-                    <div class="col l8">
-                        <select name="tipo_riesgo" id="tipo_riesgo">
-                            <option>RIESGO LEVE (G1)</option>
-                            <option>RIESGO MODERADO (G2)</option>
-                            <option>RIESGO ALTO (G3)</option>
-                        </select>
-                        <script type="text/javascript">
-                            $(function(){
-                                $('#tipo_riesgo').jqxDropDownList({
-                                    width: '100%',
-                                    theme: 'eh-open',
-                                    height: '25px'
-                                });
-
-                            });
-                        </script>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col l4">RANGO EDADES</div>
                     <div class="col l8">
                         <select name="edad" id="edad">
+                            <option>0 A 4 </option>
+                            <option>5 A 9 </option>
+                            <option>10 A 14 </option>
                             <option>15 A 19</option>
                             <option>20 A 24</option>
                             <option>25 A 29</option>
@@ -108,57 +92,37 @@
                             <option>40 A 44</option>
                             <option>45 A 49</option>
                             <option>50 A 54</option>
-                            <option>55 A 59</option>
-                            <option>60 A 64</option>
-                            <option>65 A 69</option>
-                            <option>70 A 74</option>
-                            <option>75 A 79</option>
-                            <option>80 y Más</option>
+                            <option>55 y 59</option>
+                            <option>60 y 64</option>
+                            <option>65 y 69</option>
+                            <option>70 y 74</option>
+                            <option>75 y 79</option>
+                            <option>80 y MAS</option>
                         </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col l4">REALIZADO POR</div>
-                    <div class="col l8">
-                        <select name="tipo_profesional" id="tipo_profesional">
-                            <option>Dupla (Medico + Profesional no médico)</option>
-                            <option>Médico</option>
-                            <option>Profesional No Médico</option>
-                        </select>
-                        <script type="text/javascript">
-                            $(function(){
-                                $('#tipo_profesional').jqxDropDownList({
-                                    width: '100%',
-                                    theme: 'eh-open',
-                                    height: '25px'
-                                });
-
-                            });
-                        </script>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col l12">
                         <div class="settings-section">
-                            <div class="settings-label">REALIZADO EN DOMICILIO</div>
+                            <div class="settings-label">BENEFICIARIO</div>
                             <div class="settings-setter">
-                                <div id="domicilio"></div>
-                                <input type="hidden" name="input_domicilio" id="input_domicilio" value="NO" />
+                                <div id="beneficiario"></div>
+                                <input type="hidden" name="input_beneficiario" id="input_beneficiario" value="NO" />
                             </div>
                         </div>
                         <script type="text/javascript">
                             $(function(){
-                                $('#domicilio').jqxSwitchButton({
+                                $('#beneficiario').jqxSwitchButton({
                                     height: 27, width: 81,
                                     theme: 'eh-open',
                                     onLabel:'SI',
                                     offLabel:'NO',
                                 });
-                                $('#domicilio').on('change',function(){
-                                    if($('#domicilio').val()===true){
-                                        $("#input_domicilio").val('SI');
+                                $('#beneficiario').on('change',function(){
+                                    if($('#beneficiario').val()===true){
+                                        $("#input_beneficiario").val('SI');
                                     }else{
-                                        $("#input_domicilio").val('NO');
+                                        $("#input_beneficiario").val('NO');
                                     }
                                 });
 
@@ -187,3 +151,5 @@
         </div>
     </div>
 </div>
+
+
