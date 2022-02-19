@@ -7,58 +7,59 @@ include "../../../../php/objetos/persona.php";
 $id_establecimiento = $_SESSION['id_establecimiento'];
 
 
-$sector_comunal = explode(",",$_POST['sector_comunal']);
-$centro_interno = explode(",",$_POST['centro_interno']);
-$sector_interno = explode(",",$_POST['sector_interno']);
+$sector_comunal = explode(",", $_POST['sector_comunal']);
+$centro_interno = explode(",", $_POST['centro_interno']);
+$sector_interno = explode(",", $_POST['sector_interno']);
 
 $estado = trim($_POST['estado']);
 
-$indicador      = $_POST['indicador'];
+$indicador = $_POST['indicador'];
 $indicador_estado = $indicador;
 
-if($indicador=='IMCE'){
+if ($indicador == 'IMCE') {
     $filtro_edad = 'and persona.edad_total>=((5*12)+1) ';//5 años y un mes
     $rango_edad_texto = 'Mayores de 5 años y 1 Mes';
-}else{
-    if($indicador == 'PCINT'){
-        $filtro_edad = 'and persona.edad_total>=(5*12) ';//Dede los 5 años
-        $rango_edad_texto = 'Desde los 3 Años';
-    }else{
-        if($indicador=='presion_arterial'){
+} else {
+    if ($indicador == 'PCINT') {
+        $filtro_edad = 'and persona.edad_total>=(5*12) and and persona.edad_total<(10*12) ';//Dede los 5 años
+        $rango_edad_texto = 'Desde los 5 a 9 Años';
+    } else {
+        if ($indicador == 'presion_arterial') {
             $rango_edad_texto = 'Desde los 3 Años';
             $filtro_edad = 'and persona.edad_total>=(3*12) ';//desde los 3 años
-        }else{
-            if($indicador=='DNI1'){
+        } else {
+            if ($indicador == 'DNI1') {
                 //MENORES DE 6 AÑOS
                 $filtro_edad = 'and persona.edad_total<(6*12) ';//Dede los 5 años
                 $rango_edad_texto = 'Menores de 6 Años';
                 $indicador = 'DNI';
-            }else{
-                if($indicador=='DNI2'){
+            } else {
+                if ($indicador == 'DNI2') {
                     //ENTRE 6 AÑOS A 9 AÑOS
-                    $filtro_edad = 'and persona.edad_total>=(6*12) AND persona.edad_totaL<(9*12)';//Dede los 5 años
+                    $filtro_edad = 'and persona.edad_total>=(6*12) AND persona.edad_totaL<(10*12)';//Dede los 5 años
                     $rango_edad_texto = 'Desde los 6 hasta los 9 Años';
                     $indicador = 'DNI';
-                }else{
-                    if($indicador=='DNI3'){
+                } else {
+                    if ($indicador == 'DNI3') {
                         $filtro_edad = 'and persona.edad_total<(10*12) ';//menores de 10 años
                         $rango_edad_texto = 'Todos los niños menores de 10 años';
                         $indicador = 'DNI';
-                    }else{
-                        if($indicador=='SCORE_IRA'){
-                            $filtro_edad = 'and persona.edad_total<7 ';//menores de 8 meses
-                            $rango_edad_texto = 'Menores de 7 meses y 30 días';
-                        }else{
-                            if($indicador=='LME'){
-
+                    } else {
+                        if ($indicador == 'SCORE_IRA') {
+                            $estado = 'LEVE';
+                            $filtro_edad = 'and persona.edad_total<12 ';//menores de 8 meses
+                            $rango_edad_texto = 'Menores de 12 meses y 30 días';
+                        } else {
+                            if ($indicador == 'LME') {
+                                $estado = 'LME';
                                 $filtro_edad = 'and persona.edad_total<6 ';//menores de 8 meses
                                 $rango_edad_texto = 'Menores de 5 meses Y 30 días.';
-                            }else{
-                                if($indicador=='perimetro_craneal'){
-                                    $filtro_edad = 'and persona.edad_total<8 ';//menores de 8 meses
-                                    $rango_edad_texto = 'Menores de 8 meses';
-                                }else{
-                                    if($indicador=='evaluacion_auditiva'){
+                            } else {
+                                if ($indicador == 'perimetro_craneal') {
+                                    $filtro_edad = 'and persona.edad_total<(12*2) ';//menores de 2 años
+                                    $rango_edad_texto = 'Menores de 2 años';
+                                } else {
+                                    if ($indicador == 'evaluacion_auditiva') {
                                         $filtro_edad = 'and persona.edad_total<=12 ';//menores de 8 meses
                                         $rango_edad_texto = 'Menores de 1 año';
                                     }
@@ -74,12 +75,12 @@ if($indicador=='IMCE'){
 }
 
 
-$TITULO_GRAFICO = strtoupper(str_replace("_"," ",$indicador));
+$TITULO_GRAFICO = strtoupper(str_replace("_", " ", $indicador));
 
 
-if( $estado == ''){
+if ($estado == '') {
     $pendiente = " OR antropometria.PCINT is NULL ";
-}else{
+} else {
     $pendiente = "";
 }
 $sql_column = '';
@@ -91,7 +92,7 @@ $sql_column .= ",sum(antropometria.$indicador!='') as total_cobertura";
 $sql_total = "select COUNT(*) as total from paciente_establecimiento 
     inner join persona using(rut) where m_infancia='SI' $filtro_edad; ";
 $row_total = mysql_fetch_array(mysql_query($sql_total));
-if($row_total){
+if ($row_total) {
     $total_pacientes = $row_total['total'];
 
 }
@@ -99,13 +100,13 @@ if($row_total){
 $filtro = '';
 $comunal = $establecimientos = $sectores = false;
 
-if(in_array('TODOS',$sector_comunal)){
+if (in_array('TODOS', $sector_comunal)) {
     $comunal = true;
-}else{
-    if(in_array('TODOS',$centro_interno)){
+} else {
+    if (in_array('TODOS', $centro_interno)) {
         $establecimientos = true;
-    }else{
-        if(in_array('TODOS',$sector_interno)){
+    } else {
+        if (in_array('TODOS', $sector_interno)) {
             $sectores = true;
         }
     }
@@ -118,7 +119,7 @@ $rango_cobertura = '';
 $series_cobertura = '';
 $json = '';
 
-if($comunal==true){
+if ($comunal == true) {
     //para todos los sectores comunales
     $sql1 = "select 'GENERAL' as nombre_base,count(*) as total 
                                     $sql_column
@@ -137,25 +138,25 @@ if($comunal==true){
     $row1 = mysql_fetch_array(mysql_query($sql1));
 
 
-    $total = $row1['total']!='' ?$row1['total']:0; // general de pacientes que califican para el indicador
+    $total = $row1['total'] != '' ? $row1['total'] : 0; // general de pacientes que califican para el indicador
 
-    $total_hombres   = $row1['total_hombres']!='' ?$row1['total_hombres']:0;
-    $total_mujeres   = $row1['total_mujeres']!='' ?$row1['total_mujeres']:0;
+    $total_hombres = $row1['total_hombres'] != '' ? $row1['total_hombres'] : 0;
+    $total_mujeres = $row1['total_mujeres'] != '' ? $row1['total_mujeres'] : 0;
 
-    $total_indicador = $row1['total_indicador']!='' ?$row1['total_indicador']:0;
-    $total_cobertura = $row1['total_cobertura']!='' ?$row1['total_cobertura']:0;
+    $total_indicador = $row1['total_indicador'] != '' ? $row1['total_indicador'] : 0;
+    $total_cobertura = $row1['total_cobertura'] != '' ? $row1['total_cobertura'] : 0;
 
-    $porcentaje_indicador = number_format(($total_indicador*100/$total),0,'.','');
-    $porcentaje_cobertura = number_format(($total_cobertura*100/$total),0,'.','');
+    $porcentaje_indicador = number_format(($total_indicador * 100 / $total), 0, '.', '');
+    $porcentaje_cobertura = number_format(($total_cobertura * 100 / $total), 0, '.', '');
 
-    $rango .= "\n{ Rango:'GENERAL',GENERAL: ".$porcentaje_indicador."},";
-    $series .=" \n{ dataField: 'GENERAL', displayText: '$estado',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } },formatFunction: function (value) {return value + ' %';} ,total_general:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
+    $rango .= "\n{ Rango:'GENERAL',GENERAL: " . $porcentaje_indicador . "},";
+    $series .= " \n{ dataField: 'GENERAL', displayText: '$estado',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } },formatFunction: function (value) {return value + ' %';} ,total_general:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
 
 
-    $porcentaje_cobertura = number_format(($total_cobertura*100/$total),0,'.','');
+    $porcentaje_cobertura = number_format(($total_cobertura * 100 / $total), 0, '.', '');
 
-    $rango_cobertura .= "\n{ Rango:'GENERAL',GENERAL: ".$porcentaje_cobertura."},";
-    $series_cobertura .=" \n{ dataField: 'GENERAL', displayText: '$estado',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } },formatFunction: function (value) {return value + ' %';} ,total_cobertura:$total,total_general:$total,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
+    $rango_cobertura .= "\n{ Rango:'GENERAL',GENERAL: " . $porcentaje_cobertura . "},";
+    $series_cobertura .= " \n{ dataField: 'GENERAL', displayText: '$estado',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } },formatFunction: function (value) {return value + ' %';} ,total_cobertura:$total,total_general:$total,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
 
     //cobertura
     $sql2 = "select * from persona
@@ -171,24 +172,23 @@ if($comunal==true){
     $res2 = mysql_query($sql2);
     $total_pacientes = 0;
     $total_cobertura = 0;
-    while($row2 = mysql_fetch_array($res2)){
+    while ($row2 = mysql_fetch_array($res2)) {
 
         $persona = new persona($row2['rut']);
-        if($persona->getAntropometria($indicador)!='PENDIENTE'){
+        if ($persona->getAntropometria($indicador) != 'PENDIENTE') {
             $total_cobertura++;
         }
-        if($total_pacientes>0){
-            $json.=',';
+        if ($total_pacientes > 0) {
+            $json .= ',';
         }
-        $json .= '{ "IR":"'.$persona->rut.'", "RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.limpiaCadena($persona->nombre).'","EDAD":"'.$persona->edad_total.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$persona->getAntropometria($indicador).'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
+        $json .= '{ "IR":"' . $persona->rut . '", "RUT":"' . $persona->rut . '","CONTACTO":"' . $persona->getContacto() . '","NOMBRE":"' . limpiaCadena($persona->nombre) . '","EDAD":"' . $persona->edad_total . '","COMUNAL":"' . $persona->nombre_sector_comunal . '","ESTABLECIMIENTO":"' . $persona->nombre_centro_medico . '","SECTOR_INTERNO":"' . $persona->nombre_sector_interno . '","INDICADOR":"' . $persona->getAntropometria($indicador) . '","anios":"' . $persona->edad_anios . '","meses":"' . $persona->edad_meses . '","dias":"' . $persona->edad_dias . '"}';
 
         $total_pacientes++;
     }
 
 
-
-}else{
-    if($establecimientos==true){
+} else {
+    if ($establecimientos == true) {
 
         //para todos los establecimientos pero segun el sector comunal seleccionado
         $sql1 = "select sector_comunal.nombre_sector_comunal as nombre_base,
@@ -207,52 +207,52 @@ if($comunal==true){
                                     AND (";
 
         $a = 0;
-        foreach ($sector_comunal as $i => $id_sector_comunal){
+        foreach ($sector_comunal as $i => $id_sector_comunal) {
             $id_sector_comunal = trim($id_sector_comunal);
-            if($id_sector_comunal!='' && $id_sector_comunal != null){
-                if($a>0){
-                    $sql1.=' or ';
+            if ($id_sector_comunal != '' && $id_sector_comunal != null) {
+                if ($a > 0) {
+                    $sql1 .= ' or ';
                 }
                 $sql1 .= "centros_internos.id_sector_comunal='$id_sector_comunal' ";
                 $a++;
             }
 
         }
-        $sql1.=') 
+        $sql1 .= ') 
         group by centros_internos.id_sector_comunal ';
 
 
 //        echo $sql1;
         $res1 = mysql_query($sql1);
-        $rango .= "{ Rango:'".$estado."' ";
-        $rango_cobertura .= "{ Rango:'".$estado."' ";
+        $rango .= "{ Rango:'" . $estado . "' ";
+        $rango_cobertura .= "{ Rango:'" . $estado . "' ";
 
         $total = 0;
         $total_indicador = 0;
-        $total_hombres= 0;
-        $total_mujeres= 0;
+        $total_hombres = 0;
+        $total_mujeres = 0;
         $total_cobertura = 0;
         $res1 = mysql_query($sql1);
         $dato = 0;
 
-        while($row1 = mysql_fetch_array($res1)){
+        while ($row1 = mysql_fetch_array($res1)) {
             $nombre_base = $row1['nombre_base'];
             $id = $row1['id'];
 
-            $total = $row1['total']!='' ?$row1['total']:0; // general de pacientes que califican para el indicador
-            $total_hombres   = $row1['total_hombres']!='' ?$row1['total_hombres']:0;
-            $total_mujeres   = $row1['total_mujeres']!='' ?$row1['total_mujeres']:0;
-            $total_indicador = $row1['total_indicador']!='' ?$row1['total_indicador']:0;
-            $total_cobertura = $row1['total_cobertura']!='' ?$row1['total_cobertura']:0;
+            $total = $row1['total'] != '' ? $row1['total'] : 0; // general de pacientes que califican para el indicador
+            $total_hombres = $row1['total_hombres'] != '' ? $row1['total_hombres'] : 0;
+            $total_mujeres = $row1['total_mujeres'] != '' ? $row1['total_mujeres'] : 0;
+            $total_indicador = $row1['total_indicador'] != '' ? $row1['total_indicador'] : 0;
+            $total_cobertura = $row1['total_cobertura'] != '' ? $row1['total_cobertura'] : 0;
 
-            $porcentaje_indicador = number_format(($total_indicador*100/$total),0,'.','');
-            $porcentaje_cobertura = number_format(($total_cobertura*100/$total),0,'.','');
+            $porcentaje_indicador = number_format(($total_indicador * 100 / $total), 0, '.', '');
+            $porcentaje_cobertura = number_format(($total_cobertura * 100 / $total), 0, '.', '');
 
-            $series .=" { dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } } ,formatFunction: function (value) {return value + ' %';},total_general:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
+            $series .= " { dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } } ,formatFunction: function (value) {return value + ' %';},total_general:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
             $rango .= ", $id:$porcentaje_indicador";
 
 
-            $series_cobertura .=" \n{ dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } },formatFunction: function (value) {return value + ' %';} ,total_cobertura:$total_cobertura,total_general:$total,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
+            $series_cobertura .= " \n{ dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } },formatFunction: function (value) {return value + ' %';} ,total_cobertura:$total_cobertura,total_general:$total,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
             $rango_cobertura .= ", $id:$porcentaje_cobertura";
         }
         $rango .= "},";
@@ -270,43 +270,40 @@ if($comunal==true){
                                     $filtro_edad 
                                     AND (";
         $a = 0;
-        foreach ($sector_comunal as $i => $id_sector_comunal){
+        foreach ($sector_comunal as $i => $id_sector_comunal) {
             $id_sector_comunal = trim($id_sector_comunal);
-            if($id_sector_comunal!='' && $id_sector_comunal != null){
-                if($a>0){
-                    $sql2.=' or ';
+            if ($id_sector_comunal != '' && $id_sector_comunal != null) {
+                if ($a > 0) {
+                    $sql2 .= ' or ';
                 }
                 $sql2 .= "centros_internos.id_sector_comunal='$id_sector_comunal' ";
                 $a++;
             }
 
         }
-        $sql2.=') group by persona.rut';
+        $sql2 .= ') group by persona.rut';
         $res2 = mysql_query($sql2);
         $total_pacientes = 0;
         $total_cobertura = 0;
-        while($row2 = mysql_fetch_array($res2)){
+        while ($row2 = mysql_fetch_array($res2)) {
 
             $persona = new persona($row2['rut']);
-            if($persona->getAntropometria($indicador)!='PENDIENTE'){
+            if ($persona->getAntropometria($indicador) != 'PENDIENTE') {
                 $total_cobertura++;
             }
-            if($total_pacientes>0){
-                $json.=',';
+            if ($total_pacientes > 0) {
+                $json .= ',';
             }
-            $json .= '{ "IR":"'.$persona->rut.'", "RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.limpiaCadena($persona->nombre).'","EDAD":"'.$persona->edad_total.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$persona->getAntropometria($indicador).'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
+            $json .= '{ "IR":"' . $persona->rut . '", "RUT":"' . $persona->rut . '","CONTACTO":"' . $persona->getContacto() . '","NOMBRE":"' . limpiaCadena($persona->nombre) . '","EDAD":"' . $persona->edad_total . '","COMUNAL":"' . $persona->nombre_sector_comunal . '","ESTABLECIMIENTO":"' . $persona->nombre_centro_medico . '","SECTOR_INTERNO":"' . $persona->nombre_sector_interno . '","INDICADOR":"' . $persona->getAntropometria($indicador) . '","anios":"' . $persona->edad_anios . '","meses":"' . $persona->edad_meses . '","dias":"' . $persona->edad_dias . '"}';
 
             $total_pacientes++;
         }
 
-        $porcentaje_cobertura = number_format(($total_cobertura*100/$total_pacientes),0,'.','');
+        $porcentaje_cobertura = number_format(($total_cobertura * 100 / $total_pacientes), 0, '.', '');
 
 
-
-
-
-    }else{
-        if($sectores==true){
+    } else {
+        if ($sectores == true) {
             //para todos los centros interno
             $sql1 = "select count(*) as total,
                                     centros_internos.nombre_centro_interno as nombre_base,
@@ -324,43 +321,43 @@ if($comunal==true){
                                     $filtro_edad
                                     and (";
             $a = 0;
-            foreach ($centro_interno as $i => $id_centro_interno){
+            foreach ($centro_interno as $i => $id_centro_interno) {
                 $id_centro_interno = trim($id_centro_interno);
-                if($id_centro_interno!='' && $id_centro_interno != null){
-                    if($a>0){
-                        $sql1.=' or ';
+                if ($id_centro_interno != '' && $id_centro_interno != null) {
+                    if ($a > 0) {
+                        $sql1 .= ' or ';
                     }
                     $sql1 .= "centros_internos.id_centro_interno='$id_centro_interno' ";
                     $a++;
                 }
 
             }
-            $sql1.=') 
+            $sql1 .= ') 
         group by centros_internos.id_centro_interno ';
 
 
             $res1 = mysql_query($sql1);
 
-            $rango .= "{ Rango:'".$estado."'";
-            $rango_cobertura .= "{ Rango:'".$estado."'";
-            while($row1 = mysql_fetch_array($res1)){
-                $nombre_base = $row1['nombre_base']." [".$row1['nombre_establecimiento']."]";
+            $rango .= "{ Rango:'" . $estado . "'";
+            $rango_cobertura .= "{ Rango:'" . $estado . "'";
+            while ($row1 = mysql_fetch_array($res1)) {
+                $nombre_base = $row1['nombre_base'] . " [" . $row1['nombre_establecimiento'] . "]";
                 $id = $row1['id'];
 
-                $total = $row1['total']!='' ?$row1['total']:0; // general de pacientes que califican para el indicador
-                $total_hombres   = $row1['total_hombres']!='' ?$row1['total_hombres']:0;
-                $total_mujeres   = $row1['total_mujeres']!='' ?$row1['total_mujeres']:0;
-                $total_indicador = $row1['total_indicador']!='' ?$row1['total_indicador']:0;
-                $total_cobertura = $row1['total_cobertura']!='' ?$row1['total_cobertura']:0;
+                $total = $row1['total'] != '' ? $row1['total'] : 0; // general de pacientes que califican para el indicador
+                $total_hombres = $row1['total_hombres'] != '' ? $row1['total_hombres'] : 0;
+                $total_mujeres = $row1['total_mujeres'] != '' ? $row1['total_mujeres'] : 0;
+                $total_indicador = $row1['total_indicador'] != '' ? $row1['total_indicador'] : 0;
+                $total_cobertura = $row1['total_cobertura'] != '' ? $row1['total_cobertura'] : 0;
 
-                $porcentaje_indicador = number_format(($total_indicador*100/$total),0,'.','');
-                $porcentaje_cobertura = number_format(($total_cobertura*100/$total),0,'.','');
+                $porcentaje_indicador = number_format(($total_indicador * 100 / $total), 0, '.', '');
+                $porcentaje_cobertura = number_format(($total_cobertura * 100 / $total), 0, '.', '');
 
-                $series .=" { dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } } ,formatFunction: function (value) {return value + ' %';},total_general:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
+                $series .= " { dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } } ,formatFunction: function (value) {return value + ' %';},total_general:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
                 $rango .= ", $id:$porcentaje_indicador";
 
 
-                $series_cobertura .=" \n{ dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } },formatFunction: function (value) {return value + ' %';} ,total_cobertura:$total_cobertura,total_general:$total,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
+                $series_cobertura .= " \n{ dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } },formatFunction: function (value) {return value + ' %';} ,total_cobertura:$total_cobertura,total_general:$total,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
                 $rango_cobertura .= ", $id:$porcentaje_cobertura";
             }
             $rango .= "},";
@@ -376,39 +373,37 @@ if($comunal==true){
                                     $filtro_edad 
                                     AND (";
             $a = 0;
-            foreach ($centro_interno as $i => $id_centro_interno){
+            foreach ($centro_interno as $i => $id_centro_interno) {
                 $id_centro_interno = trim($id_centro_interno);
-                if($id_centro_interno!='' && $id_centro_interno != null){
-                    if($a>0){
-                        $sql2.=' or ';
+                if ($id_centro_interno != '' && $id_centro_interno != null) {
+                    if ($a > 0) {
+                        $sql2 .= ' or ';
                     }
                     $sql2 .= "centros_internos.id_centro_interno='$id_centro_interno' ";
                     $a++;
                 }
 
             }
-            $sql2.=') group by persona.rut';
+            $sql2 .= ') group by persona.rut';
             $res2 = mysql_query($sql2);
             $total_pacientes = 0;
             $total_cobertura = 0;
-            while($row2 = mysql_fetch_array($res2)){
+            while ($row2 = mysql_fetch_array($res2)) {
 
                 $persona = new persona($row2['rut']);
-                if($persona->getAntropometria($indicador)!='PENDIENTE'){
+                if ($persona->getAntropometria($indicador) != 'PENDIENTE') {
                     $total_cobertura++;
                 }
-                if($total_pacientes>0){
-                    $json.=',';
+                if ($total_pacientes > 0) {
+                    $json .= ',';
                 }
-                $json .= '{ "IR":"'.$persona->rut.'", "RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.limpiaCadena($persona->nombre).'","EDAD":"'.$persona->edad_total.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$persona->getAntropometria($indicador).'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
+                $json .= '{ "IR":"' . $persona->rut . '", "RUT":"' . $persona->rut . '","CONTACTO":"' . $persona->getContacto() . '","NOMBRE":"' . limpiaCadena($persona->nombre) . '","EDAD":"' . $persona->edad_total . '","COMUNAL":"' . $persona->nombre_sector_comunal . '","ESTABLECIMIENTO":"' . $persona->nombre_centro_medico . '","SECTOR_INTERNO":"' . $persona->nombre_sector_interno . '","INDICADOR":"' . $persona->getAntropometria($indicador) . '","anios":"' . $persona->edad_anios . '","meses":"' . $persona->edad_meses . '","dias":"' . $persona->edad_dias . '"}';
 
                 $total_pacientes++;
             }
 
 
-
-
-        }else{
+        } else {
             //para todos los sectores internos seleccionados
 
 
@@ -428,42 +423,42 @@ if($comunal==true){
                                     $filtro_edad  
                                     and (";
             $a = 0;
-            foreach ($sector_interno as $i => $id_sector_interno){
+            foreach ($sector_interno as $i => $id_sector_interno) {
                 $id_sector_interno = trim($id_sector_interno);
-                if($id_sector_interno!='' && $id_sector_interno != null){
-                    if($a>0){
-                        $sql1.=' or ';
+                if ($id_sector_interno != '' && $id_sector_interno != null) {
+                    if ($a > 0) {
+                        $sql1 .= ' or ';
                     }
                     $sql1 .= "sectores_centros_internos.id_sector_centro_interno='$id_sector_interno' ";
                     $a++;
                 }
 
             }
-            $sql1.=') 
+            $sql1 .= ') 
         group by sectores_centros_internos.id_sector_centro_interno';
 
             $res1 = mysql_query($sql1);
 
-            $rango .= "{ Rango:'".$estado."' ";
-            $rango_cobertura .= "{ Rango:'".$estado."' ";
-            while($row1 = mysql_fetch_array($res1)){
-                $nombre_base = $row1['nombre_base']." [".$row1['nombre_establecimiento']."]";
+            $rango .= "{ Rango:'" . $estado . "' ";
+            $rango_cobertura .= "{ Rango:'" . $estado . "' ";
+            while ($row1 = mysql_fetch_array($res1)) {
+                $nombre_base = $row1['nombre_base'] . " [" . $row1['nombre_establecimiento'] . "]";
                 $id = $row1['id'];
 
-                $total = $row1['total']!='' ?$row1['total']:0; // general de pacientes que califican para el indicador
-                $total_hombres   = $row1['total_hombres']!='' ?$row1['total_hombres']:0;
-                $total_mujeres   = $row1['total_mujeres']!='' ?$row1['total_mujeres']:0;
-                $total_indicador = $row1['total_indicador']!='' ?$row1['total_indicador']:0;
-                $total_cobertura = $row1['total_cobertura']!='' ?$row1['total_cobertura']:0;
+                $total = $row1['total'] != '' ? $row1['total'] : 0; // general de pacientes que califican para el indicador
+                $total_hombres = $row1['total_hombres'] != '' ? $row1['total_hombres'] : 0;
+                $total_mujeres = $row1['total_mujeres'] != '' ? $row1['total_mujeres'] : 0;
+                $total_indicador = $row1['total_indicador'] != '' ? $row1['total_indicador'] : 0;
+                $total_cobertura = $row1['total_cobertura'] != '' ? $row1['total_cobertura'] : 0;
 
-                $porcentaje_indicador = number_format(($total_indicador*100/$total_cobertura),0,'.','');
-                $porcentaje_cobertura = number_format(($total_cobertura*100/$total),0,'.','');
+                $porcentaje_indicador = number_format(($total_indicador * 100 / $total_cobertura), 0, '.', '');
+                $porcentaje_cobertura = number_format(($total_cobertura * 100 / $total), 0, '.', '');
 
-                $series .=" { dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } } ,formatFunction: function (value) {return value + ' %';},total_general:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
+                $series .= " { dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } } ,formatFunction: function (value) {return value + ' %';},total_general:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
                 $rango .= ", $id:$porcentaje_indicador";
 
 
-                $series_cobertura .=" \n{ dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } },formatFunction: function (value) {return value + ' %';} ,total_cobertura:$total_cobertura,total_general:$total,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
+                $series_cobertura .= " \n{ dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } },formatFunction: function (value) {return value + ' %';} ,total_cobertura:$total_cobertura,total_general:$total,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
                 $rango_cobertura .= ", $id:$porcentaje_cobertura";
             }
             $rango .= "},";
@@ -480,35 +475,34 @@ if($comunal==true){
                                     $filtro_edad 
                                     AND (";
             $a = 0;
-            foreach ($sector_interno as $i => $id_sector_interno){
+            foreach ($sector_interno as $i => $id_sector_interno) {
                 $id_sector_interno = trim($id_sector_interno);
-                if($id_sector_interno!='' && $id_sector_interno != null){
-                    if($a>0){
-                        $sql2.=' or ';
+                if ($id_sector_interno != '' && $id_sector_interno != null) {
+                    if ($a > 0) {
+                        $sql2 .= ' or ';
                     }
                     $sql2 .= "sectores_centros_internos.id_sector_centro_interno='$id_sector_interno' ";
                     $a++;
                 }
 
             }
-            $sql2.=') group by persona.rut';
+            $sql2 .= ') group by persona.rut';
             $res2 = mysql_query($sql2);
             $total_pacientes = 0;
             $total_cobertura = 0;
-            while($row2 = mysql_fetch_array($res2)){
+            while ($row2 = mysql_fetch_array($res2)) {
 
                 $persona = new persona($row2['rut']);
-                if($persona->getAntropometria($indicador)!='PENDIENTE'){
+                if ($persona->getAntropometria($indicador) != 'PENDIENTE') {
                     $total_cobertura++;
                 }
-                if($total_pacientes>0){
-                    $json.=',';
+                if ($total_pacientes > 0) {
+                    $json .= ',';
                 }
-                $json .= '{ "IR":"'.$persona->rut.'", "RUT":"'.$persona->rut.'","CONTACTO":"'.$persona->getContacto().'","NOMBRE":"'.limpiaCadena($persona->nombre).'","EDAD":"'.$persona->edad_total.'","COMUNAL":"'.$persona->nombre_sector_comunal.'","ESTABLECIMIENTO":"'.$persona->nombre_centro_medico.'","SECTOR_INTERNO":"'.$persona->nombre_sector_interno.'","INDICADOR":"'.$persona->getAntropometria($indicador).'","anios":"'.$persona->edad_anios.'","meses":"'.$persona->edad_meses.'","dias":"'.$persona->edad_dias.'"}';
+                $json .= '{ "IR":"' . $persona->rut . '", "RUT":"' . $persona->rut . '","CONTACTO":"' . $persona->getContacto() . '","NOMBRE":"' . limpiaCadena($persona->nombre) . '","EDAD":"' . $persona->edad_total . '","COMUNAL":"' . $persona->nombre_sector_comunal . '","ESTABLECIMIENTO":"' . $persona->nombre_centro_medico . '","SECTOR_INTERNO":"' . $persona->nombre_sector_interno . '","INDICADOR":"' . $persona->getAntropometria($indicador) . '","anios":"' . $persona->edad_anios . '","meses":"' . $persona->edad_meses . '","dias":"' . $persona->edad_dias . '"}';
 
                 $total_pacientes++;
             }
-
 
 
         }
@@ -516,25 +510,25 @@ if($comunal==true){
 }
 
 
-$estado = $estado=='' ? 'PENDIENTE':$estado;
+$estado = $estado == '' ? 'PENDIENTE' : $estado;
 
 ?>
 <script type="text/javascript">
     $(document).ready(function () {
         // prepare chart data as an array
-        var  sampleData = [
+        var sampleData = [
             <?php echo $rango; ?>
         ];
         var toolTips_DNI = function (value, itemIndex, serie, group, categoryValue, categoryAxis) {
             var dataItem = sampleData[itemIndex];
 
             return '<DIV style="text-align:left">' +
-                '<b>' +serie.displayText+'</b><br />'+
-                'Porcentaje: <b>' +value+'%</b><br />'+
-                'Datos: <b>' +serie.total_indicador+'/'+serie.total_general+'</b><br />'+
-                'Hombres: <b>' +serie.hombres+' ('+parseInt(serie.hombres*100/serie.total_general) +'%)</b><br />'+
-                'Mujeres: <b>' +serie.mujeres+' ('+parseInt(serie.mujeres*100/serie.total_general) +'%)</b><br />'+
-                'Total Pacientes: <b>' +serie.total_pacientes+'</b><br />'+
+                '<b>' + serie.displayText + '</b><br />' +
+                'Porcentaje: <b>' + value + '%</b><br />' +
+                'Datos: <b>' + serie.total_indicador + '/' + serie.total_general + '</b><br />' +
+                'Hombres: <b>' + serie.hombres + ' (' + parseInt(serie.hombres * 100 / serie.total_general) + '%)</b><br />' +
+                'Mujeres: <b>' + serie.mujeres + ' (' + parseInt(serie.mujeres * 100 / serie.total_general) + '%)</b><br />' +
+                'Total Pacientes: <b>' + serie.total_pacientes + '</b><br />' +
                 '</DIV>';
         };
         var settings1 = {
@@ -542,8 +536,8 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
             description: '<?php echo $rango_edad_texto; ?>',
             enableAnimations: true,
             showLegend: true,
-            padding: { left: 5, top: 5, right: 5, bottom: 5 },
-            titlePadding: { left: 90, top: 0, right: 0, bottom: 10 },
+            padding: {left: 5, top: 5, right: 5, bottom: 5},
+            titlePadding: {left: 90, top: 0, right: 0, bottom: 10},
             source: sampleData,
             xAxis:
                 {
@@ -573,18 +567,18 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                 ]
         };
         //COBERTURA OBSERVADA
-        var  data_cobertura = [
+        var data_cobertura = [
             <?php echo $rango_cobertura; ?>
         ];
         var toolTips_COBERTURA = function (value, itemIndex, serie, group, categoryValue, categoryAxis) {
             var dataItem = sampleData[itemIndex];
 
             return '<DIV style="text-align:left">' +
-                '<b>' +serie.displayText+'</b><br />'+
-                'Porcentaje: <b>' +value+'%</b><br />'+
-                'Datos: <b>' +serie.total_cobertura+'/'+serie.total_general+'</b><br />'+
-                'Hombres: <b>' +serie.hombres+' ('+parseInt(serie.hombres*100/serie.total_general) +'%)</b><br />'+
-                'Mujeres: <b>' +serie.mujeres+' ('+parseInt(serie.mujeres*100/serie.total_general) +'%)</b><br />'+
+                '<b>' + serie.displayText + '</b><br />' +
+                'Porcentaje: <b>' + value + '%</b><br />' +
+                'Datos: <b>' + serie.total_cobertura + '/' + serie.total_general + '</b><br />' +
+                'Hombres: <b>' + serie.hombres + ' (' + parseInt(serie.hombres * 100 / serie.total_general) + '%)</b><br />' +
+                'Mujeres: <b>' + serie.mujeres + ' (' + parseInt(serie.mujeres * 100 / serie.total_general) + '%)</b><br />' +
                 '</DIV>';
         };
         var setting_cobertura = {
@@ -592,8 +586,8 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
             description: '<?php echo $rango_edad_texto; ?>',
             enableAnimations: true,
             showLegend: true,
-            padding: { left: 5, top: 5, right: 5, bottom: 5 },
-            titlePadding: { left: 90, top: 0, right: 0, bottom: 10 },
+            padding: {left: 5, top: 5, right: 5, bottom: 5},
+            titlePadding: {left: 90, top: 0, right: 0, bottom: 10},
             source: data_cobertura,
             xAxis:
                 {
@@ -642,39 +636,39 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                 datatype: "json",
                 datafields: [
 
-                    { name: 'IR', type: 'string' },
-                    { name: 'RUT', type: 'string' },
-                    { name: 'NOMBRE', type: 'string' },
-                    { name: 'CONTACTO', type: 'string' },
-                    { name: 'EDAD', type: 'string' },
-                    { name: 'anios', type: 'string' },
-                    { name: 'meses', type: 'string' },
-                    { name: 'dias', type: 'string' },
-                    { name: 'COMUNAL', type: 'string' },
-                    { name: 'ESTABLECIMIENTO', type: 'string' },
-                    { name: 'SECTOR_INTERNO', type: 'string' },
-                    { name: 'INDICADOR', type: 'string' },
+                    {name: 'IR', type: 'string'},
+                    {name: 'RUT', type: 'string'},
+                    {name: 'NOMBRE', type: 'string'},
+                    {name: 'CONTACTO', type: 'string'},
+                    {name: 'EDAD', type: 'string'},
+                    {name: 'anios', type: 'string'},
+                    {name: 'meses', type: 'string'},
+                    {name: 'dias', type: 'string'},
+                    {name: 'COMUNAL', type: 'string'},
+                    {name: 'ESTABLECIMIENTO', type: 'string'},
+                    {name: 'SECTOR_INTERNO', type: 'string'},
+                    {name: 'INDICADOR', type: 'string'},
 
                 ],
                 localdata: data
             };
-        var cellLinkRegistroTarjetero = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-            return ''+
-                '<a onclick="loadMenu_Infantil(\'menu_1\',\'registro_tarjetero\',\''+value+'\')"  style="color: white;" >' +
+        var cellLinkRegistroTarjetero = function (row, columnfield, value, defaulthtml, columnproperties, rowdata) {
+            return '' +
+                '<a onclick="loadMenu_Infantil(\'menu_1\',\'registro_tarjetero\',\'' + value + '\')"  style="color: white;" >' +
                 '<i class="mdi-hardware-keyboard-return"></i> IR' +
                 '</a>';
         }
-        var cellIrClass = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-            return  "eh-open_principal white-text cursor_cell_link center";
+        var cellIrClass = function (row, columnfield, value, defaulthtml, columnproperties, rowdata) {
+            return "eh-open_principal white-text cursor_cell_link center";
 
         }
-        var cellEdadAnios = function(row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-            var anios = parseInt(value/12);
-            var meses = value%12;
-            if(anios===0){
-                return  "<div style='padding-left: 10px;'>"+meses+" Meses</div>";
-            }else{
-                return  "<div style='padding-left: 10px;'>"+anios + " Años "+meses+" Meses</div>";
+        var cellEdadAnios = function (row, columnfield, value, defaulthtml, columnproperties, rowdata) {
+            var anios = parseInt(value / 12);
+            var meses = value % 12;
+            if (anios === 0) {
+                return "<div style='padding-left: 10px;'>" + meses + " Meses</div>";
+            } else {
+                return "<div style='padding-left: 10px;'>" + anios + " Años " + meses + " Meses</div>";
             }
 
         }
@@ -684,7 +678,7 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
         $("#table_grid").jqxGrid(
             {
                 width: '98%',
-                height:400,
+                height: 400,
                 source: dataAdapter,
                 columnsresize: true,
                 sortable: true,
@@ -697,14 +691,17 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                 showaggregates: true,
                 selectionmode: 'multiplecellsextended',
                 columns: [
-                    { text: 'IR', dataField: 'IR',
-                        cellclassname:cellIrClass,
-                        cellsrenderer:cellLinkRegistroTarjetero,
-                        cellsalign: 'center', width: 100 },
-                    { text: 'RUT', dataField: 'RUT', cellsalign: 'right', width: 150 },
-                    { text: 'NOMBRE COMPLETO', dataField: 'NOMBRE' ,
-                            width: 350,
-                            aggregates: ['count'],aggregatesrenderer: function (aggregates, column, element, summaryData) {
+                    {
+                        text: 'IR', dataField: 'IR',
+                        cellclassname: cellIrClass,
+                        cellsrenderer: cellLinkRegistroTarjetero,
+                        cellsalign: 'center', width: 100
+                    },
+                    {text: 'RUT', dataField: 'RUT', cellsalign: 'right', width: 150},
+                    {
+                        text: 'NOMBRE COMPLETO', dataField: 'NOMBRE',
+                        width: 350,
+                        aggregates: ['count'], aggregatesrenderer: function (aggregates, column, element, summaryData) {
                             var renderstring = "<div  style='float: left; width: 100%; height: 100%;'>";
                             $.each(aggregates, function (key, value) {
                                 var name = 'Total Pacientes';
@@ -712,20 +709,45 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                             });
                             renderstring += "</div>";
                             return renderstring;
-                        }},
-                    { text: 'AÑO', datafield: 'anios', width: 80 ,filtertype: 'checkedlist', cellsalign: 'center'},
-                    { text: 'MES', datafield: 'meses', width: 80 ,filtertype: 'checkedlist', cellsalign: 'center'},
-                    { text: 'DIA', datafield: 'dias', width: 80 ,filtertype: 'checkedlist', cellsalign: 'center'},
-                    { text: 'CONTACTO', dataField: 'CONTACTO', cellsalign: 'left', width: 250},
-                    { text: '<?php echo $TITULO_GRAFICO; ?>', dataField: 'INDICADOR', cellsalign: 'left', width: 250,filtertype: 'checkedlist' },
-                    { text: 'S. COMUNAL', dataField: 'COMUNAL', cellsalign: 'left', width: 250,filtertype: 'checkedlist' },
-                    { text: 'ESTABLECIMIENTO', dataField: 'ESTABLECIMIENTO', cellsalign: 'left', width: 250,filtertype: 'checkedlist' },
-                    { text: 'SECTOR_INTERNO', dataField: 'SECTOR_INTERNO', cellsalign: 'left', width: 250,filtertype: 'checkedlist' },
+                        }
+                    },
+                    {text: 'AÑO', datafield: 'anios', width: 80, filtertype: 'checkedlist', cellsalign: 'center'},
+                    {text: 'MES', datafield: 'meses', width: 80, filtertype: 'checkedlist', cellsalign: 'center'},
+                    {text: 'DIA', datafield: 'dias', width: 80, filtertype: 'checkedlist', cellsalign: 'center'},
+                    {text: 'CONTACTO', dataField: 'CONTACTO', cellsalign: 'left', width: 250},
+                    {
+                        text: '<?php echo $TITULO_GRAFICO; ?>',
+                        dataField: 'INDICADOR',
+                        cellsalign: 'left',
+                        width: 250,
+                        filtertype: 'checkedlist'
+                    },
+                    {
+                        text: 'S. COMUNAL',
+                        dataField: 'COMUNAL',
+                        cellsalign: 'left',
+                        width: 250,
+                        filtertype: 'checkedlist'
+                    },
+                    {
+                        text: 'ESTABLECIMIENTO',
+                        dataField: 'ESTABLECIMIENTO',
+                        cellsalign: 'left',
+                        width: 250,
+                        filtertype: 'checkedlist'
+                    },
+                    {
+                        text: 'SECTOR_INTERNO',
+                        dataField: 'SECTOR_INTERNO',
+                        cellsalign: 'left',
+                        width: 250,
+                        filtertype: 'checkedlist'
+                    },
 
                 ]
             });
         $("#excelExport").click(function () {
-            $("#table_grid").jqxGrid('exportdata', 'xls', 'grid', true,null,true, 'excel/save-file.php');
+            $("#table_grid").jqxGrid('exportdata', 'xls', 'grid', true, null, true, 'excel/save-file.php');
 
         });
         $("#print").click(function () {
@@ -739,14 +761,12 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                     '<meta charset="utf-8" />' +
                     '</head>' +
                     '<body>' + content + '</body></html>';
-            try
-            {
+            try {
                 document.write(pageContent);
                 document.close();
                 newWindow.print();
                 newWindow.close();
-            }
-            catch (error) {
+            } catch (error) {
             }
         });
         $("#print_grid").click(function () {
@@ -769,20 +789,24 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
 </script>
 <style type="text/css">
     @media only screen
-    and (min-device-width : 320px)
-    and (max-device-width : 800px) { /* Aquí van los estilos */
-        #tabla_grilla{
+    and (min-device-width: 320px)
+    and (max-device-width: 800px) {
+        /* Aquí van los estilos */
+        #tabla_grilla {
             display: none;;
         }
-        button{
+
+        button {
             display: none;;
         }
     }
-    a{
+
+    a {
         border: none;
         text-decoration: none;
     }
-    a:hover{
+
+    a:hover {
         background-color: #438eb9;
     }
 
@@ -800,16 +824,16 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                                         where $indicador!='' 
                                         group by $indicador";
                     $res3 = mysql_query($sql3);
-                    while($row3 = mysql_fetch_array($res3)){
+                    while ($row3 = mysql_fetch_array($res3)) {
                         ?>
                         <option><?php echo $row3[$indicador]; ?></option>
                         <?php
                     }
                     ?>
-<!--                    <option value="">PENDIENTE</option>-->
+                    <!--                    <option value="">PENDIENTE</option>-->
                 </select>
                 <script type="text/javascript">
-                    $(function(){
+                    $(function () {
                         $('#estado').jqxDropDownList({
                             width: '100%',
                             theme: 'eh-open',
@@ -826,13 +850,13 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                         var indicador = '<?php echo $indicador_estado ?>';
 
                         loadGif_graficos('header_graficos');
-                        $.post('graficos/barra/ANTROPOMETRIA_GENERAL.php',{
-                            sector_comunal:sector_comunal,
-                            centro_interno:centro_interno,
-                            sector_interno:sector_interno,
-                            indicador:indicador,
-                            estado:estado,
-                        },function(data){
+                        $.post('graficos/barra/ANTROPOMETRIA_GENERAL.php', {
+                            sector_comunal: sector_comunal,
+                            centro_interno: centro_interno,
+                            sector_interno: sector_interno,
+                            indicador: indicador,
+                            estado: estado,
+                        }, function (data) {
                             $("#header_graficos").html('');
                             $("#div_indicador_grafico").html(data);
                             //updateHeadEscritorio(sector_comunal,centro_interno,sector_interno);
@@ -854,13 +878,13 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
             </button>
         </div>
     </div>
-<!--    <div class="card-panel">-->
-<!--        <div class="row">-->
-<!--            <div class="col l12 m12 s12">-->
-<!--                <div id='dni_cobertura' style="width: 100%;height: 500px;"></div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <!--    <div class="card-panel">-->
+    <!--        <div class="row">-->
+    <!--            <div class="col l12 m12 s12">-->
+    <!--                <div id='dni_cobertura' style="width: 100%;height: 500px;"></div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
     <div class="card-panel" id="tabla_grilla">
         <div class="row">
             <div class="col l6 m12 s12">
@@ -868,7 +892,7 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                     <i class="mdi-action-print left"></i>
                     IMPRIMIR TABLA
                 </button>
-                <button class="btn" id="excelExport" >
+                <button class="btn" id="excelExport">
                     <i class="mdi-action-open-in-new left"></i>
                     EXPORTAR EXCEL
                 </button>
