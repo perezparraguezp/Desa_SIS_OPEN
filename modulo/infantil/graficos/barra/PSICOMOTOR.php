@@ -101,7 +101,6 @@ if (in_array('TODOS', $sector_comunal)) {
 
 $rango = '';
 $series = '';
-
 if ($comunal == true) {
     //para todos los sectores comunales
     $sql1 = "select 'GENERAL' as nombre_base,count(*) as total
