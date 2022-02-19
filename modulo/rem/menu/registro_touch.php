@@ -38,7 +38,7 @@ $rut = $_SESSION['rut'];
                     alert('Se ha producido un error, vuelva a intentarlo');
                 }
 
-        });
+            });
     }
 </script>
 <style type="text/css">

@@ -9,3 +9,4 @@ $tipo = $_POST['tipo'];
 $profesional = new profesional($id_profesional);
 
 $profesional->updateDatosProfesional('tipo_contrato'.$tipo);
+$profesional->updateDatosProfesional('tipo_contrato'.$tipo);

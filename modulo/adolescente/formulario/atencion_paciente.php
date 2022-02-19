@@ -143,9 +143,10 @@ if($paciente->getModuloPaciente('m_adolescente')=='NO'){
                 }
             });
         }
-        function boxAgendamiento(){
+        function boxAgendamiento(modulo){
             $.post('../default/modal/agenda/proxima_cita.php',{
-                rut:'<?php echo $rut; ?>'
+                rut:'<?php echo $rut; ?>',
+                modulo:modulo
             },function(data){
                 if(data !== 'ERROR_SQL'){
                     $("#modal").html(data);
@@ -214,7 +215,7 @@ if($paciente->getModuloPaciente('m_adolescente')=='NO'){
                 <li style="margin-left: 30px;" onclick="load_ad_riesgos('<?php echo $rut; ?>')">AREAS DE RIESGO</li>
                 <li style="margin-left: 30px;" onclick="load_ad_riesgos_gine('<?php echo $rut; ?>')">GINECO UROLOGICO</li>
                 <li style="margin-left: 30px;" onclick="load_ad_consejerias('<?php echo $rut; ?>')">CONSEJERIAS</li>
-                <li style="background-color: #0a73a7;cursor: pointer;color: white" onclick="boxAgendamiento()">FINALIZAR ATENCIÓN</li>
+                <li style="background-color: #0a73a7;cursor: pointer;color: white" onclick="boxAgendamiento('ADOLESCENTE')">FINALIZAR ATENCIÓN</li>
             </ul>
             <div>
                 <!-- ANTECEDENTES -->
@@ -249,7 +250,7 @@ if($paciente->getModuloPaciente('m_adolescente')=='NO'){
             </div>
             <div class="col l9">
                 <input type="button" style="width: 100%;"
-                       onclick="boxAgendamiento()"
+                       onclick="boxAgendamiento('ADOLESCENTE')"
                        class="btn-large eh-open_principal" VALUE="FINALIZAR ATENCIÓN" />
             </div>
         </div>

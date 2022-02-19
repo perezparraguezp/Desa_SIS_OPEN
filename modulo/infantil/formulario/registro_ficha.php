@@ -175,9 +175,10 @@ if($paciente->getModuloPaciente('m_infancia')=='NO'){
                     loadInfoPaciente('<?php echo $rut; ?>');
                 });
         }
-        function boxAgendamiento(){
+        function boxAgendamiento(modulo){
             $.post('../default/modal/agenda/proxima_cita.php',{
-                rut:'<?php echo $rut; ?>'
+                rut:'<?php echo $rut; ?>',
+                modulo:modulo
             },function(data){
                 if(data !== 'ERROR_SQL'){
                     $("#modal").html(data);
@@ -266,7 +267,7 @@ if($paciente->getModuloPaciente('m_infancia')=='NO'){
                 <li onclick="historial_psicomotor('<?php echo $rut; ?>');">DESARROLLO PSICOMOTOR</li>
                 <li onclick="historial_dental('<?php echo $rut; ?>')">PROGRAMA DENTAL</li>
                 <li onclick="loadFormPendientes('<?php echo $rut; ?>');">PENDIENTES</li>
-                <li style="background-color: #0a73a7;cursor: pointer;color: white" onclick="boxAgendamiento()">FINALIZAR ATENCIÓN</li>
+                <li style="background-color: #0a73a7;cursor: pointer;color: white" onclick="boxAgendamiento('INFANTIL')">FINALIZAR ATENCIÓN</li>
             </ul>
             <div>
                 <!-- DATOS DE NACIMIENTO -->
@@ -304,7 +305,7 @@ if($paciente->getModuloPaciente('m_infancia')=='NO'){
             </div>
             <div class="col l9">
                 <input type="button" style="width: 100%;"
-                       onclick="boxAgendamiento()"
+                       onclick="boxAgendamiento('INFANTIL')"
                        class="btn-large eh-open_principal" VALUE="FINALIZAR ATENCIÓN" />
             </div>
         </div>

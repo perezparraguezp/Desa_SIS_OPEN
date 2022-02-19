@@ -157,9 +157,10 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
             });
         }
 
-        function boxAgendamiento(){
+        function boxAgendamiento(modulo){
             $.post('../default/modal/agenda/proxima_cita.php',{
-                rut:'<?php echo $rut; ?>'
+                rut:'<?php echo $rut; ?>',
+                modulo:modulo
             },function(data){
                 if(data !== 'ERROR_SQL'){
                     $("#modal").html(data);
@@ -228,7 +229,7 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
                 <li style="margin-left: 30px;text-align: center" onclick="load_sm_antecedentes2('<?php echo $rut; ?>')">ANTECEDENTES</li>
                 <li style="margin-left: 30px;text-align: center" onclick="('<?php echo $rut; ?>')">DIAGNOSTICOS</li>
                 <li style="margin-left: 30px;" onclick="load_sm_farmacos('<?php echo $rut; ?>')">FARMACOS</li>
-                <li style="background-color: #0a73a7;cursor: pointer;color: white" onclick="boxAgendamiento()">FINALIZAR ATENCIÓN</li>
+                <li style="background-color: #0a73a7;cursor: pointer;color: white" onclick="boxAgendamiento('SALUD MENTAL')">FINALIZAR ATENCIÓN</li>
             </ul>
             <div>
                 <!-- ACTIVIDAD -->
@@ -263,7 +264,7 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
             </div>
             <div class="col l9">
                 <input type="button" style="width: 100%;"
-                       onclick="boxAgendamiento()"
+                       onclick="boxAgendamiento('SALUD MENTAL')"
                        class="btn-large eh-open_principal" VALUE="FINALIZAR ATENCIÓN" />
             </div>
         </div>

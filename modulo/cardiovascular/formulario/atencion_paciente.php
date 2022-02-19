@@ -138,13 +138,15 @@ if($paciente->getModuloPaciente('m_cardiovascular')=='NO'){
                 }
             });
         }
-        function boxAgendamiento(){
+
+        function boxAgendamiento(modulo){
             $.post('../default/modal/agenda/proxima_cita.php',{
-                rut:'<?php echo $rut; ?>'
+                rut:'<?php echo $rut; ?>',
+                modulo:modulo
             },function(data){
                 if(data !== 'ERROR_SQL'){
                     $("#modal").html(data);
-                    $("#modal").css({'width':'800px'});
+                    $("#modal").css({'width':'950px'});
                     document.getElementById("btn-modal").click();
                 }
             });
@@ -210,7 +212,7 @@ if($paciente->getModuloPaciente('m_cardiovascular')=='NO'){
                 <li style="">PARAMETROS</li>
                 <li>DIABETES MELLITUS</li>
                 <li onclick="load_PendientesPerfil('<?php echo $rut; ?>')">PENDIENTES</li>
-                <li style="background-color: #0a73a7;cursor: pointer;color: white" onclick="boxAgendamiento()">FINALIZAR ATENCIÓN</li>
+                <li style="background-color: #0a73a7;cursor: pointer;color: white" onclick="boxAgendamiento('CARDIOVASCULAR')">FINALIZAR ATENCIÓN</li>
             </ul>
 
             <div>
@@ -241,7 +243,7 @@ if($paciente->getModuloPaciente('m_cardiovascular')=='NO'){
             </div>
             <div class="col l9">
                 <input type="button" style="width: 100%;"
-                       onclick="boxAgendamiento()"
+                       onclick="boxAgendamiento('CARDIOVASCULAR')"
                        class="btn-large eh-open_principal" VALUE="FINALIZAR ATENCIÓN" />
             </div>
         </div>

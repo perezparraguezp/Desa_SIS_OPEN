@@ -1,10 +1,13 @@
 <?php
 include '../../../../php/config.php';
 include '../../../../php/objetos/persona.php';
-
+session_start();
 $myId = $_SESSION['id_usuario'];
+$id_establecimiento = $_SESSION['id_establecimiento'];
 $rut = $_POST['rut'];
 $p = new persona($rut);
+
+$modulo = $_POST['modulo'];
 
 $meses = Array("","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
 ?>
@@ -19,6 +22,38 @@ $meses = Array("","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
         </div>
         <hr class="row" />
         <div class="row center-align" style="font-size: 0.8em;margin-bottom: 0px;">
+            <div class="col l12 card-panel">
+                <div class="row orange center-align" style="padding: 5px;">
+                    MODULO
+                </div>
+                <div class="row">
+                    <select id="modulo" name="modulo">
+                        <?php
+
+                        $sql = "select * from modulos_ehopen 
+                                                inner join modulos_establecimiento using(id_modulo)
+                                                where id_establecimiento='$id_establecimiento' 
+                                                and estado_modulo='ACTIVO' 
+                                                order by id_modulo";
+                        $res = mysql_query($sql);
+                        $i = 0;
+                        while($row = mysql_fetch_array($res)){
+                            $select = '';
+                            if($modulo == $row['nombre_modulo']){
+                                $select = 'selected="selected"';
+                            }else{
+                                $select = '';
+                            }
+                            ?>
+                            <option <?php echo $select; ?>><?php echo $row['nombre_modulo']; ?></option>
+                            <?php
+                            $i++;
+
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
             <div class="col l4 card-panel">
                 <div class="row orange center-align" style="padding: 5px;">
                     AÑO
@@ -73,6 +108,7 @@ $meses = Array("","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
                                     group by tipo_contrato ";
                         $res = mysql_query($sql);
                         while($row = mysql_fetch_array($res)) {
+
                             ?>
                             <option><?php echo $row['tipo_contrato']; ?></option>
                             <?php
@@ -84,7 +120,10 @@ $meses = Array("","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
                     </script>
                 </div>
             </div>
+
+
         </div>
+
         <hr class="row" />
         <div class="row">
             <div class="col l6">
@@ -110,9 +149,10 @@ $meses = Array("","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
             </div>
         </div>
         <div class="row deep-purple lighten-4">
-            <div class="col l4 m4 s4">FECHA</div>
+            <div class="col l3 m3 s3" style="text-align: right;padding-right: 20px;">FECHA</div>
             <div class="col l4 m4 s4">PROFESIONAL</div>
-            <div class="col l4 m4 s4">FINALIZAR</div>
+            <div class="col l3 m3 s3">MODULO</div>
+            <div class="col l2 m4 s2">FINALIZAR</div>
         </div>
         <div style="height: 100px;overflow-y: scroll;">
             <?php
@@ -136,10 +176,11 @@ $meses = Array("","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
                         }
                         ?>
                     </div>
-                    <div class="col l3 m3 s3"><?php echo $meses[$row['mes_proximo_control']].'/'.$row['anio_proximo_control']; ?></div>
+                    <div class="col l2 m2 s2" style="text-align: center"><?php echo $meses[$row['mes_proximo_control']].'/'.$row['anio_proximo_control']; ?></div>
                     <div class="col l4 m4 s4"><?php echo $row['profesional']; ?></div>
-                    <div class="col l4 m4 s4">
-                        <input type="button" value="CITA REALIZADA" onclick="finalizarCitaSalud('<?php echo $row['id_agendamiento']; ?>')" />
+                    <div class="col l3 m3 s3"><?php echo 'SIS '.$row['modulo']; ?></div>
+                    <div class="col l2 m4 s2">
+                        <input type="button" value="REALIZADA" onclick="finalizarCitaSalud('<?php echo $row['id_agendamiento']; ?>')" />
                     </div>
                 </div>
                 <?php
@@ -192,6 +233,7 @@ $meses = Array("","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"
     }
     function noAgendar(){
         // volverFichaSearch();
+        $("#modal").css({'width':'950px'});
         document.getElementById("close_modal").click();
     }
 </script>

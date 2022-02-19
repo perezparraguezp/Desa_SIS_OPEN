@@ -20,19 +20,19 @@ $mensaje = 'SE HA RESTABLECIDO SU CONTRASEÑA, FAVOR INTENTARLO NUEVAMENTE <br /
 $mensaje .= '<hr /><br />EQUIPO EH-OPEN<BR />';
 $remitente = 'soporte@eh-open.com';
 $reply = 'soporte@eh-open.com';
-//enviarMail($persona->email,$ASUNTO,$mensaje,'soporte@eh-open.com','soporte@eh-open.com',$titulo);
+enviarMail($persona->email,$ASUNTO,$mensaje,'soporte@eh-open.com','soporte@eh-open.com',$titulo);
 ?>
-<script type="text/javascript">
-    $(function () {
-        $.post('https://sis-open.com/mail.php',{
-            remitente:'<?php echo $remitente; ?>',
-            reply:'<?php echo $remitente; ?>',
-            asunto:'<?php echo $ASUNTO; ?>',
-            titulo:'<?php echo $titulo; ?>',
-            mensaje:'<?php echo $mensaje; ?>',
-            para:'<?php echo $persona->email; ?>',
-        },function(data){
-            alertaLateral(data);
-        });
-    });
-</script>
+<!--<script type="text/javascript">-->
+<!--    $(function () {-->
+<!--        $.post('https://sis-open.com/mail.php',{-->
+<!--            remitente:'--><?php //echo $remitente; ?>//',
+//            reply:'<?php //echo $remitente; ?>//',
+//            asunto:'<?php //echo $ASUNTO; ?>//',
+//            titulo:'<?php //echo $titulo; ?>//',
+//            mensaje:'<?php //echo $mensaje; ?>//',
+//            para:'<?php //echo $persona->email; ?>//',
+//        },function(data){
+//            alertaLateral(data);
+//        });
+//    });
+//</script>
