@@ -94,6 +94,10 @@ $rut = $_SESSION['rut'];
                 <option value="A05">A05 - INGRESOS Y EGRESOS POR CONDICIÓN Y PROBLEMAS DE SALUD</option>
                 <option value="A06">A06 - PROGRAMA DE SALUD MENTAL ATENCIÓN PRIMARIA Y ESPECIALIDADES</option>
                 <option value="A08">A08 - ATENCIÓN DE URGENCIA</option>
+                <option value="A09">A09 - ATENCIÓN DE SALUD BUCAL EN LA RED ASISTENCIAL </option>
+                <option value="A11">A11 - TRANSMISIÓN VERTICAL MATERNO INFANTIL </option>
+                <option value="A23">A23 - IRA, ERA Y MIXTAS EN APS </option>
+                <option value="A27">A27 - EDUCACIÓN PARA LA SALUD </option>
             </select>
         </div>
     </div>
