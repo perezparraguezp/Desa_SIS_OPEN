@@ -2,16 +2,8 @@
 ?>
 <script type="text/javascript">
     $(function(){
-        $.post('formulario/base.php',{
-        },function(data){
-            $("#info_paciente").html(data);
-        });
+
         $('#edad').jqxDropDownList({
-            width: '100%',
-            theme: 'eh-open',
-            height: '25px'
-        });
-        $('#tipo_control').jqxDropDownList({
             width: '100%',
             theme: 'eh-open',
             height: '25px'
@@ -36,49 +28,13 @@
         font-size: 0.7em;
     }
 </style>
-<style type="text/css">
-
-    .settings-section
-    {
-
-        height: 45px;
-        width: 100%;
-
-    }
-
-    .settings-label
-    {
-        font-weight: bold;
-        font-family: Sans-Serif;
-        font-size: 14px;
-        margin-left: 14px;
-        margin-top: 15px;
-        float: left;
-    }
-
-    .settings-setter
-    {
-        float: right;
-        margin-right: 14px;
-        margin-top: 8px;
-    }
-</style>
 <div class="container" id="formulario_final" >
     <div class="row">
-        <div class="col l5">
-            <div class="container eh-open_fondo" id="info_paciente">
-                <strong>DATOS PACIENTE</strong>
-            </div>
-        </div>
-        <div class="col l7">
+        <div class="col l12">
             <div class="container" id="info_evaluacion">
                 <div class="row">
-                    <div class="col l4">TIPO CONTROL</div>
-                    <div class="col l8">
-                        <select name="tipo_control" id="tipo_control">
-                            <option>DE SALUD</option>
-                        </select>
-                    </div>
+                    <input type="hidden" name="tipo_control" id="tipo_control" value="DE SALUD" />
+
                 </div>
                 <div class="row">
                     <div class="col l4">TIPO DE LUGAR DE CONTROL</div>
@@ -163,35 +119,7 @@
                         </script>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col l12">
-                        <div class="settings-section">
-                            <div class="settings-label">BENEFICIARIO</div>
-                            <div class="settings-setter">
-                                <div id="beneficiario"></div>
-                                <input type="hidden" name="input_beneficiario" id="input_beneficiario" value="NO" />
-                            </div>
-                        </div>
-                        <script type="text/javascript">
-                            $(function(){
-                                $('#beneficiario').jqxSwitchButton({
-                                    height: 27, width: 81,
-                                    theme: 'eh-open',
-                                    onLabel:'SI',
-                                    offLabel:'NO',
-                                });
-                                $('#beneficiario').on('change',function(){
-                                    if($('#beneficiario').val()===true){
-                                        $("#input_beneficiario").val('SI');
-                                    }else{
-                                        $("#input_beneficiario").val('NO');
-                                    }
-                                });
 
-                            });
-                        </script>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col l12">
                         <div class="settings-section">

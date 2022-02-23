@@ -80,11 +80,11 @@ $tipo_profesional = $profesional->tipo_profesional;
                     <div class="col l8">
                         <select name="sub_seccion" id="sub_seccion">
                             <option value="" selected="selected" disabled="disabled">INDICAR OPCIÓN</option>
-                            <option value="A1">APLICACIÓN Y RESULTADOS DE PAUTA BREVE</option>
-                            <option value="A2">RESULTADOS DE LA APLICACIÓN DE ESCALA DE EVALUACIÓN DEL DESARROLLO PSICOMOTOR</option>
-                            <option value="A3">NIÑOS Y NIÑAS CON REZAGO, DÉFICIT U OTRA VULNERABILIDAD DERIVADOS A ALGUNA MODALIDAD DE ESTIMULACIÓN EN LA PRIMERA EVALUACIÓN</option>
-                            <option value="A4">RESULTADOS DE LA APLICACIÓN DE PROTOCOLO NEUROSENSORIAL</option>
-                            <option value="A5">LACTANCIA MATERNA EN MENORES CONTROLADOS</option>
+                            <option value="A1">PAUTA BREVE</option>
+                            <option value="A2">EEDP Y TEPSI</option>
+                            <option value="A3">DERIVADOS MODALIDAD DE ESTIMULACION</option>
+                            <option value="A4">PROTOCOLO NEUROSENSORIAL</option>
+                            <option value="A5">LACTANCIA MATERNA</option>
                         </select>
                     </div>
                 </div>

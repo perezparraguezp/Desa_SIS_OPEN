@@ -4,6 +4,33 @@ session_start();
 $rut = $_SESSION['rut'];
 
 ?>
+
+<style type="text/css">
+
+    .settings-section
+    {
+
+        height: 45px;
+        width: 100%;
+
+    }
+    .settings-label
+    {
+        font-weight: bold;
+        font-family: Sans-Serif;
+        font-size: 14px;
+        margin-left: 14px;
+        margin-top: 15px;
+        float: left;
+    }
+
+    .settings-setter
+    {
+        float: right;
+        margin-right: 14px;
+        margin-top: 8px;
+    }
+</style>
 <script type="text/javascript">
     $(function(){
 
@@ -17,6 +44,13 @@ $rut = $_SESSION['rut'];
             });
         });
     });
+    function loadFormulario(seccion){
+        var form = $("#formulario").val();
+        $.post('formulario/'+form+'/'+seccion+'.php',{
+        },function(data){
+            $("#div_seccion").html(data);
+        });
+    }
     function buscarDatosPersona(rut,column_sql,name_input){
         $.post('db/buscar/datos_persona.php',{
             rut:rut,
@@ -44,6 +78,10 @@ $rut = $_SESSION['rut'];
 <style type="text/css">
     #form_base .row{
         margin-top: 10px;
+    }
+    .card_cuadrada{
+        height: 80px;
+        width: 100%;
     }
 </style>
 <form class="container" id="form_base">
@@ -75,13 +113,156 @@ $rut = $_SESSION['rut'];
                         <option value="A04">A04 - APLICACIÓN Y RESULTADOS DE ESCALAS DE EVALUACIÓN</option>
                     </select></label>
             </div>
-        </div>
+            <div class="row">
+                <label for="rut">RUT
+                    <input type="text" name="rut" id="rut" />
+                </label>
+            </div>
+            <div class="row">
+                <label for="nombre">NOMBRE COMPLETO
+                    <input type="text" name="nombre" id="nombre" />
+                </label>
+            </div>
+            <div class="row">
+                <div class="col l6 l6 l6 tooltipped" data-position="bottom" data-delay="50" data-tooltip="MASCULINO">
+                    <div class="row center-align">
+                        <label class="white-text" for="sexo_m"  >
+                            <img src="../../images/rem/masculino.png" height="50px" />
+                        </label><br />
+                        <input type="radio"
+                               style="position: relative;visibility: visible;left: 0px;"
+                               id="sexo_m" name="sexo" value="M" checked="checked" >
+                    </div>
+                </div>
+                <div class="col l6 l6 l6 tooltipped" data-position="bottom" data-delay="50" data-tooltip="FEMENINO">
+                    <div class="row center-align">
+                        <label class="white-text" for="sexo_f">
+                            <img src="../../images/rem/femenino.png" height="50px" />
+                        </label><br />
+                        <input type="radio"
+                               style="position: relative;visibility: visible;left: 0px;"
+                               id="sexo_f" name="sexo" value="F" >
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l12">
+                    <label>BENEFICIARIO
+                        <div class="settings-section">
+                            <div class="settings-label"></div>
+                            <div class="settings-setter">
+                                <div id="beneficiario"></div>
+                                <input type="hidden" name="input_beneficiario" id="input_beneficiario" value="NO" />
+                            </div>
+                        </div></label>
+                    <script type="text/javascript">
+                        $(function(){
+                            $('#beneficiario').jqxSwitchButton({
+                                height: 27, width: 81,
+                                theme: 'eh-open',
+                                onLabel:'SI',
+                                offLabel:'NO',
+                            });
+                            $('#beneficiario').on('change',function(){
+                                if($('#beneficiario').val()===true){
+                                    $("#input_beneficiario").val('SI');
+                                }else{
+                                    $("#input_beneficiario").val('NO');
+                                }
+                            });
 
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l12">
+                    <label>PUEBLO ORIGINARIO
+                        <div class="settings-section">
+                            <div class="settings-label"></div>
+                            <div class="settings-setter">
+                                <div id="pueblo"></div>
+                                <input type="hidden" name="input_pueblo" id="input_pueblo" value="NO" />
+                            </div>
+                        </div></label>
+                    <script type="text/javascript">
+                        $(function(){
+                            $('#pueblo').jqxSwitchButton({
+                                height: 27, width: 81,
+                                theme: 'eh-open',
+                                onLabel:'SI',
+                                offLabel:'NO',
+                            });
+                            $('#pueblo').on('change',function(){
+                                if($('#pueblo').val()===true){
+                                    $("#input_pueblo").val('SI');
+                                }else{
+                                    $("#input_pueblo").val('NO');
+                                }
+                            });
+
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l12">
+                    <label>POBLACIÓN MIGRANTE
+                        <div class="settings-section">
+                            <div class="settings-label"></div>
+                            <div class="settings-setter">
+                                <div id="migrante"></div>
+                                <input type="hidden" name="input_migrante" id="input_migrante" value="NO" />
+                            </div>
+                        </div></label>
+                    <script type="text/javascript">
+                        $(function(){
+                            $('#migrante').jqxSwitchButton({
+                                height: 27, width: 81,
+                                theme: 'eh-open',
+                                onLabel:'SI',
+                                offLabel:'NO',
+                            });
+                            $('#migrante').on('change',function(){
+                                if($('#migrante').val()===true){
+                                    $("#input_migrante").val('SI');
+                                }else{
+                                    $("#input_migrante").val('NO');
+                                }
+                            });
+
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
         <div class="col l10"
              style="padding: 20px;">
             <div class="row" id="id_seccion"></div>
             <div class="row" id="div_seccion"></div>
         </div>
     </div>
-
 </form>
+<script type="text/javascript">
+    $(function(){
+        $("#rut").on('change',function(){
+            $('#rut').Rut({
+                on_error: function() {
+                    $(this).focus();
+                    //alert('Rut incorrecto');
+                    alertaLateral('RUT INCORRECTO');
+                    $('#rut').val('');
+                    $('#rut').focus();
+                    $('#rut').css({
+                        "border": "solid red 1px"
+                    });
+                },
+                on_success: function (){
+                    var rut = $('#rut').val();
+                    buscarDatosPersona(rut,'nombre_completo','nombre');
+                    // buscarDatosPersona(rut,'sexo','sexo');
+                }
+            });
+        });
+    })
+</script>
