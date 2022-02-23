@@ -1,22 +1,18 @@
+<?php
+?>
 <script type="text/javascript">
     $(function () {
         $.post('formulario/base.php', {}, function (data) {
             $("#info_paciente").html(data);
         });
-        $('#sub_seccion').jqxDropDownList({
+        $('#edad').jqxDropDownList({
             width: '100%',
             theme: 'eh-open',
             height: '25px'
         });
-        $("#sub_seccion").on('change', function () {
-            var seccion = $("#sub_seccion").val();
-            $.post('formulario/A23/' + seccion + '.php', {}, function (data) {
-                $("#div_sub_seccion").html(data);
-            });
-        })
-
     })
 </script>
+
 <style type="text/css">
     #formulario_final .container {
         border: solid 1px rgba(204, 204, 221, 0.86);
@@ -52,29 +48,53 @@
     <div class="row">
         <div class="col l5">
             <div class="container eh-open_fondo" id="info_paciente">
-                <strong>ATENCIÓN POR PROFESIONAL</strong>
-                <p>asasasa sa sa sakaksjkj kskjsa.</p>
+                <strong>DATOS PACIENTE</strong>
             </div>
         </div>
         <div class="col l7">
             <div class="container" id="info_evaluacion">
                 <div class="row">
-                    <div class="col l4">SUB-SECCIÓN</div>
+                    <div class="col l4">GRUPO OBJETIVO</div>
                     <div class="col l8">
-                        <select name="sub_seccion" id="sub_seccion">
-                            <option value="" selected="selected" disabled="disabled">INDICAR OPCIÓN</option>
-                            <option value="B1">SÍNDROME BRONQUIAL OBSTRUCTIVO RECURRENTE (SBOR)</option>
-                            <option value="B2">ASMA BRONQUIAL</option>
-                            <option value="B3">ENFERMEDAD PULMONAR OBSTRUCTIVA CRÓNICA (EPOC)</option>
-                            <option value="B4">DISPLASIA BRONCOPULMONAR</option>
-                            <option value="B5">FIBROSIS QUÍSTICA</option>
-                            <option value="B6">OXIGENO DEPENDIENTE</option>
-                            <option value="B7">ASISTENCIA VENTILATORIA NO INVASIVA O INVASIVA</option>
-                            <option value="B8">OTRAS RESPIRATORIAS CRÓNICAS</option>
+                        <select name="tipo_atencion" id="tipo_atencion">
+                            <option>Pacientes</option>
+                            <option>Familiares/Cuidadores de los pacientes </option>
+                            <option>Funcionarios</option>
+
                         </select>
+                        <script type="text/javascript">
+                            $(function () {
+                                $('#tipo_atencion').jqxDropDownList({
+                                    width: '100%',
+                                    theme: 'eh-open',
+                                    height: '25px'
+                                });
+
+                            });
+                        </script>
                     </div>
                 </div>
-                <div id="div_sub_seccion">
+                <div class="row">
+                    <div class="col l4">RANGO EDADES</div>
+                    <div class="col l8">
+                        <select name="edad" id="edad">
+                            <option>0 A 4</option>
+                            <option>5 A 9</option>
+                            <option>10 A 14</option>
+                            <option>15 A 19</option>
+                            <option>20 A 24</option>
+                            <option>25 A 39</option>
+                            <option>40 A 44</option>
+                            <option>45 A 49</option>
+                            <option>50 y 54</option>
+                            <option>55 y 59</option>
+                            <option>60 y 64</option>
+                            <option>65 y 69</option>
+                            <option>70 y 74</option>
+                            <option>75 y 79</option>
+                            <option>80 y MAS</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col l6">
@@ -97,5 +117,8 @@
         </div>
     </div>
 </div>
+
+
+
 
 

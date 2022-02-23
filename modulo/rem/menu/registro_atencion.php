@@ -98,6 +98,7 @@ $rut = $_SESSION['rut'];
                 <option value="A11">A11 - TRANSMISIÓN VERTICAL MATERNO INFANTIL </option>
                 <option value="A23">A23 - IRA, ERA Y MIXTAS EN APS </option>
                 <option value="A27">A27 - EDUCACIÓN PARA LA SALUD </option>
+                <option value="A32">A32 - ACTIVIDADES DE SALUD PRIORIZADAS, CONTEXTO DE EMERGENCIA SANITARIA </option>
             </select>
         </div>
     </div>
