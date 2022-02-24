@@ -44,10 +44,12 @@ $rut = $_SESSION['rut'];
             });
         });
     });
-    function loadFormulario(seccion){
+    function loadFormulario_touch(seccion){
         var form = $("#formulario").val();
         $.post('formulario/'+form+'/'+seccion+'.php',{
         },function(data){
+            $(".card_cuadrada").removeClass('red lighten-2');
+            $("#"+seccion).addClass('red lighten-2');
             $("#div_seccion").html(data);
         });
     }
@@ -82,6 +84,10 @@ $rut = $_SESSION['rut'];
     .card_cuadrada{
         height: 50px;
         width: 100%;
+        padding-top: 10px;
+        text-align: center;
+        font-size: 0.7em;
+        margin-left: 5px;
     }
 </style>
 <form class="container" id="form_base">

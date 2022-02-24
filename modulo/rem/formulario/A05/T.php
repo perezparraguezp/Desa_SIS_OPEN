@@ -2,10 +2,6 @@
 ?>
 <script type="text/javascript">
     $(function(){
-        $.post('formulario/base.php',{
-        },function(data){
-            $("#info_paciente").html(data);
-        });
         $('#edad').jqxDropDownList({
             width: '100%',
             theme: 'eh-open',
@@ -50,32 +46,8 @@
 </style>
 <div class="container" id="formulario_final" >
     <div class="row">
-        <div class="col l5">
-            <div class="container eh-open_fondo" id="info_paciente">
-                <strong>DATOS PACIENTE</strong>
-            </div>
-        </div>
-        <div class="col l7">
+        <div class="col l12">
             <div class="container" id="info_evaluacion">
-                <div class="row">
-                    <div class="col l4">CONDICIÓN</div>
-                    <div class="col l8">
-                        <select name="tipo_atencion" id="tipo_atencion">
-                            <option>INGRESO AL PROGRAMA</option>
-                            <option>INASISTENTE</option>
-                        </select>
-                        <script type="text/javascript">
-                            $(function(){
-                                $('#tipo_atencion').jqxDropDownList({
-                                    width: '100%',
-                                    theme: 'eh-open',
-                                    height: '25px'
-                                });
-
-                            });
-                        </script>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col l4">RANGO EDADES</div>
                     <div class="col l8">
@@ -97,6 +69,26 @@
                         </select>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col l4">CONDICIÓN</div>
+                    <div class="col l8">
+                        <select name="tipo_atencion" id="tipo_atencion">
+                            <option>INGRESO AL PROGRAMA</option>
+                            <option>INASISTENTE</option>
+                        </select>
+                        <script type="text/javascript">
+                            $(function(){
+                                $('#tipo_atencion').jqxDropDownList({
+                                    width: '100%',
+                                    theme: 'eh-open',
+                                    height: '25px'
+                                });
+
+                            });
+                        </script>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col l12">
                         <div class="settings-section">

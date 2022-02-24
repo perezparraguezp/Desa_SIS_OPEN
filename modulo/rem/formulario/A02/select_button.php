@@ -1,15 +1,15 @@
 
 <div class="row">
-    <div class="card col l2 eh-open_principal card_cuadrada" style="padding: 20px;margin-left: 5px;" onclick="loadFormulario('A')">
+    <div id="A" class="card col l2 eh-open_principal card_cuadrada" style="padding-top: 10px;margin-left: 5px;" onclick="loadFormulario_touch('A')">
         REALIZADO POR UN PROFESIONAL
     </div>
-    <div class="card col l2 eh-open_principal card_cuadrada" style="padding: 20px;margin-left: 5px;" onclick="loadFormulario('B')">
+    <div id="B" class="card col l2 eh-open_principal card_cuadrada" style="padding-top: 10px;margin-left: 5px;" onclick="loadFormulario_touch('B')">
         SEGUN RESULTADO DEL ESTADO NUTRICIONAL
     </div>
-    <div class="card col l2 eh-open_principal card_cuadrada" style="padding: 20px;margin-left: 5px;" onclick="loadFormulario('C')">
+    <div id="C" class="card col l2 eh-open_principal card_cuadrada" style="padding-top: 10px;margin-left: 5px;" onclick="loadFormulario_touch('C')">
         SEGUN ESTADO DE SALUD
     </div>
-    <div class="card col l2 eh-open_principal card_cuadrada" style="padding: 20px;margin-left: 5px;" onclick="loadFormulario('D')">
+    <div id="D" class="card col l2 eh-open_principal card_cuadrada" style="padding-top: 10px;margin-left: 5px;" onclick="loadFormulario_touch('D')">
         SEGUN ESTADO DE SALUD (LABORATORIO)
     </div>
 </div>

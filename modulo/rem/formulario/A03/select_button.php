@@ -1,24 +1,24 @@
 
 <div class="row">
-    <div class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding: 20px;margin-left: 5px;" onclick="loadFormulario('A')">
+    <div id="A" class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding-top: 10px;margin-left: 5px;" onclick="loadFormulario_touch('A')">
         APLICACIÓN DE INSTRUMENTO Y RESULTADO EN EL NIÑO (A)
     </div>
-    <div class="card col l2 eh-open_principal card_cuadrada" style="padding: 20px;margin-left: 5px;font-size: 0.7em;" onclick="loadFormulario('B')">
+    <div id="B" class="card col l2 eh-open_principal card_cuadrada" style="padding-top: 10px;margin-left: 5px;font-size: 0.7em;" onclick="loadFormulario_touch('B')">
         EVALUACIÓN, APLICACIÓN Y RESULTADOS DE ESCALAS EN  LA MUJER
     </div>
-    <div class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding: 20px;margin-left: 5px;" onclick="loadFormulario('C')">
+    <div id="C" class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding-top: 10px;margin-left: 5px;" onclick="loadFormulario_touch('C')">
         RESULTADOS DE LA EVALUACIÓN DEL ESTADO NUTRICIONAL DEL ADOLESCENTE
     </div>
-    <div class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding: 20px;margin-left: 5px;" onclick="loadFormulario('D')">
+    <div id="D" class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding-top: 10px;margin-left: 5px;" onclick="loadFormulario_touch('D')">
         OTRAS EVALUACIONES, APLICACIONES Y RESULTADOS DE ESCALAS EN TODAS LAS EDADES
     </div>
-    <div class="card col l2 eh-open_principal card_cuadrada" style="padding: 20px;margin-left: 5px;font-size: 0.7em;" onclick="loadFormulario('E')">
+    <div id="E" class="card col l2 eh-open_principal card_cuadrada" style="padding-top: 10px;margin-left: 5px;font-size: 0.7em;" onclick="loadFormulario_touch('E')">
         APLICACIÓN DE PAUTA DETECCIÓN DE FACTORES DE RIESGO PSICOSOCIAL INFANTIL
     </div>
-    <div class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding: 20px;margin-left: 5px;" onclick="loadFormulario('F')">
+    <div id="F" class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding-top: 10px;margin-left: 5px;" onclick="loadFormulario_touch('F')">
         TAMIZAJE TRASTORNO ESPECTRO AUTISTA  (MCHAT)
     </div>
-    <div class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding: 20px;margin-left: 5px;" onclick="loadFormulario('G')">
+    <div id="G" class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding-top: 10px;margin-left: 5px;" onclick="loadFormulario_touch('G')">
         APLICACIÓN ESCALA MRS EN MUJERES EN EDAD DE CLIMATERIO
     </div>
 </div>
