@@ -37,7 +37,7 @@ $rut = $_SESSION['rut'];
         $('.tooltipped').tooltip({delay: 50});
         $("#formulario").on('change',function(){
             var opcion = $("#formulario").val();
-            $.post('formulario/'+opcion+'/select_button.php',{
+            $.post('formulario_touch/'+opcion+'/select_button.php',{
             },function(data){
                 $("#id_seccion").html(data);
 
@@ -46,7 +46,7 @@ $rut = $_SESSION['rut'];
     });
     function loadFormulario_touch(seccion){
         var form = $("#formulario").val();
-        $.post('formulario/'+form+'/'+seccion+'.php',{
+        $.post('formulario_touch/'+form+'/'+seccion+'.php',{
         },function(data){
             $(".card_cuadrada").removeClass('red lighten-2');
             $("#"+seccion).addClass('red lighten-2');
