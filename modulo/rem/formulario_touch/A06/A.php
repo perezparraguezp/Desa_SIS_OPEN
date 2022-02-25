@@ -1,7 +1,5 @@
-
-
 <script type="text/javascript">
-    $(function(){
+    $(function () {
 
         $('#edad').jqxDropDownList({
             width: '100%',
@@ -11,23 +9,21 @@
     })
 </script>
 <style type="text/css">
-    #formulario_final .container{
-        border: solid 1px rgba(204,204,221,0.86);
+    #formulario_final .container {
+        border: solid 1px rgba(204, 204, 221, 0.86);
         padding: 10px;
         font-size: 0.7em;
     }
 </style>
 <style type="text/css">
-    .settings-section
-    {
+    .settings-section {
 
         height: 45px;
         width: 100%;
 
     }
 
-    .settings-label
-    {
+    .settings-label {
         font-weight: bold;
         font-family: Sans-Serif;
         font-size: 14px;
@@ -36,14 +32,13 @@
         float: left;
     }
 
-    .settings-setter
-    {
+    .settings-setter {
         float: right;
         margin-right: 14px;
         margin-top: 8px;
     }
 </style>
-<div class="container" id="formulario_final" >
+<div class="container" id="formulario_final">
     <div class="row">
 
         <div class="col l12">
@@ -54,21 +49,21 @@
                             <div class="settings-label">CONSULTA POR EMERGENCIA</div>
                             <div class="settings-setter">
                                 <div id="emergencia"></div>
-                                <input type="hidden" name="input_emergencia" id="input_emergencia" value="NO" />
+                                <input type="hidden" name="input_emergencia" id="input_emergencia" value="NO"/>
                             </div>
                         </div>
                         <script type="text/javascript">
-                            $(function(){
+                            $(function () {
                                 $('#emergencia').jqxSwitchButton({
                                     height: 27, width: 81,
                                     theme: 'eh-open',
-                                    onLabel:'SI',
-                                    offLabel:'NO',
+                                    onLabel: 'SI',
+                                    offLabel: 'NO',
                                 });
-                                $('#emergencia').on('change',function(){
-                                    if($('#emergencia').val()===true){
+                                $('#emergencia').on('change', function () {
+                                    if ($('#emergencia').val() === true) {
                                         $("#input_emergencia").val('SI');
-                                    }else{
+                                    } else {
                                         $("#input_emergencia").val('NO');
                                     }
                                 });
@@ -81,9 +76,9 @@
                     <div class="col l4">EDAD</div>
                     <div class="col l8">
                         <select name="edad" id="edad">
-                            <option>0 A 4 </option>
-                            <option>5 A 9 </option>
-                            <option>10 A 14 </option>
+                            <option>0 A 4</option>
+                            <option>5 A 9</option>
+                            <option>10 A 14</option>
                             <option>15 A 19</option>
                             <option>20 A 24</option>
                             <option>25 A 29</option>
@@ -111,7 +106,7 @@
                             <option>INTERV. GRUPAL</option>
                         </select>
                         <script type="text/javascript">
-                            $(function(){
+                            $(function () {
                                 $('#tipo_control').jqxDropDownList({
                                     width: '100%',
                                     theme: 'eh-open',
@@ -131,7 +126,7 @@
                             <option>TELECONSULTA</option>
                         </select>
                         <script type="text/javascript">
-                            $(function(){
+                            $(function () {
                                 $('#tipo_consultaria').jqxDropDownList({
                                     width: '100%',
                                     theme: 'eh-open',
@@ -151,7 +146,7 @@
                             <option>ADOLESCENTE</option>
                         </select>
                         <script type="text/javascript">
-                            $(function(){
+                            $(function () {
                                 $('#tipo_paciente').jqxDropDownList({
                                     width: '100%',
                                     theme: 'eh-open',
@@ -171,7 +166,7 @@
                             <option>ADOLESCENTE</option>
                         </select>
                         <script type="text/javascript">
-                            $(function(){
+                            $(function () {
                                 $('#pasmi').jqxDropDownList({
                                     width: '100%',
                                     theme: 'eh-open',
@@ -185,24 +180,24 @@
                 <div class="row">
                     <div class="col l12">
                         <div class="settings-section">
-                            <div class="settings-label">Niños, Niñas, Adolescentes y Jóvenes Población  SENAME</div>
+                            <div class="settings-label">Niños, Niñas, Adolescentes y Jóvenes Población SENAME</div>
                             <div class="settings-setter">
                                 <div id="sename"></div>
-                                <input type="hidden" name="input_sename" id="input_sename" value="NO" />
+                                <input type="hidden" name="input_sename" id="input_sename" value="NO"/>
                             </div>
                         </div>
                         <script type="text/javascript">
-                            $(function(){
+                            $(function () {
                                 $('#sename').jqxSwitchButton({
                                     height: 27, width: 81,
                                     theme: 'eh-open',
-                                    onLabel:'SI',
-                                    offLabel:'NO',
+                                    onLabel: 'SI',
+                                    offLabel: 'NO',
                                 });
-                                $('#sename').on('change',function(){
-                                    if($('#sename').val()===true){
+                                $('#sename').on('change', function () {
+                                    if ($('#sename').val() === true) {
                                         $("#input_sename").val('SI');
-                                    }else{
+                                    } else {
                                         $("#input_sename").val('NO');
                                     }
                                 });
@@ -217,21 +212,21 @@
                             <div class="settings-label">PLAN CUIDADO INTEGRAL (PCI)</div>
                             <div class="settings-setter">
                                 <div id="plan_pci"></div>
-                                <input type="hidden" name="input_plan_pci" id="input_plan_pci" value="NO" />
+                                <input type="hidden" name="input_plan_pci" id="input_plan_pci" value="NO"/>
                             </div>
                         </div>
                         <script type="text/javascript">
-                            $(function(){
+                            $(function () {
                                 $('#plan_pci').jqxSwitchButton({
                                     height: 27, width: 81,
                                     theme: 'eh-open',
-                                    onLabel:'SI',
-                                    offLabel:'NO',
+                                    onLabel: 'SI',
+                                    offLabel: 'NO',
                                 });
-                                $('#plan_pci').on('change',function(){
-                                    if($('#plan_pci').val()===true){
+                                $('#plan_pci').on('change', function () {
+                                    if ($('#plan_pci').val() === true) {
                                         $("#input_plan_pci").val('SI');
-                                    }else{
+                                    } else {
                                         $("#input_plan_pci").val('NO');
                                     }
                                 });
@@ -246,21 +241,21 @@
                             <div class="settings-label">DEMENCIA</div>
                             <div class="settings-setter">
                                 <div id="demencia"></div>
-                                <input type="hidden" name="input_demencia" id="input_demencia" value="NO" />
+                                <input type="hidden" name="input_demencia" id="input_demencia" value="NO"/>
                             </div>
                         </div>
                         <script type="text/javascript">
-                            $(function(){
+                            $(function () {
                                 $('#demencia').jqxSwitchButton({
                                     height: 27, width: 81,
                                     theme: 'eh-open',
-                                    onLabel:'SI',
-                                    offLabel:'NO',
+                                    onLabel: 'SI',
+                                    offLabel: 'NO',
                                 });
-                                $('#demencia').on('change',function(){
-                                    if($('#demencia').val()===true){
+                                $('#demencia').on('change', function () {
+                                    if ($('#demencia').val() === true) {
                                         $("#input_demencia").val('SI');
-                                    }else{
+                                    } else {
                                         $("#input_demencia").val('NO');
                                     }
                                 });
@@ -278,14 +273,14 @@
                                style="width: 100%;"
                                onclick="loadMenu_REM('menu_2','registro_atencion','')"
                                class="btn-large red lighten-2 white-text"
-                               value="CANCELAR" />
+                               value="CANCELAR"/>
                     </div>
                     <div class="col l6">
                         <input type="button"
                                style="width: 100%;"
                                onclick="insertRegistro()"
                                class="btn-large eh-open_principal"
-                               value="GUARDAR" />
+                               value="GUARDAR"/>
                     </div>
                 </div>
             </div>
