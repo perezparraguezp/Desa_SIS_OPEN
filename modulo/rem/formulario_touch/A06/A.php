@@ -18,7 +18,6 @@
     }
 </style>
 <style type="text/css">
-
     .settings-section
     {
 

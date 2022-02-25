@@ -2,10 +2,6 @@
 ?>
 <script type="text/javascript">
     $(function(){
-        $.post('formulario/base.php',{
-        },function(data){
-            $("#info_paciente").html(data);
-        });
         $('#edad').jqxDropDownList({
             width: '100%',
             theme: 'eh-open',
@@ -50,12 +46,7 @@
 </style>
 <div class="container" id="formulario_final" >
     <div class="row">
-        <div class="col l5">
-            <div class="container eh-open_fondo" id="info_paciente">
-                <strong>DATOS PACIENTE</strong>
-            </div>
-        </div>
-        <div class="col l7">
+        <div class="col l12">
             <div class="container" id="info_evaluacion">
                 <div class="row">
                     <div class="col l4">TIPO ATENCION</div>
@@ -102,35 +93,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col l12">
-                        <div class="settings-section">
-                            <div class="settings-label">BENEFICIARIO</div>
-                            <div class="settings-setter">
-                                <div id="beneficiario"></div>
-                                <input type="hidden" name="input_beneficiario" id="input_beneficiario" value="NO" />
-                            </div>
-                        </div>
-                        <script type="text/javascript">
-                            $(function(){
-                                $('#beneficiario').jqxSwitchButton({
-                                    height: 27, width: 81,
-                                    theme: 'eh-open',
-                                    onLabel:'SI',
-                                    offLabel:'NO',
-                                });
-                                $('#beneficiario').on('change',function(){
-                                    if($('#beneficiario').val()===true){
-                                        $("#input_beneficiario").val('SI');
-                                    }else{
-                                        $("#input_beneficiario").val('NO');
-                                    }
-                                });
 
-                            });
-                        </script>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col l12">
                         <div class="settings-section">
