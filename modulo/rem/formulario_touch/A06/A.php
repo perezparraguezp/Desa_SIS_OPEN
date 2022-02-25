@@ -48,6 +48,35 @@
 
         <div class="col l12">
             <div class="container" id="info_evaluacion">
+                <div class="row red lighten-2 ">
+                    <div class="col l12">
+                        <div class="settings-section">
+                            <div class="settings-label">CONSULTA POR EMERGENCIA</div>
+                            <div class="settings-setter">
+                                <div id="emergencia"></div>
+                                <input type="hidden" name="input_emergencia" id="input_emergencia" value="NO" />
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $(function(){
+                                $('#emergencia').jqxSwitchButton({
+                                    height: 27, width: 81,
+                                    theme: 'eh-open',
+                                    onLabel:'SI',
+                                    offLabel:'NO',
+                                });
+                                $('#emergencia').on('change',function(){
+                                    if($('#emergencia').val()===true){
+                                        $("#input_emergencia").val('SI');
+                                    }else{
+                                        $("#input_emergencia").val('NO');
+                                    }
+                                });
+
+                            });
+                        </script>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col l4">EDAD</div>
                     <div class="col l8">
@@ -134,6 +163,26 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col l4">PASMI</div>
+                    <div class="col l8">
+                        <select name="pasmi" id="pasmi">
+                            <option>NO APLICA</option>
+                            <option>ADULTO</option>
+                            <option>ADOLESCENTE</option>
+                        </select>
+                        <script type="text/javascript">
+                            $(function(){
+                                $('#pasmi').jqxDropDownList({
+                                    width: '100%',
+                                    theme: 'eh-open',
+                                    height: '25px'
+                                });
+
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col l12">
                         <div class="settings-section">
                             <div class="settings-label">Niños, Niñas, Adolescentes y Jóvenes Población  SENAME</div>
@@ -155,6 +204,35 @@
                                         $("#input_sename").val('SI');
                                     }else{
                                         $("#input_sename").val('NO');
+                                    }
+                                });
+
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l12">
+                        <div class="settings-section">
+                            <div class="settings-label">PLAN CUIDADO INTEGRAL (PCI)</div>
+                            <div class="settings-setter">
+                                <div id="plan_pci"></div>
+                                <input type="hidden" name="input_plan_pci" id="input_plan_pci" value="NO" />
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $(function(){
+                                $('#plan_pci').jqxSwitchButton({
+                                    height: 27, width: 81,
+                                    theme: 'eh-open',
+                                    onLabel:'SI',
+                                    offLabel:'NO',
+                                });
+                                $('#plan_pci').on('change',function(){
+                                    if($('#plan_pci').val()===true){
+                                        $("#input_plan_pci").val('SI');
+                                    }else{
+                                        $("#input_plan_pci").val('NO');
                                     }
                                 });
 
@@ -191,6 +269,7 @@
                         </script>
                     </div>
                 </div>
+
                 <div id="div_sub_seccion">
                 </div>
                 <div class="row">
