@@ -1,10 +1,22 @@
 <div class="row">
-    <div id="A2" class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding-top: 10px;margin-left: 5px;"
+    <div id="A" class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding-top: 10px;margin-left: 5px;"
          onclick="loadFormulario_touch('A')">
-        CONSULTAS Y CONTROLES ODONTOLÓGICOS REALIZADOS EN APS
+        CONSULTAS Y CONTROLES
     </div>
-    <div id="LLAMADAS" class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding-top: 10px;margin-left: 5px;"
-         onclick="loadFormulario_touch('LLAMADAS')">
-        REGISTRO DE LLAMADAS
+    <div id="B" class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding-top: 10px;margin-left: 5px;"
+         onclick="loadFormulario_touch('B')">
+        ACTIVIDADES DE ODONTOLOGÍA
+    </div>
+    <div id="G1" class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding-top: 10px;margin-left: 5px;"
+         onclick="loadFormulario_touch('G1')">
+        SEMBRANDO SONRISAS
+    </div>
+    <div id="I" class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding-top: 10px;margin-left: 5px;"
+         onclick="loadFormulario_touch('I')">
+        ESPECIALIDADES EN APS
+    </div>
+    <div id="J" class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding-top: 10px;margin-left: 5px;"
+         onclick="loadFormulario_touch('J')">
+        PARAMÉDICO DENTAL Y/O HIGIENISTAS DENTALES
     </div>
 </div>
