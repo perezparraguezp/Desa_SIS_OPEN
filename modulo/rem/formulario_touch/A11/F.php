@@ -2,10 +2,6 @@
 ?>
 <script type="text/javascript">
     $(function(){
-        $.post('formulario/base.php',{
-        },function(data){
-            $("#info_paciente").html(data);
-        });
 
     })
 </script>
@@ -46,12 +42,7 @@
 </style>
 <div class="container" id="formulario_final" >
     <div class="row">
-        <div class="col l5">
-            <div class="container eh-open_fondo" id="info_paciente">
-                <strong>DATOS PACIENTE</strong>
-            </div>
-        </div>
-        <div class="col l7">
+        <div class="col l12">
             <div class="container" id="info_evaluacion">
                 <div class="row">
                     <div class="col l4">ACTIVIDAD</div>
