@@ -1,8 +1,6 @@
 <script type="text/javascript">
     $(function () {
-        $.post('formulario/base.php', {}, function (data) {
-            $("#info_paciente").html(data);
-        });
+        
         $('#sub_seccion').jqxDropDownList({
             width: '100%',
             theme: 'eh-open',
