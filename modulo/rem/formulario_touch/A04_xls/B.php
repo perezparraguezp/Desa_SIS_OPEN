@@ -56,8 +56,8 @@ $rango_seccion = [
     "registro_rem.edad like '75 A 79'",
     "registro_rem.edad like '80 %'",
     'valor like \'%"beneficiario":"SI"%\'',
-    'valor like \'%"pueblo":"SI"%\'',
-    'valor like \'%"migrante":"SI"%\'',
+    "pueblo='SI' ",
+    "migrante='SI' ",
     'valor like \'%"sename":"SI"%\'',
     'valor like \'%"invierno":"SI"%\'',
 
@@ -171,7 +171,8 @@ $FILA_HEAD_SQL = [
             $total_hombre = 0;
             $total_mujer = 0;
             foreach ($rango_seccion as $c => $filtro_columna){
-                $sql = "select count(*) as total from registro_rem  
+                if($c<18){
+                    $sql = "select count(*) as total from registro_rem  
                         where fecha_registro>='$fecha_inicio' 
                           and fecha_registro<='$fecha_termino'
                           and sexo='M'
@@ -179,30 +180,48 @@ $FILA_HEAD_SQL = [
                         and $filtro_fila 
                         and $filtro_columna ";
 
-                $row = mysql_fetch_array(mysql_query($sql));
-                if($row){
-                    $total = $row['total'];
-                }else{
-                    $total = 0;
-                }
-                $fila .= '<td>'.$total.'</td>';
-                $total_hombre+=$total;
+                    $row = mysql_fetch_array(mysql_query($sql));
+                    if($row){
+                        $total = $row['total'];
+                    }else{
+                        $total = 0;
+                    }
+                    $fila .= '<td>'.$total.'</td>';
+                    $total_hombre+=$total;
 
-                $sql = "select count(*) as total from registro_rem  
+                    $sql = "select count(*) as total from registro_rem  
                         where fecha_registro>='$fecha_inicio' 
                           and fecha_registro<='$fecha_termino'
                           and sexo='F'
                         $filtro_lugar
                         and $filtro_fila 
                         and $filtro_columna ";
-                $row = mysql_fetch_array(mysql_query($sql));
-                if($row){
-                    $total = $row['total'];
+                    $row = mysql_fetch_array(mysql_query($sql));
+                    if($row){
+                        $total = $row['total'];
+                    }else{
+                        $total = 0;
+                    }
+                    $fila .= '<td>'.$total.'</td>';
+                    $total_mujer+=$total;
                 }else{
-                    $total = 0;
+                    $sql = "select count(*) as total from registro_rem  
+                        where fecha_registro>='$fecha_inicio' 
+                          and fecha_registro<='$fecha_termino'
+                        $filtro_lugar
+                        and $filtro_fila 
+                        and $filtro_columna ";
+
+                    $row = mysql_fetch_array(mysql_query($sql));
+                    if($row){
+                        $total = $row['total'];
+                    }else{
+                        $total = 0;
+                    }
+                    $fila .= '<td>'.$total.'</td>';
+
+
                 }
-                $fila .= '<td>'.$total.'</td>';
-                $total_mujer+=$total;
 
             }
 
