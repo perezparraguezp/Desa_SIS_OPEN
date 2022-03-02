@@ -32,14 +32,11 @@ if($lugar!='TODOS'){
 }else{
     $filtro_lugar = '';
 }
-$filtro_lugar .= "and tipo_form='$form' and valor like '%sub_seccion%:%$seccion%' ";
+$filtro_lugar .= "and tipo_form='$form' and valor like '%seccion%:%$seccion%' ";
 
 
 //rango de meses en dias
 $rango_seccion = [
-    "(registro_rem.sexo='M' or registro_rem.sexo='F')",
-    "registro_rem.sexo='M'",
-    "registro_rem.sexo='F'",
     "registro_rem.edad like 'MENOR 1'",
     "registro_rem.edad like '1 A 4'",
     "registro_rem.edad like '5 A 9'",
@@ -66,12 +63,8 @@ $rango_seccion = [
 
 ];
 $rango_seccion_text = [
-    'AMBOS SEXOS', //menor 1 MES
-    'HOMBRES', //menor 1 MES
-    'MUJERES', //menor 1 MES
-    'MENOR DE 1',//
+    'MENOR 1',//
     '1 A 4',//
-    '5 A 9',//
     '5 A 9',//
     '10 A 14',//
     '15 A 19',//
@@ -91,20 +84,10 @@ $rango_seccion_text = [
 ];
 
 $FILA_HEAD = [
-    'LACTANCIA MATERNA EXCLUSIVA',
-    'LACTANCIA MATERNA / FORMULA LACTEA',
-    'FORMULA LACTEA',
-    'LACTANCIA MATERNA MAS SOLIDOS',
-    'LACTANCIA MATERNA/FORMULA LACTEA MAS SOLIDOS',
-    'FORMULA LACTEA MAS SOLIDOS',
+    'IRA ALTA',
 ];
 $FILA_HEAD_SQL = [
-    "valor like '%tipo_alimentacion%:%1%'",
-    "valor like '%tipo_alimentacion%:%2%'",
-    "valor like '%tipo_alimentacion%:%3%'",
-    "valor like '%tipo_alimentacion%:%4%'",
-    "valor like '%tipo_alimentacion%:%5%'",
-    "valor like '%tipo_alimentacion%:%6%'",
+    'valor like \'%"tipo_atencion":"IRA ALTA"%\'',
 ];
 
 
@@ -139,7 +122,7 @@ $FILA_HEAD_SQL = [
             <td colspan="3" rowspan="2">
                 TOTAL
             </td>
-            <td colspan="10">
+            <td colspan="36">
                 POR DE EDAD (en años)
             </td>
             <td rowspan="3">Beneficiarios</td>
@@ -211,38 +194,9 @@ $FILA_HEAD_SQL = [
 
             echo '<tr>';
             echo '<td>'.$FILA.'</td>';
-
             echo '<td>'.($total_mujer+$total_hombre).'</td>';
             echo '<td>'.$total_hombre.'</td>';
             echo '<td>'.$total_mujer.'</td>';
-
-            $sql = "select count(*) as total from registro_rem  
-                        where fecha_registro>='$fecha_inicio' 
-                          and fecha_registro<='$fecha_termino'
-                          and pueblo='SI'
-                        $filtro_lugar
-                        and $filtro_fila";
-            $row = mysql_fetch_array(mysql_query($sql));
-            if($row){
-                $total = $row['total'];
-            }else{
-                $total = 0;
-            }
-            $fila .= '<td>'.$total.'</td>';
-
-            $sql = "select count(*) as total from registro_rem  
-                        where fecha_registro>='$fecha_inicio' 
-                          and fecha_registro<='$fecha_termino'
-                          and migrante='SI'
-                        $filtro_lugar
-                        and $filtro_fila  ";
-            $row = mysql_fetch_array(mysql_query($sql));
-            if($row){
-                $total = $row['total'];
-            }else{
-                $total = 0;
-            }
-            $fila .= '<td>'.$total.'</td>';
 
             echo $fila;
             echo '</tr>';

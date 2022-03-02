@@ -20,7 +20,7 @@ $rut = $_SESSION['rut'];
         $('.tooltipped').tooltip({delay: 50});
         $("#formulario_informe").on('change',function(){
             var opcion = $("#formulario_informe").val();
-            $.post('formulario/'+opcion+'_xls/select_informes.php',{
+            $.post('formulario_touch/'+opcion+'_xls/select_informes.php',{
             },function(data){
                 $("#id_seccion").html(data);
 
@@ -100,6 +100,7 @@ $rut = $_SESSION['rut'];
                 <option value="A01">A01 - CONTROLES DE SALUD</option>
                 <option value="A02">A02 - EMP</option>
                 <option value="A03">A03 - APLICACIÓN Y RESULTADOS DE ESCALAS DE EVALUACIÓN</option>
+                <option value="A04">A04 - CONSULTAS Y OTRAS ATENCIONES EN LA RED</option>
             </select>
         </div>
     </div>

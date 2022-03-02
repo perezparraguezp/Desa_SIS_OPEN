@@ -83,7 +83,7 @@
                     <div class="col l4">RANGO EDADES</div>
                     <div class="col l8">
                         <select name="edad" id="edad">
-                            <option>MENOR 1 </option>
+                            <option>MENOR 1</option>
                             <option>1 A 4</option>
                             <option>5 A 9</option>
                             <option>10 A 14</option>
