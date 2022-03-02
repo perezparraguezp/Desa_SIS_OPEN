@@ -92,6 +92,7 @@
                     <div class="col l4">CATEGORIZACIÓN</div>
                     <div class="col l8">
                         <select name="categorizacion" id="categorizacion">
+                            <option>NO APLICA</option>
                             <option>SIN CATEGORIZACION</option>
                             <option>C1</option>
                             <option>C2</option>
@@ -159,7 +160,7 @@
                     <div class="col l4">MORDEDURA</div>
                     <div class="col l8">
                         <select name="mordedura" id="mordedura">
-                            <option>SIN CATEGORIZACION</option>
+                            <option>NO APLICA</option>
                             <option>PERRO</option>
                             <option>GATO</option>
                             <option>ANIMAL SILVESTRE</option>
@@ -203,6 +204,7 @@
                     <div class="col l4">FALLECIDO EN UEH</div>
                     <div class="col l8">
                         <select name="fallecido_en" id="fallecido_en">
+                            <option>NO APLICA</option>
                             <option>EN ESPERA DE ATENCIÓN MÉDICA</option>
                             <option>EN PROCESO DE ATENCIÓN</option>
                             <option>EN ESPERA DE CAMA HOSPITALARIA</option>

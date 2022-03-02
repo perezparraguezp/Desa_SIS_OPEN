@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(function () {
-        
+
         $('#sub_seccion').jqxDropDownList({
             width: '100%',
             theme: 'eh-open',
@@ -48,13 +48,8 @@
 </style>
 <div class="container" id="formulario_final">
     <div class="row">
-        <div class="col l5">
-            <div class="container eh-open_fondo" id="info_paciente">
-                <strong>ATENCIÓN POR PROFESIONAL</strong>
-                <p>asasasa sa sa sakaksjkj kskjsa.</p>
-            </div>
-        </div>
-        <div class="col l7">
+
+        <div class="col l12">
             <div class="container" id="info_evaluacion">
                 <div class="row">
                     <div class="col l4">SUB-SECCIÓN</div>
