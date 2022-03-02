@@ -32,7 +32,7 @@ if($lugar!='TODOS'){
 }else{
     $filtro_lugar = '';
 }
-$filtro_lugar .= "and tipo_form='$form' and valor like '%seccion%:%$seccion%' ";
+$filtro_lugar .= "and tipo_form='$form' and valor like '%seccion%:%A%' ";
 
 
 //rango de meses en dias
@@ -84,36 +84,24 @@ $rango_seccion_text = [
 ];
 
 $FILA_HEAD = [
-    'IRA ALTA',
-    'SÍNDROME BRONQUIAL OBSTRUCTIVO',
-    'NEUMONÍA',
-    'ASMA',
-    'ENFERMEDAD PULMONAR OBSTRUCTIVA CRÓNICA',
-    'OTRAS RESPIRATORIAS',
-    'OBSTÉTRICA',
-    'GINECOLÓGICA',
-    'GINECOLÓGICA  POR INFERTILIDAD',
-    'INFECCIÓN TRANSMISIÓN SEXUAL',
-    'VIH-SIDA',
-    'SALUD MENTAL',
-    'CARDIOVASCULAR',
-    'OTRAS MORBILIDADES',
+    'ENFERMERA /O',
+    'MATRONA /ÓN (MORB.GINECOLÓGICA)',
+    'MATRONA /ÓN (ITS)',
+    'MATRONA /ÓN (INFERTILIDAD)',
+    'MATRONA /ÓN (OTRAS CONSULTAS)',
+    'MATRONA /ÓN (SALUD SEXUAL)',
+    'NUTRICIONISTA (OTRAS CONSULTAS)',
+    'NUTRICIONISTA MAULNUTRICIÓN POR EXCESO',
+    'NUTRICIONISTA MALNUTRICIÓN POR DÉFICIT',
+    'PSICÓLOGO/A',
+    'FONOAUDIÓLOGO',
+    'TERAPEUTA OCUPACIONAL',
+    'TECNÓLOGO MÉDICO (EXCLUYE UAPO)',
+    'ASISTENTE SOCIAL',
 ];
 $FILA_HEAD_SQL = [
-    'valor like \'%"tipo_atencion":"IRA ALTA"%\'',
-    'valor like \'%"tipo_atencion":"SÍNDROME BRONQUIAL OBSTRUCTIVO"%\'',
-    'valor like \'%"tipo_atencion":"NEUMONÍA"%\'',
-    'valor like \'%"tipo_atencion":"ASMA"%\'',
-    'valor like \'%"tipo_atencion":"ENFERMEDAD PULMONAR OBSTRUCTIVA CRÓNICA"%\'',
-    'valor like \'%"tipo_atencion":"OTRAS RESPIRATORIAS"%\'',
-    'valor like \'%"tipo_atencion":"OBSTÉTRICA"%\'',
-    'valor like \'%"tipo_atencion":"GINECOLÓGICA"%\'',
-    'valor like \'%"tipo_atencion":"GINECOLÓGICA  POR INFERTILIDAD"%\'',
-    'valor like \'%"tipo_atencion":"INFECCIÓN TRANSMISIÓN SEXUAL"%\'',
-    'valor like \'%"tipo_atencion":"VIH-SIDA"%\'',
-    'valor like \'%"SALUD MENTAL"%\'',
-    'valor like \'%"CARDIOVASCULAR"%\'',
-    'valor like \'%"OTRAS MORBILIDADES"%\'',
+    'profesion like \'%ENFERMER%\'',
+    'profesion like \'%ENFERMER%\'',
 ];
 
 
@@ -137,7 +125,7 @@ $FILA_HEAD_SQL = [
 <section id="seccion_A03A5" style="width: 100%;overflow-y: scroll;">
     <div class="row">
         <div class="col l10">
-            <header>SECCIÓN A: CONSULTAS MÉDICAS  [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
+            <header>SECCIÓN B: CONSULTAS DE PROFESIONALES NO MÉDICOS [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
         </div>
     </div>
     <table id="table_seccion_A5" style="width: 100%;border: solid 1px black;" border="1">
@@ -154,8 +142,8 @@ $FILA_HEAD_SQL = [
             <td rowspan="3">Beneficiarios</td>
             <td rowspan="3">Pueblos Originarios</td>
             <td rowspan="3">Migrantes</td>
+            <td rowspan="3">Espacios Amigables</td>
             <td rowspan="3">SENAME</td>
-            <td rowspan="3">POR CAMPAÑA INVIERNO</td>
         </tr>
         <tr>
             <?php

@@ -5,9 +5,9 @@
     <div id="A" class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding-top: 10px;margin-left: 5px;" onclick="loadFormulario_touch('A')">
         CONSULTAS MÉDICAS
     </div>
-    <div id="B" class="card col l2 eh-open_principal card_cuadrada" style="padding-top: 10px;margin-left: 5px;font-size: 0.7em;" onclick="loadFormulario_touch('B')">
-        CONSULTAS DE PROFESIONALES NO MEDICOS
-    </div>
+<!--    <div id="B" class="card col l2 eh-open_principal card_cuadrada" style="padding-top: 10px;margin-left: 5px;font-size: 0.7em;" onclick="loadFormulario_touch('B')">-->
+<!--        CONSULTAS DE PROFESIONALES NO MEDICOS-->
+<!--    </div>-->
     <div id="H" class="card col l2 eh-open_principal card_cuadrada" style="font-size: 0.7em;padding-top: 10px;margin-left: 5px;" onclick="loadFormulario_touch('H')">
         INTERVENCIÓN INDIVIDUAL DEL USUARIO EN PROGRAMA ELIGE VIDA SANA
     </div>

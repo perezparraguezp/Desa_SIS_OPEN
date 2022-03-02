@@ -104,7 +104,35 @@
                         </select>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col l12">
+                        <div class="settings-section">
+                            <div class="settings-label">ESPACIO AMIGABLE</div>
+                            <div class="settings-setter">
+                                <div id="espacio"></div>
+                                <input type="hidden" name="input_espacio" id="input_espacio" value="NO" />
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $(function(){
+                                $('#espacio').jqxSwitchButton({
+                                    height: 27, width: 81,
+                                    theme: 'eh-open',
+                                    onLabel:'SI',
+                                    offLabel:'NO',
+                                });
+                                $('#espacio').on('change',function(){
+                                    if($('#espacio').val()===true){
+                                        $("#input_espacio").val('SI');
+                                    }else{
+                                        $("#input_espacio").val('NO');
+                                    }
+                                });
 
+                            });
+                        </script>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col l12">
                         <div class="settings-section">

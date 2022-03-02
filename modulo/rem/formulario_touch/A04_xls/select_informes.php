@@ -5,6 +5,7 @@
     <select name="seccion" id="seccion">
         <option disabled="disabled" selected="selected">SELECCIONE UNA CATEGORIA A REALIZAR EVALUACIÓN</option>
         <option value="A">SECCIÓN A</option>
+        <option value="B">SECCIÓN B</option>
     </select>
 </div>
 
