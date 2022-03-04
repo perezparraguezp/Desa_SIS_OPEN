@@ -56,7 +56,8 @@ $rango_seccion_text = [
 
 $FILA_HEAD = [
     'PRIMERA EVALUACIÓN',
-    'RESULTADO NORMAL',
+    'REEVALUACION',
+    'RESULTADO ALTERADO',
     'RESULTADO ALTERADO',
 ];
 $FILA_HEAD_SQL = [

@@ -52,6 +52,7 @@
                     <div class="col l4">TIPO ATENCION</div>
                     <div class="col l8">
                         <select name="tipo_atencion" id="tipo_atencion">
+                            <option>EVALUACION</option>
                             <option>CONSULTA NUTRICIONAL</option>
                             <option>CONSULTA NUTRICIONAL DE SEGUIMIENTO</option>
                             <option>CONSULTA</option>
