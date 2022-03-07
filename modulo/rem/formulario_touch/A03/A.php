@@ -73,7 +73,7 @@ $tipo_profesional = $profesional->tipo_profesional;
                             <option value="" selected="selected" disabled="disabled">INDICAR OPCIÓN</option>
                             <option value="A1">PAUTA BREVE</option>
                             <option value="A2">EEDP Y TEPSI</option>
-                            <option value="A3">DERIVADOS MODALIDAD DE ESTIMULACION</option>
+
                             <option value="A4">PROTOCOLO NEUROSENSORIAL</option>
                             <option value="A5">LACTANCIA MATERNA</option>
                         </select>

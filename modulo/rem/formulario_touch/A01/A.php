@@ -2,10 +2,8 @@
 ?>
 <script type="text/javascript">
     $(function(){
-        // $.post('formulario/base.php',{
-        // },function(data){
-        //     $("#info_paciente").html(data);
-        // });
+
+
         $('#edad').jqxDropDownList({
             width: '100%',
             theme: 'eh-open',
@@ -20,6 +18,20 @@
             width: '100%',
             theme: 'eh-open',
             height: '25px'
+        });
+        $('#tipo_control').on('change',function(){
+            var tipo = $('#tipo_control').val();
+
+            if(tipo === 'PÚERPERA CON RECIEN NACIDO HASTA 10 DÍAS DE VIDA' ||
+                tipo ==='PÚERPERA CON RECIEN NACIDO ENTRE 11 Y 28 DÍAS'  ||
+                tipo ==='RECIEN NACIDO ENTRE 11 Y 28 DÍAS' ||
+                tipo ==='RECIEN NACIDO HASTA 10 DÍAS')
+            {
+                $("#div_control").show();
+
+            }else{
+                $("#div_control").hide();
+            }
         });
 
 
@@ -118,7 +130,7 @@
                         </script>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" id="div_control" style="display: none;">
                     <div class="col l12">
                         <div class="settings-section">
                             <div class="settings-label">CONTROL DE DIADA CON PRESENCIA DEL PADRE</div>

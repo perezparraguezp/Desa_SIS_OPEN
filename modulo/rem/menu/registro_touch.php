@@ -166,7 +166,7 @@ $rut = $_SESSION['rut'];
                             <div class="settings-label"></div>
                             <div class="settings-setter">
                                 <div id="beneficiario"></div>
-                                <input type="hidden" name="input_beneficiario" id="input_beneficiario" value="NO" />
+                                <input type="hidden" name="input_beneficiario" id="input_beneficiario" value="SI" />
                             </div>
                         </div></label>
                     <script type="text/javascript">
@@ -176,6 +176,8 @@ $rut = $_SESSION['rut'];
                                 theme: 'eh-open',
                                 onLabel:'SI',
                                 offLabel:'NO',
+                                checked:true
+
                             });
                             $('#beneficiario').on('change',function(){
                                 if($('#beneficiario').val()===true){

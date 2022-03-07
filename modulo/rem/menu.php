@@ -25,6 +25,7 @@ $profesional = new profesional($_SESSION['id_usuario']);
 
             </div>
         </li>
+
         <li id="menu_2" onclick="loadMenu_REM('menu_2','registro_atencion','')"class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-action-account-child"></i> Registro REM</a></li>
         <li id="menu_5" onclick="loadMenu_REM('menu_5','registro_touch','')"class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-maps-pin-drop"></i> REGISTRO TOUCH</a></li>
         <li id="menu_3" onclick="loadMenu_REM('menu_3','informe','')"class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-action-account-child"></i> INFORMES REM</a></li>

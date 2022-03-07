@@ -61,7 +61,7 @@
                     <div class="col l8">
                         <select name="tipo_control" id="tipo_control">
                             <option>DE SALUD CARDIOVASCULAR</option>
-                            <option>DE TUBERCULOSIS</option>
+
                             <option>SEGUIMIENTO AUTOVALENTE CON RIESGO</option>
                             <option>SEGUIMIENTO RIESGO DEPENDENCIA</option>
                             <option>DE INFECCIÓN DE TRANSMICIÓN SEXUAL</option>

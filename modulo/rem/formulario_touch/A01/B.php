@@ -19,6 +19,19 @@
             height: '25px'
         });
 
+        $('#edad').on('change',function(){
+            var tipo = $('#edad').val();
+
+            if(tipo === '10 A 14 AÑOS' ||
+                tipo ==='15 A 19 AÑOS')
+            {
+                $("#div_lugar").show();
+
+            }else{
+                $("#div_lugar").hide();
+            }
+        });
+
     })
 </script>
 <style type="text/css">
@@ -35,32 +48,6 @@
                 <div class="row">
                     <input type="hidden" name="tipo_control" id="tipo_control" value="DE SALUD" />
 
-                </div>
-                <div class="row">
-                    <div class="col l4">TIPO DE LUGAR DE CONTROL</div>
-                    <div class="col l8">
-                        <select name="tipo_lugar" id="tipo_lugar">
-                            <option>ESPACIO AMIGABLE</option>
-                            <option>OTROS ESPACIOS DEL ESTABLECIMIENTO DE SALUD</option>
-                            <option>EN ESTABLECIMIENTO EDUCACIONAL</option>
-                            <option>EN OTROS ESPACIOS FUERA DEL ESTABLECIMIENTO DE SALUD</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col l4">PACIENTE CRÓNICO</div>
-                    <div class="col l8">
-                        <select name="cronico" id="cronico">
-                            <option>NO</option>
-                            <option>CONTROL CON RIESGO LEVE (G1)</option>
-                            <option>CONTROL CON RIESGO MODERADO (G2)</option>
-                            <option>CONTROL CON RIESGO ALTO (G3)</option>
-                            <option>SEGUIMIENTO CON RIESGO LEVE (G1)</option>
-                            <option>SEGUIMIENTO CON RIESGO MODERADO (G2)</option>
-                            <option>SEGUIMIENTO CON RIESGO ALTO (G3)</option>
-
-                        </select>
-                    </div>
                 </div>
                 <div class="row">
                     <div class="col l4">EDAD</div>
@@ -98,6 +85,34 @@
                         </select>
                     </div>
                 </div>
+                <div class="row" id="div_lugar" style="display: none;">
+                    <div class="col l4">TIPO DE LUGAR DE CONTROL</div>
+                    <div class="col l8">
+                        <select name="tipo_lugar" id="tipo_lugar">
+                            <option>NO APLICA</option>
+                            <option>ESPACIO AMIGABLE</option>
+                            <option>OTROS ESPACIOS DEL ESTABLECIMIENTO DE SALUD</option>
+                            <option>EN ESTABLECIMIENTO EDUCACIONAL</option>
+                            <option>EN OTROS ESPACIOS FUERA DEL ESTABLECIMIENTO DE SALUD</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l4">PACIENTE CRÓNICO</div>
+                    <div class="col l8">
+                        <select name="cronico" id="cronico">
+                            <option>NO</option>
+                            <option>CONTROL CON RIESGO LEVE (G1)</option>
+                            <option>CONTROL CON RIESGO MODERADO (G2)</option>
+                            <option>CONTROL CON RIESGO ALTO (G3)</option>
+                            <option>SEGUIMIENTO CON RIESGO LEVE (G1)</option>
+                            <option>SEGUIMIENTO CON RIESGO MODERADO (G2)</option>
+                            <option>SEGUIMIENTO CON RIESGO ALTO (G3)</option>
+
+                        </select>
+                    </div>
+                </div>
+
                 <div class="row">
                     <div class="col l12">
                         <div class="settings-section">
