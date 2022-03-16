@@ -1259,7 +1259,7 @@ class persona
         } else {
             //no tiene vacunas registradas
             $sql1 = "insert into vacunas_paciente(" . $vacuna . ",rut) values('$valor','$this->rut')";
-            echo $sql1;
+//            echo $sql1;
         }
         mysql_query($sql1) or die(false);
         return true;

@@ -46,7 +46,7 @@ $talla =  $paciente->getParametro_AD('talla_edad');
                                             <input type="radio"
                                                    style="position: relative;visibility: visible;left: 0px;"
                                                    onclick="updateParametroAD_IMC('DN2')"
-                                                   id="imc_dn2" name="DN2" value="DN2" >
+                                                   id="imc_dn2" name="imc" value="DN2" >
                                         </div>
                                     </div>
                                     <div class="col l1 m1 s1 tooltipped IMC" data-position="bottom" data-delay="50" data-tooltip="DESNUTRICION">
