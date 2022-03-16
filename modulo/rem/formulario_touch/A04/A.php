@@ -52,6 +52,7 @@
                     <div class="col l4">TIPO ATENCION</div>
                     <div class="col l8">
                         <select name="tipo_atencion" id="tipo_atencion">
+                            <option>CONSULTAS</option>
                             <option>IRA ALTA</option>
                             <option>SÍNDROME BRONQUIAL OBSTRUCTIVO</option>
                             <option>NEUMONÍA</option>
@@ -242,6 +243,35 @@
                                         $("#input_horario").val('SI');
                                     }else{
                                         $("#input_horario").val('NO');
+                                    }
+                                });
+
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l12">
+                        <div class="settings-section">
+                            <div class="settings-label">SAB-DOM FESTIVOS</div>
+                            <div class="settings-setter">
+                                <div id="sab_dom"></div>
+                            </div>
+                            <input type="hidden" name="input_sab_dom" id="input_sab_dom" value="NO" />
+                        </div>
+                        <script type="text/javascript">
+                            $(function(){
+                                $('#sab_dom').jqxSwitchButton({
+                                    height: 27, width: 81,
+                                    theme: 'eh-open',
+                                    onLabel:'SI',
+                                    offLabel:'NO',
+                                });
+                                $('#sab_dom').on('change',function(){
+                                    if($('#sab_dom').val()===true){
+                                        $("#input_sab_dom").val('SI');
+                                    }else{
+                                        $("#input_sab_dom").val('NO');
                                     }
                                 });
 

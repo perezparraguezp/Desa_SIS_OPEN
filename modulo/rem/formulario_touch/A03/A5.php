@@ -14,12 +14,12 @@
     <div class="col l4">TIPO DE ALIMENTACIÓN</div>
     <div class="col l8">
         <select name="tipo_alimentacion" id="tipo_alimentacion">
-            <option value="1">LACTANCIA MATERNA EXCLUSIVA</option>
-            <option value="2">LACTANCIA MATERNA / FORMULA LACTEA</option>
-            <option value="3">FORMULA LACTEA</option>
-            <option value="4">LACTANCIA MATERNA MAS SOLIDOS</option>
-            <option value="5">LACTANCIA MATERNA/FORMULA LACTEA MAS SOLIDOS</option>
-            <option value="6">FORMULA LACTEA MAS SOLIDOS</option>
+            <option>LME</option>
+            <option>LME/FL</option>
+            <option>FL</option>
+            <option>LM + SOLIDOS</option>
+            <option>LM/FL + SOLIDOS</option>
+            <option>FL + SOLIDOS</option>
         </select>
     </div>
 </div>

@@ -61,12 +61,12 @@ $FILA_HEAD = [
     'FORMULA LACTEA MAS SOLIDOS',
 ];
 $FILA_HEAD_SQL = [
-    "valor like '%tipo_alimentacion%:%1%'",
-    "valor like '%tipo_alimentacion%:%2%'",
-    "valor like '%tipo_alimentacion%:%3%'",
-    "valor like '%tipo_alimentacion%:%4%'",
-    "valor like '%tipo_alimentacion%:%5%'",
-    "valor like '%tipo_alimentacion%:%6%'",
+    'valor like \'%"tipo_alimentacion":"LME"%\'',
+    'valor like \'%"tipo_alimentacion":"LME/FL"%\'',
+    'valor like \'%"tipo_alimentacion":"FL"%\'',
+    'valor like \'%"tipo_alimentacion":"LM + SOLIDOSL"%\'',
+    'valor like \'%"tipo_alimentacion":"LM/FL + SOLIDOSL"%\'',
+    'valor like \'%"tipo_alimentacion":"FL + SOLIDOSL"%\'',
 ];
 
 

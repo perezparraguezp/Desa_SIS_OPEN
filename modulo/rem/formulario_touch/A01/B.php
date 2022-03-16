@@ -20,15 +20,28 @@
         });
 
         $('#edad').on('change',function(){
-            var tipo = $('#edad').val();
+            var  tipo = $('#edad').val();
 
+            //lugar
             if(tipo === '10 A 14 AÑOS' ||
                 tipo ==='15 A 19 AÑOS')
             {
                 $("#div_lugar").show();
 
             }else{
+
                 $("#div_lugar").hide();
+            }
+
+            //lme
+            if(tipo =='1 MES' ||
+                tipo ==='3 MESES'||
+                tipo ==='6 MESES'||
+                tipo ==='12 MESES'||
+                tipo ==='24 MESES'){
+                $("#div_lme").show();
+            }else{
+                $("#div_lme").hide();
             }
         });
 
@@ -61,8 +74,10 @@
                             <option>5 MESES</option>
                             <option>6 MESES</option>
                             <option>7 A 11 MESES</option>
+                            <option>12 MESES</option>
                             <option>12 A 17 MESES</option>
                             <option>18 A 23 MESES</option>
+                            <option>24  MESES</option>
                             <option>24 A 47 MESES</option>
                             <option>48 A 59 MESES</option>
                             <option>60 A 71 MESES</option>
@@ -85,7 +100,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row" id="div_lugar" style="display: none;">
+                <div class="row" id="div_lugar" style="display: none;background-color: #ffefc5;padding: 5px;font-weight:bold;">
                     <div class="col l4">TIPO DE LUGAR DE CONTROL</div>
                     <div class="col l8">
                         <select name="tipo_lugar" id="tipo_lugar">
@@ -112,6 +127,33 @@
                         </select>
                     </div>
                 </div>
+                <div class="row" id="div_lme" style="display: none;background-color: #ffefc5;padding: 5px;font-weight:bold;">
+                    <div class="col l4">LACTANCIA MATERNA</div>
+                    <div class="col l8">
+                        <select name="lactancia_materna" id="lactancia_materna">
+                            <option>NO APLICA</option>
+                            <option>LME</option>
+                            <option>LME/FL</option>
+                            <option>FL</option>
+                            <option>LM + SOLIDOS</option>
+                            <option>LM/FL + SOLIDOS</option>
+                            <option>FL + SOLIDOS</option>
+
+                        </select>
+                        <script type="text/javascript">
+                            $(function(){
+                                $('#lactancia_materna').jqxDropDownList({
+                                    width: '100%',
+                                    theme: 'eh-open',
+                                    height: '25px'
+                                });
+
+
+
+                            });
+                        </script>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col l12">
@@ -129,6 +171,7 @@
                                     onLabel:'SI',
                                     offLabel:'NO',
                                 });
+
 
                             });
                         </script>

@@ -125,6 +125,7 @@
         </select>
     </div>
 </div>
+
 <script type="text/javascript">
     $(function(){
         $('#estimulacion').jqxDropDownList({

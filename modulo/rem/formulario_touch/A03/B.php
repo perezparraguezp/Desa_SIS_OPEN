@@ -57,7 +57,7 @@ $tipo_profesional = $profesional->tipo_profesional;
             <div class="container" id="info_evaluacion">
 
                 <div class="row">
-                    <div class="col l4">ESTADO NUTRICIONAL</div>
+                    <div class="col l4">ESTADO NUTRICIONAL 8VO MES POSTPARTO</div>
                     <div class="col l8">
                         <select name="imc" id="imc">
                             <option>NO APLICA</option>
@@ -79,10 +79,11 @@ $tipo_profesional = $profesional->tipo_profesional;
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col l4">TIPO RIESGO PSICOSOCIAL - INGRESO</div>
+                    <div class="col l4">TIPO RIESGO PSICOSOCIAL - INGRESO GESTANTE</div>
                     <div class="col l8">
                         <select name="tipo_riesgo_social_ingreso" id="tipo_riesgo_social_ingreso">
                             <option>NO APLICA</option>
+                            <option>EVALUADA</option>
                             <option>RIESGO</option>
                             <option>DERIVADAS A EQUIPO DE CABECERA</option>
                             <option>VIOLENCIA INTRAFAMILIAR</option>
@@ -93,17 +94,20 @@ $tipo_profesional = $profesional->tipo_profesional;
                                 $('#tipo_riesgo_social_ingreso').jqxDropDownList({
                                     width: '100%',
                                     theme: 'eh-open',
+                                    checkboxes:true,
                                     height: '25px'
+
                                 });
                             })
                         </script>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col l4">TIPO RIESGO PSICOSOCIAL - 3ER TRIMESTRE</div>
+                    <div class="col l4">TIPO RIESGO PSICOSOCIAL - 3ER TRIMESTRE GESTANTE</div>
                     <div class="col l8">
                         <select name="tipo_riesgo_social_trimestre" id="tipo_riesgo_social_trimestre">
                             <option>NO APLICA</option>
+                            <option>EVALUADA</option>
                             <option>RIESGO</option>
                             <option>DERIVADAS A EQUIPO DE CABECERA</option>
                             <option>VIOLENCIA INTRAFAMILIAR</option>
@@ -114,6 +118,7 @@ $tipo_profesional = $profesional->tipo_profesional;
                                 $('#tipo_riesgo_social_trimestre').jqxDropDownList({
                                     width: '100%',
                                     theme: 'eh-open',
+                                    checkboxes:true,
                                     height: '25px'
                                 });
                             })
@@ -125,8 +130,9 @@ $tipo_profesional = $profesional->tipo_profesional;
                     <div class="col l8">
                         <select name="edimburgo_gestante_primera" id="edimburgo_gestante_primera">
                             <option>NO APLICA</option>
+                            <option>EVALUADA</option>
                             <option>13 O MAS PTOS O RESULTADO DISTINTO DE 0 EN PREG 10. (GESTANTES)</option>
-                            <option>ALTERADO</option>
+                            <option>DERIVADOS A SALUD MENTAL</option>
                         </select>
                         <script type="text/javascript">
                             $(function(){
@@ -134,6 +140,7 @@ $tipo_profesional = $profesional->tipo_profesional;
                                 $('#edimburgo_gestante_primera').jqxDropDownList({
                                     width: '100%',
                                     theme: 'eh-open',
+                                    checkboxes:true,
                                     height: '25px'
                                 });
                             })
@@ -145,8 +152,9 @@ $tipo_profesional = $profesional->tipo_profesional;
                     <div class="col l8">
                         <select name="edimburgo_gestante_reevaluacion" id="edimburgo_gestante_reevaluacion">
                             <option>NO APLICA</option>
+                            <option>EVALUADA</option>
                             <option>13 O MAS PTOS O RESULTADO DISTINTO DE 0 EN PREG 10. (GESTANTES)</option>
-                            <option>ALTERADO</option>
+                            <option>DERIVADOS A SALUD MENTAL</option>
                         </select>
                         <script type="text/javascript">
                             $(function(){
@@ -154,6 +162,7 @@ $tipo_profesional = $profesional->tipo_profesional;
                                 $('#edimburgo_gestante_reevaluacion').jqxDropDownList({
                                     width: '100%',
                                     theme: 'eh-open',
+                                    checkboxes:true,
                                     height: '25px'
                                 });
                             })
@@ -165,8 +174,9 @@ $tipo_profesional = $profesional->tipo_profesional;
                     <div class="col l8">
                         <select name="edimburgo_mujer_2" id="edimburgo_mujer_2">
                             <option>NO APLICA</option>
-                            <option>13 O MAS PTOS O RESULTADO DISTINTO DE 0 EN PREG 10. (PUERPERA)</option>
-                            <option>ALTERADO</option>
+                            <option>EVALUADA</option>
+                            <option>10 O MAS PTOS O RESULTADO DISTINTO DE 0 EN PREG 10. (PUERPERA)</option>
+                            <option>DERIVADOS A SALUD MENTAL</option>
                         </select>
                         <script type="text/javascript">
                             $(function(){
@@ -174,6 +184,7 @@ $tipo_profesional = $profesional->tipo_profesional;
                                 $('#edimburgo_mujer_2').jqxDropDownList({
                                     width: '100%',
                                     theme: 'eh-open',
+                                    checkboxes:true,
                                     height: '25px'
                                 });
                             })
@@ -181,12 +192,13 @@ $tipo_profesional = $profesional->tipo_profesional;
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col l4">EDIMBURGO A MUJERS POST PARTO O SINTOMAS DE DEPRESION - 2 MESES</div>
+                    <div class="col l4">EDIMBURGO A MUJERS POST PARTO O SINTOMAS DE DEPRESION - 6 MESES</div>
                     <div class="col l8">
                         <select name="edimburgo_mujer_6" id="edimburgo_mujer_6">
                             <option>NO APLICA</option>
-                            <option>13 O MAS PTOS O RESULTADO DISTINTO DE 0 EN PREG 10. (PUERPERA)</option>
-                            <option>ALTERADO</option>
+                            <option>EVALUADA</option>
+                            <option>10 O MAS PTOS O RESULTADO DISTINTO DE 0 EN PREG 10. (PUERPERA)</option>
+                            <option>DERIVADOS A SALUD MENTAL</option>
                         </select>
                         <script type="text/javascript">
                             $(function(){
@@ -194,6 +206,7 @@ $tipo_profesional = $profesional->tipo_profesional;
                                 $('#edimburgo_mujer_6').jqxDropDownList({
                                     width: '100%',
                                     theme: 'eh-open',
+                                    checkboxes:true,
                                     height: '25px'
                                 });
                             })

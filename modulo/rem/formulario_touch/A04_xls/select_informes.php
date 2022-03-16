@@ -12,6 +12,13 @@
         <option value="F">SECCIÓN F</option>
         <option value="G">SECCIÓN G</option>
         <option value="H">SECCIÓN H</option>
+        <option value="I">SECCIÓN I</option>
+        <option value="J">SECCIÓN J</option>
+        <option value="K">SECCIÓN K</option>
+        <option value="L">SECCIÓN L</option>
+        <option value="M">SECCIÓN M</option>
+        <option value="N">SECCIÓN N</option>
+        <option value="O">SECCIÓN O</option>
     </select>
 </div>
 <script type="text/javascript">
