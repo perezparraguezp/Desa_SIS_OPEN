@@ -1,0 +1,2 @@
+[04-Mar-2022 14:35:35 UTC] PHP Parse error:  syntax error, unexpected ''<td colspan="2" rowspan="2">'' (T_CONSTANT_ENCAPSED_STRING) in /home/sisopenc/public_html/desarrollo/modulo/rem/formulario_touch/A04_xls/H.php on line 143
+[04-Mar-2022 14:35:42 UTC] PHP Parse error:  syntax error, unexpected ''<td colspan="2" rowspan="2">'' (T_CONSTANT_ENCAPSED_STRING) in /home/sisopenc/public_html/desarrollo/modulo/rem/formulario_touch/A04_xls/H.php on line 143
