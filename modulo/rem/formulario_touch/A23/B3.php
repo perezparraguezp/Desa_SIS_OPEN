@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col l4">PROFESIONAL</div>
     <div class="col l8">
-        <select name="tipo_profeisonal" id="tipo_profeisonal">
+        <select name="tipo_nivel" id="tipo_nivel">
             <option>TIPO A</option>
             <option>TIPO B</option>
         </select>

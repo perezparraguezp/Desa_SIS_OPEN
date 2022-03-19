@@ -80,7 +80,7 @@
                 <div class="row">
                     <div class="col l4">EFAM</div>
                     <div class="col l8">
-                        <select name="efam" id="efam">
+                        <select name="tipo_efam" id="tipo_efam">
                             <option>AUTOVALENTE SIN RIESGO</option>
                             <option>AUTOVALENTE CON RIESGO</option>
                             <option>RIESGO DE DEPENDENCIA</option>

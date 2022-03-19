@@ -32,7 +32,7 @@ if($lugar!='TODOS'){
 }else{
     $filtro_lugar = '';
 }
-$filtro_lugar .= "and tipo_form='$form' and valor like '%seccion%:%A%' ";
+$filtro_lugar .= "and tipo_form='$form' and valor like '%seccion%:%$seccion%' ";
 
 
 //rango de meses en dias
@@ -100,6 +100,7 @@ $FILA_HEAD = [
     'ASISTENTE SOCIAL',
 ];
 $FILA_HEAD_SQL = [
+        /* REVISAR*/
     'profesion like \'%ENFERMER%\'',
     'profesion like \'%ENFERMER%\'',
 ];
@@ -131,7 +132,7 @@ $FILA_HEAD_SQL = [
     <table id="table_seccion_A5" style="width: 100%;border: solid 1px black;" border="1">
         <tr>
             <td rowspan="3" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
-                TIPO DE CONSULTA
+                PROFESIONAL
             </td>
             <td colspan="3" rowspan="2">
                 TOTAL

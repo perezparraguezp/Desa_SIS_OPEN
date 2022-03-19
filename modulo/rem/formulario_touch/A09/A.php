@@ -147,7 +147,7 @@
                         <div class="settings-section">
                             <div class="settings-label">Con Discapacidad</div>
                             <div class="settings-setter">
-                                <div id="discapacidad"></div>
+                                <div id="DISCAPACIDAD"></div>
                                 <input type="hidden" name="input_discapacidad" id="input_discapacidad" value="NO" />
                             </div>
                         </div>
@@ -176,7 +176,7 @@
                         <div class="settings-section">
                             <div class="settings-label">Niños, Niñas, Adolescentes y Jóvenes Población  SENAME</div>
                             <div class="settings-setter">
-                                <div id="sename"></div>
+                                <div id="SENAME"></div>
                                 <input type="hidden" name="input_sename" id="input_sename" value="NO" />
                             </div>
                         </div>

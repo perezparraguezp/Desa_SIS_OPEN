@@ -1,7 +1,7 @@
 <div class="row">
-    <div class="col l4">PROFESIONAL</div>
+    <div class="col l4">DESTINO</div>
     <div class="col l8">
-        <select name="tipo_profeisonal" id="tipo_profeisonal">
+        <select name="tipo_atencion" id="tipo_atencion">
             <option>ANTITABACO</option>
             <option>AUTOCUIDADO SEGÚN PATOLOGÍA</option>
             <option>USO DE TERAPIA INHALATORIA </option>
