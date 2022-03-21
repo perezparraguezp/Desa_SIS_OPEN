@@ -38,8 +38,10 @@ $filtro_lugar .= "and tipo_form='$form' and valor like '%seccion%:%$seccion%' ";
 //rango de meses en dias
 $rango_seccion = [
 
-    "registro_rem.edad like '0 A 4'",
-    "registro_rem.edad like '5 A 9'",
+    "registro_rem.edad like '%<12 MESES%'",
+    "registro_rem.edad like '%12 A 23 MESES%'",
+    "registro_rem.edad like '%2 A 4%'",
+    "registro_rem.edad like '%5 A 9%'",
     "registro_rem.edad like '10 A 14'",
     "registro_rem.edad like '15 A 19'",
     "registro_rem.edad like '20 A 24'",
@@ -50,54 +52,53 @@ $rango_seccion = [
     "registro_rem.edad like '45 A 49'",
     "registro_rem.edad like '50 A 54'",
     "registro_rem.edad like '55 A 59'",
-    "registro_rem.edad like '60 A 64'",
-    "registro_rem.edad like '65 A 69'",
-    "registro_rem.edad like '70 A 74'",
-    "registro_rem.edad like '75 A 79'",
-    "registro_rem.edad like '80 %'",
-    'valor like \'%"SENAME":"SI"%\'',
-
-
+    "registro_rem.edad like '60 A 64 %'",
+    "registro_rem.edad like '65 A 74 %'",
+    "registro_rem.edad like '75 Y 79 %'",
+    "registro_rem.edad like '80 Y MAS %'",
 ];
 $rango_seccion_text = [
-    '0 A 4',//
-    '5 A 9',//
-    '10 A 14',//
-    '15 A 19',//
-    '20 A 24',//
-    '25 A 29',//
-    '30 A 34',//
-    '35 A 39',//
-    '40 A 44',//
-    '45 A 49',//
-    '50 A 54',//
-    '55 A 59',//
-    '60 A 64',//
-    '65 A 69',//
-    '70 A 74',//
-    '75 A 79',//
-    '80 Y MÁS',//
-    'HOMBRES',//
-    'MUJERES',//
+
+    'MENOR 12 MESES',
+    '12 A 23 MESES',
+    '2 A 4',
+    '5 A 9',
+    '10 A 14',
+    '15 A 19',
+    '20 A 24',
+    '25 A 29',
+    '30 A 34',
+    '35 A 39',
+    '40 y 44',
+    '45 A 49',
+    '50 A 54',
+    '55 A 59',
+    '60 A 64',
+    '65 A 69',
+    '70 A 74',
+    '75 A 79',
+    '80 y MAS',
+
+
 
 ];
 
-
 $FILA_HEAD = [
-    'Médico',
-    'Enfermera',
-    'Matrona',
-    'Otros Profesionales',
-    'TOTAL ',
-
+    'TOTAL INGRESO (N° DE PERSONAS)',
+    'CONDICIÓN FÍSICA',
+    'CONDICIÓN SENSORIAL VISUAL',
+    'CONDICIÓN SENSORIAL AUDITIVO',
 
 ];
 $FILA_HEAD_SQL = [
-    'profesion like \'%MEDICO%\'',
-    'profesion like \'%ENFERMERA%\'',
-    'profesion like \'%MATRONA%\'',
+    'valor like \'%"tipo_atencion":"TOTAL INGRESO (N° DE PERSONAS)"%\'',
+    'valor like \'%"tipo_atencion":"CONDICIÓN FÍSICA"%\'',
+    'valor like \'%"tipo_atencion":"CONDICIÓN SENSORIAL VISUAL"%\'',
+    'valor like \'%"tipo_atencion":"CONDICIÓN SENSORIAL AUDITIVO"%\'',
 
 ];
+
+
 $PROFESIONES[0] = [
     '',
 
@@ -107,38 +108,44 @@ $FILTRO_PROFESION[0] = [
 
 ];
 $PROFESIONES[1] = [
-    '',
+    'SÍNDROME DOLOROSO DE ORIGEN TRAUMÁTICO',
+    'ARTROSIS LEVE Y MODERADA DE RODILLA Y CADERA',
+    'NEUROLÓGICOS ACCIDENTE CEREBRO VASCULAR (ACV)',
+    'NEUROLÓGICOS  TRAUMATISMO ENCÉFALO CRANEANO (TEC)',
+    'NEUROLÓGICOS LESIÓN MEDULAR',
+    'QUEMADOS (NO GES)',
+    'GRAN QUEMADO (GES)',
+    'ENFERMEDAD DE PARKINSON',
+    'NEUROLÓGICOS DISRAFIA',
+    'OTRO DÉFICIT SECUNDARIO CON COMPROMISO NEUROMUSCULAR EN MENOR DE 20 AÑOS CONGÉNITO',
+    'OTRO DÉFICIT SECUNDARIO CON COMPROMISO NEUROMUSCULAR EN MENOR DE 20 AÑOS ADQUIRIDO',
+    'OTRO DÉFICIT SECUNDARIO CON COMPROMISO NEUROMUSCULAR  EN MAYOR DE 20 AÑOS',
+    'OTROS',
+    'DIABETES MELLITUS',
+    'AMPUTACIÓN POR DIABETES',
+    'AMPUTACIÓN POR OTRAS CAUSAS',
+    'ARTROSIS SEVERA DE RODILLA Y CADERA',
+    'OTRAS ARTROSIS',
+    'REUMATOLÓGICAS',
+    'DOLOR LUMBAR',
+    'HOMBRO DOLOROSO',
+    'CUIDADOS PALIATIVOS',
+    'OTROS SÍNDROMES DOLOROSOS NO TRAUMÁTICOS',
 
 
 ];
 $FILTRO_PROFESION[1] = [
- ];
+];
 $PROFESIONES[2] = [
-    'Gestantes',
-    'Regulación de Fertilidad',
-    'Otros',
-
-
+    '',
 ];
 $FILTRO_PROFESION[2] = [
-    'profesion like \'%MATRONA%\' AND  valor like \'%"tipo_Actividad":"Gestantes"%\'',
-    'profesion like \'%MATRONA%\' AND  valor like \'%"tipo_Actividad":"Regulación de Fertilidad"%\'',
-    'profesion like \'%MATRONA%\' AND  valor like \'%"tipo_Actividad":"Otros"%\'',
+
 ];
 $PROFESIONES[3] = [
     '',
-
-
 ];
 $FILTRO_PROFESION[3] = [
-
-];
-$PROFESIONES[4] = [
-    '',
-
-
-];
-$FILTRO_PROFESION[4] = [
 
 ];
 
@@ -163,34 +170,49 @@ $FILTRO_PROFESION[4] = [
 <section id="seccion_A03A5" style="width: 100%;overflow-y: scroll;">
     <div class="row">
         <div class="col l10">
-            <header>SECCIÓN A: SEGUIMIENTO EN ATENCIÓN PRIMARIA DE SALUD POR LLAMADA TELEFÓNICA (SEGUIMIENTO POR VIDEO LLAMADA) [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
+            <header>SECCIÓN A:  NIVEL PRIMARIO
+                <BR />SECCIÓN A.2: INGRESOS POR CONDICIÓN DE SALUD [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
         </div>
     </div>
     <table id="table_seccion_A5" style="width: 100%;border: solid 1px black;" border="1">
         <tr>
-            <td rowspan="2" colspan="2" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
+            <td rowspan="3" COLSPAN="1" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
+                CONDICIÓN DE SALUD
+            </td>
+            <td   COLSPAN="1" rowspan="3">
                 CONCEPTO
             </td>
-            <td colspan="1" rowspan="2">
+            <td   rowspan="3">
                 TOTAL
             </td>
-            <td colspan="17">
-                POR DE EDAD (en años)
+            <td colspan="38" rowspan="1">
+                POR EDAD (en años)
             </td>
-            <td colspan="2">
-                SEXO
-            </td>
-            <td rowspan="2">
-                NIÑOS, NIÑAS, ADOLESCENTES Y JÓVENES RED SENAME
+            <td rowspan="2" COLSPAN="5">
+                TIPO DE ESTRATEGIA
             </td>
 
         </tr>
         <tr>
             <?php
             foreach ($rango_seccion_text as $i => $item){
-                echo '<td colspan="1">'.$item.'</td>';
+                echo '<td colspan="2">'.$item.'</td>';
             }
             ?>
+        </tr>
+        <tr>
+
+            <?php
+            foreach ($rango_seccion_text as $i => $item){
+                echo '<td>HOMBRE</td>';
+                echo '<td>MUJER</td>';
+            }
+            ?>
+            <td>Rehabilitación Base Comunitaria (RBC)</td>
+            <td>Rehabilitación Integral(RI)</td>
+            <td>Rehabilitación Rural (RR)</td>
+            <td>Otros</td>
+            <td>UAPORRINO</td>
         </tr>
         <?php
         foreach ($FILA_HEAD as $i => $FILA){
@@ -254,5 +276,18 @@ $FILTRO_PROFESION[4] = [
         ?>
     </table>
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

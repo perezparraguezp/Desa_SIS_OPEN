@@ -37,66 +37,57 @@ $filtro_lugar .= "and tipo_form='$form' and valor like '%seccion%:%$seccion%' ";
 
 //rango de meses en dias
 $rango_seccion = [
-    "registro_rem.edad like 'MENO 1 AÑO'",
-    "registro_rem.edad like '1'",
-    "registro_rem.edad like '2'",
-    "registro_rem.edad like '3'",
-    "registro_rem.edad like '4'",
-    "registro_rem.edad like '5'",
-    "registro_rem.edad like '6'",
-    "registro_rem.edad like '7'",
-    "registro_rem.edad like '8-9 '",
-    "registro_rem.edad like '10-14'",
-    "registro_rem.edad like '15 A 19'",
-    "registro_rem.edad like '20 A 24'",
-    "registro_rem.edad like '25 A 34'",
-    "registro_rem.edad like '35 A 44'",
-    "registro_rem.edad like '45 A 59'",
-    "registro_rem.edad like '60 A 64 %'",
-    "registro_rem.edad like '65 A 74 %'",
-    "registro_rem.edad like '75 Y MAS %'",
-    'valor like \'%"EMBARAZADAS":"SI"%\'',
-    'valor like \'%"BENEFICIARIO":"SI"%\'',
-    'valor like \'%"COMPRA":"SI"%\'',
-    'valor like \'%"DISCAPACIDAD":"SI"%\'',
-    'valor like \'%"SENAME":"SI"%\'',
-    'valor like \'%"MIGRANTE":"SI"%\'',
+
+
+
 
 ];
 $rango_seccion_text = [
-    'MENOS DE 1 AÑO',//
-    '1 AÑO ',//
-    '2 AÑOS',//
-    '3 AÑOS',//
-    '4 AÑOS',//
-    '5 AÑOS',//
-    '6 AÑOS',//
-    '7 AÑOS',//
-    '8 A 9',//
-    '10 A 14',//
-    '15 A 19',//
-    '20 A 24',//
-    '25 A 35',//
-    '35 A 44',//
-    '45 A 59',//
-    '60 A 64',//
-    '65 A 74',//
-    '75 Y MÁS',//
-
+    'Consultas Ciudadanas',
+    'Consejo de la Sociedad Civil, Consejos consultivos, de desarrollo y comités locales',
+    ' Consejos consultivos de Adolescentes y Jóvenes',
+    'Mesas: Territoriales, diálogos ciudadanos, mesa salud intercultural',
+    'Cuentas públicas participativas',
+    'Presupuestos participativos',
+    'Estrategias de satisfacción usuaria',
+    'Planificación local participativa (Diagnósticos, programación y evaluación)',
+    'Total participantes',
+    'Total hombres',
+    'Total mujeres',
 ];
 
+
 $FILA_HEAD = [
-    'CONSULTA DE MORBILIDAD',
-    'CONTROL ODONTOLÓGICO',
-    'CONSULTA DE URGENCIA (GES)',
-    'INASISTENCIA A CONSULTA',
+    'ADMINISTRACIÓN Y GESTIÓN',
+    'ENTREVISTAS',
+    'REUNIONES INTRASECTOR',
+    'REUNIONES INTERSECTOR',
+    'ACTIVIDADES DE MONITOREO',
+    'ASESORÍA TÉCNICA',
+    'JORNADAS DE INTERCAMBIO DE EXPERIENCIAS',
+    'ACTIVIDADES DE DIFUSIÓN Y COMUNICACIÓN',
+    'EDUCACIÓN Y CAPACITACIÓN COMUNITARIA',
+    'EVENTOS MASIVOS (ASAMBLEAS, CABILDOS, OTROS)',
+    'ACTIVIDADES A PUEBLOS INDÍGENAS',
+    'TOTAL DE ACTIVIDADES',
+    'ACTIVIDADES DE PARTICIPACIÓN SOCIAL POR TEC. PARAMÉDICO',
 
 ];
 $FILA_HEAD_SQL = [
-    'valor like \'%"tipo_atencion":"CONSULTA DE MORBILIDAD"%\'',
-    'valor like \'%"tipo_atencion":"CONTROL ODONTOLÓGICO"%\'',
-    'valor like \'%"tipo_atencion":"CONSULTA DE URGENCIA (GES)"%\'',
-    'valor like \'%"tipo_atencion":"INASISTENCIA A CONSULTA"%\'',
+    'valor like \'%"tipo_atencion":"ADMINISTRACIÓN Y GESTIÓN"%\'',
+    'valor like \'%"tipo_atencion":"ENTREVISTAS"%\'',
+    'valor like \'%"tipo_atencion":"REUNIONES INTRASECTOR"%\'',
+    'valor like \'%"tipo_atencion":"REUNIONES INTERSECTOR"%\'',
+    'valor like \'%"tipo_atencion":"ACTIVIDADES DE MONITOREO"%\'',
+    'valor like \'%"tipo_atencion":"ASESORÍA TÉCNICA"%\'',
+    'valor like \'%"tipo_atencion":"JORNADAS DE INTERCAMBIO DE EXPERIENCIAS"%\'',
+    'valor like \'%"tipo_atencion":"ACTIVIDADES DE DIFUSIÓN Y COMUNICACIÓN"%\'',
+    'valor like \'%"tipo_atencion":"EDUCACIÓN Y CAPACITACIÓN COMUNITARIA"%\'',
+    'valor like \'%"tipo_atencion":"EVENTOS MASIVOS (ASAMBLEAS, CABILDOS, OTROS)"%\'',
+    'valor like \'%"tipo_atencion":"ACTIVIDADES A PUEBLOS INDÍGENAS"%\'',
+    'valor like \'%"tipo_atencion":"TOTAL DE ACTIVIDADES"%\'',
+    'valor like \'%"tipo_atencion":"ACTIVIDADES DE PARTICIPACIÓN SOCIAL POR TEC. PARAMÉDICO"%\'',
+
 
 ];
 
@@ -121,60 +112,33 @@ $FILA_HEAD_SQL = [
 <section id="seccion_A03A5" style="width: 100%;overflow-y: scroll;">
     <div class="row">
         <div class="col l10">
-            <header>SECCIÓN A: CONSULTAS Y CONTROLES ODONTOLÓGICOS REALIZADOS EN APS.  [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
+            <header>SECCIÓN B: ACTIVIDADES POR ESTRATEGIA/LÍNEA DE ACCIÓN O ESPACIO / INSTANCIA DE PARTICIPACIÓN SOCIAL [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
         </div>
     </div>
     <table id="table_seccion_A5" style="width: 100%;border: solid 1px black;" border="1">
         <tr>
-            <td rowspan="3" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
-                ACTIVIDAD
+            <td rowspan="2" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
+                TIPO DE ACTIVIDADES
             </td>
-            <td colspan="3" rowspan="2">
-                TOTAL
+            <td colspan="4" rowspan="1">
+                ESPACIOS/INSTANCIAS
             </td>
-            <td colspan="36">
-                POR DE EDAD (en años)
+            <td colspan="4"rowspan="1">
+                ESTRATEGIAS/LÍNEAS DE ACCIÓN
             </td>
-            <td ROWSPAN="3">
-                12 años (incluido en el grupo de 10-14 años)
+            <td  rowspan="1" COLSPAN="3">
+                PARTICIPANTES
             </td>
-            <td ROWSPAN="3">
-                Embarazadas
-            </td>
-            <td ROWSPAN="3">
-                60 años (incluido en grupos de 60-64 años)
-            </td>
-            <td ROWSPAN="3">
-                Usuarios con Discapacidad
-            </td>
-            <td ROWSPAN="3">
-                Niños, niñas, adolescentes y jóvenes población SENAME
-            </td>
-            <td ROWSPAN="3">
-                Migrantes
-            </td>
-            <td ROWSPAN="3">
-                Paciente en Control Programa Salud Cardiovascular
-            </td>
+
         </tr>
         <tr>
             <?php
             foreach ($rango_seccion_text as $i => $item){
-                echo '<td colspan="2">'.$item.'</td>';
+                echo '<td colspan="1">'.$item.'</td>';
             }
             ?>
         </tr>
-        <tr>
-            <td>AMBOS</td>
-            <td>HOMBRE</td>
-            <td>MUJER</td>
-            <?php
-            foreach ($rango_seccion_text as $i => $item){
-                echo '<td>HOMBRE</td>';
-                echo '<td>MUJER</td>';
-            }
-            ?>
-        </tr>
+
         <?php
         foreach ($FILA_HEAD as $i => $FILA){
             $filtro_fila =$FILA_HEAD_SQL[$i];
@@ -183,7 +147,7 @@ $FILA_HEAD_SQL = [
             $total_hombre = 0;
             $total_mujer = 0;
             foreach ($rango_seccion as $c => $filtro_columna){
-                if($c<20){
+                if($c<1){
                     $sql = "select count(*) as total from registro_rem  
                         where fecha_registro>='$fecha_inicio' 
                           and fecha_registro<='$fecha_termino'
@@ -250,6 +214,7 @@ $FILA_HEAD_SQL = [
         ?>
     </table>
 </section>
+
 
 
 

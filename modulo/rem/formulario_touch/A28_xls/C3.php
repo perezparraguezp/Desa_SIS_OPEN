@@ -37,66 +37,100 @@ $filtro_lugar .= "and tipo_form='$form' and valor like '%seccion%:%$seccion%' ";
 
 //rango de meses en dias
 $rango_seccion = [
-    "registro_rem.edad like 'MENO 1 AÑO'",
-    "registro_rem.edad like '1'",
-    "registro_rem.edad like '2'",
-    "registro_rem.edad like '3'",
-    "registro_rem.edad like '4'",
-    "registro_rem.edad like '5'",
-    "registro_rem.edad like '6'",
-    "registro_rem.edad like '7'",
-    "registro_rem.edad like '8-9 '",
-    "registro_rem.edad like '10-14'",
+
+    "registro_rem.edad like '%<12 MESES%'",
+    "registro_rem.edad like '%12 A 23 MESES%'",
+    "registro_rem.edad like '%2 A 4%'",
+    "registro_rem.edad like '%5 A 9%'",
+    "registro_rem.edad like '10 A 14'",
     "registro_rem.edad like '15 A 19'",
     "registro_rem.edad like '20 A 24'",
-    "registro_rem.edad like '25 A 34'",
-    "registro_rem.edad like '35 A 44'",
-    "registro_rem.edad like '45 A 59'",
+    "registro_rem.edad like '25 A 29'",
+    "registro_rem.edad like '30 A 34'",
+    "registro_rem.edad like '35 A 39'",
+    "registro_rem.edad like '40 A 44'",
+    "registro_rem.edad like '45 A 49'",
+    "registro_rem.edad like '50 A 54'",
+    "registro_rem.edad like '55 A 59'",
     "registro_rem.edad like '60 A 64 %'",
     "registro_rem.edad like '65 A 74 %'",
-    "registro_rem.edad like '75 Y MAS %'",
-    'valor like \'%"EMBARAZADAS":"SI"%\'',
-    'valor like \'%"BENEFICIARIO":"SI"%\'',
-    'valor like \'%"COMPRA":"SI"%\'',
-    'valor like \'%"DISCAPACIDAD":"SI"%\'',
-    'valor like \'%"SENAME":"SI"%\'',
-    'valor like \'%"MIGRANTE":"SI"%\'',
+    "registro_rem.edad like '75 Y 79 %'",
+    "registro_rem.edad like '80 Y MAS %'",
 
 ];
 $rango_seccion_text = [
-    'MENOS DE 1 AÑO',//
-    '1 AÑO ',//
-    '2 AÑOS',//
-    '3 AÑOS',//
-    '4 AÑOS',//
-    '5 AÑOS',//
-    '6 AÑOS',//
-    '7 AÑOS',//
-    '8 A 9',//
-    '10 A 14',//
-    '15 A 19',//
-    '20 A 24',//
-    '25 A 35',//
-    '35 A 44',//
-    '45 A 59',//
-    '60 A 64',//
-    '65 A 74',//
-    '75 Y MÁS',//
+    'MENOR 12 MESES',
+    '12 A 23 MESES',
+    '2 A 4',
+    '5 A 9',
+    '10 A 14',
+    '15 A 19',
+    '20 A 24',
+    '25 A 29',
+    '30 A 34',
+    '35 A 39',
+    '40 y 44',
+    '45 A 49',
+    '50 A 54',
+    '55 A 59',
+    '60 A 64',
+    '65 A 69',
+    '70 A 74',
+    '75 A 79',
+    '80 y MAS',
 
 ];
 
+
 $FILA_HEAD = [
-    'CONSULTA DE MORBILIDAD',
-    'CONTROL ODONTOLÓGICO',
-    'CONSULTA DE URGENCIA (GES)',
-    'INASISTENCIA A CONSULTA',
+    'NEUROLÓGICO  TRAUMATISMO ENCÉFALO CRANEANO ',
+    'NEUROLÓGICOS DISRAFIA',
+    'NEUROLÓGICO LESIÓN MEDULAR',
+    'NEUROLÓGICO ACCIDENTE CEREBRO VASCULAR HEMORRÁGICO',
+    'NEUROLÓGICO ACCIDENTE CEREBRO VASCULAR  ISQUÉMICO',
+    'NEUROLÓGICO TUMORES',
+    'NEUROLÓGICO PARÁLISIS CEREBRAL',
+    'NEUROLÓGICO PARKINSON',
+    'NEUROLÓGICO ESCLEROSIS LATERAL AMIOTRÓFICA',
+    'OTROS NEUROLÓGICOS ',
+    'ARTROSIS CADERA/RODILLA GES',
+    'ARTROSIS CADERA/RODILLA NO GES',
+    'OTRAS ARTROSIS  (hombro, columna)',
+    'DIABETES MELLITUS',
+    'AMPUTACIÓN POR DIABETES',
+    'AMPUTACIÓN POR OTRAS CAUSAS',
+    'ONCOLÓGICOS',
+    'CUIDADOS PALIATIVOS',
+    'GRAN QUEMADO (GES)',
+    'SENSORIAL AUDITIVO',
+    'SENSORIAL VISUAL',
+    'OTRAS CONDICIONES DE SALUD',
+
 
 ];
 $FILA_HEAD_SQL = [
-    'valor like \'%"tipo_atencion":"CONSULTA DE MORBILIDAD"%\'',
-    'valor like \'%"tipo_atencion":"CONTROL ODONTOLÓGICO"%\'',
-    'valor like \'%"tipo_atencion":"CONSULTA DE URGENCIA (GES)"%\'',
-    'valor like \'%"tipo_atencion":"INASISTENCIA A CONSULTA"%\'',
+    'valor like \'%"tipo_Actividad":NEUROLÓGICO  TRAUMATISMO ENCÉFALO CRANEANO "%\'',
+    'valor like \'%"tipo_Actividad":NEUROLÓGICOS DISRAFIA"%\'',
+    'valor like \'%"tipo_Actividad":NEUROLÓGICO LESIÓN MEDULAR"%\'',
+    'valor like \'%"tipo_Actividad":NEUROLÓGICO ACCIDENTE CEREBRO VASCULAR HEMORRÁGICO"%\'',
+    'valor like \'%"tipo_Actividad":NEUROLÓGICO ACCIDENTE CEREBRO VASCULAR  ISQUÉMICO"%\'',
+    'valor like \'%"tipo_Actividad":NEUROLÓGICO TUMORES"%\'',
+    'valor like \'%"tipo_Actividad":NEUROLÓGICO PARÁLISIS CEREBRAL"%\'',
+    'valor like \'%"tipo_Actividad":NEUROLÓGICO PARKINSON"%\'',
+    'valor like \'%"tipo_Actividad":NEUROLÓGICO ESCLEROSIS LATERAL AMIOTRÓFICA"%\'',
+    'valor like \'%"tipo_Actividad":OTROS NEUROLÓGICOS "%\'',
+    'valor like \'%"tipo_Actividad":ARTROSIS CADERA/RODILLA GES"%\'',
+    'valor like \'%"tipo_Actividad":ARTROSIS CADERA/RODILLA NO GES"%\'',
+    'valor like \'%"tipo_Actividad":OTRAS ARTROSIS  (hombro, columna)"%\'',
+    'valor like \'%"tipo_Actividad":DIABETES MELLITUS"%\'',
+    'valor like \'%"tipo_Actividad":AMPUTACIÓN POR DIABETES"%\'',
+    'valor like \'%"tipo_Actividad":AMPUTACIÓN POR OTRAS CAUSAS"%\'',
+    'valor like \'%"tipo_Actividad":ONCOLÓGICOS"%\'',
+    'valor like \'%"tipo_Actividad":QUEMADOS (NO GES)"%\'',
+    'valor like \'%"tipo_Actividad":GRAN QUEMADO (GES)"%\'',
+    'valor like \'%"tipo_Actividad":SENSORIAL AUDITIVO"%\'',
+    'valor like \'%"tipo_Actividad":SENSORIAL VISUAL"%\'',
+    'valor like \'%"tipo_Actividad":OTRAS CONDICIONES DE SALUD"%\'',
 
 ];
 
@@ -121,57 +155,26 @@ $FILA_HEAD_SQL = [
 <section id="seccion_A03A5" style="width: 100%;overflow-y: scroll;">
     <div class="row">
         <div class="col l10">
-            <header>SECCIÓN A: CONSULTAS Y CONTROLES ODONTOLÓGICOS REALIZADOS EN APS.  [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
+            <header>SECCIÓN C: AYUDAS TÉCNICAS DE SALUD, NIVEL APS Y HOSPITALARIO
+                <BR/>SECCIÓN C.3: AYUDAS TÉCNICAS POR CONDICIÓN DE SALUD[<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
         </div>
     </div>
     <table id="table_seccion_A5" style="width: 100%;border: solid 1px black;" border="1">
         <tr>
-            <td rowspan="3" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
-                ACTIVIDAD
+            <td rowspan="2" colspan="1" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
+                TOTAL AYUDA TÉCNICA POR CONDICIÓN DE SALUD CONDICIÓN DE SALUD
             </td>
-            <td colspan="3" rowspan="2">
+            <td colspan="1" rowspan="2">
                 TOTAL
             </td>
-            <td colspan="36">
+            <td colspan="19">
                 POR DE EDAD (en años)
             </td>
-            <td ROWSPAN="3">
-                12 años (incluido en el grupo de 10-14 años)
-            </td>
-            <td ROWSPAN="3">
-                Embarazadas
-            </td>
-            <td ROWSPAN="3">
-                60 años (incluido en grupos de 60-64 años)
-            </td>
-            <td ROWSPAN="3">
-                Usuarios con Discapacidad
-            </td>
-            <td ROWSPAN="3">
-                Niños, niñas, adolescentes y jóvenes población SENAME
-            </td>
-            <td ROWSPAN="3">
-                Migrantes
-            </td>
-            <td ROWSPAN="3">
-                Paciente en Control Programa Salud Cardiovascular
-            </td>
         </tr>
         <tr>
             <?php
             foreach ($rango_seccion_text as $i => $item){
-                echo '<td colspan="2">'.$item.'</td>';
-            }
-            ?>
-        </tr>
-        <tr>
-            <td>AMBOS</td>
-            <td>HOMBRE</td>
-            <td>MUJER</td>
-            <?php
-            foreach ($rango_seccion_text as $i => $item){
-                echo '<td>HOMBRE</td>';
-                echo '<td>MUJER</td>';
+                echo '<td colspan="1">'.$item.'</td>';
             }
             ?>
         </tr>
@@ -183,7 +186,7 @@ $FILA_HEAD_SQL = [
             $total_hombre = 0;
             $total_mujer = 0;
             foreach ($rango_seccion as $c => $filtro_columna){
-                if($c<20){
+                if($c<2){
                     $sql = "select count(*) as total from registro_rem  
                         where fecha_registro>='$fecha_inicio' 
                           and fecha_registro<='$fecha_termino'
@@ -239,9 +242,6 @@ $FILA_HEAD_SQL = [
 
             echo '<tr>';
             echo '<td>'.$FILA.'</td>';
-            echo '<td>'.($total_mujer+$total_hombre).'</td>';
-            echo '<td>'.$total_hombre.'</td>';
-            echo '<td>'.$total_mujer.'</td>';
 
             echo $fila;
             echo '</tr>';
@@ -250,6 +250,15 @@ $FILA_HEAD_SQL = [
         ?>
     </table>
 </section>
+
+
+
+
+
+
+
+
+
 
 
 

@@ -37,7 +37,6 @@ $filtro_lugar .= "and tipo_form='$form' and valor like '%seccion%:%$seccion%' ";
 
 //rango de meses en dias
 $rango_seccion = [
-
     "registro_rem.edad like '0 A 4'",
     "registro_rem.edad like '5 A 9'",
     "registro_rem.edad like '10 A 14'",
@@ -55,9 +54,11 @@ $rango_seccion = [
     "registro_rem.edad like '70 A 74'",
     "registro_rem.edad like '75 A 79'",
     "registro_rem.edad like '80 %'",
+    'valor like \'%"Espacios Amigables/adolescentes":"SI"%\'',
+    'valor like \'%"TRANS":"SI"%\'',
+    'valor like \'%"Pueblos Originarios":"SI"%\'',
+    'valor like \'%"Migrantes":"SI"%\'',
     'valor like \'%"SENAME":"SI"%\'',
-
-
 ];
 $rango_seccion_text = [
     '0 A 4',//
@@ -77,72 +78,62 @@ $rango_seccion_text = [
     '70 A 74',//
     '75 A 79',//
     '80 Y MÁS',//
-    'HOMBRES',//
-    'MUJERES',//
 
 ];
 
-
 $FILA_HEAD = [
-    'Médico',
-    'Enfermera',
-    'Matrona',
-    'Otros Profesionales',
-    'TOTAL ',
-
+    'ORIENTACIÓN E INFORMACIÓN PREVIA AL EXAMEN VIH',
+    'CONSEJERÍAS POST TEST VIH',
 
 ];
 $FILA_HEAD_SQL = [
-    'profesion like \'%MEDICO%\'',
-    'profesion like \'%ENFERMERA%\'',
-    'profesion like \'%MATRONA%\'',
+    'valor like \'%"tipo_atencion":"ORIENTACIÓN E INFORMACIÓN PREVIA AL EXAMEN VIH"%\'',
+    'valor like \'%"tipo_atencion":"CONSEJERÍAS POST TEST VIH"%\'',
 
 ];
+
 $PROFESIONES[0] = [
-    '',
+    'EN BANCO DE SANGRE  (DONANTES)',
+    'HOSPITALIZACIÓN',
+    'EN CDT - CRS',
+    'EN APS',
+    'EN APS - ESPACIOS AMIGABLES',
+    'EN OTRAS INSTANCIAS',
 
 
 ];
 $FILTRO_PROFESION[0] = [
+    'valor like \'%"tipo_atencion":"ORIENTACIÓN E INFORMACIÓN PREVIA AL EXAMEN VIH"%\' AND  valor like \'%"tipo_Area":"EN BANCO DE SANGRE  (DONANTES)"%\'',
+    'valor like \'%"tipo_atencion":"ORIENTACIÓN E INFORMACIÓN PREVIA AL EXAMEN VIH"%\' AND  valor like \'%"tipo_Area":"HOSPITALIZACIÓN"%\'',
+    'valor like \'%"tipo_atencion":"ORIENTACIÓN E INFORMACIÓN PREVIA AL EXAMEN VIH"%\' AND  valor like \'%"tipo_Area":"EN CDT-CRS"%\'',
+    'valor like \'%"tipo_atencion":"ORIENTACIÓN E INFORMACIÓN PREVIA AL EXAMEN VIH"%\' AND  valor like \'%"tipo_Area":"EN APS"%\'',
+    'valor like \'%"tipo_atencion":"ORIENTACIÓN E INFORMACIÓN PREVIA AL EXAMEN VIH"%\' AND  valor like \'%"tipo_Area":"EN APS-ESPACIOS AMIGABLES"%\'',
+    'valor like \'%"tipo_atencion":"ORIENTACIÓN E INFORMACIÓN PREVIA AL EXAMEN VIH"%\' AND  valor like \'%"tipo_Area":"EN OTRAS INSTANCIAS"%\'',
+
+
 
 ];
 $PROFESIONES[1] = [
-    '',
+    'EN BANCO DE SANGRE  (DONANTES)',
+    'HOSPITALIZACIÓN',
+    'EN CDT - CRS',
+    'EN APS',
+    'EN APS - ESPACIOS AMIGABLES',
+    'EN OTRAS INSTANCIAS',
 
 
 ];
 $FILTRO_PROFESION[1] = [
- ];
-$PROFESIONES[2] = [
-    'Gestantes',
-    'Regulación de Fertilidad',
-    'Otros',
+    'valor like \'%"tipo_atencion":"CONSEJERÍAS POST TEST VIH"%\' AND  valor like \'%"tipo_Area":"EN BANCO DE SANGRE  (DONANTES)"%\'',
+    'valor like \'%"tipo_atencion":"CONSEJERÍAS POST TEST VIH"%\' AND  valor like \'%"tipo_Area":"HOSPITALIZACIÓN"%\'',
+    'valor like \'%"tipo_atencion":"CONSEJERÍAS POST TEST VIH"%\' AND  valor like \'%"tipo_Area":"EN CDT-CRS"%\'',
+    'valor like \'%"tipo_atencion":"CONSEJERÍAS POST TEST VIH"%\' AND  valor like \'%"tipo_Area":"EN APS"%\'',
+    'valor like \'%"tipo_atencion":"CONSEJERÍAS POST TEST VIH"%\' AND  valor like \'%"tipo_Area":"EN APS-ESPACIOS AMIGABLES"%\'',
+    'valor like \'%"tipo_atencion":"CONSEJERÍAS POST TEST VIH"%\' AND  valor like \'%"tipo_Area":"EN OTRAS INSTANCIAS"%\'',
 
-
-];
-$FILTRO_PROFESION[2] = [
-    'profesion like \'%MATRONA%\' AND  valor like \'%"tipo_Actividad":"Gestantes"%\'',
-    'profesion like \'%MATRONA%\' AND  valor like \'%"tipo_Actividad":"Regulación de Fertilidad"%\'',
-    'profesion like \'%MATRONA%\' AND  valor like \'%"tipo_Actividad":"Otros"%\'',
-];
-$PROFESIONES[3] = [
-    '',
 
 
 ];
-$FILTRO_PROFESION[3] = [
-
-];
-$PROFESIONES[4] = [
-    '',
-
-
-];
-$FILTRO_PROFESION[4] = [
-
-];
-
-
 ?>
 <style type="text/css">
     table, tr, td {
@@ -163,34 +154,62 @@ $FILTRO_PROFESION[4] = [
 <section id="seccion_A03A5" style="width: 100%;overflow-y: scroll;">
     <div class="row">
         <div class="col l10">
-            <header>SECCIÓN A: SEGUIMIENTO EN ATENCIÓN PRIMARIA DE SALUD POR LLAMADA TELEFÓNICA (SEGUIMIENTO POR VIDEO LLAMADA) [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
+            <header>SECCIÓN A: CONSEJERÍAS
+                <BR />SECCIÓN A.2: CONSEJERÍAS INDIVIDUALES POR VIH (NO INCLUIDAS EN LA SECCIÓN A.1) [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
         </div>
     </div>
     <table id="table_seccion_A5" style="width: 100%;border: solid 1px black;" border="1">
         <tr>
-            <td rowspan="2" colspan="2" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
-                CONCEPTO
+            <td rowspan="3" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
+                CONSEJERÍAS
             </td>
-            <td colspan="1" rowspan="2">
+            <td colspan="1" rowspan="3">
+                ÁREA O NIVEL
+            </td>
+            <td colspan="3" rowspan="2">
                 TOTAL
             </td>
-            <td colspan="17">
-                POR DE EDAD (en años)
+            <td colspan="34">
+                GRUPOS DE EDAD (en años)
             </td>
-            <td colspan="2">
-                SEXO
+
+            <td ROWSPAN="2" colspan="2">
+                TRANS
             </td>
-            <td rowspan="2">
-                NIÑOS, NIÑAS, ADOLESCENTES Y JÓVENES RED SENAME
+            <td ROWSPAN="3">
+                Pueblos Originarios
+            </td>
+            <td ROWSPAN="3">
+                Migrantes
+            </td>
+            <td ROWSPAN="3">
+                14-18 años
+            </td>
+            <td ROWSPAN="3">
+                Niños, Niñas, Adolescentes y Jóvenes Población SENAME
             </td>
 
         </tr>
         <tr>
             <?php
             foreach ($rango_seccion_text as $i => $item){
-                echo '<td colspan="1">'.$item.'</td>';
+                echo '<td colspan="2">'.$item.'</td>';
             }
             ?>
+        </tr>
+        <tr>
+            <td>AMBOS</td>
+            <td>HOMBRE</td>
+            <td>MUJER</td>
+            <?php
+            foreach ($rango_seccion_text as $i => $item){
+                echo '<td>HOMBRE</td>';
+                echo '<td>MUJER</td>';
+            }
+            ?>
+            <td>Masculino</td>
+            <td>Femenino</td>
+
         </tr>
         <?php
         foreach ($FILA_HEAD as $i => $FILA){
@@ -223,7 +242,7 @@ $FILTRO_PROFESION[4] = [
                         $total = 0;
                     }
                     $fila .= '<td>'.$total.'</td>';
-
+                    $total_hombre+=$total;
 
                     $sql = "select count(*) as total from registro_rem  
                         where fecha_registro>='$fecha_inicio' 
@@ -241,7 +260,7 @@ $FILTRO_PROFESION[4] = [
                         $total = 0;
                     }
                     $fila .= '<td>'.$total.'</td>';
-
+                    $total_mujer+=$total;
                 }
 
                 echo $fila;
@@ -252,7 +271,16 @@ $FILTRO_PROFESION[4] = [
             echo '</tr>';
         }
         ?>
+
     </table>
 </section>
+
+
+
+
+
+
+
+
 
 

@@ -38,110 +38,84 @@ $filtro_lugar .= "and tipo_form='$form' and valor like '%seccion%:%$seccion%' ";
 //rango de meses en dias
 $rango_seccion = [
 
-    "registro_rem.edad like '0 A 4'",
-    "registro_rem.edad like '5 A 9'",
-    "registro_rem.edad like '10 A 14'",
-    "registro_rem.edad like '15 A 19'",
-    "registro_rem.edad like '20 A 24'",
-    "registro_rem.edad like '25 A 29'",
-    "registro_rem.edad like '30 A 34'",
-    "registro_rem.edad like '35 A 39'",
-    "registro_rem.edad like '40 A 44'",
-    "registro_rem.edad like '45 A 49'",
-    "registro_rem.edad like '50 A 54'",
-    "registro_rem.edad like '55 A 59'",
-    "registro_rem.edad like '60 A 64'",
-    "registro_rem.edad like '65 A 69'",
-    "registro_rem.edad like '70 A 74'",
-    "registro_rem.edad like '75 A 79'",
-    "registro_rem.edad like '80 %'",
-    'valor like \'%"SENAME":"SI"%\'',
-
 
 ];
 $rango_seccion_text = [
-    '0 A 4',//
-    '5 A 9',//
-    '10 A 14',//
-    '15 A 19',//
-    '20 A 24',//
-    '25 A 29',//
-    '30 A 34',//
-    '35 A 39',//
-    '40 A 44',//
-    '45 A 49',//
-    '50 A 54',//
-    '55 A 59',//
-    '60 A 64',//
-    '65 A 69',//
-    '70 A 74',//
-    '75 A 79',//
-    '80 Y MÁS',//
-    'HOMBRES',//
-    'MUJERES',//
 
 ];
 
 
 $FILA_HEAD = [
-    'Médico',
-    'Enfermera',
-    'Matrona',
-    'Otros Profesionales',
-    'TOTAL ',
+    'VISITA EPIDEMIOLÓGICA',
+    'A LUGAR DE TRABAJO (*)',
+    'A COLEGIO, SALAS CUNA, JARDÍN INFANTIL (*)',
+    'A GRUPO COMUNITARIO',
+    'VISITA INTEGRAL DE SALUD MENTAL',
+    'EN SECTOR RURAL',
+    'OTRAS',
+    'TOTAL',
 
 
 ];
 $FILA_HEAD_SQL = [
-    'profesion like \'%MEDICO%\'',
-    'profesion like \'%ENFERMERA%\'',
-    'profesion like \'%MATRONA%\'',
+    'valor like \'%"tipo_atencion":"VISITA EPIDEMIOLÓGICA"%\'',
+    'valor like \'%"tipo_atencion":"A LUGAR DE TRABAJO (*)"%\'',
+    'valor like \'%"tipo_atencion":"A COLEGIO, SALAS CUNA, JARDÍN INFANTIL (*)"%\'',
+    'valor like \'%"tipo_atencion":"A GRUPO COMUNITARIO"%\'',
+    'valor like \'%"tipo_atencion":"VISITA INTEGRAL DE SALUD MENTAL"%\'',
+    'valor like \'%"tipo_atencion":"EN SECTOR RURAL"%\'',
+    'valor like \'%"tipo_atencion":"OTRAS"%\'',
+    'valor like \'%"tipo_atencion":"TOTAL"%\'',
 
 ];
 $PROFESIONES[0] = [
     '',
-
-
 ];
 $FILTRO_PROFESION[0] = [
-
 ];
 $PROFESIONES[1] = [
     '',
-
-
 ];
 $FILTRO_PROFESION[1] = [
- ];
-$PROFESIONES[2] = [
-    'Gestantes',
-    'Regulación de Fertilidad',
-    'Otros',
-
-
 ];
+$PROFESIONES[2] = [
+    '',
+];
+
 $FILTRO_PROFESION[2] = [
-    'profesion like \'%MATRONA%\' AND  valor like \'%"tipo_Actividad":"Gestantes"%\'',
-    'profesion like \'%MATRONA%\' AND  valor like \'%"tipo_Actividad":"Regulación de Fertilidad"%\'',
-    'profesion like \'%MATRONA%\' AND  valor like \'%"tipo_Actividad":"Otros"%\'',
 ];
 $PROFESIONES[3] = [
     '',
-
-
 ];
 $FILTRO_PROFESION[3] = [
-
 ];
 $PROFESIONES[4] = [
-    '',
-
-
+    'A DOMICILIO (NIVEL SECUNDARIO)',
+    'A LUGAR DE TRABAJO',
+    'A ESTABLECIMIENTOS EDUCACIONALES',
 ];
 $FILTRO_PROFESION[4] = [
+    'valor like \'%"tipo_atencion":"VISITA INTEGRAL DE SALUD MENTAL"%\' AND valor like \'%"tipo_lugar":"A DOMICILIO (NIVEL SECUNDARIO)"%\'',
+    'valor like \'%"tipo_atencion":"VISITA INTEGRAL DE SALUD MENTAL"%\' AND valor like \'%"tipo_lugar":"A LUGAR DE TRABAJO"%\'',
+    'valor like \'%"tipo_atencion":"VISITA INTEGRAL DE SALUD MENTAL"%\' AND valor like \'%"tipo_lugar":"A ESTABLECIMIENTOS EDUCACIONALES"%\'',
+];
+$PROFESIONES[5] = [
+    '',
+];
+$FILTRO_PROFESION[5] = [
+];
+$PROFESIONES[6] = [
+    '',
+];
+$FILTRO_PROFESION[6] = [
+];
+$PROFESIONES[7] = [
+  '',
 
 ];
+$FILTRO_PROFESION[7] = [
 
+];
 
 ?>
 <style type="text/css">
@@ -163,26 +137,40 @@ $FILTRO_PROFESION[4] = [
 <section id="seccion_A03A5" style="width: 100%;overflow-y: scroll;">
     <div class="row">
         <div class="col l10">
-            <header>SECCIÓN A: SEGUIMIENTO EN ATENCIÓN PRIMARIA DE SALUD POR LLAMADA TELEFÓNICA (SEGUIMIENTO POR VIDEO LLAMADA) [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
+            <header>SECCIÓN B: OTRAS VISITAS INTEGRALES [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
         </div>
     </div>
     <table id="table_seccion_A5" style="width: 100%;border: solid 1px black;" border="1">
         <tr>
-            <td rowspan="2" colspan="2" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
-                CONCEPTO
+            <td rowspan="1" COLSPAN="2" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
+                CONCEPTOS
             </td>
-            <td colspan="1" rowspan="2">
+            <td  rowspan="1">
                 TOTAL
             </td>
-            <td colspan="17">
-                POR DE EDAD (en años)
+            <td  rowspan="1">
+                UN PROFESIONAL
             </td>
-            <td colspan="2">
-                SEXO
+            <td  rowspan="1">
+                DOS O MÁS PROFESIONALES
             </td>
-            <td rowspan="2">
-                NIÑOS, NIÑAS, ADOLESCENTES Y JÓVENES RED SENAME
+            <td  rowspan="1">
+                UN PROFESIONAL Y UN TÉCNICO PARAMÉDICO
             </td>
+            <td  rowspan="1">
+                TÉCNICO PARAMÉDICO
+            </td>
+            <td  rowspan="1">
+                FACILITADOR/A INTERCULTURAL PUEBLOS ORIGINARIOS
+            </td>
+            <td  rowspan="1">
+                AGENTE COMUNITARIO
+            </td>
+
+            <td  rowspan="1">
+                MIGRANTES
+            </td>
+
 
         </tr>
         <tr>
@@ -191,6 +179,16 @@ $FILTRO_PROFESION[4] = [
                 echo '<td colspan="1">'.$item.'</td>';
             }
             ?>
+        </tr>
+        <tr>
+
+            <?php
+            foreach ($rango_seccion_text as $i => $item){
+                echo '<td>HOMBRE</td>';
+                echo '<td>MUJER</td>';
+            }
+            ?>
+
         </tr>
         <?php
         foreach ($FILA_HEAD as $i => $FILA){
@@ -223,7 +221,7 @@ $FILTRO_PROFESION[4] = [
                         $total = 0;
                     }
                     $fila .= '<td>'.$total.'</td>';
-
+                    $total_hombre+=$total;
 
                     $sql = "select count(*) as total from registro_rem  
                         where fecha_registro>='$fecha_inicio' 
@@ -241,7 +239,7 @@ $FILTRO_PROFESION[4] = [
                         $total = 0;
                     }
                     $fila .= '<td>'.$total.'</td>';
-
+                    $total_mujer+=$total;
                 }
 
                 echo $fila;
@@ -252,7 +250,15 @@ $FILTRO_PROFESION[4] = [
             echo '</tr>';
         }
         ?>
+
     </table>
 </section>
+
+
+
+
+
+
+
 
 

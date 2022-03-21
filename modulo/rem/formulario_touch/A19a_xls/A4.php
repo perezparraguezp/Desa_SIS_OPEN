@@ -38,8 +38,6 @@ $filtro_lugar .= "and tipo_form='$form' and valor like '%seccion%:%$seccion%' ";
 //rango de meses en dias
 $rango_seccion = [
 
-    "registro_rem.edad like '0 A 4'",
-    "registro_rem.edad like '5 A 9'",
     "registro_rem.edad like '10 A 14'",
     "registro_rem.edad like '15 A 19'",
     "registro_rem.edad like '20 A 24'",
@@ -55,13 +53,14 @@ $rango_seccion = [
     "registro_rem.edad like '70 A 74'",
     "registro_rem.edad like '75 A 79'",
     "registro_rem.edad like '80 %'",
+    'valor like \'%"Espacios Amigables/adolescentes":"SI"%\'',
+    'valor like \'%"TRANS":"SI"%\'',
+    'valor like \'%"Pueblos Originarios":"SI"%\'',
+    'valor like \'%"Migrantes":"SI"%\'',
     'valor like \'%"SENAME":"SI"%\'',
-
-
 ];
 $rango_seccion_text = [
-    '0 A 4',//
-    '5 A 9',//
+
     '10 A 14',//
     '15 A 19',//
     '20 A 24',//
@@ -77,72 +76,31 @@ $rango_seccion_text = [
     '70 A 74',//
     '75 A 79',//
     '80 Y MÁS',//
-    'HOMBRES',//
-    'MUJERES',//
+    '14 A 18',//
 
 ];
 
-
 $FILA_HEAD = [
-    'Médico',
-    'Enfermera',
-    'Matrona',
-    'Otros Profesionales',
-    'TOTAL ',
+    'CONSEJERÍA CON ENTREGA DE PRESERVATIVOS',
 
 
 ];
 $FILA_HEAD_SQL = [
-    'profesion like \'%MEDICO%\'',
-    'profesion like \'%ENFERMERA%\'',
-    'profesion like \'%MATRONA%\'',
+    'valor like \'%"tipo_atencion":"CONSEJERÍA CON ENTREGA DE PRESERVATIVOS"%\'',
 
 ];
+
 $PROFESIONES[0] = [
-    '',
-
-
+    'CONDONES MASCULINOS',
+    'CONDONES FEMENINOS',
+    'AMBOS TIPOS DE CONDONES',
 ];
 $FILTRO_PROFESION[0] = [
+    'valor like \'%"tipo_atencion":"CONSEJERÍA CON ENTREGA DE PRESERVATIVOS"%\' AND  valor like \'%"tipo_condones":"CONDONES MASCULINOS"%\'',
+    'valor like \'%"tipo_atencion":"CONSEJERÍA CON ENTREGA DE PRESERVATIVOS"%\' AND  valor like \'%"tipo_condones":"CONDONES FEMENINOS"%\'',
+    'valor like \'%"tipo_atencion":"CONSEJERÍA CON ENTREGA DE PRESERVATIVOS"%\' AND  valor like \'%"tipo_condones":"AMBOS TIPOS DE CONDONES"%\'',
 
 ];
-$PROFESIONES[1] = [
-    '',
-
-
-];
-$FILTRO_PROFESION[1] = [
- ];
-$PROFESIONES[2] = [
-    'Gestantes',
-    'Regulación de Fertilidad',
-    'Otros',
-
-
-];
-$FILTRO_PROFESION[2] = [
-    'profesion like \'%MATRONA%\' AND  valor like \'%"tipo_Actividad":"Gestantes"%\'',
-    'profesion like \'%MATRONA%\' AND  valor like \'%"tipo_Actividad":"Regulación de Fertilidad"%\'',
-    'profesion like \'%MATRONA%\' AND  valor like \'%"tipo_Actividad":"Otros"%\'',
-];
-$PROFESIONES[3] = [
-    '',
-
-
-];
-$FILTRO_PROFESION[3] = [
-
-];
-$PROFESIONES[4] = [
-    '',
-
-
-];
-$FILTRO_PROFESION[4] = [
-
-];
-
-
 ?>
 <style type="text/css">
     table, tr, td {
@@ -163,32 +121,38 @@ $FILTRO_PROFESION[4] = [
 <section id="seccion_A03A5" style="width: 100%;overflow-y: scroll;">
     <div class="row">
         <div class="col l10">
-            <header>SECCIÓN A: SEGUIMIENTO EN ATENCIÓN PRIMARIA DE SALUD POR LLAMADA TELEFÓNICA (SEGUIMIENTO POR VIDEO LLAMADA) [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
+            <header>SECCIÓN A: CONSEJERÍAS
+                <BR/>SECCIÓN A.4: CONSEJERÍAS INDIVIDUALES  CON ENTREGA DE PRESERVATIVOS (INCLUIDAS EN SECCIÓN A.1) [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
         </div>
     </div>
     <table id="table_seccion_A5" style="width: 100%;border: solid 1px black;" border="1">
         <tr>
-            <td rowspan="2" colspan="2" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
-                CONCEPTO
+            <td rowspan="3" colspan="2" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
+                ACTIVIDAD
             </td>
-            <td colspan="1" rowspan="2">
+            <td colspan="3" rowspan="2">
                 TOTAL
             </td>
-            <td colspan="17">
-                POR DE EDAD (en años)
-            </td>
-            <td colspan="2">
-                SEXO
-            </td>
-            <td rowspan="2">
-                NIÑOS, NIÑAS, ADOLESCENTES Y JÓVENES RED SENAME
-            </td>
 
+            <td colspan="34">
+                GRUPOS DE EDAD (en años)
+            </td>
         </tr>
         <tr>
             <?php
             foreach ($rango_seccion_text as $i => $item){
-                echo '<td colspan="1">'.$item.'</td>';
+                echo '<td colspan="2">'.$item.'</td>';
+            }
+            ?>
+        </tr>
+        <tr>
+            <td>AMBOS</td>
+            <td>HOMBRE</td>
+            <td>MUJER</td>
+            <?php
+            foreach ($rango_seccion_text as $i => $item){
+                echo '<td>HOMBRE</td>';
+                echo '<td>MUJER</td>';
             }
             ?>
         </tr>
@@ -223,7 +187,7 @@ $FILTRO_PROFESION[4] = [
                         $total = 0;
                     }
                     $fila .= '<td>'.$total.'</td>';
-
+                    $total_hombre+=$total;
 
                     $sql = "select count(*) as total from registro_rem  
                         where fecha_registro>='$fecha_inicio' 
@@ -241,7 +205,7 @@ $FILTRO_PROFESION[4] = [
                         $total = 0;
                     }
                     $fila .= '<td>'.$total.'</td>';
-
+                    $total_mujer+=$total;
                 }
 
                 echo $fila;
@@ -252,7 +216,16 @@ $FILTRO_PROFESION[4] = [
             echo '</tr>';
         }
         ?>
+
     </table>
 </section>
+
+
+
+
+
+
+
+
 
 

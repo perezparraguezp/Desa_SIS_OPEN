@@ -37,67 +37,83 @@ $filtro_lugar .= "and tipo_form='$form' and valor like '%seccion%:%$seccion%' ";
 
 //rango de meses en dias
 $rango_seccion = [
-    "registro_rem.edad like 'MENO 1 AÑO'",
-    "registro_rem.edad like '1'",
-    "registro_rem.edad like '2'",
-    "registro_rem.edad like '3'",
-    "registro_rem.edad like '4'",
-    "registro_rem.edad like '5'",
-    "registro_rem.edad like '6'",
-    "registro_rem.edad like '7'",
-    "registro_rem.edad like '8-9 '",
-    "registro_rem.edad like '10-14'",
+
+    "registro_rem.edad like '%<12 MESES%'",
+    "registro_rem.edad like '%12 A 23 MESES%'",
+    "registro_rem.edad like '%2 A 4%'",
+    "registro_rem.edad like '%5 A 9%'",
+    "registro_rem.edad like '10 A 14'",
     "registro_rem.edad like '15 A 19'",
     "registro_rem.edad like '20 A 24'",
-    "registro_rem.edad like '25 A 34'",
-    "registro_rem.edad like '35 A 44'",
-    "registro_rem.edad like '45 A 59'",
+    "registro_rem.edad like '25 A 29'",
+    "registro_rem.edad like '30 A 34'",
+    "registro_rem.edad like '35 A 39'",
+    "registro_rem.edad like '40 A 44'",
+    "registro_rem.edad like '45 A 49'",
+    "registro_rem.edad like '50 A 54'",
+    "registro_rem.edad like '55 A 59'",
     "registro_rem.edad like '60 A 64 %'",
     "registro_rem.edad like '65 A 74 %'",
-    "registro_rem.edad like '75 Y MAS %'",
-    'valor like \'%"EMBARAZADAS":"SI"%\'',
-    'valor like \'%"BENEFICIARIO":"SI"%\'',
-    'valor like \'%"COMPRA":"SI"%\'',
-    'valor like \'%"DISCAPACIDAD":"SI"%\'',
-    'valor like \'%"SENAME":"SI"%\'',
-    'valor like \'%"MIGRANTE":"SI"%\'',
-
+    "registro_rem.edad like '75 Y 79 %'",
+    "registro_rem.edad like '80 Y MAS %'",
 ];
 $rango_seccion_text = [
-    'MENOS DE 1 AÑO',//
-    '1 AÑO ',//
-    '2 AÑOS',//
-    '3 AÑOS',//
-    '4 AÑOS',//
-    '5 AÑOS',//
-    '6 AÑOS',//
-    '7 AÑOS',//
-    '8 A 9',//
-    '10 A 14',//
-    '15 A 19',//
-    '20 A 24',//
-    '25 A 35',//
-    '35 A 44',//
-    '45 A 59',//
-    '60 A 64',//
-    '65 A 74',//
-    '75 Y MÁS',//
+
+    'MENOR 12 MESES',
+    '12 A 23 MESES',
+    '2 A 4',
+    '5 A 9',
+    '10 A 14',
+    '15 A 19',
+    '20 A 24',
+    '25 A 29',
+    '30 A 34',
+    '35 A 39',
+    '40 y 44',
+    '45 A 49',
+    '50 A 54',
+    '55 A 59',
+    '60 A 64',
+    '65 A 69',
+    '70 A 74',
+    '75 A 79',
+    '80 y MAS',
+
+
 
 ];
 
 $FILA_HEAD = [
-    'CONSULTA DE MORBILIDAD',
-    'CONTROL ODONTOLÓGICO',
-    'CONSULTA DE URGENCIA (GES)',
-    'INASISTENCIA A CONSULTA',
+    'INGRESOS',
+    'INGRESOS CON PLAN DE TRATAMIENTO INTEGRAL (PTI)',
+    'INGRESOS CON PLAN DE TRATAMIENTO INTEGRAL (PTI) CON OBJETIVOS PARA EL TRABAJO',
+    'INGRESOS  DE USUARIOS CON CUIDADOR',
+    'INGRESOS ACV REFERIDOS DESDE HOSPITAL',
+    'INGRESOS  POR AMPUTACIÓN',
+    'REINGRESO Al PROGRAMA ',
+    'INGRESOS CON PTI CUIDADOR',
+    'EGRESOS',
+    'EGRESOS POR ALTA',
+    'EGRESOS POR ABANDONO',
+    'EGRESOS POR FALLECIMIENTO',
+    'EGRESOS POR OTRAS CAUSAS',
+    'EGRESOS CON PTI CUIDADOR',
 
 ];
 $FILA_HEAD_SQL = [
-    'valor like \'%"tipo_atencion":"CONSULTA DE MORBILIDAD"%\'',
-    'valor like \'%"tipo_atencion":"CONTROL ODONTOLÓGICO"%\'',
-    'valor like \'%"tipo_atencion":"CONSULTA DE URGENCIA (GES)"%\'',
-    'valor like \'%"tipo_atencion":"INASISTENCIA A CONSULTA"%\'',
-
+    'valor like \'%"tipo_atencion":"INGRESOS"%\'',
+    'valor like \'%"tipo_atencion":"INGRESOS CON PLAN DE TRATAMIENTO INTEGRAL (PTI)"%\'',
+    'valor like \'%"tipo_atencion":"INGRESOS CON PLAN DE TRATAMIENTO INTEGRAL (PTI) CON OBJETIVOS PARA EL TRABAJO"%\'',
+    'valor like \'%"tipo_atencion":"INGRESOS  DE USUARIOS CON CUIDADOR"%\'',
+    'valor like \'%"tipo_atencion":"INGRESOS ACV REFERIDOS DESDE HOSPITAL"%\'',
+    'valor like \'%"tipo_atencion":"INGRESOS  POR AMPUTACIÓN"%\'',
+    'valor like \'%"tipo_atencion":"REINGRESO Al PROGRAMA"%\'',
+    'valor like \'%"tipo_atencion":"INGRESOS CON PTI CUIDADOR"%\'',
+    'valor like \'%"tipo_atencion":"EGRESOS POR ALTA"%\'',
+    'valor like \'%"tipo_atencion":"EGRESOS POR ABANDONO"%\'',
+    'valor like \'%"tipo_atencion":"EGRESOS POR FALLECIMIENTO"%\'',
+    'valor like \'%"tipo_atencion":"EGRESOS POR OTRAS CAUSAS"%\'',
+    'valor like \'%"tipo_atencion":"EGRESOS CON PTI CUIDADOR"%\'',
 ];
 
 
@@ -121,41 +137,25 @@ $FILA_HEAD_SQL = [
 <section id="seccion_A03A5" style="width: 100%;overflow-y: scroll;">
     <div class="row">
         <div class="col l10">
-            <header>SECCIÓN A: CONSULTAS Y CONTROLES ODONTOLÓGICOS REALIZADOS EN APS.  [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
+            <header>SECCIÓN A:  NIVEL PRIMARIO
+                <BR />SECCIÓN A.1: INGRESOS Y EGRESOS  AL PROGRAMA DE REHABILITACIÓN INTEGRAL [<?php echo fechaNormal($fecha_inicio).' al '.fechaNormal($fecha_termino) ?>]</header>
         </div>
     </div>
     <table id="table_seccion_A5" style="width: 100%;border: solid 1px black;" border="1">
         <tr>
             <td rowspan="3" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
-                ACTIVIDAD
+                TIPO DE INGRESO
             </td>
             <td colspan="3" rowspan="2">
                 TOTAL
             </td>
-            <td colspan="36">
-                POR DE EDAD (en años)
+            <td colspan="38" rowspan="1">
+                POR EDAD (en años)
             </td>
-            <td ROWSPAN="3">
-                12 años (incluido en el grupo de 10-14 años)
+            <td rowspan="2" COLSPAN="5">
+                TIPO DE ESTRATEGIA
             </td>
-            <td ROWSPAN="3">
-                Embarazadas
-            </td>
-            <td ROWSPAN="3">
-                60 años (incluido en grupos de 60-64 años)
-            </td>
-            <td ROWSPAN="3">
-                Usuarios con Discapacidad
-            </td>
-            <td ROWSPAN="3">
-                Niños, niñas, adolescentes y jóvenes población SENAME
-            </td>
-            <td ROWSPAN="3">
-                Migrantes
-            </td>
-            <td ROWSPAN="3">
-                Paciente en Control Programa Salud Cardiovascular
-            </td>
+
         </tr>
         <tr>
             <?php
@@ -174,6 +174,11 @@ $FILA_HEAD_SQL = [
                 echo '<td>MUJER</td>';
             }
             ?>
+            <td>Rehabilitación Base Comunitaria (RBC)</td>
+            <td>Rehabilitación Integral(RI)</td>
+            <td>Rehabilitación Rural (RR)</td>
+            <td>Otros</td>
+            <td>UAPORRINO</td>
         </tr>
         <?php
         foreach ($FILA_HEAD as $i => $FILA){
@@ -183,7 +188,7 @@ $FILA_HEAD_SQL = [
             $total_hombre = 0;
             $total_mujer = 0;
             foreach ($rango_seccion as $c => $filtro_columna){
-                if($c<20){
+                if($c<30){
                     $sql = "select count(*) as total from registro_rem  
                         where fecha_registro>='$fecha_inicio' 
                           and fecha_registro<='$fecha_termino'
@@ -239,9 +244,6 @@ $FILA_HEAD_SQL = [
 
             echo '<tr>';
             echo '<td>'.$FILA.'</td>';
-            echo '<td>'.($total_mujer+$total_hombre).'</td>';
-            echo '<td>'.$total_hombre.'</td>';
-            echo '<td>'.$total_mujer.'</td>';
 
             echo $fila;
             echo '</tr>';
@@ -250,6 +252,17 @@ $FILA_HEAD_SQL = [
         ?>
     </table>
 </section>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
