@@ -46,6 +46,7 @@ $rut = $_SESSION['rut'];
     });
     function loadFormulario_touch(seccion){
         var form = $("#formulario").val();
+        $("#seccion").val(seccion);
         $.post('formulario_touch/'+form+'/'+seccion+'.php',{
         },function(data){
             $(".card_cuadrada").removeClass('red lighten-2');
@@ -68,7 +69,7 @@ $rut = $_SESSION['rut'];
             ,function(data){
                 if (data !=='ERROR_SQL'){
                     if(confirm("Desea ingresar un nuevo registro")){
-                        loadMenu_REM('menu_2','registro_atencion','');
+                        loadMenu_REM('menu_2','registro_touch','');
                     }
                 }else{
                     alert('Se ha producido un error, vuelva a intentarlo');
@@ -126,6 +127,7 @@ $rut = $_SESSION['rut'];
                         <option value="A27">A27 - EDUCACIÓN PARA LA SALUD </option>
                         <option value="A32">A32 - ACTIVIDADES DE SALUD PRIORIZADAS, CONTEXTO DE EMERGENCIA SANITARIA </option>
                     </select></label>
+                <input type="hidden" name="seccion" id="seccion" value="A" />
             </div>
             <div class="row">
                 <label for="rut">RUT

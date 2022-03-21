@@ -45,6 +45,7 @@
     }
 </style>
 <div class="container" id="formulario_final" >
+
     <div class="row">
 
         <div class="col l12">
@@ -151,7 +152,7 @@
                     <div class="col l6">
                         <input type="button"
                                style="width: 100%;"
-                               onclick="loadMenu_REM('menu_2','registro_atencion','')"
+                               onclick="loadMenu_REM('menu_2','registro_touch','')"
                                class="btn-large red lighten-2 white-text"
                                value="CANCELAR" />
                     </div>

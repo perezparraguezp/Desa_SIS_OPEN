@@ -102,7 +102,7 @@ $FILA_HEAD = [
 $FILA_HEAD_SQL = [
         /* REVISAR*/
     'profesion like \'%ENFERMER%\'',
-    'profesion like \'%ENFERMER%\'',
+    'profesion like \'%MATRONA%\'',
 ];
 
 

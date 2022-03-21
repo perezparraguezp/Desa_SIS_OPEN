@@ -32,7 +32,7 @@ if($lugar!='TODOS'){
 }else{
     $filtro_lugar = '';
 }
-$filtro_lugar .= "and tipo_form='$form' and valor like '%seccion%:%$seccion%' ";;
+$filtro_lugar .= "and tipo_form='$form'  and seccion_form='$seccion' ";;
 
 
 //rango de meses en dias
@@ -176,7 +176,7 @@ $FILA_HEAD_SQL = [
                     }else{
                         $total = 0;
                     }
-                    $fila .= '<td>'.$total.'</td>';
+                    $fila .= '<td>'.$sql.'</td>';
                     $total_mujer+=$total;
                 }else{
                     $sql = "select count(*) as total from registro_rem  

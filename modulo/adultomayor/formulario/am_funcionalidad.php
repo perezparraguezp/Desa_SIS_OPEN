@@ -122,6 +122,28 @@ $paciente = new persona($rut);
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col l12 m12 s12 center-align">
+                    <img src="../../images/am/logo-chilecuida.png" width="90%" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l12 m12 s12 center-align">
+                    <div class="switch">
+                        <label>
+                            NO
+                            <input type="checkbox" name="chile_cuida"
+                                   onchange="updateIndicadorAM('chile_cuida',$('#chile_cuida').val()),load_am_funcionalidad('<?php echo $rut; ?>')"
+                                   id="chile_cuida"
+                                <?php echo $paciente->getParametro_AM('chile_cuida')=='SI'? 'checked':''; ?>
+                                <?php echo $paciente->getParametro_AM('chile_cuida')=='SI'? 'value="NO"':'value="SI"'; ?>
+                            />
+                            <span class="lever"></span>
+                            SI
+                        </label>
+                    </div>
+                </div>
+            </div>
 
 
 
