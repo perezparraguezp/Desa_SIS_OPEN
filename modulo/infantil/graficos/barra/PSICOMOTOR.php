@@ -178,7 +178,7 @@ if ($comunal == true) {
 
             $rango .= ",$id:$porcentaje";
 
-            $series .= "\n { dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } },formatFunction: function (value) {return value + ' %';} ,total_general:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres},";
+            $series .= "\n { dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } },formatFunction: function (value) {return value + ' %';} ,total_general:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres },";
         }
         $rango .= "},";
 
@@ -315,7 +315,7 @@ while ($row_json = mysql_fetch_array($res_json)) {
         if ($coma > 0) {
             $json .= ',';
         }
-        $json .= '{"IR":"' . $persona->rut . '","RUT":"' . $persona->rut . '","CONTACTO":"' . $persona->getContacto() . '","NOMBRE":"' . limpiaCadena($persona->nombre) . '","COMUNAL":"' . $persona->nombre_sector_comunal . '","ESTABLECIMIENTO":"' . $persona->nombre_centro_medico . '","SECTOR_INTERNO":"' . $persona->nombre_sector_interno . '","INDICADOR":"' . $indicador . '","EDAD":"' . $persona->edad_total . '"}';
+        $json .= '{"IR":"' . $persona->rut . '","RUT":"' . $persona->rut . '","CONTACTO":"' . $persona->getContacto() . '","NOMBRE":"' . limpiaCadena($persona->nombre) . '","COMUNAL":"' . $persona->nombre_sector_comunal . '","ESTABLECIMIENTO":"' . $persona->nombre_centro_medico . '","SECTOR_INTERNO":"' . $persona->nombre_sector_interno . '","INDICADOR":"' . $indicador . '","EDAD":"' . $persona->edad_total . '","anios":"' . $persona->edad_anios . '","meses":"' . $persona->edad_meses . '","dias":"' . $persona->edad_dias . '"}';
         $coma++;
     }
 
@@ -439,6 +439,9 @@ $txt_grafico = strtoupper(str_replace("_", " ", $_POST['indicador']) . " [" . $_
                     {name: 'NOMBRE', type: 'string'},
                     {name: 'CONTACTO', type: 'string'},
                     {name: 'EDAD', type: 'string'},
+                    {name: 'anios', type: 'string'},
+                    {name: 'meses', type: 'string'},
+                    {name: 'dias', type: 'string'},
                     {name: 'COMUNAL', type: 'string'},
                     {name: 'ESTABLECIMIENTO', type: 'string'},
                     {name: 'SECTOR_INTERNO', type: 'string'},
@@ -507,7 +510,9 @@ $txt_grafico = strtoupper(str_replace("_", " ", $_POST['indicador']) . " [" . $_
                             return renderstring;
                         }
                     },
-                    {text: 'EDAD', dataField: 'EDAD', cellsalign: 'left', width: 250, cellsrenderer: cellEdadAnios},
+                    {text: 'AÑO', datafield: 'anios', width: 80, filtertype: 'checkedlist', cellsalign: 'center'},
+                    {text: 'MES', datafield: 'meses', width: 80, filtertype: 'checkedlist', cellsalign: 'center'},
+                    {text: 'DIA', datafield: 'dias', width: 80, filtertype: 'checkedlist', cellsalign: 'center'},
                     {text: 'CONTACTO', dataField: 'CONTACTO', cellsalign: 'left', width: 250},
                     {
                         text: 'INDICADOR',

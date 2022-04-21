@@ -15,13 +15,14 @@ $estado = trim($_POST['estado']);
 
 $indicador = $_POST['indicador'];
 $indicador_estado = $indicador;
+$total_pacientes = 0;
 
 if ($indicador == 'IMCE') {
     $filtro_edad = 'and persona.edad_total>=((5*12)+1) ';//5 años y un mes
     $rango_edad_texto = 'Mayores de 5 años y 1 Mes';
 } else {
     if ($indicador == 'PCINT') {
-        $filtro_edad = 'and persona.edad_total>=(5*12) and and persona.edad_total<(10*12) ';//Dede los 5 años
+        $filtro_edad = 'and persona.edad_total>=(5*12) and  persona.edad_total<(10*12) ';//Dede los 5 años
         $rango_edad_texto = 'Desde los 5 a 9 Años';
     } else {
         if ($indicador == 'presion_arterial') {
@@ -46,12 +47,18 @@ if ($indicador == 'IMCE') {
                         $indicador = 'DNI';
                     } else {
                         if ($indicador == 'SCORE_IRA') {
-                            $estado = 'LEVE';
+                            if($estado=='NORMAL'){
+                                $estado = 'LEVE';
+                            }
+
                             $filtro_edad = 'and persona.edad_total<12 ';//menores de 8 meses
                             $rango_edad_texto = 'Menores de 12 meses y 30 días';
                         } else {
                             if ($indicador == 'LME') {
-                                $estado = 'LME';
+                                if($estado=='NORMAL'){
+                                    $estado = 'LME';
+                                }
+                                $estado = $estado;
                                 $filtro_edad = 'and persona.edad_total<6 ';//menores de 8 meses
                                 $rango_edad_texto = 'Menores de 5 meses Y 30 días.';
                             } else {
@@ -134,7 +141,7 @@ if ($comunal == true) {
                                     $filtro_edad 
                                     ";
 
-
+//    echo $sql1;
     $row1 = mysql_fetch_array(mysql_query($sql1));
 
 

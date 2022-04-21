@@ -1971,7 +1971,7 @@ $rango_seccion_g = [
                     </tr>
                     <?php
                     $indicadores = ['SCORE DE RIESGO'];
-                    $estados = ["SCORE_IRA='LEVE'","SCORE_IRA='MODERADO'","SCORE_IRA='GRAVE'","SCORE_IRA!=''"];
+                    $estados = ["SCORE_IRA='LEVE'","SCORE_IRA='MODERADO'","SCORE_IRA='GRAVE'","SCORE_IRA='GRAVE' and SCORE_IRA='MODERADO' "];
                     $label_estados = ["LEVE","MODERADO","GRAVE","TOTAL"];
                     $i_esatdo = 0;
                     foreach ($estados as $i => $estado){
@@ -1991,23 +1991,23 @@ $rango_seccion_g = [
                             foreach ($rango_seccion_c as $j => $rango){
 
                                 if($id_centro!=''){
-                                    $sql = "select COUNT(*) as total,
+                                    $sql = "select COUNT(*) as total
                                     from antropometria inner join persona using(rut)
                                     inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                     where sectores_centros_internos.id_centro_interno='$id_centro' 
                                     and m_infancia='SI'
-                                     $estado AND $rango 
+                                    and $estado AND $rango 
                                     $filtro_centro;";
 
                                 }else{
-                                    $sql = "select COUNT(*) as total,
+                                    $sql = "select COUNT(*) as total
                                     from antropometria inner join persona using(rut)
                                     inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                     where sectores_centros_internos.id_centro_interno='$id_centro' 
                                     and m_infancia='SI'
-                                    $estado AND $rango 
+                                    and $estado AND $rango 
                                     $filtro_centro;";
 
                                 }
@@ -2019,9 +2019,17 @@ $rango_seccion_g = [
                                 if($row){
                                     $total = $row['total'];
                                 }
-                                ?>
-                                <td><?php echo $total; ?></td>
-                                <?php
+
+                                if($i==0 && $j==9){
+                                    ?>
+                                    <td style="background-color: gray;"></td>
+                                    <?php
+                                }else{
+                                    ?>
+                                    <td><?php echo $total; ?></td>
+                                    <?php
+                                }
+
                             }
                             ?>
                         </tr>

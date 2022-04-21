@@ -603,7 +603,7 @@ if($paciente->validaNutricionista()==true){
 
                                     });
                                     $('.tooltipped').tooltip({delay: 50});
-                                })$rut = str_replace(".","",$rut);
+                                })
                             </script>
                         </div>
                         <div class="col l1">
@@ -662,7 +662,7 @@ if($paciente->validaNutricionista()==true){
                         </div>
                         <div class="col l1">
                             <i class="mdi-editor-insert-chart"
-                               onclick="verHistorialInfantil('<?php echo $rut ?>','SCORE_IRA')"></i>
+                               onclick="verHistorialInfantil('<?php echo $rut ?>','agudeza_visual')"></i>
                         </div>
                     </div>
                 </div>
@@ -715,7 +715,7 @@ if($paciente->validaNutricionista()==true){
                         </div>
                         <div class="col l1">
                             <i class="mdi-editor-insert-chart"
-                               onclick="verHistorialInfantil('<?php echo $rut ?>','SCORE_IRA')"></i>
+                               onclick="verHistorialInfantil('<?php echo $rut ?>','evaluacion_auditiva')"></i>
                         </div>
                     </div>
                 </div>
@@ -737,7 +737,7 @@ if($paciente->validaNutricionista()==true){
                         <span class="black-text">SCORE IRA <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="RIESGO IRA PARA MENORES DE 7 MESES">(?)</strong></span>
                     </div>
                     <div class="col l8">
-                        <select name="ira" id="ira">
+                        <select name="ira_score" id="ira_score">
                             <option></option>
                             <option>LEVE</option>
                             <option>MODERADO</option>
@@ -745,14 +745,14 @@ if($paciente->validaNutricionista()==true){
                         </select>
                         <script type="text/javascript">
                             $(function(){
-                                $('#ira').jqxDropDownList({
+                                $('#ira_score').jqxDropDownList({
                                     width: '100%',
                                     theme: 'eh-open',
                                     height: '25px'
                                 });
 
-                                $("#ira").on('change',function(){
-                                    var val = $("#ira").val();
+                                $("#ira_score").on('change',function(){
+                                    var val = $("#ira_score").val();
                                     $.post('db/update/paciente_antropometria.php',{
                                         rut:'<?php echo $rut; ?>',
                                         val:val,

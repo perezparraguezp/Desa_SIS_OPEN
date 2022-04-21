@@ -66,6 +66,13 @@
             <?php
             break;
         }
+        case 'CHILE-CUIDA':{
+            ?>
+            <option>SI</option>
+            <option>NO</option>
+            <?php
+            break;
+        }
 
     }
     ?>
