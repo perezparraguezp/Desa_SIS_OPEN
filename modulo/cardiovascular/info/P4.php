@@ -1603,10 +1603,12 @@ $rango_seccion_a_texto = [
 
             $VARIABLES_C = ['Curación Convencional'
                 ,'Curación Avanzada'
+                ,'Con Ayuda técnica de descarga'
             ];
 
             $filtro_c = ["AND patologia_dm='SI' and ulceras like '%CONVEN%' "
                 ,"AND patologia_dm='SI' and ulceras like '%AVANZA%' "
+                ,"AND patologia_dm='SI' and ulceras like '%N%' and ulcera_ayuda_tecnica like '%SI%' "
 
             ];
             $c = 0;
@@ -1707,6 +1709,7 @@ $rango_seccion_a_texto = [
 
             $VARIABLES_C = ['CON AMPUTACIÓN POR PIE DIABÉTICO'
                 ,'CON DIAGNOSTICO ASOCIADO DE HIPERTENSION ARTERIAL'
+                ,'CON DIAGNOSTICO DE ENFERMEDAD RENAL CRÓNICA'
                 ,'ANTECEDENTE DE ATAQUE CEREBRO VASCULAR'
                 ,'ANTECEDENTES DE INFARTO AGUDO AL MIOCARDIO'
 
@@ -1714,6 +1717,7 @@ $rango_seccion_a_texto = [
 
             $filtro_c = ["AND patologia_dm='SI' and amputacion='SI'"
                 ,"AND patologia_dm='SI' AND patologia_hta='SI' "
+                ,"AND factor_riesgo_enf_cv='SI' and patologia_dm='SI' "
                 ,"AND factor_riesgo_enf_cv='SI' and patologia_dm='SI' "
                 ,"AND factor_riesgo_iam='SI' and patologia_dm='SI'  "
 
