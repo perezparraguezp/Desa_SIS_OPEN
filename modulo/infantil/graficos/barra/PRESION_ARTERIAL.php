@@ -363,7 +363,7 @@ if($comunal==true){
 
                 $porcentaje = number_format(($total_indicador*100/$total),1,'.','');
 
-                $series .=" { dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 1, y: -20 } } ,formatFunction: function (value) {return value + ' %';},total_general:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres},";
+                $series .=" { dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 1, y: -20 } } ,formatFunction: function (value) {return value + ' %';},total_general:$total,total_pacientes:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres},";
                 $rango .= ", $id:$porcentaje";
             }
             $rango .= "},";

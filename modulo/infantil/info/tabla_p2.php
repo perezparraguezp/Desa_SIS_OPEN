@@ -155,7 +155,7 @@ $label_rango_seccion_e = [
 
 ];
 $filtro_rango_seccion_e = [
-    'persona.edad_total>=0 and persona.edad_total<=6', //menor 6 mes
+    'persona.edad_total>=0 and persona.edad_total<=6 ', //menor 6 mes
     'persona.edad_total>6 and persona.edad_total<=11', // 6 a 11 meses
     'persona.edad_total>11 and persona.edad_total<=17', // 11 a 17 meses
     'persona.edad_total>17 and persona.edad_total<=23', // 11 a 17 meses
@@ -165,6 +165,18 @@ $filtro_rango_seccion_e = [
     'persona.edad_total>47 and persona.edad_total<=59', // 11 a 17 meses
     'persona.edad_total>59 and persona.edad_total<=71', // 11 a 17 meses
     'persona.edad_total>72 and persona.edad_total<=(12*9)', // 11 a 17 meses
+];
+$filtro_inasistencia_e = [
+        'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*4',
+        'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*4',
+        'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*13',
+        'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*13',
+        'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*13',
+        'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*13',
+        'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*13',
+        'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*13',
+        'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*18',
+        'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*18',
 ];
 
 $label_rango_seccion_f = [
@@ -2097,8 +2109,7 @@ $rango_seccion_g = [
                                                     where m_infancia='SI' and estado_control='PENDIENTE'
                                                     and sectores_centros_internos.id_centro_interno='$id_centro' 
                                                       AND mes_proximo_control<MONTH(CURRENT_DATE())
-                                                      AND anio_proximo_control<=YEAR(CURRENT_DATE()) 
-                                                    and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)<365
+                                                      AND anio_proximo_control<=YEAR(CURRENT_DATE()) $filtro_inasistencia_e
                                                     group by agendamiento.rut
                                  ) as personas
                                 where personas.rut=persona.rut and $rango;";
@@ -2118,7 +2129,7 @@ $rango_seccion_g = [
                                                     where m_infancia='SI' and estado_control='PENDIENTE'
                                                       AND mes_proximo_control<MONTH(CURRENT_DATE())
                                                       AND anio_proximo_control<=YEAR(CURRENT_DATE()) 
-                                                    and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)<365
+                                                    $filtro_inasistencia_e
                                                     group by agendamiento.rut
                                  ) as personas
                                 where personas.rut=persona.rut and $rango;";
