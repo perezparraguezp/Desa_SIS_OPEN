@@ -7,6 +7,7 @@ $value = $_POST['value'];
 $fecha = $_POST['fecha_registro'];
 $p = new persona($rut);
 if($p->existe==true){
+
     $p->update_diabetes_pscv($column,$value,$fecha);
     echo 'ACTUALIZADO';
 }else{

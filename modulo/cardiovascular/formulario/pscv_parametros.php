@@ -291,7 +291,8 @@ $imc =  $paciente->getParametroPSCV('imc');
                                                 onchange="updateParametroPSCV('erc_vfg')">
                                             <option></option>
                                             <option>S/ERC</option>
-                                            <option>ETAPA G1 Y G2 (VFG >= 60 ml/min)</option>
+                                            <option>ETAPA G1 (VFG >= 60 ml/min)</option>
+                                            <option>ETAPA G2 (VFG >= 60 ml/min)</option>
                                             <option>ETAPA G3a (VFG >= 45 A 59 ml/min)</option>
                                             <option>ETAPA G3b (VFG >= 30 a 44 ml/min)</option>
                                             <option>ETAPA G4 (VFG >= 15 a 29 ml/min)</option>

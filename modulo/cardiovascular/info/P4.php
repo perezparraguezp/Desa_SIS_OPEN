@@ -519,7 +519,8 @@ $rango_seccion_a_texto = [
                 $valores_d = Array();
                 $erc_array = ['SIN','GI','G3A','G3B','G4','G5'];
                 $erc_array_label = ['SIN ENFERMEDAD RENAL (S/ERC)',
-                    'ETAPA G1 Y G2 (VFG >= 60 ML/MIN)',
+                    'ETAPA G1 (VFG >= 60 ML/MIN)',
+                    'ETAPA G2 (VFG >= 60 ML/MIN)',
                     'ETAPA G3A (VFG >= 45 A 59 ML/MIN)',
                     'ETAPA G3B (VFG >= 30 A 44 ML/MIN)',
                     'ETAPA G4 (VFG >= 15 A 29 ML/MIN)',
@@ -1172,10 +1173,11 @@ $rango_seccion_a_texto = [
             <tr>
                 <td rowspan="2">PERSONAS BAJO CONTROL con antecedentes Enfermedad Cardiovascular (ECV)</td>
                 <?php
-                $filas = Array('En tratamiento con Antiagregantes plaquetarios','En tratamiento con Estatina');
+                $filas = Array('En tratamiento con Antiagregantes plaquetarios','En tratamiento con Estatina','Fumador Actual');
                 $filtro = Array(
                     "and (factor_riesgo_enf_cv='SI' or factor_riesgo_iam='SI') and (tratamiento_aas='SI' or tratamiento_clo='SI')",
                     "and (factor_riesgo_enf_cv='SI' or factor_riesgo_iam='SI') and tratamiento_estatina='SI'",
+                    "and (factor_riesgo_enf_cv='SI' or factor_riesgo_iam='SI') and fumador_actual='SI'",
                 );
                 $dias = 365;
 
@@ -1268,6 +1270,8 @@ $rango_seccion_a_texto = [
             </tr>
         </table>
     </section>
+
+
     <!--    SECCION C-->
     <section id="seccion_c" style="width: 100%;overflow-y: scroll;">
         <div class="row">
@@ -1376,6 +1380,7 @@ $rango_seccion_a_texto = [
                 ,'EN TRATAMIENTO CON INSULINA'
                 ,'EN TRATAMIENTO CON INSULINA QUE LOGRA META CON  HbA1C SEGÚN EDAD'
                 ,'HbA1C >= 9 %'
+                ,'FUMADOR ACTUAL'
                 ,'CON ERC ETAPA 3B O SUPERIOR Y EN TRATAMIENTO CON IECA O ARA II.'
                 ,'CON UN EXÁMEN DE COLESTEROL LDL VIGENTE.'
             ];
@@ -1389,6 +1394,7 @@ $rango_seccion_a_texto = [
                 ,"AND nph!='' AND patologia_dm='SI'"
                 ,"AND patologia_dm='SI' AND nph!='' and ( (persona.edad_total<80*12 and hba1c='< 7%') or (persona.edad_total>=80*12 and hba1c='< 8%')) "
                 ,"AND patologia_dm='SI' AND nph!='' and  hba1c='>= 9%' "
+                ,"AND patologia_dm='SI' AND nph!='' and  fumador_actual='SI' "
                 ,"AND patologia_dm='SI' erc_vfg not like '%G1%G2%' AND erc_vfg!='SIN ENFERMEDAD RENAL (S/ERC)' and erc_vfg!='' and erc_vfg!='S/ERC'"
                 ,"AND patologia_dm='SI' AND ldl!=''"
             ];

@@ -18,6 +18,7 @@ $rapida         =  $paciente->getDiabetesPSCV('rapida');
 $urapida        =  $paciente->getDiabetesPSCV('urapida');
 $ev_pie          =  $paciente->getDiabetesPSCV('ev_pie');
 $ulceras       =  $paciente->getDiabetesPSCV('ulceras');
+$ulcera_ayuda_tecnica       =  $paciente->getDiabetesPSCV('ulcera_ayuda_tecnica');
 $amputacion     =  $paciente->getDiabetesPSCV('amputacion');
 $opcion_hba1c = '';
 
@@ -249,6 +250,21 @@ if($paciente->anios<80){
                                    onclick="loadHistorialDiabetesPSCV('<?php echo $rut ?>','ulceras')"></i>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col l10 m6 s12">
+                                <div class="row">
+                                    <div class="col l12 m12 s12">
+                                        <div class="col l12 m12 s12">
+                                            <input type="checkbox" id="ulcera_ayuda_tecnica"
+                                                   onchange="update_ayudaTecnica('ulcera_ayuda_tecnica')"
+                                                <?php echo $ulcera_ayuda_tecnica=='SI'?'checked="checked"':'' ?>
+                                                   name="ulcera_ayuda_tecnica"  />
+                                            <label class="white-text" for="ulcera_ayuda_tecnica">AYUDA TÉCNICA</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -356,6 +372,23 @@ if($paciente->anios<80){
             column:indicador,
             value:value,
             fecha_registro:value,
+            rut:'<?php echo $rut ?>'
+        },function (data) {
+            alertaLateral(data);
+        });
+    }
+    function update_ayudaTecnica(indicador){
+        var value = '';
+        if($('#'+indicador).prop('checked')){
+            value = 'SI';
+        }else{
+            value = 'NO';
+        }
+        var fecha = '<?php echo $fecha_registro; ?>';
+        $.post('db/update/pscv_diabetes.php',{
+            column:indicador,
+            value:value,
+            fecha_registro:fecha,
             rut:'<?php echo $rut ?>'
         },function (data) {
             alertaLateral(data);

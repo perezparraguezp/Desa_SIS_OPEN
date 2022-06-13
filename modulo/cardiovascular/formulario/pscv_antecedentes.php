@@ -18,6 +18,7 @@ $patologia_dm =  $paciente->getIndicadorPSCV('patologia_dm');
 $patologia_dm_sigges =  $paciente->getIndicadorPSCV('patologia_dm_sigges');
 $patologia_dlp =  $paciente->getIndicadorPSCV('patologia_dlp');
 
+$factor_riesgo_fumador_actual   =  $paciente->getIndicadorPSCV('fumador_actual');
 $factor_riesgo_tabaquismo   =  $paciente->getIndicadorPSCV('factor_riesgo_tabaquismo');
 $factor_riesgo_iam          =  $paciente->getIndicadorPSCV('factor_riesgo_iam');
 $factor_riesgo_enf_cv       =  $paciente->getIndicadorPSCV('factor_riesgo_enf_cv');
@@ -154,6 +155,13 @@ $hemodialisis = $paciente->getIndicadorPSCV('hemodialisis');
                             </div>
                             <div class="col l9 m6 s12">
                                 <div class="row">
+                                    <div class="col l12 m12 s12">
+                                        <input type="checkbox" id="fumador_actual"
+                                               onchange="updateIndicadorPSCV('fumador_actual')"
+                                            <?php echo $factor_riesgo_fumador_actual=='SI'?'checked="checked"':'' ?>
+                                               name="fumador_actual"  />
+                                        <label class="white-text" for="fumador_actual">FUMADOR ACTUAL</label>
+                                    </div>
                                     <div class="col l12 m12 s12">
                                         <input type="checkbox" id="factor_riesgo_tabaquismo"
                                                onchange="updateIndicadorPSCV('factor_riesgo_tabaquismo')"
