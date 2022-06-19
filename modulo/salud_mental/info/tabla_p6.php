@@ -397,73 +397,6 @@ $rango_label_seccion_a = [
 
 
             echo '</tr>';
-            $INDICES = [
-                "PERSONAS CON DIAGNOSTICOS DE TRASTORNOS MENTALES",
-
-            ];
-            $filtro_sql = [
-                " ",
-            ];
-
-            //construimos la fila
-
-            $fila_final = '';
-            foreach ($INDICES AS $TR => $texto_fila){
-                $fila = '';
-                $total_hombre = 0;
-                $total_mujer = 0;
-
-
-                foreach ($filtro_rango_seccion_a as $i => $filtro){
-
-                    if($id_centro!=''){
-                        $sql = "select count(*) as total from persona 
-                                  inner join paciente_diagnosticos_sm on persona.rut=paciente_diagnosticos_sm.rut
-                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
-                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
-                                  where sectores_centros_internos.id_centro_interno='$id_centro'
-                                  and m_salud_mental='SI' and id_establecimiento='$id_establecimiento' 
-                                  group by paciente_diagnosticos_sm.rut";
-                    }else{
-                        $sql = "select count(*) as total from persona
-                                  inner join paciente_diagnosticos_sm on persona.rut=paciente_diagnosticos_sm.rut
-                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
-                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
-                                  where m_salud_mental='SI' and id_establecimiento='$id_establecimiento' 
-                                  ";
-                    }
-                    $sql1 = $sql." and persona.sexo='M' group by paciente_diagnosticos_sm.rut";
-                    $row = mysql_fetch_array(mysql_query($sql1));
-                    if($row){
-                        $total = $row['total'];
-                    }else{
-                        $total = 0;
-                    }
-                    $fila .= "<td>$total</td>";//hombre
-                    $total_hombre += $total;
-                    $sql2 = $sql." and persona.sexo='F' group by paciente_diagnosticos_sm.rut";
-                    $row = mysql_fetch_array(mysql_query($sql2));
-                    if($row){
-                        $total = $row['total'];
-                    }else{
-                        $total = 0;
-                    }
-                    $fila .= "<td>$total</td>";//mujer
-                    $total_mujer += $total;
-
-                }//fin columnas
-
-                $fila_final .='<td colspan="2">'.$texto_fila.'</td>';
-
-                $fila_final .='<td>'.($total_hombre+$total_mujer).'</td>';
-                $fila_final .='<td>'.($total_hombre).'</td>';
-                $fila_final .='<td>'.($total_mujer).'</td>';
-
-                $fila_final .= $fila;
-                echo $fila_final.'</tr>';
-                $fila_final = '';
-
-            }//fin filas
 
             $INDICES = [
 
@@ -551,6 +484,78 @@ $rango_label_seccion_a = [
 
             }//fin filas
             echo '</tr>';
+
+
+
+            $INDICES = [
+                "PERSONAS CON DIAGNOSTICOS DE TRASTORNOS MENTALES A",
+
+            ];
+            $filtro_sql = [
+                " ",
+            ];
+
+            //construimos la fila
+
+            $fila_final = '';
+            foreach ($INDICES AS $TR => $texto_fila){
+                $fila = '';
+                $total_hombre = 0;
+                $total_mujer = 0;
+
+
+                foreach ($filtro_rango_seccion_a as $i => $filtro){
+                    $total = 0;
+                    if($id_centro!=''){
+                        $sql = "select count(*) as total from persona 
+                                  inner join paciente_diagnosticos_sm on persona.rut=paciente_diagnosticos_sm.rut
+                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                                  where sectores_centros_internos.id_centro_interno='$id_centro'
+                                  and m_salud_mental='SI' and id_establecimiento='$id_establecimiento' 
+                                  ";
+                    }else{
+                        $sql = "select count(*) as total from persona
+                                  inner join paciente_diagnosticos_sm on persona.rut=paciente_diagnosticos_sm.rut
+                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                                  where m_salud_mental='SI' and id_establecimiento='$id_establecimiento' 
+                                  ";
+                    }
+                    $sql1 = $sql.$filtro." and persona.sexo='M' group by paciente_diagnosticos_sm.rut";
+
+                    $row = mysql_fetch_array(mysql_query($sql1));
+                    if($row){
+                        $total = $row['total'];
+                    }else{
+                        $total = 0;
+                    }
+                    $fila .= "<td>$total</td>";//hombre
+                    $total_hombre += $total;
+                    $sql2 = $sql.$filtro." and persona.sexo='F' group by paciente_diagnosticos_sm.rut";
+                    $row = mysql_fetch_array(mysql_query($sql2));
+                    if($row){
+                        $total = $row['total'];
+                    }else{
+                        $total = 0;
+                    }
+                    $fila .= "<td>$total</td>";//mujer
+                    $total_mujer += $total;
+
+                }//fin columnas
+
+                $fila_final .='<td colspan="2">'.$texto_fila.'</td>';
+
+                $fila_final .='<td>'.($total_hombre+$total_mujer).'</td>';
+                $fila_final .='<td>'.($total_hombre).'</td>';
+                $fila_final .='<td>'.($total_mujer).'</td>';
+
+                $fila_final .= $fila;
+                echo $fila_final.'</tr>';
+                $fila_final = '';
+
+            }//fin filas
+
 
 
 
@@ -827,6 +832,103 @@ $rango_label_seccion_a = [
             }//fin filas
             echo '</tr>';
 
+            //cuarto proceso TRASTORNOS DE ANSIEDAD
+            $INDICES = [
+                "TRASTORNO DE ESTRÉS POST TRAUMATICO",
+                "TRASTORNO DE PANICO CON AGOROFOBIA ",
+                "TRASTORNO DE PANICO SIN AGOROFOBIA ",
+                "FOBIAS SOCIALES",
+                "TRASTORNOS DE ANSIEDAD GENERALIZADA",
+                "OTROS TRASTORNOS DE ANSIEDAD",
+            ];
+            $INDICES_COL = [
+                2,1,1
+            ];
+            $filtro_sql = [
+                "and paciente_diagnosticos_sm.valor_tipo like '%POST TRAUMATICO%' and  paciente_diagnosticos_sm.fecha_egreso is null  ",
+                "and paciente_diagnosticos_sm.valor_tipo like '%CON AGOROFOBIA%' and  paciente_diagnosticos_sm.fecha_egreso is null  ",
+                "and paciente_diagnosticos_sm.valor_tipo like '%SIN AGOROFOBIA%' and  paciente_diagnosticos_sm.fecha_egreso is null  ",
+                "and paciente_diagnosticos_sm.valor_tipo like '%SOCIALES%' and  paciente_diagnosticos_sm.fecha_egreso is null  ",
+                "and paciente_diagnosticos_sm.valor_tipo like '%ANSIEDAD GENERALIZADA%' and  paciente_diagnosticos_sm.fecha_egreso is null  ",
+                "and paciente_diagnosticos_sm.valor_tipo like '%OTROS TRASTORNOS DE ANSIEDAD%' and  paciente_diagnosticos_sm.fecha_egreso is null  ",
+
+
+            ];
+
+            $fila_final = '<tr>
+                        <td rowspan="6">TRASTORNOS DE ANSIEDAD</td>';
+            foreach ($INDICES AS $TR => $texto_fila){
+                $fila = '';
+                $total_hombre = 0;
+                $total_mujer = 0;
+                foreach ($filtro_rango_seccion_a as $i => $filtro){
+
+                    if($id_centro!=''){
+                        $sql = "select count(*) as total from persona 
+                                  inner join paciente_diagnosticos_sm on persona.rut=paciente_diagnosticos_sm.rut
+                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                                  where sectores_centros_internos.id_centro_interno='$id_centro'
+                                  and m_salud_mental='SI' and id_establecimiento='$id_establecimiento' ";
+                    }else{
+                        $sql = "select count(*) as total from persona
+                                  inner join paciente_diagnosticos_sm on persona.rut=paciente_diagnosticos_sm.rut
+                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                                  where m_salud_mental='SI' and id_establecimiento='$id_establecimiento' ";
+                    }
+
+                    if($i==17 || $i == 18 || $i==21 || $i==22){
+                        $sql .= $filtro.' '.$filtro_sql[$TR];
+                        $row = mysql_fetch_array(mysql_query($sql));
+                        if($row){
+                            $total = $row['total'];
+                        }else{
+                            $total = 0;
+                        }
+                        $fila .= "<td>$total</td>";//ambos
+                        $total_hombre += $total;
+                    }else{
+                        $sql1 = $sql.$filtro.' '.$filtro_sql[$TR]." and persona.sexo='M' ";
+                        $row = mysql_fetch_array(mysql_query($sql1));
+                        if($row){
+                            $total = $row['total'];
+                        }else{
+                            $total = 0;
+                        }
+                        $fila .= "<td>$total</td>";//hombre
+                        $total_hombre += $total;
+                        $sql2 = $sql.$filtro.' '.$filtro_sql[$TR]." and persona.sexo='F' ";
+                        $row = mysql_fetch_array(mysql_query($sql2));
+                        if($row){
+                            $total = $row['total'];
+                        }else{
+                            $total = 0;
+                        }
+                        $fila .= "<td>$total</td>";//mujer
+                        $total_mujer += $total;
+
+                    }
+
+                }//fin columnas
+
+
+                //construimos la fila
+                $fila_final  .='<td>'.$texto_fila.'</td>';
+                $fila_final .='<td>'.($total_hombre+$total_mujer).'</td>';
+                $fila_final .='<td>'.($total_hombre).'</td>';
+                $fila_final .='<td>'.($total_mujer).'</td>';
+
+                $fila_final .= $fila;
+                echo $fila_final.'</tr>';
+                $fila_final='';
+
+
+            }//fin filas
+            echo '</tr>';
+
+
+            //suicidio
 
             $INDICES = [
                 "LEVE",
@@ -928,11 +1030,11 @@ $rango_label_seccion_a = [
                 2,1,1
             ];
             $filtro_sql = [
-                "and paciente_diagnosticos_sm.valor_tipo like 'ESQUIZOFRENIA' and  paciente_diagnosticos_sm.fecha_egreso is null  ",
-                "and paciente_diagnosticos_sm.valor_tipo like '%1ER EPISODIO EQZ POR OCUPACION REGULAR%' and  paciente_diagnosticos_sm.fecha_egreso is null  ",
-                "and paciente_diagnosticos_sm.valor_tipo like 'TRASTORNO CONDUCTA ALIMENTARIA' and  paciente_diagnosticos_sm.fecha_egreso is null  ",
-                "and paciente_diagnosticos_sm.valor_tipo like 'RETRASO MENTAL' and  paciente_diagnosticos_sm.fecha_egreso is null  ",
-                "and paciente_diagnosticos_sm.valor_tipo like 'TRASTORNO DE PERSONALIDAD' and  paciente_diagnosticos_sm.fecha_egreso is null  ",
+                "and (paciente_diagnosticos_sm.valor_tipo like '%ESQUIZO%' or tipo_diagnostico_sm.nombre_tipo like '%ESQUIZO%') and  paciente_diagnosticos_sm.fecha_egreso is null  ",
+                "and (paciente_diagnosticos_sm.valor_tipo like '%1ER EPISODIO EQZ POR OCUPACION REGULAR%' or tipo_diagnostico_sm.nombre_tipo like '%1ER EPISODIO EQZ POR OCUPACION REGULAR%') and  paciente_diagnosticos_sm.fecha_egreso is null  ",
+                "and (paciente_diagnosticos_sm.valor_tipo like '%TRASTORNO CONDUCTA ALIMENTARIA%' or tipo_diagnostico_sm.nombre_tipo like '%TRASTORNO CONDUCTA ALIMENTARIA%') and  paciente_diagnosticos_sm.fecha_egreso is null  ",
+                "and (paciente_diagnosticos_sm.valor_tipo like '%RETRASO MENTAL%' or tipo_diagnostico_sm.nombre_tipo like '%TRETRASO MENTAL%') and  paciente_diagnosticos_sm.fecha_egreso is null  ",
+                "and (paciente_diagnosticos_sm.valor_tipo like '%TRASTORNO DE PERSONALIDAD%' or tipo_diagnostico_sm.nombre_tipo like '%TRASTORNO DE PERSONALIDAD%') and  paciente_diagnosticos_sm.fecha_egreso is null  ",
             ];
 
             $fila_final = '';
@@ -945,6 +1047,7 @@ $rango_label_seccion_a = [
                     if($id_centro!=''){
                         $sql = "select count(*) as total from persona 
                                   inner join paciente_diagnosticos_sm on persona.rut=paciente_diagnosticos_sm.rut
+                                  inner join tipo_diagnostico_sm on paciente_diagnosticos_sm.id_tipo = tipo_diagnostico_sm.id_tipo
                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                   where sectores_centros_internos.id_centro_interno='$id_centro'
@@ -952,6 +1055,7 @@ $rango_label_seccion_a = [
                     }else{
                         $sql = "select count(*) as total from persona
                                   inner join paciente_diagnosticos_sm on persona.rut=paciente_diagnosticos_sm.rut
+                                  inner join tipo_diagnostico_sm on paciente_diagnosticos_sm.id_tipo = tipo_diagnostico_sm.id_tipo 
                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                   where m_salud_mental='SI' and id_establecimiento='$id_establecimiento' ";
@@ -1106,8 +1210,8 @@ $rango_label_seccion_a = [
                 2,1,1
             ];
             $filtro_sql = [
-                "and paciente_diagnosticos_sm.valor_tipo like 'EPILEPSIA' and  paciente_diagnosticos_sm.fecha_egreso is null  ",
-                "and paciente_diagnosticos_sm.valor_tipo like 'OTRAS' and  paciente_diagnosticos_sm.fecha_egreso is null  ",
+                "and tipo_diagnostico_sm.nombre_tipo like 'EPILEPSIA' and  paciente_diagnosticos_sm.fecha_egreso is null  ",
+                "and tipo_diagnostico_sm.nombre_tipo like 'OTRAS' and  paciente_diagnosticos_sm.fecha_egreso is null  ",
             ];
 
             $fila_final = '';
@@ -1120,6 +1224,7 @@ $rango_label_seccion_a = [
                     if($id_centro!=''){
                         $sql = "select count(*) as total from persona 
                                   inner join paciente_diagnosticos_sm on persona.rut=paciente_diagnosticos_sm.rut
+                                  inner join tipo_diagnostico_sm on paciente_diagnosticos_sm.id_tipo=tipo_diagnostico_sm.id_tipo
                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                   where sectores_centros_internos.id_centro_interno='$id_centro'
