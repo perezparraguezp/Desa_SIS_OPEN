@@ -395,6 +395,76 @@ $rango_label_seccion_a = [
 
             }//fin filas
 
+
+            echo '</tr>';
+            $INDICES = [
+                "PERSONAS CON DIAGNOSTICOS DE TRASTORNOS MENTALES",
+
+            ];
+            $filtro_sql = [
+                " ",
+            ];
+
+            //construimos la fila
+
+            $fila_final = '';
+            foreach ($INDICES AS $TR => $texto_fila){
+                $fila = '';
+                $total_hombre = 0;
+                $total_mujer = 0;
+
+
+                foreach ($filtro_rango_seccion_a as $i => $filtro){
+
+                    if($id_centro!=''){
+                        $sql = "select count(*) as total from persona 
+                                  inner join paciente_diagnosticos_sm on persona.rut=paciente_diagnosticos_sm.rut
+                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                                  where sectores_centros_internos.id_centro_interno='$id_centro'
+                                  and m_salud_mental='SI' and id_establecimiento='$id_establecimiento' 
+                                  group by paciente_diagnosticos_sm.rut";
+                    }else{
+                        $sql = "select count(*) as total from persona
+                                  inner join paciente_diagnosticos_sm on persona.rut=paciente_diagnosticos_sm.rut
+                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                                  where m_salud_mental='SI' and id_establecimiento='$id_establecimiento' 
+                                  ";
+                    }
+                    $sql1 = $sql." and persona.sexo='M' group by paciente_diagnosticos_sm.rut";
+                    $row = mysql_fetch_array(mysql_query($sql1));
+                    if($row){
+                        $total = $row['total'];
+                    }else{
+                        $total = 0;
+                    }
+                    $fila .= "<td>$total</td>";//hombre
+                    $total_hombre += $total;
+                    $sql2 = $sql." and persona.sexo='F' group by paciente_diagnosticos_sm.rut";
+                    $row = mysql_fetch_array(mysql_query($sql2));
+                    if($row){
+                        $total = $row['total'];
+                    }else{
+                        $total = 0;
+                    }
+                    $fila .= "<td>$total</td>";//mujer
+                    $total_mujer += $total;
+
+                }//fin columnas
+
+                $fila_final .='<td colspan="2">'.$texto_fila.'</td>';
+
+                $fila_final .='<td>'.($total_hombre+$total_mujer).'</td>';
+                $fila_final .='<td>'.($total_hombre).'</td>';
+                $fila_final .='<td>'.($total_mujer).'</td>';
+
+                $fila_final .= $fila;
+                echo $fila_final.'</tr>';
+                $fila_final = '';
+
+            }//fin filas
+
             $INDICES = [
 
                 "IDEACION",
@@ -1127,108 +1197,240 @@ $rango_label_seccion_a = [
         </table>
     </section>
 
-    <section id="seccion_a3" style="width: 100%;overflow-y: scroll;">
-        <div class="row">
-            <div class="col l10">
-                <header>SECCION A.3: PROGRAMA DE ACOMPAÑAMIENTO PSICOSOCIAL EN LA ATENCION PRIMARIA</header>
-            </div>
-        </div>
-        <table id="table_seccion_a3" style="width: 100%;border: solid 1px black;" border="1">
-            <tr>
-                <td ROWSPAN="3" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">
-                    CONCEPTO
-                </td>
-                <td colspan="3" rowspan="2">TOTAL</td>
-                <td colspan="10">GRUPO DE EDAD (en años)</td>
-                <td colspan="2" rowspan="2">POBLACION MIGRANTES</td>
-            </tr>
-            <tr>
-                <td colspan="2">0 a 4 años</td>
-                <td colspan="2">5 a 9 años</td>
-                <td colspan="2">10 a 14 años</td>
-                <td colspan="2">15 a 19 años</td>
-                <td colspan="2">20 a 24 años</td>
-            </tr>
-            <tr>
-                <td>AMBOS</td>
-                <td>HOMBRES</td>
-                <td>MUJER</td>
+<!--    <section id="seccion_a3" style="width: 100%;overflow-y: scroll;">-->
+<!--        <div class="row">-->
+<!--            <div class="col l10">-->
+<!--                <header>SECCION A.3: PROGRAMA DE ACOMPAÑAMIENTO PSICOSOCIAL EN LA ATENCION PRIMARIA</header>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <table id="table_seccion_a3" style="width: 100%;border: solid 1px black;" border="1">-->
+<!--            <tr>-->
+<!--                <td ROWSPAN="3" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">-->
+<!--                    CONCEPTO-->
+<!--                </td>-->
+<!--                <td colspan="3" rowspan="2">TOTAL</td>-->
+<!--                <td colspan="10">GRUPO DE EDAD (en años)</td>-->
+<!--                <td colspan="2" rowspan="2">POBLACION MIGRANTES</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td colspan="2">0 a 4 años</td>-->
+<!--                <td colspan="2">5 a 9 años</td>-->
+<!--                <td colspan="2">10 a 14 años</td>-->
+<!--                <td colspan="2">15 a 19 años</td>-->
+<!--                <td colspan="2">20 a 24 años</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>AMBOS</td>-->
+<!--                <td>HOMBRES</td>-->
+<!--                <td>MUJER</td>-->
+<!---->
+<!--                <td>HOMBRES</td>-->
+<!--                <td>MUJER</td>-->
+<!--                <td>HOMBRES</td>-->
+<!--                <td>MUJER</td>-->
+<!--                <td>HOMBRES</td>-->
+<!--                <td>MUJER</td>-->
+<!--                <td>HOMBRES</td>-->
+<!--                <td>MUJER</td>-->
+<!--                <td>HOMBRES</td>-->
+<!--                <td>MUJER</td>-->
+<!---->
+<!--                <td>HOMBRES</td>-->
+<!--                <td>MUJER</td>-->
+<!---->
+<!--            </tr>-->
+<!---->
+<!--            --><?php
+//
+//            $INDICES = [
+//                "N° DE PERSONAS EN CONTROL EN PROGRAMA DE ACOMPAÑAMIENTO PSICOSOCIAL	",
+//            ];
+//            $filtro_sql = [
+//                'and persona.edad_total>=0 and persona.edad_total<4*12',
+//                'and persona.edad_total>=5*12 and persona.edad_total<9*12',
+//                'and persona.edad_total>=10*12 and persona.edad_total<14*12',
+//                'and persona.edad_total>=15*12 and persona.edad_total<19*12',
+//                'and persona.edad_total>=20*12 and persona.edad_total<24*12',
+//                'and persona.edad_total>0',
+//            ];
+//
+//            $filtro_rango_seccion_a = [
+//                '',
+//                "AND riesgo_biopsicosocial='CON RIESGO BIOPSICOSOCIAL' ",
+//            ];
+//
+//            foreach ($INDICES AS $TR => $texto_fila) {
+//                $fila = '';
+//                foreach ($filtro_rango_seccion_a as $i => $filtro) {
+//                    if ($id_centro != '') {
+//                        $sql = "select count(*) as total from persona
+//                                  inner join gestacion_mujer using(rut)
+//                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+//                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+//                                  where sectores_centros_internos.id_centro_interno='$id_centro'
+//                                  and m_salud_mental='SI' and id_establecimiento='$id_establecimiento'
+//                                  and estado_gestacion='ACTIVA' ";
+//                    } else {
+//                        $sql = "select count(*) as total from persona
+//                                  inner join gestacion_mujer using(rut)
+//                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+//                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+//                                  where m_salud_mental='SI' and id_establecimiento='$id_establecimiento'
+//                                  and estado_gestacion='ACTIVA' ";
+//                    }
+//                    $sql .= $filtro . ' ' . $filtro_sql[$TR];
+////                    echo $sql;
+//                    $row = mysql_fetch_array(mysql_query($sql));
+//                    if ($row) {
+//                        $total = $row['total'];
+//                    } else {
+//                        $total = 0;
+//                    }
+//                    $fila .= "<td>$total</td>";
+//
+//
+//                }
+//                $fila_final = '<tr>
+//                                    <td>'.$texto_fila.'</td>';
+//                $fila_final .= $fila;
+//                echo $fila_final.'</tr>';
+//            }
+//            ?>
+<!--        </table>-->
+<!--    </section>-->
 
-                <td>HOMBRES</td>
-                <td>MUJER</td>
-                <td>HOMBRES</td>
-                <td>MUJER</td>
-                <td>HOMBRES</td>
-                <td>MUJER</td>
-                <td>HOMBRES</td>
-                <td>MUJER</td>
-                <td>HOMBRES</td>
-                <td>MUJER</td>
 
-                <td>HOMBRES</td>
-                <td>MUJER</td>
-
-            </tr>
-
-            <?php
-
-            $INDICES = [
-                "N° DE PERSONAS EN CONTROL EN PROGRAMA DE ACOMPAÑAMIENTO PSICOSOCIAL	",
-            ];
-            $filtro_sql = [
-                'and persona.edad_total>=0 and persona.edad_total<4*12',
-                'and persona.edad_total>=5*12 and persona.edad_total<9*12',
-                'and persona.edad_total>=10*12 and persona.edad_total<14*12',
-                'and persona.edad_total>=15*12 and persona.edad_total<19*12',
-                'and persona.edad_total>=20*12 and persona.edad_total<24*12',
-                'and persona.edad_total>0',
-            ];
-
-            $filtro_rango_seccion_a = [
-                '',
-                "AND riesgo_biopsicosocial='CON RIESGO BIOPSICOSOCIAL' ",
-                "AND riesgo_biopsicosocial='PRESENTA VIOLENCIA DE GENERO' ",
-                "AND riesgo_biopsicosocial like 'PRESENTA ARO%' ",
-                "AND persona.migrante='SI' ",
-            ];
-
-            foreach ($INDICES AS $TR => $texto_fila) {
-                $fila = '';
-                foreach ($filtro_rango_seccion_a as $i => $filtro) {
-                    if ($id_centro != '') {
-                        $sql = "select count(*) as total from persona 
-                                  inner join gestacion_mujer using(rut)
-                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
-                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
-                                  where sectores_centros_internos.id_centro_interno='$id_centro'
-                                  and m_mujer='SI' and id_establecimiento='$id_establecimiento' 
-                                  and estado_gestacion='ACTIVA' ";
-                    } else {
-                        $sql = "select count(*) as total from persona 
-                                  inner join gestacion_mujer using(rut)
-                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
-                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
-                                  where m_mujer='SI' and id_establecimiento='$id_establecimiento' 
-                                  and estado_gestacion='ACTIVA' ";
-                    }
-                    $sql .= $filtro . ' ' . $filtro_sql[$TR];
-//                    echo $sql;
-                    $row = mysql_fetch_array(mysql_query($sql));
-                    if ($row) {
-                        $total = $row['total'];
-                    } else {
-                        $total = 0;
-                    }
-                    $fila .= "<td>$total</td>";
-
-
-                }
-                $fila_final = '<tr>
-                                    <td>'.$texto_fila.'</td>';
-                $fila_final .= $fila;
-                echo $fila_final.'</tr>';
-            }
-            ?>
-        </table>
-    </section>
+<!--    <section id="seccion_b1" style="width: 100%;overflow-y: scroll;">-->
+<!--        <div class="row">-->
+<!--            <div class="col l10">-->
+<!--                <header>B. ATENCIÓN DE ESPECIALIDADES</header>-->
+<!--                <header>SECCION B.1: POBLACIÓN EN CONTROL EN ESPECIALIDAD AL CORTE</header>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <table id="table_seccion_a3" style="width: 100%;border: solid 1px black;" border="1">-->
+<!--            <tr>-->
+<!--                <td ROWSPAN="3" style="width: 400px;background-color: #fdff8b;position: relative;text-align: center;">-->
+<!--                    CONCEPTO-->
+<!--                </td>-->
+<!--                <td colspan="3" rowspan="2">TOTAL</td>-->
+<!--                <td colspan="34">GRUPO DE EDAD (en años)</td>-->
+<!--                <td colspan="1" rowspan="3">GESTANTES</td>-->
+<!--                <td colspan="1" rowspan="3">MADRE DE MENOR 5 AÑOS</td>-->
+<!--                <td colspan="2" rowspan="2">PUEBLOS ORIGINARIOS</td>-->
+<!--                <td colspan="2" rowspan="2">POBLACION MIGRANTES</td>-->
+<!--                <td colspan="1" rowspan="3">SENAME</td>-->
+<!--                <td colspan="1" rowspan="3">PLAN CUIDADO INTEGRAL</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td colspan="2">0 a 4 años</td>-->
+<!--                <td colspan="2">5 a 9 años</td>-->
+<!--                <td colspan="2">10 a 14 años</td>-->
+<!--                <td colspan="2">15 a 19 años</td>-->
+<!--                <td colspan="2">20 a 24 años</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>AMBOS</td>-->
+<!--                <td>HOMBRES</td>-->
+<!--                <td>MUJER</td>-->
+<!---->
+<!--                <td>HOMBRES</td>-->
+<!--                <td>MUJER</td>-->
+<!--                <td>HOMBRES</td>-->
+<!--                <td>MUJER</td>-->
+<!--                <td>HOMBRES</td>-->
+<!--                <td>MUJER</td>-->
+<!--                <td>HOMBRES</td>-->
+<!--                <td>MUJER</td>-->
+<!--                <td>HOMBRES</td>-->
+<!--                <td>MUJER</td>-->
+<!---->
+<!--                <td>HOMBRES</td>-->
+<!--                <td>MUJER</td>-->
+<!---->
+<!--            </tr>-->
+<!---->
+<!--            --><?php
+//
+//            $INDICES = [
+//                "NUMERO DE PERSONAS EN CONTROL EN EL PROGRAMA",
+//                "FACTORES DE RIESGO Y CONDICIONANTES DE LA SALUD MENTAL	",
+//            ];
+//            $filtro_sql = [
+//                'and persona.edad_total>=0 and persona.edad_total<4*12',
+//                'and persona.edad_total>=5*12 and persona.edad_total<9*12',
+//                'and persona.edad_total>=10*12 and persona.edad_total<14*12',
+//                'and persona.edad_total>=15*12 and persona.edad_total<19*12',
+//                'and persona.edad_total>=20*12 and persona.edad_total<24*12',
+//                'and persona.edad_total>0',
+//            ];
+//
+//            $filtro_rango_seccion_a = [
+//                '',
+//                "AND riesgo_biopsicosocial='CON RIESGO BIOPSICOSOCIAL' ",
+//            ];
+//            $filtro_rango_seccion_b1 = [
+//                'and persona.edad_total>=1 and persona.edad_total<4*12',
+//                'and persona.edad_total>=5*12 and persona.edad_total<9*12',
+//                'and persona.edad_total>=10*12 and persona.edad_total<14*12',
+//                'and persona.edad_total>=15*12 and persona.edad_total<19*12',
+//                'and persona.edad_total>=20*12 and persona.edad_total<24*12',
+//                'and persona.edad_total>=25*12 and persona.edad_total<29*12',
+//                'and persona.edad_total>=30*12 and persona.edad_total<34*12',
+//                'and persona.edad_total>=35*12 and persona.edad_total<39*12',
+//                'and persona.edad_total>=40*12 and persona.edad_total<44*12',
+//                'and persona.edad_total>=45*12 and persona.edad_total<49*12',
+//                'and persona.edad_total>=50*12 and persona.edad_total<54*12',
+//                'and persona.edad_total>=55*12 and persona.edad_total<59*12',
+//                'and persona.edad_total>=60*12 and persona.edad_total<64*12',
+//                'and persona.edad_total>=65*12 and persona.edad_total<69*12',
+//                'and persona.edad_total>=70*12 and persona.edad_total<74*12',
+//                'and persona.edad_total>=75*12 and persona.edad_total<80*12',
+//                'and persona.edad_total>=80*12 ',//16
+//                "and paciente_salud_mental.gestante='SI' ",//17
+//                "and paciente_salud_mental.madre_5='SI' ",//18,
+//                "and persona.migrante='SI' ",//19,pueblos
+//                "and persona.migrante='SI' ",//20,migrantes
+//                "and paciente_salud_mental.sename='SI' ",//21,
+//                "and paciente_salud_mental.plana_integral='SI' ",//22,
+//            ];
+//
+//            foreach ($INDICES AS $TR => $texto_fila) {
+//                $fila = '';
+//                foreach ($filtro_rango_seccion_b1 as $i => $filtro) {
+//                    if ($id_centro != '') {
+//                        $sql = "select count(*) as total from persona
+//                                  inner join gestacion_mujer using(rut)
+//                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+//                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+//                                  where sectores_centros_internos.id_centro_interno='$id_centro'
+//                                  and m_salud_mental='SI' and id_establecimiento='$id_establecimiento'
+//                                  and estado_gestacion='ACTIVA' ";
+//                    } else {
+//                        $sql = "select count(*) as total from persona
+//                                  inner join gestacion_mujer using(rut)
+//                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+//                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+//                                  where m_salud_mental='SI' and id_establecimiento='$id_establecimiento'
+//                                  and estado_gestacion='ACTIVA' ";
+//                    }
+//                    $sql .= $filtro . ' ' . $filtro_sql[$TR];
+////                    echo $sql;
+//                    $row = mysql_fetch_array(mysql_query($sql));
+//                    if ($row) {
+//                        $total = $row['total'];
+//                    } else {
+//                        $total = 0;
+//                    }
+//                    $fila .= "<td>$total</td>";
+//
+//
+//                }
+//                $fila_final = '<tr>
+//                                    <td>'.$texto_fila.'</td>';
+//                $fila_final .= $fila;
+//                echo $fila_final.'</tr>';
+//            }
+//            ?>
+<!--        </table>-->
+<!--    </section>-->
 </div>

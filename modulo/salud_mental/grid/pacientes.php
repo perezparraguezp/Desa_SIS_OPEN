@@ -100,7 +100,7 @@
                 width: '98%',
                 theme: 'eh-open',
                 source: dataAdapter,
-                height:400,
+                height:alto-250,
                 columnsresize: true,
                 sortable: true,
                 filterable: true,
