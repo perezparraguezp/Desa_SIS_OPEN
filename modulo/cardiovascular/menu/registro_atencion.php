@@ -16,7 +16,6 @@ $rut = $_POST['rut'];
                     <label for="rut_paciente">PACIENTE</label>
                     <input id="rut_paciente"
                            name="rut_paciente"
-                           onchange="validar_Rut()"
                            value="<?php echo $rut; ?>"
                            type="text" required placeholder="Ej. 11222333-4" />
                 </div>
@@ -56,6 +55,24 @@ $rut = $_POST['rut'];
 </div>
 
 <script type="text/javascript">
+    function validar_Rut(){
+        $('#rut_paciente').Rut({
+            on_error: function() {
+                $(this).focus();
+                //alert('Rut incorrecto');
+                alertaLateral('RUT INCORRECTO');
+                $('#rut_paciente').val('');
+                $(this).css({
+                    "border": "solid red 1px"
+                });
+            }
+        });
+        $("#rut_paciente").jqxInput({
+            placeHolder: "11222333-4", height: 30 });
+        $("#fecha_registro").jqxInput({
+            placeHolder: "dd/mm/YYYY", height: 30 });
+        // $("#button_buscar").jqxButton({ height: 30 });
+    }
     $(function(){
         // $('#tabs_formulario_registro').jqxTabs({
         //     width: '100%',

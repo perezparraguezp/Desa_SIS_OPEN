@@ -43,7 +43,7 @@ if($paciente->getModuloPaciente('m_cardiovascular')=='NO'){
             <div class="col l12">
                 <input type="button"
                        style="width: 100%;"
-                       onclick="loadMenu_AM('menu_1','registro_atencion','<?php echo $rut; ?>')"
+                       onclick="loadMenu_CardioVascular('menu_1','registro_atencion','<?php echo $rut; ?>')"
                        class="btn-large red lighten-2 white-text"
                        value=" <-- VOLVER" />
             </div>
