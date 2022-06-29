@@ -1374,6 +1374,7 @@ $rango_seccion_a_texto = [
             $VARIABLES_C = [
                 'CON RAZON ALBÚMINA CREATININA (RAC),VIGENTE'
                 ,'CON VELOCIDAD DE FILTRACIÓN GLOMERULAR (VFG), VIGENTE'
+                ,'CON VELOCIDAD DE FILTRACIÓN GLOMERULAR (VFG) y CON RAZON ALBUMINA CREATITINA (RAC) VIGENTE'
                 ,'CON FONDO DE OJO, VIGENTE'
                 ,'CON ATENCIÓN PODOLÓGICA VIGENTE'
                 ,'CON ECG VIGENTE'
@@ -1388,6 +1389,7 @@ $rango_seccion_a_texto = [
             $filtro_c = [
                 "AND rac!='' AND patologia_dm='SI'"
                 ,"AND erc_vfg!='' AND patologia_dm='SI'"
+                ,"AND erc_vfg!='' AND patologia_dm='SI' and rac!='' "
                 ,"AND fondo_ojo!='' AND patologia_dm='SI'"
                 ,"AND podologia!='' AND patologia_dm='SI'"
                 ,"AND TIMESTAMPDIFF(DAY,ekg,CURRENT_DATE)<365 AND patologia_dm='SI'"
@@ -1718,7 +1720,7 @@ $rango_seccion_a_texto = [
             $filtro_c = ["AND patologia_dm='SI' and amputacion='SI'"
                 ,"AND patologia_dm='SI' AND patologia_hta='SI' "
                 ,"AND factor_riesgo_enf_cv='SI' and patologia_dm='SI' "
-                ,"AND factor_riesgo_enf_cv='SI' and patologia_dm='SI' "
+                ,"AND erc_vfg like '%G%' and patologia_dm='SI' "
                 ,"AND factor_riesgo_iam='SI' and patologia_dm='SI'  "
 
             ];
@@ -1840,6 +1842,7 @@ $rango_seccion_a_texto = [
 
             $VARIABLES_C = [
                 'CON RAZON ALBÚMINA CREATININA (RAC),VIGENTE'
+                ,'CON VELOCIDAD DE FILTRACIÓN GLOMERULAR (VFG) y CON RAZON ALBUMINA CREATITINA (RAC) VIGENTE'
                 ,'CON PRESIÓN ARTERIAL igual o Mayor 160/100 mmHg'
                 ,'CON VELOCIDAD DE FILTRACION GLOMERULAR VIGENTE(VFG)'
                 ,'TODAS LAS PERSONAS EN PSCV'
@@ -1851,9 +1854,10 @@ $rango_seccion_a_texto = [
 
             $filtro_c = [
                 "AND patologia_hta='SI' and rac!='' "
+                ,"AND erc_vfg!='' AND patologia_hta='SI' and rac!='' "
                 ,"AND patologia_hta='SI' and pa like '%>=160%%'"
                 ,"AND patologia_hta='SI' and erc_vfg!='' "
-                ,""
+                ,"AND patologia_hta='SI' "
                 ,"and imc='SP'"
                 ,"and imc='SP'"
                 ,"and imc='OB'"

@@ -61,7 +61,8 @@
             ?>
             <option value="ekg|historial_parametros_pscv|parametros_pscv">ELECTROCARDIOGRAMA</option>
             <option value="rac|historial_parametros_pscv|parametros_pscv">RAC</option>
-            <option value="erc_vfg|historial_parametros_pscv|parametros_pscv">VFG</option>
+            <option value="erc_vfg|historial_parametros_pscv|parametros_pscv">ERC/VFG</option>
+            <option value="vfg|historial_parametros_pscv|parametros_pscv">VFG</option>
             <option value="ldl|historial_parametros_pscv|parametros_pscv">LDL</option>
 <!--            <option value="glicemia|historial_parametros_pscv|parametros_pscv">GLICEMIA</option>-->
             <option value="imc|historial_parametros_pscv|parametros_pscv">IMC</option>

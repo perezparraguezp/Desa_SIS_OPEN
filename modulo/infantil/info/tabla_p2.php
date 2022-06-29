@@ -2108,8 +2108,9 @@ $rango_seccion_g = [
                                                     inner join persona on paciente_establecimiento.rut=persona.rut
                                                     where m_infancia='SI' and estado_control='PENDIENTE'
                                                     and sectores_centros_internos.id_centro_interno='$id_centro' 
-                                                      AND mes_proximo_control<MONTH(CURRENT_DATE())
-                                                      AND anio_proximo_control<=YEAR(CURRENT_DATE()) $filtro_inasistencia_e
+                                                      AND mes_proximo_control < MONTH(CURRENT_DATE())
+                                                      AND anio_proximo_control <= YEAR(CURRENT_DATE()) 
+                                                      and $rango
                                                     group by agendamiento.rut
                                  ) as personas
                                 where personas.rut=persona.rut and $rango;";
@@ -2127,9 +2128,9 @@ $rango_seccion_g = [
                                                     inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
                                                     inner join persona on paciente_establecimiento.rut=persona.rut
                                                     where m_infancia='SI' and estado_control='PENDIENTE'
-                                                      AND mes_proximo_control<MONTH(CURRENT_DATE())
-                                                      AND anio_proximo_control<=YEAR(CURRENT_DATE()) 
-                                                    $filtro_inasistencia_e
+                                                      AND mes_proximo_control < MONTH(CURRENT_DATE())
+                                                      AND anio_proximo_control <= YEAR(CURRENT_DATE()) 
+                                                    and $rango
                                                     group by agendamiento.rut
                                  ) as personas
                                 where personas.rut=persona.rut and $rango;";

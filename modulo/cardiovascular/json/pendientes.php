@@ -202,6 +202,46 @@ if($indicador=='PARAMETROS' || $indicador==''){
 //            );
 //            $i++;
 //        }
+        $atributo = 'vfg';
+        $sql1 = "select *,DATEDIFF(current_date(),fecha_registro) as ultima_ev , fecha_registro 
+              from historial_parametros_pscv 
+              where indicador='$atributo' 
+              and rut='$paciente->rut'
+              
+              order by id_historial desc
+              limit 1";
+        $row1 = mysql_fetch_array(mysql_query($sql1));
+        if($row1){
+            $dias_ultimo_examen = $row1['ultima_ev'];
+            $fecha_ultima = $row1['fecha_registro'];
+            if($dias_ultimo_examen >= 365){
+                $customers[] = array(
+                    'rut' => $paciente->rut,
+                    'link' => $paciente->rut,
+                    'mail' => $paciente->email,'nombre' => $paciente->nombre,
+                    'tipo' => 'PARAMETROS',
+                    'indicador' => strtoupper($atributo),
+                    'ultima_ev' => fechaNormal($fecha_ultima),
+                    'edad_actual' => $paciente->edad,
+                    'contacto' => $paciente->telefono,
+                    'establecimiento' => $paciente->getEstablecimiento()
+                );
+                $i++;
+            }
+        }else{
+            $customers[] = array(
+                'rut' => $paciente->rut,
+                'link' => $paciente->rut,
+                'mail' => $paciente->email,'nombre' => $paciente->nombre,
+                'tipo' => 'PARAMETROS',
+                'indicador' => strtoupper($atributo),
+                'ultima_ev' => 'NUNCA',
+                'edad_actual' => $paciente->edad,
+                'contacto' => $paciente->telefono,
+                'establecimiento' => $paciente->getEstablecimiento()
+            );
+            $i++;
+        }
         $atributo = 'ekg';
         $sql1 = "select *,DATEDIFF(current_date(),fecha_registro) as ultima_ev , fecha_registro 
               from historial_parametros_pscv 

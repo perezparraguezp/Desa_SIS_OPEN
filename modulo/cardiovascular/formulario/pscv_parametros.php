@@ -15,6 +15,7 @@ $colt =  $paciente->getParametroPSCV('colt');
 $ldl =  $paciente->getParametroPSCV('ldl');
 $ekg =  $paciente->getParametroPSCV('ekg');
 $erc_vfg =  $paciente->getParametroPSCV('erc_vfg');
+$vfg =  $paciente->getParametroPSCV('vfg');
 $rac =  $paciente->getParametroPSCV('rac');
 $imc =  $paciente->getParametroPSCV('imc');
 
@@ -224,131 +225,6 @@ $imc =  $paciente->getParametroPSCV('imc');
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col l6 m12 s12">
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="card-panel eh-open_fondo">
-                        <div class="row">
-                            <div class="col l3 m6 s12">
-                                <strong style="line-height: 2em;font-size: 1.5em;">RAC <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
-                            </div>
-                            <div class="col l7 m6 s12">
-                                <div class="row">
-                                    <div class="col l6 m12 s12">
-                                        <input type="date"
-                                               class="tooltipped"
-                                               style="cursor: help"
-                                               data-position="bottom"
-                                               data-delay="50"
-                                               data-tooltip="FECHA EN QUE SE TOMO RAC"
-                                               style="height: 2em;"
-                                               id="fecha_rac" name="fecha_rac" value="<?php echo $fecha_registro; ?>">
-                                    </div>
-                                    <div class="col l6 m12 s12">
-                                        <select class="browser-default"
-                                                name="rac" id="rac"
-                                                onchange="updateParametroPSCV('rac')">
-                                            <option></option>
-                                            <option>< 30 mg/g</option>
-                                            <option>30 a 300 mg/g</option>
-                                            <option>> 300 mg/g</option>
-
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col l2 center-align">
-                                <i class="mdi-editor-insert-chart"
-                                   onclick="loadHistorialParametroPSCV('<?php echo $rut ?>','rac')"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="card-panel eh-open_fondo">
-                        <div class="row">
-                            <div class="col l3 m6 s12">
-                                <strong style="line-height: 2em;font-size: 1.5em;">ERC/VFG <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
-                            </div>
-                            <div class="col l7 m6 s12">
-                                <div class="row">
-                                    <div class="col l6 m12 s12">
-                                        <input type="date"
-                                               class="tooltipped"
-                                               style="cursor: help"
-                                               data-position="bottom"
-                                               data-delay="50"
-                                               data-tooltip="FECHA EN QUE SE TOMO ERC/VFG"
-                                               style="height: 2em;"
-                                               id="fecha_erc_vfg" name="fecha_erc_vfg" value="<?php echo $fecha_registro; ?>">
-                                    </div>
-                                    <div class="col l6 m12 s12">
-                                        <select class="browser-default"
-                                                name="erc_vfg" id="erc_vfg"
-                                                onchange="updateParametroPSCV('erc_vfg')">
-                                            <option></option>
-                                            <option>S/ERC</option>
-                                            <option>ETAPA G1 (VFG >= 60 ml/min)</option>
-                                            <option>ETAPA G2 (VFG >= 60 ml/min)</option>
-                                            <option>ETAPA G3a (VFG >= 45 A 59 ml/min)</option>
-                                            <option>ETAPA G3b (VFG >= 30 a 44 ml/min)</option>
-                                            <option>ETAPA G4 (VFG >= 15 a 29 ml/min)</option>
-                                            <option>ETAPA G5 (VFG < 15 ml/min)</option>
-
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col l2 center-align">
-                                <i class="mdi-editor-insert-chart"
-                                   onclick="loadHistorialParametroPSCV('<?php echo $rut ?>','erc_vfg')"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="card-panel eh-open_fondo">
-                        <div class="row">
-                            <div class="col l3 m6 s12">
-                                <img src="../../images/pscv/ekg.png"  height="60px"
-                                     class="tooltipped"
-                                     data-position="bottom"
-                                     data-delay="50"
-                                     data-tooltip="EKG" />
-                            </div>
-                            <div class="col l7 m6 s12">
-                                <div class="row">
-                                    <div class="col l6 m6 S6">
-                                        <input type="date"
-                                               class="tooltipped"
-                                               style="cursor: help"
-                                               data-position="bottom"
-                                               data-delay="50"
-                                               data-tooltip="FECHA EN QUE SE TOMO EKG"
-                                               style="height: 2em;"
-                                               id="fecha_ekg" name="fecha_ekg" value="<?PHP echo date('Y-m-d'); ?>">
-                                    </div>
-                                    <div class="col m2 s2 l2">.</div>
-                                    <div class="col l4 m4 s4 center-align center">
-                                        <input type="button" value="REGISTRAR" class="btn center" style="background-color: white; color: green;" onclick="updateParametroPSCV_EKG()" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col l2 center-align">
-                                <i class="mdi-editor-insert-chart"
-                                   onclick="loadHistorialParametroPSCV('<?php echo $rut ?>','ekg')"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
             <div class="row">
                 <div class="col l12 m12 s12">
                     <div class="card-panel eh-open_fondo">
@@ -406,16 +282,16 @@ $imc =  $paciente->getParametroPSCV('imc');
                                     </div>
                                     <div class="col l12 m12 s12">
 
-<!--                                        <select class="browser-default"-->
-<!--                                                name="imc" id="imc"-->
-<!--                                                onchange="updateParametroPSCV('imc')">-->
-<!--                                            <option></option>-->
-<!--                                            <option>BP</option>-->
-<!--                                            <option>NORMAL</option>-->
-<!--                                            <option>SP</option>-->
-<!--                                            <option>OB</option>-->
-<!---->
-<!--                                        </select>-->
+                                        <!--                                        <select class="browser-default"-->
+                                        <!--                                                name="imc" id="imc"-->
+                                        <!--                                                onchange="updateParametroPSCV('imc')">-->
+                                        <!--                                            <option></option>-->
+                                        <!--                                            <option>BP</option>-->
+                                        <!--                                            <option>NORMAL</option>-->
+                                        <!--                                            <option>SP</option>-->
+                                        <!--                                            <option>OB</option>-->
+                                        <!---->
+                                        <!--                                        </select>-->
                                     </div>
                                 </div>
                             </div>
@@ -427,6 +303,174 @@ $imc =  $paciente->getParametroPSCV('imc');
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="col l6 m12 s12">
+            <div class="row">
+                <div class="col l12 m12 s12">
+                    <div class="card-panel eh-open_fondo">
+                        <div class="row">
+                            <div class="col l3 m6 s12">
+                                <strong style="line-height: 2em;font-size: 1.5em;">RAC <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
+                            </div>
+                            <div class="col l7 m6 s12">
+                                <div class="row">
+                                    <div class="col l6 m12 s12">
+                                        <input type="date"
+                                               class="tooltipped"
+                                               style="cursor: help"
+                                               data-position="bottom"
+                                               data-delay="50"
+                                               data-tooltip="FECHA EN QUE SE TOMO RAC"
+                                               style="height: 2em;"
+                                               id="fecha_rac" name="fecha_rac" value="<?php echo $fecha_registro; ?>">
+                                    </div>
+                                    <div class="col l6 m12 s12">
+                                        <select class="browser-default"
+                                                name="rac" id="rac"
+                                                onchange="updateParametroPSCV('rac')">
+                                            <option></option>
+                                            <option>< 30 mg/g</option>
+                                            <option>30 a 300 mg/g</option>
+                                            <option>> 300 mg/g</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col l2 center-align">
+                                <i class="mdi-editor-insert-chart"
+                                   onclick="loadHistorialParametroPSCV('<?php echo $rut ?>','rac')"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l12 m12 s12">
+                    <div class="card-panel eh-open_fondo">
+                        <div class="row">
+                            <div class="col l3 m6 s12">
+                                <strong style="line-height: 2em;font-size: 1.5em;">VFG <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
+                            </div>
+                            <div class="col l7 m6 s12">
+                                <div class="row">
+                                    <div class="col l6 m12 s12">
+                                        <input type="date"
+                                               class="tooltipped"
+                                               style="cursor: help"
+                                               data-position="bottom"
+                                               data-delay="50"
+                                               data-tooltip="FECHA EN QUE SE TOMO VFG"
+                                               style="height: 2em;"
+                                               id="fecha_vfg" name="fecha_vfg" value="<?php echo $fecha_registro; ?>">
+                                    </div>
+                                    <div class="col l6 m12 s12">
+                                        <select class="browser-default"
+                                                name="vfg" id="vfg"
+                                                onchange="updateParametroPSCV('vfg')">
+                                            <option></option>
+                                            <option>>= 90</option>
+                                            <option>60 a 89</option>
+                                            <option>45 a 59</option>
+                                            <option>30 a 44</option>
+                                            <option>15 a 29</option>
+                                            <option>< 15</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col l2 center-align">
+                                <i class="mdi-editor-insert-chart"
+                                   onclick="loadHistorialParametroPSCV('<?php echo $rut ?>','vfg')"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l12 m12 s12">
+                    <div class="card-panel eh-open_fondo">
+                        <div class="row">
+                            <div class="col l3 m6 s12">
+                                <strong style="line-height: 2em;font-size: 1.5em;">ERC/VFG <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
+                            </div>
+                            <div class="col l7 m6 s12">
+                                <div class="row">
+                                    <div class="col l6 m12 s12">
+                                        <input type="date"
+                                               class="tooltipped"
+                                               style="cursor: help"
+                                               data-position="bottom"
+                                               data-delay="50"
+                                               data-tooltip="FECHA EN QUE SE TOMO ERC/VFG"
+                                               style="height: 2em;"
+                                               id="fecha_erc_vfg" name="fecha_erc_vfg" value="<?php echo $fecha_registro; ?>">
+                                    </div>
+                                    <div class="col l6 m12 s12">
+                                        <select class="browser-default"
+                                                name="erc_vfg" id="erc_vfg"
+                                                onchange="updateParametroPSCV('erc_vfg')">
+                                            <option></option>
+                                            <option>S/ERC</option>
+                                            <option>ETAPA G1 (VFG >= 90 ml/min)</option>
+                                            <option>ETAPA G2 (VFG >= 60 ml/min)</option>
+                                            <option>ETAPA G3a (VFG >= 45 A 59 ml/min)</option>
+                                            <option>ETAPA G3b (VFG >= 30 a 44 ml/min)</option>
+                                            <option>ETAPA G4 (VFG >= 15 a 29 ml/min)</option>
+                                            <option>ETAPA G5 (VFG < 15 ml/min)</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col l2 center-align">
+                                <i class="mdi-editor-insert-chart"
+                                   onclick="loadHistorialParametroPSCV('<?php echo $rut ?>','erc_vfg')"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l12 m12 s12">
+                    <div class="card-panel eh-open_fondo">
+                        <div class="row">
+                            <div class="col l3 m6 s12">
+                                <img src="../../images/pscv/ekg.png"  height="60px"
+                                     class="tooltipped"
+                                     data-position="bottom"
+                                     data-delay="50"
+                                     data-tooltip="EKG" />
+                            </div>
+                            <div class="col l7 m6 s12">
+                                <div class="row">
+                                    <div class="col l6 m6 S6">
+                                        <input type="date"
+                                               class="tooltipped"
+                                               style="cursor: help"
+                                               data-position="bottom"
+                                               data-delay="50"
+                                               data-tooltip="FECHA EN QUE SE TOMO EKG"
+                                               style="height: 2em;"
+                                               id="fecha_ekg" name="fecha_ekg" value="<?PHP echo date('Y-m-d'); ?>">
+                                    </div>
+                                    <div class="col m2 s2 l2">.</div>
+                                    <div class="col l4 m4 s4 center-align center">
+                                        <input type="button" value="REGISTRAR" class="btn center" style="background-color: white; color: green;" onclick="updateParametroPSCV_EKG()" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col l2 center-align">
+                                <i class="mdi-editor-insert-chart"
+                                   onclick="loadHistorialParametroPSCV('<?php echo $rut ?>','ekg')"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </form>
