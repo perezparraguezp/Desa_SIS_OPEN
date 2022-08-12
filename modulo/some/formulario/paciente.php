@@ -10,7 +10,7 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
         });
     </script>
     <div id='div_NaviBar'>
-        <div>DATOS PERSONALES</div>
+        <div>DATOS PERSONALES - demo</div>
         <div>
             <div class="row">
                 <div class="col l12 m12 s12">
@@ -364,6 +364,26 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
 
         $("#rut").on('change',function(){
             $('#rut').Rut({
+                on_success: function(){
+
+                    $.post('db/buscar/paciente.php',{
+                       rut: $('#rut').val()
+                    },function(data){
+                        if(data==='DUPLICADO') {
+                            alert('PACIENTE SE ENCUENTRA INGRESADO');
+                            $('#rut').val('');
+                            $('#rut').focus();
+                            $('#rut').css({
+                                "border": "solid red 1px"
+                            });
+                        }else{
+                            $('#rut').css({
+                                "border": "solid green 1px"
+                            });
+                        }
+                    });
+                }//FIN ON_SUCCES
+                ,
                 on_error: function() {
                     $(this).focus();
                     //alert('Rut incorrecto');
@@ -373,12 +393,8 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
                     $('#rut').css({
                         "border": "solid red 1px"
                     });
-                },
-                on_succes: function(){
-                    $('#rut').css({
-                        "border": "solid green 1px"
-                    });
                 }
+
             });
         });
         $("#rut_mama").on('change',function(){

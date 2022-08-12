@@ -2,7 +2,8 @@
 include '../../../../php/config.php';
 include '../../../../php/objetos/mysql.php';
 
-$rut = $_POST['rut'];//rut paciente
+$rut = str_replace(",","",$_POST['rut']);
+$rut = str_replace(".","",$rut);
 $nombre = $_POST['nombre'];
 $nacimiento = $_POST['nacimiento'];
 $sexo = $_POST['sexo'];

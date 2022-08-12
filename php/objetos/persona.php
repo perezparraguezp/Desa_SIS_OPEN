@@ -71,7 +71,6 @@ class persona
             $this->getEstablecimiento();
             $this->getDatosComunas();
             $this->getUltimoHistorial();
-
             $this->existe = true;
         } else {
             $this->existe = false;

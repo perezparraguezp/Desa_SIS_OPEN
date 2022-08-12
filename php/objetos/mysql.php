@@ -16,6 +16,18 @@ class mysql {
             return $row[$id_sql];
         }
     }
+    function buscarRUT($rut){
+        $sql = "select * from paciente_establecimiento where rut='$rut' limit 1";
+        $res = mysql_query($sql)or die($this->result=false);
+        $row = mysql_fetch_array($res);
+        if($row){
+            $this->result = true;
+        }else{
+            $this->result = false;
+        }
+
+
+    }
     function insert_centro_interno($sector_comunal,$nombre,$direccion,$telefono,$email){
         $sql = "insert into centros_internos(id_establecimiento,nombre_centro_interno,direccion_centro_interno,telefono_centro_interno,email_centro_interno,id_sector_comunal) 
               values('$this->id_establecimiento',upper('$nombre'),upper('$direccion'),upper('$telefono'),upper('$email'),'$sector_comunal')";
@@ -164,6 +176,7 @@ class mysql {
                         m_infancia='NO',
                         m_mujer='NO',
                         m_adulto_mayor='NO',
+                        m_salud_mental='NO',
                         m_adolescente='NO'
                     where id_establecimiento='$this->id_establecimiento' 
                     and rut='$rut' 

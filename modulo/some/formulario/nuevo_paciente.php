@@ -9,15 +9,15 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
 
         });
     </script>
-    <div id='jqxNavigationBar'>
-        <div>DATOS PERSONALES</div>
+    <div id='div_NaviBar'>
+        <div>DATOS PERSONALES - demo</div>
         <div>
             <div class="row">
                 <div class="col l12 m12 s12">
                     <div class="col l4">CENTRO MEDICO</div>
                     <div class="col l8" >
                         <select name="id_centro" id="id_centro" >
-                            <option>TODOS</option>
+                            <option value="-1">SELECCIONE UN CENTRO MEDICO</option>
                             <?php
                             $sql1 = "select * from centros_internos 
                           where id_establecimiento='$id_establecimiento' 
@@ -46,10 +46,15 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
             <div class="row">
                 <div class="col l12 m12 s12">
                     <div class="col l4">RUT PACIENTE</div>
-                    <div class="col l8">
+                    <div class="col l4">
                         <input type="text" name="rut"
                                id="rut"
                                placeholder="11222333-4" />
+                    </div>
+                    <div class="col l4" style="padding-left: 10px;">
+                        <input type="checkbox" id="pendiente_rut"
+                               name="pendiente_rut" value="PENDIENTE"  />
+                        <label class="black-text" for="pendiente_rut">PENDIENTE</label>
                     </div>
                 </div>
             </div>
@@ -99,12 +104,12 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
                 <div class="col l12 m12 s12">
                     <div class="col l4">POBLACIÓN MIGRANTE</div>
                     <div class="col l4">
-                        <input type="radio" id="migrante_1" name="migrante" value="SI"  />
-                        <label for="migrante_1">SI</label>
-                    </div>
-                    <div class="col l4">
                         <input type="radio" id="migrante_2" name="migrante" value="NO" checked />
                         <label for="migrante_2">NO</label>
+                    </div>
+                    <div class="col l4">
+                        <input type="radio" id="migrante_1" name="migrante" value="SI"  />
+                        <label for="migrante_1">SI</label>
                     </div>
                 </div>
             </div>
@@ -244,14 +249,13 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
                         $i = 0;
                         while($row = mysql_fetch_array($res)){
                             $check = 'checked="checked"';
-                            echo $row['id_modulo'];
-                            if($row['id_modulo']!=1){
+
+                            if($row['id_modulo']!=1 && $row['nombre_modulo']!='INGRESO DE PACIENTES'){
                                 ?>
                                 <div class="row">
                                     <div class="col l2">
                                         <div class="switch">
                                             <label>
-
                                                 <input type="checkbox" name="modulo[<?php echo $i ?>]" value="<?php echo $row['column_sql']; ?>"  />
                                                 <span class="lever"></span>
                                             </label>
@@ -264,6 +268,7 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
                                 <?php
                                 $i++;
                             }
+
                         }
                         ?>
                     </div>
@@ -351,10 +356,9 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
 </form>
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#jqxNavigationBar").jqxNavigationBar({ width: '100%',theme: 'eh-open', height: 460});
+        $("#div_NaviBar").jqxNavigationBar({ width: '100%',theme: 'eh-open', height: alto-100});
 
         $("#id_centro").jqxDropDownList({
-
             width: '100%',theme: 'eh-open', height: 30});
 
 
@@ -369,7 +373,26 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
                     $('#rut').css({
                         "border": "solid red 1px"
                     });
-                }
+                },
+                on_succes: function(){
+                    alertaLateral('RUT VALIDO');
+                    $.post('db/buscar/paciente.php',{
+                        rut: $('#rut').val()
+                    },function(data){
+                        if(data==='DUPLICADO') {
+                            alertaLateral('PACIENTE SE ENCUENTRA INGRESADO');
+                            $('#rut').val('');
+                            $('#rut').focus();
+                            $('#rut').css({
+                                "border": "solid red 1px"
+                            });
+                        }else{
+                            $('#rut').css({
+                                "border": "solid green 1px"
+                            });
+                        }
+                    });
+                }//FIN ON_SUCCES
             });
         });
         $("#rut_mama").on('change',function(){
@@ -408,7 +431,7 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
     $("#id_centro").on('change',function(){
         var centro = $("#id_centro").val();
 
-        $.post('../../php/ajax/select/sectores_centro_option.php',{
+        $.post('../default/ajax/select/sectores_centro_interno.php',{
             id_centro:centro
         },function(data){
             $("#div_sector_id").html('');
@@ -419,12 +442,20 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
     });
 
     function insertPaciente_final(){
-        if(confirm('Esta seguro que desea registrar este paciente en nuestros registros')){
-            $.post('db/insert/paciente.php',
-                $("#form_paciente").serialize(),function (data){
-                    alertaLateral('PACIENTE REGISTRADO!');
-                    loadForm_newPaciente();
-                });
+        var id_centro = $("#id_centro").val();
+        var centro_medico = $("#id_sector_centro").val();
+        if(id_centro !=='-1'){
+            if(confirm('Esta seguro que desea registrar este paciente en nuestros registros')){
+                $.post('db/insert/paciente.php',
+                    $("#form_paciente").serialize(),function (data){
+                        alertaLateral('PACIENTE REGISTRADO!');
+                        load_form_nuevo_some();
+                    });
+            }
+        }else{
+            alertaLateral('DEBE INDICAR A QUE CENTRO MEDICO PERTENECE EL PACIENTE');
+            $("#id_centro").css({'border':'solid red 2px'});
+            $("#id_centro").focus();
         }
     }
 </script>
