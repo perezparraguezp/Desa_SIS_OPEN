@@ -11,7 +11,6 @@ $profesional = $_POST['profesional_cita'];
 
 $sql = "insert into agendamiento(rut,anio_proximo_control,mes_proximo_control,id_profesional,profesional,modulo) 
         values('$rut','$anio','$mes','$myId','$profesional','$modulo')";
-
 mysql_query($sql)or die('YA EXISTE UNA AGENDA PREVIA PARA LA FECHA INDICADA');
 
 echo 'AGENDAMIENTO ASIGNADO';

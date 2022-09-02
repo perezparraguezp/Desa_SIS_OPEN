@@ -15,3 +15,6 @@ $sql = "insert into paciente_actividad_sm(rut,fecha_registro,nombre_actividad,id
               values('$rut','$fecha_inicio','$id_tipo','$myID',upper('$obs'))";
 mysql_query($sql);
 
+$sql = "insert into historial_paciente(tipo_historial,texto,id_establecimiento,id_profesional,rut) 
+values('SALUD MENTAL','REGISTRO DE ACTIVIDAD SALUD MENTAL','1','$myID','$rut')";
+mysql_query($sql);

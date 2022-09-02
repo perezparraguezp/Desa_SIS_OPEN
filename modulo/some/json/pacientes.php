@@ -24,6 +24,17 @@ if($tipo!='TODOS'){
                     }else{
                         if($tipo=='SALUD MENTAL'){
                             $filtro_tipo = " and m_salud_mental='SI' ";
+                        }else{
+                            if($tipo=='SIN ASIGNAR'){
+                                $filtro_tipo = "and (
+                                                      m_salud_mental='NO'
+                                                      AND m_mujer='NO'
+                                                      AND m_adulto_mayor='NO'
+                                                      AND m_adolescente='NO'
+                                                      AND m_infancia='NO'
+                                                      AND m_cardiovascular='NO')
+                                                      ";
+                            }
                         }
                     }
                 }
@@ -31,7 +42,13 @@ if($tipo!='TODOS'){
         }
     }
 }else{
-    $filtro_tipo = " and m_salud_mental='SI' or m_mujer='SI' or m_adulto_mayor='SI' or m_adolescente='SI' or m_infancia='SI' or m_cardiovascular='SI'";
+    $filtro_tipo = " and (
+    m_salud_mental='SI' 
+    or m_mujer='SI' 
+    or m_adulto_mayor='SI' 
+    or m_adolescente='SI' 
+    or m_infancia='SI' 
+    or m_cardiovascular='SI') ";
 }
 $id_establecimiento = $_SESSION['id_establecimiento'];
 
@@ -39,7 +56,6 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
 $sql = "select * from persona 
                     inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut 
                      where paciente_establecimiento.id_establecimiento='$id_establecimiento' 
-                     and paciente_establecimiento.id_sector!='0' 
                      and persona.fecha_nacimiento!='' 
                      $filtro_tipo 
                      group by persona.rut";

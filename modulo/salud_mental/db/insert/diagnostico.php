@@ -14,3 +14,6 @@ $myID = $_SESSION['id_usuario'];
 $sql = "insert into paciente_diagnosticos_sm(rut,fecha_inicio,id_tipo,valor_tipo,obs,id_profesional) 
               values('$rut','$fecha_inicio','$id_tipo','$valor',upper('$obs'),'$myID')";
 mysql_query($sql);
+$sql = "insert into historial_paciente(tipo_historial,texto,id_establecimiento,id_profesional,rut) 
+values('SALUD MENTAL','REGISTRO DE DIAGNOSTICO SALUD MENTAL','1','$myID','$rut')";
+mysql_query($sql);

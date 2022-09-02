@@ -41,7 +41,7 @@ $paciente = new persona($rut);
                 $sql1 = "SELECT * FROM paciente_diagnosticos_sm 
                                 inner join tipo_diagnostico_sm 
                                     on paciente_diagnosticos_sm.id_tipo=tipo_diagnostico_sm.id_tipo
-                            where rut='$rut'  
+                            where rut='$rut' and valor_tipo!=''
                             order by id desc";
                 $res1 = mysql_query($sql1);
                 while($row1 = mysql_fetch_array($res1)){

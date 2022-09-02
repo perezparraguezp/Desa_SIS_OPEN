@@ -84,7 +84,7 @@
                 width: '98%',
                 source: dataAdapter,
                 theme: 'eh-open',
-                height:400,
+                height:alto-300,
                 columnsresize: true,
                 sortable: true,
                 filterable: true,
@@ -169,6 +169,8 @@
                         <option>ADOLESCENTE</option>
                         <option>DE LA MUJER</option>
                         <option>SALUD MENTAL</option>
+                        <option disabled="disabled">-----------------</option>
+                        <option>SIN ASIGNAR</option>
                     </select>
                 </div>
                 <div class="col l4 m6 s6">

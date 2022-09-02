@@ -57,6 +57,7 @@ $imc =  $paciente->getParametroPSCV('imc');
                                             <?php
                                             }
                                             ?>
+
                                             <option>>=160/100 mmHg</option>
                                             <option>OTRA</option>
                                         </select>
