@@ -14,8 +14,15 @@ $sector_interno = explode(",",$_POST['sector_interno']);
 
 
 list($atributo,$indicador)       = explode("#",$_POST['atributo']);//parametro
+$sql_title = "select * from tipo_riesgo_adolescente where id_tipo_riesgo='$atributo' limit 1;";
+$row_title = mysql_fetch_array(mysql_query($sql_title));
+if($row_title){
+    $TITULO_GRAFICO = strtoupper($row_title['nombre_riesgo']);
+}else{
+    $TITULO_GRAFICO = 'SIN TITULO';
+}
 
-$TITULO_GRAFICO = strtoupper(str_replace("_"," ",$indicador));
+
 
 $rango_edad = $_POST['edad'];
 $filtro_edad = " and persona.edad_total>=10*12 and persona.edad_total<=19*12 ";
