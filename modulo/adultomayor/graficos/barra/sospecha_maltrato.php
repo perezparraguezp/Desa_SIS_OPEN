@@ -50,7 +50,8 @@ if($comunal==true){
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                     inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                     inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
-                                    where m_adulto_mayor='SI' and persona.rut!='' and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
+                                    where m_adulto_mayor='SI' and persona.edad_total_dias>=65*12 
+                                      and persona.rut!='' and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
                                      ";
     $res_0  = mysql_query($sql_0);
     $total_pacientes = 0;

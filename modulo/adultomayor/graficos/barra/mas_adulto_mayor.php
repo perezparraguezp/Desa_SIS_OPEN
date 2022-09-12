@@ -52,7 +52,7 @@ if($comunal==true){
                                     inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal   
                                     inner join paciente_adultomayor on trim(paciente_adultomayor.rut)=trim(paciente_establecimiento.rut)
                                     where m_adulto_mayor='SI'
-                                      AND mas_adulto_mayor='SI'
+                                      AND mas_adulto_mayor='SI' and persona.edad_total_dias>=65*12
                                       and persona.rut!='' and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
                                      ";
 

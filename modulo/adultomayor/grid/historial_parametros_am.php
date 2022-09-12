@@ -22,6 +22,8 @@ $sql1 = "select * from historial_parametros_am
         order by fecha_registro desc";
 
 $res1 = mysql_query($sql1);
+$colores = Array('aqua','yellow');
+$i=0;
 while($row1 = mysql_fetch_array($res1)){
     $persona = new persona($row1['rut']);
 
@@ -40,12 +42,13 @@ while($row1 = mysql_fetch_array($res1)){
 
 
     if($value!=''){
+        $color = $colores[$i%2];
         ?>
         <div class="row">
             <div class="col l2">
                 <?php echo fechaNormal($row1['fecha_registro']); ?>
             </div>
-            <div class="col l6 <?php echo $color; ?>"><?php echo $value; ?></div>
+            <div class="col l6 "><?php echo $value; ?></div>
             <div class="col l3"><?php echo $persona->edad; ?></div>
             <div class="col l1">
                 <?php
@@ -62,6 +65,7 @@ while($row1 = mysql_fetch_array($res1)){
         <?php
     }
 
+    $i++;
 }
 
 ?>

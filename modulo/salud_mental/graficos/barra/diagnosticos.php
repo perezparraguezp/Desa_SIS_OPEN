@@ -13,8 +13,22 @@ $sector_interno = explode(",",$_POST['sector_interno']);
 
 $indicador      = $_POST['indicador'];//funcionalidad
 $atributo       = $_POST['atributo'];//parametro
+$valor_diagnostico       = $_POST['valores'];//parametro
+$sql_extra = "select * from valor_diagnostico_sm inner join tipo_diagnostico_sm tds on valor_diagnostico_sm.id_tipo = tds.id_tipo
+where nombre_tipo='$atributo'";
+$res_extra = mysql_query($sql_extra);
+$option_grafico = '<option>TODO</option>';
+while($row_extra = mysql_fetch_array($res_extra)){
+    $option_grafico .= '<option>'.$row_extra['valor'].'</option>';
+}
+if($valor_diagnostico==''){
+    $valor_diagnostico = 'TODO';
+}else{
 
-$TITULO_GRAFICO = strtoupper(str_replace("_"," ",$indicador));
+}
+
+
+$TITULO_GRAFICO = strtoupper(str_replace("_"," ",$indicador.'_'.$valor_diagnostico));
 
 
 $filtro = '';
@@ -64,17 +78,28 @@ if($comunal==true){
         if($json_coma>0){
             $json.=',';
         }
-        $sql_1 = "select * from paciente_diagnosticos_sm where rut='$persona->rut' and ( fecha_egreso='' or  fecha_egreso is null)limit 1";
-        $sql_1 = "select * from paciente_diagnosticos_sm 
+        if($valor_diagnostico!='TODO'){
+            $sql_1 = "select * from paciente_diagnosticos_sm 
+                    inner join tipo_diagnostico_sm on paciente_diagnosticos_sm.id_tipo=tipo_diagnostico_sm.id_tipo
+                    inner join valor_diagnostico_sm on tipo_diagnostico_sm.id_tipo=valor_diagnostico_sm.id_tipo
+                    where rut='$persona->rut' and ( fecha_egreso='' or  fecha_egreso is null)
+                    and nombre_tipo='$atributo' and valor_tipo='$valor_diagnostico' 
+                    limit 1";
+
+        }else{
+            $sql_1 = "select * from paciente_diagnosticos_sm 
                     inner join tipo_diagnostico_sm on paciente_diagnosticos_sm.id_tipo=tipo_diagnostico_sm.id_tipo 
                     where rut='$persona->rut' and ( fecha_egreso='' or  fecha_egreso is null)
                     and nombre_tipo='$atributo'
                     limit 1";
-//        echo $sql_1;
+        }
+
+
         $row_1 = mysql_fetch_array(mysql_query($sql_1));
         if($row_1){
             $fecha = fechaNormal($row_1['fecha_inicio']);
-            $indicador_json = $row_1['nombre_tipo'];
+            $indicador_json = $row_1['nombre_tipo'].' ['.$row_1['valor_tipo'].']';
+
             $total_vigente++;
             if($persona->sexo=='M'){
                 $hombres++;
@@ -163,16 +188,26 @@ if($comunal==true){
                 if($json_coma>0){
                     $json.=',';
                 }
-                $sql_1 = "select * from paciente_diagnosticos_sm where rut='$persona->rut' and ( fecha_egreso='' or  fecha_egreso is null)limit 1";
-                $sql_1 = "select * from paciente_diagnosticos_sm 
+                if($valor_diagnostico!='TODO'){
+                    $sql_1 = "select * from paciente_diagnosticos_sm 
+                    inner join tipo_diagnostico_sm on paciente_diagnosticos_sm.id_tipo=tipo_diagnostico_sm.id_tipo
+                    inner join valor_diagnostico_sm on tipo_diagnostico_sm.id_tipo=valor_diagnostico_sm.id_tipo
+                    where rut='$persona->rut' and ( fecha_egreso='' or  fecha_egreso is null)
+                    and nombre_tipo='$atributo' and valor_tipo='$valor_diagnostico' 
+                    limit 1";
+
+                }else{
+                    $sql_1 = "select * from paciente_diagnosticos_sm 
                     inner join tipo_diagnostico_sm on paciente_diagnosticos_sm.id_tipo=tipo_diagnostico_sm.id_tipo 
                     where rut='$persona->rut' and ( fecha_egreso='' or  fecha_egreso is null)
                     and nombre_tipo='$atributo'
                     limit 1";
+                }
+
                 $row_1 = mysql_fetch_array(mysql_query($sql_1));
                 if($row_1){
                     $fecha = fechaNormal($row_1['fecha_inicio']);
-                    $indicador_json = $row_1['nombre_tipo'];
+                    $indicador_json = $row_1['nombre_tipo'].' ['.$row_1['valor_tipo'].']';
                     $total_vigente++;
                     if($persona->sexo=='M'){
                         $hombres++;
@@ -261,16 +296,25 @@ if($comunal==true){
                     if($json_coma>0){
                         $json.=',';
                     }
-                    $sql_1 = "select * from paciente_diagnosticos_sm where rut='$persona->rut' and ( fecha_egreso='' or  fecha_egreso is null)limit 1";
-                    $sql_1 = "select * from paciente_diagnosticos_sm 
+                    if($valor_diagnostico!='TODO'){
+                        $sql_1 = "select * from paciente_diagnosticos_sm 
+                    inner join tipo_diagnostico_sm on paciente_diagnosticos_sm.id_tipo=tipo_diagnostico_sm.id_tipo
+                    inner join valor_diagnostico_sm on tipo_diagnostico_sm.id_tipo=valor_diagnostico_sm.id_tipo
+                    where rut='$persona->rut' and ( fecha_egreso='' or  fecha_egreso is null)
+                    and nombre_tipo='$atributo' and valor_tipo='$valor_diagnostico' 
+                    limit 1";
+
+                    }else{
+                        $sql_1 = "select * from paciente_diagnosticos_sm 
                     inner join tipo_diagnostico_sm on paciente_diagnosticos_sm.id_tipo=tipo_diagnostico_sm.id_tipo 
                     where rut='$persona->rut' and ( fecha_egreso='' or  fecha_egreso is null)
                     and nombre_tipo='$atributo'
                     limit 1";
+                    }
                     $row_1 = mysql_fetch_array(mysql_query($sql_1));
                     if($row_1){
                         $fecha = fechaNormal($row_1['fecha_inicio']);
-                        $indicador_json = $row_1['nombre_tipo'];
+                        $indicador_json = $row_1['nombre_tipo'].' ['.$row_1['valor_tipo'].']';
                         $total_vigente++;
                         if($persona->sexo=='M'){
                             $hombres++;
@@ -363,16 +407,25 @@ if($comunal==true){
                     if($json_coma>0){
                         $json.=',';
                     }
-                    $sql_1 = "select * from paciente_diagnosticos_sm where rut='$persona->rut' and ( fecha_egreso='' or  fecha_egreso is null)limit 1";
-                    $sql_1 = "select * from paciente_diagnosticos_sm 
+                    if($valor_diagnostico!='TODO'){
+                        $sql_1 = "select * from paciente_diagnosticos_sm 
+                    inner join tipo_diagnostico_sm on paciente_diagnosticos_sm.id_tipo=tipo_diagnostico_sm.id_tipo
+                    inner join valor_diagnostico_sm on tipo_diagnostico_sm.id_tipo=valor_diagnostico_sm.id_tipo
+                    where rut='$persona->rut' and ( fecha_egreso='' or  fecha_egreso is null)
+                    and nombre_tipo='$atributo' and valor_tipo='$valor_diagnostico' 
+                    limit 1";
+
+                    }else{
+                        $sql_1 = "select * from paciente_diagnosticos_sm 
                     inner join tipo_diagnostico_sm on paciente_diagnosticos_sm.id_tipo=tipo_diagnostico_sm.id_tipo 
                     where rut='$persona->rut' and ( fecha_egreso='' or  fecha_egreso is null)
                     and nombre_tipo='$atributo'
                     limit 1";
+                    }
                     $row_1 = mysql_fetch_array(mysql_query($sql_1));
                     if($row_1){
                         $fecha = fechaNormal($row_1['fecha_inicio']);
-                        $indicador_json = $row_1['nombre_tipo'];
+                        $indicador_json = $row_1['nombre_tipo'].' ['.$row_1['valor_tipo'].']';
                         $total_vigente++;
                         if($persona->sexo=='M'){
                             $hombres++;
@@ -557,6 +610,29 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
         $("#excelExport").click(function () {
             $("#table_grid").jqxGrid('exportdata', 'xls', '<?php echo $TITULO_GRAFICO; ?>', true,null,true, 'excel/save-file.php');
         });
+        $("#valores").val('<?php echo $valor_diagnostico ?>');
+        $("#valores").on('change',function(){
+            var sector_comunal  = $("#sector_comunal").val();
+            var sector_comunal  = $("#sector_comunal").val();
+            var centro_interno  = $("#centro_interno").val();
+            var sector_interno  = $("#sector_interno").val();
+            var indicador  = $("#indicador").val();
+            var atributo  = $("#atributo").val();
+            var valores  = $("#valores").val();
+
+            loadGif_graficos('header_graficos');
+            $.post('graficos/barra/diagnosticos.php',{
+                sector_comunal:sector_comunal,
+                centro_interno:centro_interno,
+                sector_interno:sector_interno,
+                indicador: indicador,
+                atributo: atributo,
+                valores:valores
+            },function(data){
+
+                $("#header_graficos").html(data);
+            });
+        })
         $("#print").click(function () {
             var content = $('#pscv_cobertura')[0].outerHTML;
             var newWindow = window.open('', '', 'width=900, height=600'),
@@ -580,16 +656,28 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
         });
     });
 </script>
+<input type="hidden" name="atributo" value="<?php echo str_replace('','',$_POST['atributo']); ?>" />
+<input type="hidden" name="sector_comunal" value="<?php echo $_POST['sector_comunal']; ?>" />
+<input type="hidden" name="centro_interno" value="<?php echo $_POST['centro_interno']; ?>" />
+<input type="hidden" name="sector_interno" value="<?php echo $_POST['sector_interno']; ?>" />
 <div id="div_imprimir">
     <div class="row right-align">
-        <button class="btn" id="print">
-            <i class="mdi-action-print left"></i>
-            IMPRIMIR GRAFICO
-        </button>
+       <div class="col l12">
+           <button class="btn" id="print">
+               <i class="mdi-action-print left"></i>
+               IMPRIMIR GRAFICO
+           </button>
+       </div>
     </div>
+
     <div class="card-panel">
         <div class="row">
             <div class="col l12 m12 s12">
+                <select name="valores" id="valores">
+                    <?php
+                    echo $option_grafico;
+                    ?>
+                </select>
                 <div id='pscv_cobertura' style="width: 100%;height: 500px;"></div>
             </div>
         </div>

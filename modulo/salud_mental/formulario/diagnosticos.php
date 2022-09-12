@@ -41,8 +41,9 @@ $paciente = new persona($rut);
                 $sql1 = "SELECT * FROM paciente_diagnosticos_sm 
                                 inner join tipo_diagnostico_sm 
                                     on paciente_diagnosticos_sm.id_tipo=tipo_diagnostico_sm.id_tipo
-                            where rut='$rut' and valor_tipo!=''
+                            where rut='$rut' 
                             order by id desc";
+
                 $res1 = mysql_query($sql1);
                 while($row1 = mysql_fetch_array($res1)){
                     ?>
@@ -50,7 +51,7 @@ $paciente = new persona($rut);
                         <div class="col l2 s4 m2"><?PHP echo fechaNormal($row1['fecha_inicio']).' 
                                 <strong class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="OBS INGRESO: '.$row1['obs'].'">(?)</strong>'; ?></div>
                         <div class="col l5 s5 m5"><?PHP echo $row1['nombre_tipo']; ?></div>
-                        <div class="col l3 s3 m3"><?PHP echo $row1['valor_tipo']; ?></div>
+                        <div class="col l3 s3 m3"><?PHP echo $row1['valor_tipo']==''?'NO APLICA':$row1['valor_tipo']; ?></div>
                         <div class="col l2 s2 m2">
                             <?PHP
 
