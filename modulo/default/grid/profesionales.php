@@ -14,6 +14,7 @@
                         {name: 'nombre', type: 'string'},
                         {name: 'email', type: 'string'},
                         {name: 'tipo', type: 'string'},
+                        {name: 'ultimo_acceso', type: 'string'},
                         {name: 'vencimiento', type: 'string'},
                         {name: 'link', type: 'string'}
                     ],
@@ -55,6 +56,7 @@
                     { text: 'Nombre Completo', datafield: 'nombre', width: 300},
                     { text: 'E-MAIL', datafield: 'email', width: 200},
                     { text: 'Hasta', datafield: 'vencimiento', width: 120},
+                    { text: 'ULTIMO INGRESO', datafield: 'ultimo_acceso', width: 120},
 
 
                 ]

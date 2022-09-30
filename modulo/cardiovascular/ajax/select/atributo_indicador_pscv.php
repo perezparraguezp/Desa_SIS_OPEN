@@ -20,7 +20,7 @@
             <option value="riesgo_cv">CARDIOVASCULAR</option>
             <option value="factor_riesgo_tabaquismo">TABAQUISMO</option>
             <option value="factor_riesgo_iam">IAM</option>
-            <option value="factor_riesgo_enf_cv">ENF. CARDIOVASCULAR</option>
+            <option value="factor_riesgo_enf_cv">ENF. CEREBRO VASCULAR</option>
             <?php
             break;
         }

@@ -21,8 +21,6 @@ $filtro = '';
 
 $sql_column = "";
 
-
-
 $comunal = $establecimientos = $sectores = false;
 
 if(in_array('TODOS',$sector_comunal)){
@@ -53,6 +51,7 @@ if($comunal==true){
                                     where m_adulto_mayor='SI' and persona.edad_total_dias>=65*12 
                                       and persona.rut!='' and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
                                      ";
+
     $res_0  = mysql_query($sql_0);
     $total_pacientes = 0;
     $total_pendiente = 0;
@@ -93,7 +92,7 @@ if($comunal==true){
 
             }else{//mayor a un año
                 $fecha = '';
-                $indicador_json = 'PENDIENTE';
+                $indicador_json = 'SIN HISTORIAL';
                 $total_pendiente++;
                 if($persona->sexo=='M'){
                     $hombres_pendientes++;

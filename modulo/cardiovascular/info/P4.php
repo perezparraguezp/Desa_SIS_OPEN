@@ -97,6 +97,7 @@ $rango_seccion_a_texto = [
                         name="centro_interno"
                         id="centro_interno"
                         onchange="loadP4()" >
+                    <option value="" disabled="disabled" selected="selected">SELECCIONE ESTABLECIMIENTO</option>
                     <option value="">TODOS</option>
                     <?php
                     $sql0 = "select * from centros_internos 
@@ -1088,7 +1089,8 @@ $rango_seccion_a_texto = [
                 <?php
                 $filas = Array('En tratamiento con Antiagregantes plaquetarios','En tratamiento con Estatina','Fumador Actual');
                 $filtro = Array(
-                    "and (factor_riesgo_enf_cv='SI' or factor_riesgo_iam='SI') and (tratamiento_aas='SI' or tratamiento_clo='SI')",
+                    "and (factor_riesgo_enf_cv='SI' or factor_riesgo_iam='SI') 
+                        and (tratamiento_aas='SI' or tratamiento_clo='SI' or tratamiento_estatina='SI')",
                     "and (factor_riesgo_enf_cv='SI' or factor_riesgo_iam='SI') and tratamiento_estatina='SI'",
                     "and (factor_riesgo_enf_cv='SI' or factor_riesgo_iam='SI') and fumador_actual='SI'",
                 );
@@ -1117,8 +1119,7 @@ $rango_seccion_a_texto = [
                         if($id_centro!=''){
                             $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
                                        sum(persona.sexo='M') as total_hombres
-                                        from pscv_diabetes_mellitus
-                                               inner join persona using(rut)    
+                                        from  persona 
                                                inner join paciente_pscv on persona.rut=paciente_pscv.rut
                                                inner join parametros_pscv on persona.rut=parametros_pscv.rut, (
                                         select paciente_establecimiento.rut from paciente_establecimiento
@@ -1135,8 +1136,7 @@ $rango_seccion_a_texto = [
                         }else{
                             $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
                                        sum(persona.sexo='M') as total_hombres
-                                        from pscv_diabetes_mellitus
-                                               inner join persona using(rut)
+                                        from persona 
                                                inner join paciente_pscv on persona.rut=paciente_pscv.rut
                                                inner join parametros_pscv on persona.rut=parametros_pscv.rut, (
                                         select paciente_establecimiento.rut from paciente_establecimiento

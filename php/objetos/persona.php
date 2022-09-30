@@ -772,6 +772,23 @@ class persona
             return 'NO';
         }
     }
+    function vacuna3Anios()
+    {
+        $sql = "select * from vacunas_paciente 
+                  where rut='$this->rut' 
+                  limit 1";
+        $row = mysql_fetch_array(mysql_query($sql));
+        if ($row) {
+            $v = $row['3anios'];
+            if ($v == '') {
+                return 'NO';
+            } else {
+                return $v;
+            }
+        } else {
+            return 'NO';
+        }
+    }
 
     function vacuna2M()
     {

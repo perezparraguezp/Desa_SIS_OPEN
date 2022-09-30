@@ -16,13 +16,14 @@ while($row = mysql_fetch_array($res)){
     $vencimiento = $row['fecha_termino'];
     if($row['indefinido']=='SI'){
         $vencimiento = 'INDEFINIDO';
-    }
+    }  
     $customers[] = array(
         'id_profesional' => $row['id_profesional'],
         'codigo' => $row['id_profesional'],
         'rut' => $row['rut'],
         'nombre' => $row['nombre_completo'],
         'tipo' => $row['tipo_contrato'],
+        'ultimo_acceso' => $row['ultimo_ingreso'],
         'email' => $row['email'],
         'vencimiento' => $vencimiento,
         'horas' => $vencimiento,

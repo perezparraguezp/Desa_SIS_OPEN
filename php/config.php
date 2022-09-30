@@ -1,6 +1,6 @@
 <?php
-session_start();
 error_reporting(0);
+session_start();
 $hostname = "localhost";
 $database = "sisopenc_desarrollo";
 $username = "sisopenc_desa";

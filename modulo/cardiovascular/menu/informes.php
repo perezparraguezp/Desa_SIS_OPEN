@@ -44,6 +44,7 @@ $dsm = new establecimiento($id_establecimiento);
                                     name="centro_interno"
                                     id="centro_interno"
                                     onchange="loadP4()" >
+                                <option value="" disabled="disabled" selected="selected">SELECCIONE ESTABLECIMIENTO</option>
                                 <option value="">TODOS</option>
                                 <?php
                                 $sql0 = "select * from centros_internos 

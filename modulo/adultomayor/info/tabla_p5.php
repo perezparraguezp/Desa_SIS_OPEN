@@ -336,12 +336,12 @@ $rango_sexos_text_sql = [
             <?php
 
             $rango_grupales_sql = [
-                'persona.edad_total>=65*12 and persona.edad_total<=69*12', //entre 65 A 69
-                'persona.edad_total>=70*12 and persona.edad_total<74*12', // de 70 A 74
-                'persona.edad_total>=75*12 and persona.edad_total<=79*12', // de 75 A 79
+                'persona.edad_total>=65*12 and persona.edad_total<70*12', //entre 65 A 69
+                'persona.edad_total>=70*12 and persona.edad_total<75*12', // de 70 A 74
+                'persona.edad_total>=75*12 and persona.edad_total<80*12', // de 75 A 79
                 'persona.edad_total>=80*12 ', // MAYOR DE 80
-                "persona.pueblo='SI' and persona.edad_total_dias>=10*12 and persona.edad_total_dias<=19*12", // PUEBLO
-                "persona.migrante='SI' and persona.edad_total_dias>=10*12 and persona.edad_total_dias<=19*12", // MIGRANTE
+                "persona.pueblo='SI' and persona.edad_total_dias>=65*12 ", // PUEBLO
+                "persona.migrante='SI' and persona.edad_total_dias>=65*12 ", // MIGRANTE
             ];
 
             $INDICES = [
@@ -447,12 +447,12 @@ $rango_sexos_text_sql = [
             <?php
 
             $rango_grupales_sql = [
-                'persona.edad_total>=65*12 and persona.edad_total<=69*12', //entre 65 A 69
-                'persona.edad_total>=70*12 and persona.edad_total<74*12', // de 70 A 74
-                'persona.edad_total>=75*12 and persona.edad_total<=79*12', // de 75 A 79
+                'persona.edad_total>=65*12 and persona.edad_total<70*12', //entre 65 A 69
+                'persona.edad_total>=70*12 and persona.edad_total<75*12', // de 70 A 74
+                'persona.edad_total>=75*12 and persona.edad_total<80*12', // de 75 A 79
                 'persona.edad_total>=80*12 ', // MAYOR DE 80
-                "persona.pueblo='SI' and persona.edad_total_dias>=10*12 and persona.edad_total_dias<=19*12", // PUEBLO
-                "persona.migrante='SI' and persona.edad_total_dias>=10*12 and persona.edad_total_dias<=19*12", // MIGRANTE
+                "persona.pueblo='SI' and persona.edad_total_dias>=65*12 ", // PUEBLO
+                "persona.migrante='SI' and persona.edad_total_dias>=65*12 ", // MIGRANTE
             ];
 
             $INDICES = [
@@ -550,12 +550,12 @@ $rango_sexos_text_sql = [
             <?php
 
             $rango_grupales_sql = [
-                'persona.edad_total>=65*12 and persona.edad_total<=69*12', //entre 65 A 69
-                'persona.edad_total>=70*12 and persona.edad_total<74*12', // de 70 A 74
-                'persona.edad_total>=75*12 and persona.edad_total<=79*12', // de 75 A 79
+                'persona.edad_total>=65*12 and persona.edad_total<70*12', //entre 65 A 69
+                'persona.edad_total>=70*12 and persona.edad_total<75*12', // de 70 A 74
+                'persona.edad_total>=75*12 and persona.edad_total<80*12', // de 75 A 79
                 'persona.edad_total>=80*12 ', // MAYOR DE 80
-                "persona.pueblo='SI' and persona.edad_total_dias>=10*12 and persona.edad_total_dias<=19*12", // PUEBLO
-                "persona.migrante='SI' and persona.edad_total_dias>=10*12 and persona.edad_total_dias<=19*12", // MIGRANTE
+                "persona.pueblo='SI' and persona.edad_total_dias>=65*12 ", // PUEBLO
+                "persona.migrante='SI' and persona.edad_total_dias>=65*12 ", // MIGRANTE
             ];
 
             $INDICES = [
@@ -651,9 +651,9 @@ $rango_sexos_text_sql = [
             <?php
 
             $rango_grupales_sql = [
-                'persona.edad_total>=65*12 and persona.edad_total<=69*12', //entre 65 A 69
-                'persona.edad_total>=70*12 and persona.edad_total<74*12', // de 70 A 74
-                'persona.edad_total>=75*12 and persona.edad_total<=79*12', // de 75 A 79
+                'persona.edad_total>=65*12 and persona.edad_total<70*12', //entre 65 A 69
+                'persona.edad_total>=70*12 and persona.edad_total<75*12', // de 70 A 74
+                'persona.edad_total>=75*12 and persona.edad_total<80*12', // de 75 A 79
                 'persona.edad_total>=80*12 ', // MAYOR DE 80
 
             ];

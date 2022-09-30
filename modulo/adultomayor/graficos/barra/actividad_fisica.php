@@ -91,7 +91,7 @@ if($comunal==true){
 
             }else{//mayor a un año
                 $fecha = '';
-                $indicador_json = 'PENDIENTE';
+                $indicador_json = 'SIN HISTORIAL';
                 $total_pendiente++;
                 if($persona->sexo=='M'){
                     $hombres_pendientes++;

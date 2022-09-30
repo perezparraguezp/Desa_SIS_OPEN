@@ -1,9 +1,10 @@
 <?php
 
 $hostname = "localhost";
-$database = "sisopenc_desarrollo";
-$username = "sisopenc_desa";
-$password = "Ehopen2022$$";
+$database = "ehopenco_sis";
+$username = "ehopenco_sis_user";
+$password = "psdyqmf7e12b";
+
 if (!($conexion = mysql_connect($hostname, $username, $password))) {
     echo "Error conectando a la base de datos.";
     exit();
@@ -20,6 +21,7 @@ $username = str_replace(".","",$_POST['username']);
 $sql = "select * from usuarios inner join personal_establecimiento on usuarios.rut=personal_establecimiento.rut
             where usuarios.rut='$username' and clave='$password'
             limit 1";
+
 $row = mysql_fetch_array(mysql_query($sql));
 if($row){
     session_start();
@@ -32,7 +34,7 @@ if($row){
 
     $_SESSION['login'] = 'true';
     //actualizamos las edades
-    mysql_query("UPDATE usuario SET ultimo_ingreso=now() where rut='$username' ");
+    mysql_query("UPDATE usuarios SET ultimo_ingreso=now() where rut='$username' ");
     mysql_query("UPDATE persona SET edad_total=TIMESTAMPDIFF(MONTH, fecha_nacimiento, current_date())");
     mysql_query("UPDATE persona SET edad_total_dias=TIMESTAMPDIFF(DAY , fecha_nacimiento, current_date());");
     header('Location: ../i.php?LOGIN=TRUE');

@@ -209,6 +209,38 @@ $paciente->calcularEdadFecha($fecha_registro);
                         </script>
                         <?php
                     }
+                    //3 años
+                    if($paciente->total_meses>=(12*3)){
+                        ?>
+                        <div class="settings-section">
+                            <div class="settings-label">VACUNA 3 AÑOS</div>
+                            <div class="settings-setter">
+                                <div id="vacuna3anios"></div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $(function(){
+                                $('#vacuna3anios').jqxSwitchButton({
+                                    height: 27, width: 81,
+                                    checked: <?php echo $paciente->vacuna3Anios()=='SI'?'true':'false'; ?>,
+                                    onLabel:'SI',
+                                    theme: 'eh-open',
+                                    offLabel:'NO',
+                                });
+                                $('#vacuna3anios').on('change',function(){
+                                    $.post('db/update/vacuna_5anios.php',{
+                                        vacuna:$('#vacuna3anios').val(),
+                                        rut:'<?php echo $rut; ?>'
+                                    },function(data){
+                                        loadHistorialVacunas();
+                                    });
+                                });
+                            });
+                        </script>
+                        <?php
+                    }
+
+
                     //5 años
                     if($paciente->total_meses>=(12*5)){
                         ?>
