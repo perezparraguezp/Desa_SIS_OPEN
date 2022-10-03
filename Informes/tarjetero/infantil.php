@@ -67,9 +67,7 @@ $pagina2 = '<table border="1px" style="border: dotted 1px black;">
                     <td style="width: 80%;font-weight: bold;">'.strtoupper($p->nombre_sector_interno).'</td>
                 </tr>
                 <tr style="background-color: #cffcff;">
-                    <td colspan="4" style="text-align: center;font-weight: bold;">
-                        DATOS DE NACIMIENTO
-                    </td>
+                    <td colspan="4" style="text-align: center;font-weight: bold;">DATOS DE NACIMIENTO</td>
                 </tr>
                 <tr>
                     <td style="width: 25%;">EOA</td>

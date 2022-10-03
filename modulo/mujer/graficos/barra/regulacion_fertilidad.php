@@ -14,17 +14,9 @@ $sector_interno = explode(",",$_POST['sector_interno']);
 $indicador      = $_POST['indicador'];//funcionalidad
 $atributo       = $_POST['atributo'];//parametro columna
 
-if($atributo == 'patologia_dm'){
-    $indicador = 'DIABETES';
-}else{
-    if($atributo == 'patologia_hta'){
-        $indicador = 'HIPERTENSION';
-    }else{
-        $indicador = 'VIH';
-    }
-}
 
-$TITULO_GRAFICO = strtoupper(str_replace("_"," ",$indicador));
+
+$TITULO_GRAFICO = strtoupper(str_replace("_"," ",$indicador))." ".$atributo;
 
 
 $filtro = '';
@@ -79,24 +71,22 @@ if($comunal==true){
         }
         $sql_1 = "select * from paciente_mujer 
                 where rut='$persona->rut' 
-                and $atributo='SI'
                 limit 1";
 
         $row_1 = mysql_fetch_array(mysql_query($sql_1));
         if($row_1){
-            $sql_2 = "select * from historial_parametros_m 
+            $sql_2 = "select * from mujer_historial_hormonal 
                                           where rut='$persona->rut' 
-                                          and indicador='$atributo'
-                                          and valor='SI'   
-                                          and TIMESTAMPDIFF(DAY,historial_parametros_m.fecha_registro,CURRENT_DATE)<365
+                                          and tipo='$atributo'
+                                          and estado_hormona='ACTIVA'   
                                           order by id_historial 
                                           desc limit 1";
 
             $row_2 = mysql_fetch_array(mysql_query($sql_2));
             if($row_2){//dentro del año
                 $fecha = fechaNormal($row_2['fecha_registro']);
-                $indicador_json = $row_2['valor'];
-                if($indicador_json=='SI'){//segun indicador
+                $indicador_json = $atributo;
+                if($indicador_json==$atributo){//segun indicador
                     //vigente segun opcion
                     $total_vigente++;
                     if($persona->sexo=='M'){
@@ -105,22 +95,20 @@ if($comunal==true){
                         $mujeres++;
                     }
                 }else{
-                    //no sumamos
+                    $fecha = '';
+                    $indicador_json = 'SIN TRATAMIENTO';
+                    $total_pendiente++;
+                    if($persona->sexo=='M'){
+                        $hombres_pendientes++;
+                    }else{
+                        $mujeres_pendientes++;
+                    }
                 }
 
-            }else{//mayor a un año
-                $fecha = '';
-                $indicador_json = 'PENDIENTE';
-                $total_pendiente++;
-                if($persona->sexo=='M'){
-                    $hombres_pendientes++;
-                }else{
-                    $mujeres_pendientes++;
-                }
             }
 
         }else{
-            $indicador_json = 'PENDIENTE';
+            $indicador_json = 'SIN REGISTRO';
             $total_pendiente++;
             if($persona->sexo=='M'){
                 $hombres_pendientes++;
@@ -204,22 +192,22 @@ if($comunal==true){
                 }
                 $sql_1 = "select * from paciente_mujer 
                             where rut='$persona->rut' 
-                            and $atributo='SI'
                             limit 1";
 
                 $row_1 = mysql_fetch_array(mysql_query($sql_1));
                 if($row_1){
-                    $sql_2 = "select * from historial_parametros_m 
+                    $sql_2 = "select * from mujer_historial_hormonal 
                                           where rut='$persona->rut' 
-                                          and indicador='$atributo'
-                                          and TIMESTAMPDIFF(DAY,historial_parametros_m.fecha_registro,CURRENT_DATE)<365
-                                          order by id_historial desc limit 1";
+                                          and tipo='$atributo'
+                                          and estado_hormona='ACTIVA'   
+                                          order by id_historial 
+                                          desc limit 1";
 
                     $row_2 = mysql_fetch_array(mysql_query($sql_2));
                     if($row_2){//dentro del año
                         $fecha = fechaNormal($row_2['fecha_registro']);
-                        $indicador_json = $row_2['valor'];
-                        if($indicador_json=='SI'){//segun indicador
+                        $indicador_json = $atributo;
+                        if($indicador_json==$atributo){//segun indicador
                             //vigente segun opcion
                             $total_vigente++;
                             if($persona->sexo=='M'){
@@ -228,22 +216,20 @@ if($comunal==true){
                                 $mujeres++;
                             }
                         }else{
-                            //no sumamos
+                            $fecha = '';
+                            $indicador_json = 'SIN TRATAMIENTO';
+                            $total_pendiente++;
+                            if($persona->sexo=='M'){
+                                $hombres_pendientes++;
+                            }else{
+                                $mujeres_pendientes++;
+                            }
                         }
 
-                    }else{//mayor a un año
-                        $fecha = '';
-                        $indicador_json = 'PENDIENTE';
-                        $total_pendiente++;
-                        if($persona->sexo=='M'){
-                            $hombres_pendientes++;
-                        }else{
-                            $mujeres_pendientes++;
-                        }
                     }
 
                 }else{
-                    $indicador_json = 'PENDIENTE';
+                    $indicador_json = 'SIN REGISTRO';
                     $total_pendiente++;
                     if($persona->sexo=='M'){
                         $hombres_pendientes++;
@@ -325,19 +311,21 @@ if($comunal==true){
                     }
                     $sql_1 = "select * from paciente_mujer 
                             where rut='$persona->rut' 
-                            and $atributo='SI'
                             limit 1";
                     $row_1 = mysql_fetch_array(mysql_query($sql_1));
                     if($row_1){
-                        $sql_2 = "select * from historial_parametros_m 
-                                          where rut='$persona->rut' and indicador='$atributo'
-                                          and TIMESTAMPDIFF(DAY,historial_parametros_m.fecha_registro,CURRENT_DATE)<365
-                                          order by id_historial desc limit 1";
+                        $sql_2 = "select * from mujer_historial_hormonal 
+                                          where rut='$persona->rut' 
+                                          and tipo='$atributo'
+                                          and estado_hormona='ACTIVA'   
+                                          order by id_historial 
+                                          desc limit 1";
+
                         $row_2 = mysql_fetch_array(mysql_query($sql_2));
                         if($row_2){//dentro del año
                             $fecha = fechaNormal($row_2['fecha_registro']);
-                            $indicador_json = $row_2['valor'];
-                            if($indicador_json=='SI'){//segun indicador
+                            $indicador_json = $atributo;
+                            if($indicador_json==$atributo){//segun indicador
                                 //vigente segun opcion
                                 $total_vigente++;
                                 if($persona->sexo=='M'){
@@ -346,22 +334,20 @@ if($comunal==true){
                                     $mujeres++;
                                 }
                             }else{
-                                //no sumamos
+                                $fecha = '';
+                                $indicador_json = 'SIN TRATAMIENTO';
+                                $total_pendiente++;
+                                if($persona->sexo=='M'){
+                                    $hombres_pendientes++;
+                                }else{
+                                    $mujeres_pendientes++;
+                                }
                             }
 
-                        }else{//mayor a un año
-                            $fecha = '';
-                            $indicador_json = 'PENDIENTE';
-                            $total_pendiente++;
-                            if($persona->sexo=='M'){
-                                $hombres_pendientes++;
-                            }else{
-                                $mujeres_pendientes++;
-                            }
                         }
 
                     }else{
-                        $indicador_json = 'PENDIENTE';
+                        $indicador_json = 'SIN REGISTRO';
                         $total_pendiente++;
                         if($persona->sexo=='M'){
                             $hombres_pendientes++;
@@ -447,19 +433,21 @@ if($comunal==true){
                     }
                     $sql_1 = "select * from paciente_mujer 
                             where rut='$persona->rut' 
-                            and $atributo='SI'
                             limit 1";
                     $row_1 = mysql_fetch_array(mysql_query($sql_1));
                     if($row_1){
-                        $sql_2 = "select * from historial_parametros_m 
-                                          where rut='$persona->rut' and indicador='$atributo'
-                                          and TIMESTAMPDIFF(DAY,historial_parametros_m.fecha_registro,CURRENT_DATE)<365
-                                          order by id_historial desc limit 1";
+                        $sql_2 = "select * from mujer_historial_hormonal 
+                                          where rut='$persona->rut' 
+                                          and tipo='$atributo'
+                                          and estado_hormona='ACTIVA'   
+                                          order by id_historial 
+                                          desc limit 1";
+
                         $row_2 = mysql_fetch_array(mysql_query($sql_2));
                         if($row_2){//dentro del año
                             $fecha = fechaNormal($row_2['fecha_registro']);
-                            $indicador_json = $row_2['valor'];
-                            if($indicador_json=='SI'){//segun indicador
+                            $indicador_json = $atributo;
+                            if($indicador_json==$atributo){//segun indicador
                                 //vigente segun opcion
                                 $total_vigente++;
                                 if($persona->sexo=='M'){
@@ -468,22 +456,20 @@ if($comunal==true){
                                     $mujeres++;
                                 }
                             }else{
-                                //no sumamos
+                                $fecha = '';
+                                $indicador_json = 'SIN TRATAMIENTO';
+                                $total_pendiente++;
+                                if($persona->sexo=='M'){
+                                    $hombres_pendientes++;
+                                }else{
+                                    $mujeres_pendientes++;
+                                }
                             }
 
-                        }else{//mayor a un año
-                            $fecha = '';
-                            $indicador_json = 'PENDIENTE';
-                            $total_pendiente++;
-                            if($persona->sexo=='M'){
-                                $hombres_pendientes++;
-                            }else{
-                                $mujeres_pendientes++;
-                            }
                         }
 
                     }else{
-                        $indicador_json = 'PENDIENTE';
+                        $indicador_json = 'SIN REGISTRO';
                         $total_pendiente++;
                         if($persona->sexo=='M'){
                             $hombres_pendientes++;

@@ -440,11 +440,11 @@ if($p->rut_papa!=''){
                                     <div class="col l6" checked="col l8">
                                         <label style="color: #0a73a7;" for="modulo[<?php echo $i ?>]"><?php echo $row['nombre_modulo']; ?></label>
                                     </div>
-                                    <!--
+                                    <!---->
                                     <div class="col l4">
                                         <a href="../../Informes/tarjetero/infantil.php?rut=<?php echo $rut; ?>" target="_blank">TARJETERO</a>
                                     </div>
-                                    -->
+
                                 </div>
                                 <?php
                                 $i++;
