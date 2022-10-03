@@ -35,7 +35,7 @@ $preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer
                         <div class="row">
                             <div class="col l8 m8 s8">
                                 <strong style="line-height: 2em;font-size: 1.5em;">REGULACION DE FERTILIDAD <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
-                                <br /><strong onclick="$('.H_SUSPENDIDA').show();$('.H_VENCIDA').show()">VER HISTORIAL</strong>
+                                <br /><strong style="background-color: #758fff;padding: 3px;cursor: help;" onclick="$('.H_SUSPENDIDA').show();$('.H_VENCIDA').show()">VER HISTORIAL</strong>
                             </div>
                             <div class="col l4 m4 s4">
                                 <div class="btn blue" onclick="boxNewHormonal()"> + AGREGAR </div>
@@ -49,12 +49,17 @@ $preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer
                         </div>
                         <hr class="row" />
                         <?php
-                        $sql1 = "select * from mujer_historial_hormonal where rut='$rut' order by id_historial desc";
+                        $sql1 = "select * from mujer_historial_hormonal 
+                                    where rut='$rut' 
+                                    order by id_historial desc";
+
                         $res1 = mysql_query($sql1);
                         while($row1 = mysql_fetch_array($res1)){
                             ?>
                             <div class="row tooltipped rowInfoSis <?php echo 'H_'.$row1['estado_hormona']; ?>"
-                                 data-position="bottom" data-delay="50" data-tooltip='Estado: <?php echo $row1['estado_hormona']; ?> | Obs: <?php echo $row1['observacion']; ?>' >
+                                 data-position="bottom" data-delay="50"
+                                 data-html="true"
+                                 data-tooltip='Estado: <?php echo $row1['estado_hormona']; ?> | Obs: <?php echo $row1['observacion'].' - '.($row1['obs_retiro_hormonal']!=''?"RETIRADA POR: ".$row1['obs_retiro_hormonal']:''); ?>' >
                                 <div class="col l2 s2 m2"><?PHP echo fechaNormal($row1['fecha_registro']); ?></div>
                                 <div class="col l6 s6 m6"><?PHP echo $row1['tipo']; ?></div>
                                 <div class="col l2 s2 m2"><?PHP echo fechaNormal($row1['vencimiento']); ?></div>
@@ -65,17 +70,27 @@ $preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer
                                         <a href="#" style="color: rgba(255,95,105,0.86);font-weight: bold;" onclick="deleteHormonaSQL('<?php echo $row1['id_historial']; ?> ')">ELIMINAR</a>
                                     <?php
                                     }else{
-                                        if($row1['estado_hormona']=='ACTIVA'){
-                                            ?>
-                                            <a href="#" style="color: rgba(255,95,105,0.86);font-weight: bold;" onclick="boxRetiroHormonalAnticipado('<?php echo $row1['id_historial']; ?> ')">RETIRO ANTICIPADO</a>
-                                            <?php
-                                        }else{
-                                            if($row1['estado_hormona']=='SUSPENDIDA'){
-                                                echo fechaNormal($row1['fecha_retiro_hormonal']);
+                                        $estado_hormona = $row1['estado_hormona'];
+                                        if($estado_hormona=='ACTIVA'){
+                                            if($row1['vencimiento'] > date('Y-m-d')){
+                                                //activa sin vencer
+                                                ?>
+                                                <a href="#" style="color: rgba(255,95,105,0.86);font-weight: bold;" onclick="boxRetiroHormonalAnticipado('<?php echo $row1['id_historial']; ?> ')">RETIRO ANTICIPADO</a>
+                                                <?php
                                             }else{
-                                                echo $row1['vencimiento'];
+                                                //activa vencida
+                                                ?>
+                                                <a href="#" style="color: rgba(255,95,105,0.86);font-weight: bold;background-color: #fffa20;" onclick="boxRetiroHormonalAnticipado('<?php echo $row1['id_historial']; ?> ')" >VENCIDA SIN OBS</a>
+                                                <?php
                                             }
+                                        }else{
+                                            $suspendida = 'SUSPENDIDA <br />['.fechaNormal($row1['fecha_retiro_hormonal']).']';
+                                            ?>
+                                            <a href="#" style="color: rgba(255,95,105,0.86);font-weight: bold;color: white;" ><?PHP echo $suspendida; ?></a>
+                                            <?php
                                         }
+
+
                                     }
 
                                     ?>
@@ -86,7 +101,7 @@ $preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer
                         ?>
                         <hr class="row" />
                         <div class="row H_VENCIDA right-align">
-                            <strong onclick="$('.H_SUSPENDIDA').hide();$('.H_VENCIDA').hide()">OCULTAR HISTORIAL</strong>
+                            <strong style="background-color: #758fff;padding: 3px;cursor: help;" onclick="$('.H_SUSPENDIDA').hide();$('.H_VENCIDA').hide()">OCULTAR HISTORIAL</strong>
                         </div>
                         <style type="text/css">
                             .H_ACTIVA{
@@ -175,6 +190,9 @@ $preservativo_masculino  = $paciente->getParametroTabla_M('practica_sexual_mujer
     .rowInfoSis:hover{
         background-color: #f1ffc5;
         cursor: help;
+    }
+    .tooltip-inner {
+        white-space: pre-wrap;
     }
 </style>
 

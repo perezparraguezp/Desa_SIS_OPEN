@@ -64,6 +64,21 @@
             <?php
             break;
         }
+        case 'REGULACION DE FERTILIDAD':{
+            ?>
+            <option>ORAL COMBINADO</option>
+            <option>ORAL PROGESTÁGENO</option>
+            <option>INYECTABLE COMBINADO</option>
+            <option>INYECTABLE PROGESTÁGENO</option>
+            <option>IMPLANTE ETONOGESTREL (3 AÑOS)</option>
+            <option>IMPLANTE LEVONORGESTREL (5 AÑOS)</option>
+            <option>SOLO PRESERVATIVO MAC</option>
+            <option>D.I.U. T DE COBRE (10 AÑOS)</option>
+            <option>D.I.U. CON LEVORGESTREL (6 AÑOS)</option>
+            <option>ESTERILIZACION QUIRURGICA</option>
+            <?php
+            break;
+        }
 
     }
     ?>

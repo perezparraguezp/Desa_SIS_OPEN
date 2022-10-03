@@ -1,9 +1,9 @@
 <?php
 
 $hostname = "localhost";
-$database = "ehopenco_sis";
-$username = "ehopenco_sis_user";
-$password = "psdyqmf7e12b";
+$database = "sisopenc_desarrollo";
+$username = "sisopenc_desa";
+$password = "Ehopen2022$$";
 
 if (!($conexion = mysql_connect($hostname, $username, $password))) {
     echo "Error conectando a la base de datos.";

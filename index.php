@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 $LOGIN = $_GET['LOGIN'];
 if($LOGIN=='TRUE'){
     header('Location: i.php');
