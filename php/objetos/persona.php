@@ -1410,7 +1410,6 @@ class persona
         }
 
     }
-
     function update_parametro_pscv($column, $value, $fecha)
     {
         if ($value != '') {
@@ -1421,11 +1420,11 @@ class persona
                 $row = mysql_fetch_array(mysql_query($sql));
                 if ($row) {
                     $sql1 = "update parametros_pscv 
-                            set $column=upper('$value') 
+                            set $column=upper('$value') ,".$column."_fecha='$fecha'
                             where rut='$this->rut' ";
                 } else {
-                    $sql1 = "insert into parametros_pscv(rut,$column) 
-                        values('$this->rut',upper('$value'))";
+                    $sql1 = "insert into parametros_pscv(rut,$column,".$column."_fecha) 
+                        values('$this->rut',upper('$value'),'$fecha')";
                 }
                 mysql_query($sql1);
                 $this->insert_historial_parametro_pscv($column, $value, $fecha);
