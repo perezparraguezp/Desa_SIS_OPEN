@@ -19,11 +19,14 @@
                         {name: 'rut', type: 'string'},
                         {name: 'nombre', type: 'string'},
                         {name: 'sexo', type: 'string'},
-                        {name: 'edad', type: 'string'},
+                        {name: 'anios', type: 'number'},
+                        {name: 'meses', type: 'number'},
+                        {name: 'dias', type: 'number'},
                         {name: 'sector', type: 'string'},
                         {name: 'sector_comunal', type: 'string'},
                         {name: 'establecimiento', type: 'string'},
                         {name: 'sector_interno', type: 'string'},
+                        {name: 'riesgo_cv', type: 'string'},
                         {name: 'hta', type: 'string'},
                         {name: 'hta_fecha', type: 'string'},
                         {name: 'dm', type: 'string'},
@@ -36,6 +39,7 @@
                         {name: 'ldl_fecha', type: 'string'},
                         {name: 'rac', type: 'string'},
                         {name: 'rac_fecha', type: 'string'},
+                        {name: 'imc', type: 'string'},
                         {name: 'vfg', type: 'string'},
                         {name: 'vfg_fecha', type: 'string'},
                         {name: 'erc', type: 'string'},
@@ -49,7 +53,6 @@
                         {name: 'fondo_ojo_fecha', type: 'string'},
                         {name: 'insulina', type: 'string'},
                         {name: 'link', type: 'string'},
-
                     ],
                 cache: false
             };
@@ -129,34 +132,38 @@
                         }
                     },
                     { text: 'SEXO', datafield: 'sexo', width: 80 ,filtertype: 'checkedlist', cellsalign: 'center',cellclassname: cellSexo},
-                    { text: 'EDAD', datafield: 'edad', width: 120 , cellsalign: 'center'},
+                    { text: 'AÑOS', datafield: 'anios', width: 80 , cellsalign: 'center',filtertype: 'checkedlist'},
+                    { text: 'MESES', datafield: 'meses', width: 80 , cellsalign: 'center',filtertype: 'checkedlist'},
+                    { text: 'DIAS', datafield: 'dias', width: 80 , cellsalign: 'center',filtertype: 'checkedlist'},
                     { text: 'SECTOR COMUNAL', datafield: 'sector_comunal', width: 150 ,filtertype: 'checkedlist'},
                     { text: 'ESTABLECIMIENTO', datafield: 'establecimiento', width: 300 ,filtertype: 'checkedlist'},
                     { text: 'SECTOR INTERNO', datafield: 'sector_interno', width: 150 ,filtertype: 'checkedlist'},
-                    { text: 'HTA', datafield: 'hta', width: 100 },
-                    { text: 'HTA/FECHA', datafield: 'hta_fecha', width: 100 },
-                    { text: 'DM', datafield: 'dm', width: 100 },
-                    { text: 'DM/FECHA', datafield: 'dm_fecha', width: 100 },
-                    { text: 'DLP', datafield: 'dlp', width: 100 },
-                    { text: 'DLP/FECHA', datafield: 'dlp_fecha', width: 100 },
-                    { text: 'PA', datafield: 'pa', width: 100 },
-                    { text: 'PA/FECHA', datafield: 'pa_fecha', width: 100 },
-                    { text: 'LDL', datafield: 'ldl', width: 100 },
-                    { text: 'LDL/FECHA', datafield: 'ldl_fecha', width: 100 },
-                    { text: 'RAC', datafield: 'rac', width: 100 },
-                    { text: 'RAC/FECHA', datafield: 'rac_fecha', width: 100 },
-                    { text: 'VFG', datafield: 'vfg', width: 100 },
-                    { text: 'VFG/FECHA', datafield: 'vfg_fecha', width: 100 },
-                    { text: 'ERC/RAC', datafield: 'erc', width: 100 },
-                    { text: 'ERC/RAC/FECHA', datafield: 'erc_fecha', width: 100 },
-                    { text: 'ELECTROCARDIOGRAMA', datafield: 'electro', width: 100 },
-                    { text: 'HAB1C', datafield: 'hba1c', width: 100 },
-                    { text: 'HAB1C/FECHA', datafield: 'hba1c_fecha', width: 100 },
-                    { text: 'EV PIE', datafield: 'ev_pie', width: 100 },
-                    { text: 'EV PIE/FECHA', datafield: 'ev_pie_fecha', width: 100 },
-                    { text: 'FONDO OJO', datafield: 'fondo_ojo', width: 100 },
-                    { text: 'FONDO OJO/FECHA', datafield: 'fondo_ojo_fecha', width: 100 },
-                    { text: 'INSULINA', datafield: 'insulina', width: 100 },
+
+                    { text: 'RIESGO CV', datafield: 'riesgo_cv', width: 80 ,filtertype: 'checkedlist'},
+                    { text: 'HTA', datafield: 'hta', width: 50 ,filtertype: 'checkedlist'},
+
+                    { text: 'DM', datafield: 'dm', width: 50 ,filtertype: 'checkedlist'},
+                    
+                    { text: 'DLP', datafield: 'dlp', width: 50 ,filtertype: 'checkedlist'},
+                    { text: 'IMC', datafield: 'imc', width: 80 ,filtertype: 'checkedlist'},
+                    { text: 'PA', datafield: 'pa', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'PA/FECHA', datafield: 'pa_fecha', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'LDL', datafield: 'ldl', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'LDL/FECHA', datafield: 'ldl_fecha', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'RAC', datafield: 'rac', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'RAC/FECHA', datafield: 'rac_fecha', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'VFG', datafield: 'vfg', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'VFG/FECHA', datafield: 'vfg_fecha', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'ERC/RAC', datafield: 'erc', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'ERC/RAC/FECHA', datafield: 'erc_fecha', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'ELECTROCARDIOGRAMA', datafield: 'electro', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'HAB1C', datafield: 'hba1c', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'HAB1C/FECHA', datafield: 'hba1c_fecha', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'EV PIE', datafield: 'ev_pie', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'EV PIE/FECHA', datafield: 'ev_pie_fecha', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'FONDO OJO', datafield: 'fondo_ojo', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'FONDO OJO/FECHA', datafield: 'fondo_ojo_fecha', width: 100 ,filtertype: 'checkedlist'},
+                    { text: 'INSULINA', datafield: 'insulina', width: 50 ,filtertype: 'checkedlist'},
 
 
                 ]
@@ -165,8 +172,8 @@
         $("#excelExport_estadistica").click(function () {
             alertaLateral('EXPORTANDO INFORMACION');
             // $("#grid").jqxGrid('exportdata', 'xls', 'jqxGrid');
-            // $("#grid").jqxGrid('exportdata', 'xls', 'Pacientes PSCV', true,null,true, 'excel/save-file.php');
-            $("#grid_paciente").jqxGrid('exportdata', 'xls', 'Pacientes PSCV - RESUMEN');
+            // $("#grid_paciente").jqxGrid('exportdata', 'xls', 'Pacientes PSCV', true,null,true, 'excel/save-file.php');
+            $("#grid_paciente").jqxGrid('exportdata', 'xls', 'Pacientes PSCV - DETALLE');
         });
     }
     function boxInfoEstablecimiento(id){
@@ -188,13 +195,10 @@
     <div class="col l12">
         <div class="card-panel">
             <div class="row">
-                <div class="col l8 m6 s6">
-
-                </div>
                 <div class="col l4 m6 s6">
                     <button class="btn right-align eh-open_principal" id="excelExport_estadistica" >
                         <i class="mdi-action-open-in-new left"></i>
-                        EXPORTAR EXCEL
+                        EXPORTAR
                     </button>
                 </div>
             </div>
