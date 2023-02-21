@@ -4,7 +4,7 @@ include '../../../../php/objetos/mysql.php';
 include '../../../../php/objetos/persona.php';
 
 $mysq = new mysql($_SESSION['id_usuario']);
-
+$id_establecimiento = $_SESSION['id_establecimiento'];
 
 $rut = $_POST['rut_old'];
 $rut_new = str_replace(".","",$_POST['rut']);
@@ -23,6 +23,14 @@ $ficha = $_POST['ficha'];
 $carpeta_familiar = $_POST['carpeta_familiar'];
 $comuna = $_POST['comuna'];
 $modulos = $_POST['modulo'];
+$estado_paciente = $_POST['estado_paciente'];
+
+$sql = "update paciente_establecimiento set estado_registro='$estado_paciente'
+                    where id_establecimiento='$id_establecimiento' 
+                    and rut='$rut'";
+echo $sql;
+mysql_query($sql);
+
 
 //datos mamá
 $rut_mama = str_replace(".","",$_POST['rut_mama']);
@@ -71,6 +79,8 @@ foreach ($modulos as $i => $menu){
 
 $mysq->updateRUTPaciente($rut,$rut_new);
 $mysq->insert_paciente_establecimiento($rut_new,$id_sector_centro);
+
+
 
 
 

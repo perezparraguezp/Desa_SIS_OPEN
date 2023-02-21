@@ -102,6 +102,7 @@ while($row = mysql_fetch_array($res)){
             'anios' => $anios,
             'meses' => $meses,
             'dias' => $dias,
+            'estado_paciente' => $row['estado_registro'],
         );
         $i++;
     }

@@ -23,13 +23,14 @@ while($row = mysql_fetch_array($res)){
     list($fecha,$hora) = explode(" ",$row['fecha_registro']);
 
     $sql0 = "select * from historial_antropometria 
-          where rut='$paciente->rut'  and indicador='$indicador' 
+          where rut='$paciente->rut'  
+          and indicador='$indicador' 
           order by id_historial desc limit 1";
 
     $row0 = mysql_fetch_array(mysql_query($sql0));
 
 
-    $valor = trim($row0['valor']);
+    $valor = trim($row['valor']);
 
     if($valor!=''){
         $profesional = new profesional($row0['id_empleado']);

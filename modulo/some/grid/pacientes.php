@@ -44,6 +44,7 @@
                         {name: 'link', type: 'string'},
                         {name: 'CONTACTO', type: 'string'},
                         {name: 'editar', type: 'string'},
+                        {name: 'estado_paciente', type: 'string'},
                         {name: 'migrantes', type: 'string'},
                         {name: 'originarios', type: 'string'},
                         {name: 'nanea', type: 'string'},
@@ -125,10 +126,11 @@
                     { text: 'PUEBLO ORIGINARIO', datafield: 'originarios', width: 250  ,filtertype: 'checkedlist'},
                     { text: 'POBLACION MIGRANTE', datafield: 'migrantes', width: 250  ,filtertype: 'checkedlist'},
                     { text: 'TARJETERO', datafield: 'tarjetero', width: 150},
+                    { text: 'ESTADO', datafield: 'estado_paciente', width: 150,filtertype: 'checkedlist'},
                 ]
             });
         $("#excelExport").click(function () {
-            $("#grid").jqxGrid('exportdata', 'xls', 'PACIENTES', true,null,true, 'excel/save-file.php');
+            $("#grid").jqxGrid('exportdata', 'xls', 'PACIENTES SIS', true,null,true, 'https://carahue.eh-open.com/exportar/save-file.php');
 
         });
     }

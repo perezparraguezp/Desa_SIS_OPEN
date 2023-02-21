@@ -157,6 +157,7 @@
                     { text: 'POBLACION MIGRANTE', datafield: 'migrantes', width: 250  ,filtertype: 'checkedlist'},
                 ]
             });
+        $("#grid_pendientes").jqxGrid('exportdata', 'xls', 'Pacientes Infantil', true,null,true, 'https://carahue.eh-open.com/exportar/save-file.php');
     }
     function boxInfoEstablecimiento(id){
         $.post('php/modal/establecimiento/informacion.php',{

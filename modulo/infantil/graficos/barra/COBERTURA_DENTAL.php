@@ -630,7 +630,7 @@ if($comunal==true){
             });
         $("#excelExport").click(function () {
 
-            $("#table_grid").jqxGrid('exportdata', 'xls', 'grid', true,null,true, 'excel/save-file.php');
+            $("#table_grid").jqxGrid('exportdata', 'xls', 'grid', true,null,true, 'https://carahue.eh-open.com/exportar/save-file.php');
 
         });
     });

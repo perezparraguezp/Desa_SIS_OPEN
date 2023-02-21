@@ -8,10 +8,12 @@ $id_sector_interno = $_GET['id_sector_interno'];
 $id_establecimiento = $_SESSION['id_establecimiento'];
 
 $filtro = '';
-$sql = "select * from paciente_establecimiento inner join paciente_pscv using(rut)
+$sql = "select * from paciente_establecimiento 
+                inner join persona on paciente_establecimiento.rut=persona.rut 
                 where paciente_establecimiento.id_establecimiento='$id_establecimiento' 
-                and paciente_establecimiento.m_cardiovascular='SI'
-                
+                and paciente_establecimiento.m_cardiovascular='SI' 
+                and persona.rut!='' 
+                group by paciente_establecimiento.rut 
                 ";
 $res = mysql_query($sql);
 $i = 0;
@@ -224,6 +226,7 @@ while($row = mysql_fetch_array($res)){
                     'rac' => strtoupper(limpiaCadena($row1['rac'])),
                     'vfg' => strtoupper(limpiaCadena($row1['vfg'])),
                     'imc' => strtoupper(limpiaCadena($row1['imc'])),
+                    'imc_fecha' => strtoupper(fechaNormal($paciente->buscarUltimoHisotiralPSCV('imc'))),
                     'pa_fecha' => fechaNormal($pa_fecha),
                     'ldl_fecha' => fechaNormal($ldl_fecha),
                     'rac_fecha' => fechaNormal($rac_fecha),

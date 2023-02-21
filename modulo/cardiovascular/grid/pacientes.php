@@ -154,7 +154,7 @@
         $("#excelExport").click(function () {
             alertaLateral('EXPORTANDO INFORMACION');
             // $("#grid").jqxGrid('exportdata', 'xls', 'jqxGrid');
-            $("#grid").jqxGrid('exportdata', 'xls', 'Pacientes PSCV', true,null,true, 'excel/save-file.php');
+            $("#grid").jqxGrid('exportdata', 'xls', 'Pacientes PSCV', true,null,true, 'https://carahue.eh-open.com/exportar/save-file.php');
         });
     }
     function boxInfoEstablecimiento(id){

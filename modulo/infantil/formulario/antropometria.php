@@ -309,6 +309,7 @@ if($paciente->validaNutricionista()==true){
                                 <option>OB SEVERA</option>
                                 <option>Ri DESNUTRICION</option>
                                 <option>DESNUTRICION</option>
+                                <option>DESNUTRICION SECUNDARIA</option>
                             </select>
                             <script type="text/javascript">
                                 $(function(){

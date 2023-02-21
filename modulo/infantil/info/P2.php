@@ -42,8 +42,20 @@ $id_centro = $_POST['id'];
             }
         });
     }
+    function load_P2_SECCION(letra){
+        $("#div_seccion_"+letra).html('<div style="text-align: center;"><img src="../../images/calculadora.gif" width="16" /> PROCESANDO... </div>'+letra);
+        $.post('info/P2_'+letra+'.php',{
+        },function(data){
+            if(data !=='ERROR_SQL' ){
+                $("#div_seccion_"+letra).html(data);
+            }else{
+
+            }
+        });
+    }
 </script>
-<form action="../../exportar/table.php" method="post" target="_blank" id="formExport">
+
+<form action="https://carahue.eh-open.com/exportar/table.php"  method="post" target="_blank" id="formExport">
     <input type="hidden" id="data_to_send" name="data_to_send" />
     <input type="hidden" id="file" name="file" value="archivo" />
 </form>

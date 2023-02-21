@@ -754,7 +754,7 @@ $estado = $estado == '' ? 'PENDIENTE' : $estado;
                 ]
             });
         $("#excelExport").click(function () {
-            $("#table_grid").jqxGrid('exportdata', 'xls', 'grid', true, null, true, 'excel/save-file.php');
+            $("#table_grid").jqxGrid('exportdata', 'xls', 'grid', true, null, true, 'https://carahue.eh-open.com/exportar/save-file.php');
 
         });
         $("#print").click(function () {
@@ -831,6 +831,8 @@ $estado = $estado == '' ? 'PENDIENTE' : $estado;
                                         where $indicador!='' 
                                         group by $indicador";
                     $res3 = mysql_query($sql3);
+                    print_r($sql3);
+                    print_r($res3);
                     while ($row3 = mysql_fetch_array($res3)) {
                         ?>
                         <option><?php echo $row3[$indicador]; ?></option>

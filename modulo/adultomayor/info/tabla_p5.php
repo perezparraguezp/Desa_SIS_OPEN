@@ -650,6 +650,17 @@ $rango_sexos_text_sql = [
             </tr>
             <?php
 
+            //actualizar datos unipodal
+            $sql = "select * from historial_parametros_am where indicador='estacion_unipodal' ";
+            $res = mysql_query($sql);
+            while($row = mysql_fetch_array($res)){
+                $unipodal = $row['valor'];
+                $rut = $row['rut'];
+                $sql1 = "update paciente_adultomayor set estacion_unipodal='$unipodal' where rut='$rut' ";
+                mysql_query($sql1);
+//                echo $sql1;
+            }
+
             $rango_grupales_sql = [
                 'persona.edad_total>=65*12 and persona.edad_total<70*12', //entre 65 A 69
                 'persona.edad_total>=70*12 and persona.edad_total<75*12', // de 70 A 74
@@ -696,7 +707,7 @@ $rango_sexos_text_sql = [
                                   where m_adulto_mayor='SI' and id_establecimiento='$id_establecimiento' ";
                         }
                         $sql .= 'and '.$edad.' and '.$sexo.$filtro_sql[$TR];
-//                            echo $sql.'<br /><hr />';
+                          //  echo $sql.'<br /><hr />';
 
                         $row = mysql_fetch_array(mysql_query($sql));
                         if($row){

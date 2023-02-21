@@ -2106,6 +2106,36 @@ class persona
         mysql_query($sql);
         $this->addHistorial('SE DIO DE ALTA UN FARMACO EN LA FECHA ' . $fecha,'FARMACOS SALUD MENTAL', 'SALUD MENTAL');
     }
+    function buscarUltimoHisotiralPSCV($indicador){
+        $sql = "select * from historial_pscv 
+                        where trim(indicador)='$indicador' 
+                        and rut='".$this->rut."'
+                        order by  id_historial desc limit 1 ";
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            return $row['fecha_registro'];
+        }else{
+            $sql = "select * from historial_parametros_pscv 
+                            where trim(indicador)='$indicador' 
+                            and rut='".$this->rut."'
+                            order by  id_historial desc limit 1 ";
+            $row = mysql_fetch_array(mysql_query($sql));
+            if($row){
+                return $row['fecha_registro'];
+            }else{
+                $sql = "select * from historial_diabetes_mellitus 
+                            where trim(indicador)='$indicador' 
+                            and rut='".$this->rut."'
+                            order by  id_historial desc limit 1 ";
+                $row = mysql_fetch_array(mysql_query($sql));
+                if($row){
+                    return $row['fecha_registro'];
+                }else{
+                    return '';
+                }
+            }
+        }
+    }
 
 
 }

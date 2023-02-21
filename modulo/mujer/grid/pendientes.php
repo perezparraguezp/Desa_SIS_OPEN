@@ -74,7 +74,7 @@
             ]
         });
     $("#excelExport").click(function () {
-        $("#grid_pendientes").jqxGrid('exportdata', 'xls', 'grid', true,null,true, 'excel/save-file.php');
+        $("#grid_pendientes").jqxGrid('exportdata', 'xls', 'grid', true,null,true, 'https://carahue.eh-open.com/exportar/save-file.php');
     });
 </script>
 <div class="row">

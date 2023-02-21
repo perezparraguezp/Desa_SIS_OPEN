@@ -299,7 +299,7 @@ class mysql {
                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno 
                     inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno 
                     inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal  
-                where m_infancia='SI' and persona.rut!='' and $indicador!=''
+                where m_infancia='SI' and persona.rut!='' 
                 and sectores_centros_internos.id_centro_interno='$id_centro' 
                 and paciente_establecimiento.id_establecimiento='1' ";
 
@@ -312,7 +312,43 @@ class mysql {
                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno 
                     inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno 
                     inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal  
-                where m_infancia='SI' and persona.rut!='' and id_sector!=0 and $indicador!=''
+                where m_infancia='SI' and persona.rut!='' and id_sector!=0 
+                and paciente_establecimiento.id_establecimiento='1' ";
+
+        }
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            return $row['total'];
+        }else{
+            return 0;
+        }
+    }
+    function getTotal_infancia_naneas($tabla,$indicador,$valor,$rango,$sexo,$id_centro){
+
+        if($id_centro!=''){
+
+            $sql = "select 
+                    sum($indicador='$valor' and $sexo and $rango) as total 
+                from $tabla
+                    inner join persona using(rut)
+                    inner join paciente_establecimiento using (rut) 
+                    inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno 
+                    inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno 
+                    inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal  
+                where m_infancia='SI' and persona.rut!='' and nanea!=''
+                and sectores_centros_internos.id_centro_interno='$id_centro' 
+                and paciente_establecimiento.id_establecimiento='1' ";
+
+        }else{
+            $sql = "select 
+                    sum($indicador='$valor' and $sexo and $rango) as total 
+                    from $tabla
+                    inner join persona using(rut)
+                    inner join paciente_establecimiento using (rut) 
+                    inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno 
+                    inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno 
+                    inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal  
+                where m_infancia='SI' and persona.rut!='' and id_sector!=0 and nanea!=''
                 and paciente_establecimiento.id_establecimiento='1' ";
 
         }

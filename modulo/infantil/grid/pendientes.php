@@ -69,7 +69,7 @@
             ]
         });
     $("#excelExport").click(function () {
-        $("#grid_pendientes").jqxGrid('exportdata', 'xls', 'Lista_Pacientes_PSCV', true,null,true, 'excel/save-file.php');
+        $("#grid_pendientes").jqxGrid('exportdata', 'xls', 'Pacientes Infantil_Pendientes', true,null,true, 'https://carahue.eh-open.com/exportar/save-file.php');
     });
 </script>
 <div class="row">

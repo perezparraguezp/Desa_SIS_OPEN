@@ -546,7 +546,7 @@ $txt_grafico = strtoupper(str_replace("_", " ", $_POST['indicador']) . " [" . $_
                 ]
             });
         $("#excelExport").click(function () {
-            $("#table_grid").jqxGrid('exportdata', 'xls', 'psicomotor', true, null, true, 'excel/save-file.php');
+            $("#table_grid").jqxGrid('exportdata', 'xls', 'psicomotor', true, null, true, 'https://carahue.eh-open.com/exportar/save-file.php');
         });
 
     });

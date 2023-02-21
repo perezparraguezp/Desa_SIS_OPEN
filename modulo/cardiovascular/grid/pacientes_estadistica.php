@@ -40,6 +40,7 @@
                         {name: 'rac', type: 'string'},
                         {name: 'rac_fecha', type: 'string'},
                         {name: 'imc', type: 'string'},
+                        {name: 'imc_fecha', type: 'string'},
                         {name: 'vfg', type: 'string'},
                         {name: 'vfg_fecha', type: 'string'},
                         {name: 'erc', type: 'string'},
@@ -146,6 +147,7 @@
                     
                     { text: 'DLP', datafield: 'dlp', width: 50 ,filtertype: 'checkedlist'},
                     { text: 'IMC', datafield: 'imc', width: 80 ,filtertype: 'checkedlist'},
+                    { text: 'IMC/FECHA', datafield: 'imc_fecha', width: 80 ,filtertype: 'checkedlist'},
                     { text: 'PA', datafield: 'pa', width: 100 ,filtertype: 'checkedlist'},
                     { text: 'PA/FECHA', datafield: 'pa_fecha', width: 100 ,filtertype: 'checkedlist'},
                     { text: 'LDL', datafield: 'ldl', width: 100 ,filtertype: 'checkedlist'},
@@ -172,8 +174,8 @@
         $("#excelExport_estadistica").click(function () {
             alertaLateral('EXPORTANDO INFORMACION');
             // $("#grid").jqxGrid('exportdata', 'xls', 'jqxGrid');
-            // $("#grid_paciente").jqxGrid('exportdata', 'xls', 'Pacientes PSCV', true,null,true, 'excel/save-file.php');
-            $("#grid_paciente").jqxGrid('exportdata', 'xls', 'Pacientes PSCV - DETALLE');
+            $("#grid_paciente").jqxGrid('exportdata', 'xls', 'Pacientes PSCV', true,null,true, 'https://carahue.eh-open.com/exportar/save-file.php');
+            // $("#grid_paciente").jqxGrid('exportdata', 'xls', 'Pacientes PSCV - DETALLE');
         });
     }
     function boxInfoEstablecimiento(id){

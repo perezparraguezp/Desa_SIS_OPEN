@@ -1,0 +1,150 @@
+<?php
+include "../../../php/config.php";
+include '../../../php/objetos/mysql.php';
+
+$mysql = new mysql($_SESSION['id_usuario']);
+
+$sql_1 = "UPDATE persona set edad_total_dias=TIMESTAMPDIFF(DAY, fecha_nacimiento, current_date) 
+            where fecha_update_dias!=CURRENT_DATE() ";
+
+
+$id_establecimiento = $_SESSION['id_establecimiento'];
+
+$id_centro = $_POST['id'];
+if ($id_centro != '') {
+    $filtro_centro = " and id_centro_interno='$id_centro' ";
+    $sql0 = "select * from centros_internos 
+                              WHERE id_centro_interno='$id_centro' limit 1";
+    $row0 = mysql_fetch_array(mysql_query($sql0));
+    $nombre_centro = $row0['nombre_centro_interno'];
+} else {
+    $nombre_centro = 'TODOS LOS CENTROS';
+    $filtro_centro = '';
+}
+
+$sexo = [
+    "persona.sexo='M' ",
+    "persona.sexo='F' "
+];
+$label_rango_seccion_e = [
+    'Menor de 6 meses',
+    'de 6 a 11 meses',
+    'de 12 a 17 meses',
+    'de 18 a 23 meses',
+    '24 a 35 meses',//24 a 35 meses
+    '36 a 41 meses',//36 a 41 meses
+    '42 a 47 meses',//42 a 47 meses
+    '48 a 59 meses',//48 a 59 meses
+    '60 a 71 meses', //entre 60 meses a 71 meses
+    '6 a 9 años',//desde los 6 a 9 años
+
+];
+$filtro_rango_seccion_e = [
+    'persona.edad_total>=0 and persona.edad_total<=6 ', //menor 6 mes
+    'persona.edad_total>6 and persona.edad_total<=11', // 6 a 11 meses
+    'persona.edad_total>11 and persona.edad_total<=17', // 11 a 17 meses
+    'persona.edad_total>17 and persona.edad_total<=23', // 11 a 17 meses
+    'persona.edad_total>23 and persona.edad_total<=35', // 11 a 17 meses
+    'persona.edad_total>35 and persona.edad_total<=41', // 11 a 17 meses
+    'persona.edad_total>41 and persona.edad_total<=47', // 11 a 17 meses
+    'persona.edad_total>47 and persona.edad_total<=59', // 11 a 17 meses
+    'persona.edad_total>59 and persona.edad_total<=71', // 11 a 17 meses
+    'persona.edad_total>72 and persona.edad_total<=(12*9)', // 11 a 17 meses
+];
+$filtro_inasistencia_e = [
+    'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*4',
+    'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*4',
+    'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*13',
+    'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*13',
+    'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*13',
+    'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*13',
+    'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*13',
+    'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*13',
+    'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*18',
+    'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*18',
+];
+
+?>
+
+<section id="seccion_e" style="width: 100%;overflow-y: scroll;">
+    <div class="row">
+        <div class="col l12">
+            <header>SECCION E: POBLACIÓN INASISTENTE A CONTROL DEL NIÑO SANO (AL CORTE)</header>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col l12">
+            <table id="table_seccion_e" style="width: 50%;border: solid 1px black;" border="1">
+                <tr>
+                    <td>EDAD</td>
+                    <td>TOTAL</td>
+                </tr>
+                <?php
+                foreach ($label_rango_seccion_e as $i => $value) {
+                    $rango = $filtro_rango_seccion_e[$i];
+                    if ($id_centro != '') {
+
+                        $sql = "select COUNT(*) as total
+                                from persona
+                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno,
+                                 (
+                                                    select agendamiento.rut from agendamiento
+                                                    inner join paciente_establecimiento using (rut)
+                                                    inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                                                    inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
+                                                    inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
+                                                    inner join persona on paciente_establecimiento.rut=persona.rut
+                                                    where m_infancia='SI' and estado_control='PENDIENTE'
+                                                    and sectores_centros_internos.id_centro_interno='$id_centro' 
+                                                      AND mes_proximo_control < MONTH(CURRENT_DATE())
+                                                      AND anio_proximo_control <= YEAR(CURRENT_DATE()) 
+                                                      and $rango
+                                                    group by agendamiento.rut
+                                 ) as personas
+                                where personas.rut=persona.rut and $rango;";
+
+                    } else {
+                        $sql = "select COUNT(*) as total
+                                from persona
+                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno,
+                                 (
+                                                    select agendamiento.rut from agendamiento
+                                                    inner join paciente_establecimiento using (rut)
+                                                    inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                                                    inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
+                                                    inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
+                                                    inner join persona on paciente_establecimiento.rut=persona.rut
+                                                    where m_infancia='SI' and estado_control='PENDIENTE'
+                                                      AND mes_proximo_control < MONTH(CURRENT_DATE())
+                                                      AND anio_proximo_control <= YEAR(CURRENT_DATE()) 
+                                                    and $rango
+                                                    group by agendamiento.rut
+                                 ) as personas
+                                where personas.rut=persona.rut and $rango;";
+
+                    }
+
+
+//                        echo $sql;
+                    $row = mysql_fetch_array(mysql_query($sql));
+                    if ($row) {
+                        $total = $row['total'];
+                    } else {
+                        $total = 0;
+                    }
+
+                    ?>
+                    <tr>
+                        <td><?PHP echo $value ?></td>
+                        <td><?PHP echo $total ?></td>
+
+                    </tr>
+                    <?php
+                }
+                ?>
+            </table>
+        </div>
+    </div>
+</section>

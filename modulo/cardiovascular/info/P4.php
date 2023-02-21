@@ -98,7 +98,7 @@ $pacientes = array();
     }
 </style>
 
-<form action="../../exportar/table.php" method="post" target="_blank" id="formExport">
+<form action="https://carahue.eh-open.com/exportar/table.php" method="post" target="_blank" id="formExport">
     <input type="hidden" id="data_to_send" name="data_to_send"/>
     <input type="hidden" id="file" name="file" value="archivo"/>
 </form>
@@ -263,27 +263,25 @@ $pacientes = array();
                 foreach ($rango_seccion_a as $i => $rango) {
                     if ($id_centro != '') {
                         $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
-                                       sum(persona.sexo='M') as total_hombres
-                    from persona, (
-                    select paciente_establecimiento.rut from paciente_establecimiento
-                    inner join persona on paciente_establecimiento.rut=persona.rut
-                    where m_cardiovascular='SI'
+                                       sum(persona.sexo='M') as total_hombres 
+                    from paciente_establecimiento
+                    inner join persona on paciente_establecimiento.rut=persona.rut 
+                    where m_cardiovascular='SI' 
+                    and id_establecimiento='$id_establecimiento'
+                    and persona.rut!=''  
                     and (" . $filtro_sectores . ")
                     and $rango
-                    group by paciente_establecimiento.rut
-                        ) as personas
-                    where persona.rut=personas.rut ;";
+                    group by paciente_establecimiento.id_establecimiento;";
                     } else {
                         $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
                                        sum(persona.sexo='M') as total_hombres
-                    from persona, (
-                    select paciente_establecimiento.rut from paciente_establecimiento
-                    inner join persona on paciente_establecimiento.rut=persona.rut
-                    where m_cardiovascular='SI'
+                    from paciente_establecimiento
+                    inner join persona on paciente_establecimiento.rut=persona.rut 
+                    where m_cardiovascular='SI' 
+                    and id_establecimiento='$id_establecimiento'
+                    and persona.rut!=''  
                     and $rango
-                    group by paciente_establecimiento.rut
-                        ) as personas
-                    where persona.rut=personas.rut ;";
+                    group by paciente_establecimiento.id_establecimiento ;";
                     }
 
                     $row = mysql_fetch_array(mysql_query($sql));
@@ -336,26 +334,30 @@ $pacientes = array();
                                        sum(persona.sexo='M') as total_hombres
                                         from paciente_pscv 
                                             inner join persona using(rut), (
-                                        select paciente_establecimiento.rut from  paciente_establecimiento
-                                        inner join persona on paciente_establecimiento.rut=persona.rut
+                                        select paciente_establecimiento.rut 
+                                        from  paciente_establecimiento
+                                        inner join paciente_pscv on paciente_establecimiento.rut=paciente_pscv.rut 
                                         where m_cardiovascular='SI'
                                         and (" . $filtro_sectores . ")
-                                        and $rango
+                                        
                                         group by paciente_establecimiento.rut
                                             ) as personas
-                                        where paciente_pscv.rut=personas.rut 
+                                        where paciente_pscv.rut=personas.rut
+                                        and $rango 
                                           and paciente_pscv.riesgo_cv='$valor';";
                             } else {
                                 $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
                                        sum(persona.sexo='M') as total_hombres
-                                        from paciente_pscv inner join persona using(rut), (
-                                        select paciente_establecimiento.rut from paciente_establecimiento 
-                                        inner join persona on paciente_establecimiento.rut=persona.rut
+                                        from paciente_pscv 
+                                            inner join persona using(rut), (
+                                        select paciente_establecimiento.rut 
+                                        from  paciente_establecimiento
+                                        inner join paciente_pscv on paciente_establecimiento.rut=paciente_pscv.rut 
                                         where m_cardiovascular='SI'
-                                        and $rango
                                         group by paciente_establecimiento.rut
                                             ) as personas
-                                        where paciente_pscv.rut=personas.rut 
+                                        where paciente_pscv.rut=personas.rut
+                                          and $rango
                                           and paciente_pscv.riesgo_cv='$valor';";
                             }
 
@@ -375,7 +377,7 @@ $pacientes = array();
                                 $PACIENTE_PSCV[$valor]['AMBOS'] = $PACIENTE_PSCV[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
                             }
 
-                            $fila .= '<td>' . $total_mujeres . '</td>';//hombre
+                            $fila .= '<td>' . $total_hombres . '</td>';//hombre
                             $fila .= '<td>' . $total_mujeres . '</td>';//mujer
                         } else {
                             $fila .= '<td colspan="2" style="background-color: grey"></td>';//hombre
@@ -426,32 +428,26 @@ $pacientes = array();
                             if ($id_centro != '') {
                                 $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
                                        sum(persona.sexo='M') as total_hombres
-                                        from paciente_pscv inner join persona using(rut), (
-                                        select historial_pscv.rut from historial_pscv
-                                        inner join paciente_establecimiento using (rut)
-                                        inner join persona on paciente_establecimiento.rut=persona.rut
-                                        where m_cardiovascular='SI'  
+                                        from paciente_pscv 
+                                        inner join persona on persona.rut=paciente_pscv.rut
+                                        inner join paciente_establecimiento on paciente_establecimiento.rut=persona.rut
+                                        where m_cardiovascular='SI'
+                                        and id_establecimiento='$id_establecimiento' 
                                         and (" . $filtro_sectores . ")
                                         and $rango
-                                        group by historial_pscv.rut
-                                        order by historial_pscv.id_historial desc
-                                            ) as personas
-                                        where paciente_pscv.rut=personas.rut 
-                                          and paciente_pscv.$indicador='SI';";
+                                        and paciente_pscv.$indicador='SI'
+                                        group by paciente_establecimiento.id_establecimiento";
                             } else {
                                 $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
                                        sum(persona.sexo='M') as total_hombres
-                                        from paciente_pscv inner join persona using(rut), (
-                                        select historial_pscv.rut from historial_pscv
-                                        inner join paciente_establecimiento using (rut)
-                                        inner join persona on paciente_establecimiento.rut=persona.rut
+                                        from paciente_pscv 
+                                        inner join persona on persona.rut=paciente_pscv.rut
+                                        inner join paciente_establecimiento on paciente_establecimiento.rut=persona.rut
                                         where m_cardiovascular='SI'
+                                          and id_establecimiento='$id_establecimiento' 
                                         and $rango
-                                        group by historial_pscv.rut
-                                        order by historial_pscv.id_historial desc
-                                            ) as personas
-                                        where paciente_pscv.rut=personas.rut 
-                                          and paciente_pscv.$indicador='SI';";
+                                        and paciente_pscv.$indicador='SI'
+                                        group by paciente_establecimiento.id_establecimiento";
                             }
 
                             $row = mysql_fetch_array(mysql_query($sql));
@@ -687,7 +683,7 @@ $pacientes = array();
                 <?php
                 $filas = array('PA < 140/90 mmHg', 'PA < 150/90 mmHg');
                 $valor_indicador_sql = array('%<%140/90%', '%150%');
-                $dias = 365;
+                $dias = 730;
                 $sql1 = "select * from parametros_pscv where riesgo_cv!='' group by riesgo_cv;";
                 $res1 = mysql_query($sql1);
                 foreach ($filas as $f => $valor_text) {
@@ -724,7 +720,7 @@ $pacientes = array();
                                         inner join paciente_establecimiento using (rut)
                                         inner join persona on paciente_establecimiento.rut=persona.rut
                                         where m_cardiovascular='SI'  
-                                        and TIMESTAMPDIFF(DAY,historial_parametros_pscv.fecha_registro,CURRENT_DATE)<365
+                                        and TIMESTAMPDIFF(DAY,historial_parametros_pscv.fecha_registro,CURRENT_DATE)<730
                                         and (" . $filtro_sectores . ")
                                         and $rango
                                         group by historial_parametros_pscv.rut
@@ -743,7 +739,7 @@ $pacientes = array();
                                         inner join paciente_establecimiento using (rut)
                                         inner join persona on paciente_establecimiento.rut=persona.rut
                                         where m_cardiovascular='SI'
-                                        and TIMESTAMPDIFF(DAY,historial_parametros_pscv.fecha_registro,CURRENT_DATE)<365
+                                        and TIMESTAMPDIFF(DAY,historial_parametros_pscv.fecha_registro,CURRENT_DATE)<730
                                         and $rango
                                         group by historial_parametros_pscv.rut
                                         order by historial_parametros_pscv.id_historial desc
@@ -783,7 +779,7 @@ $pacientes = array();
                                         inner join paciente_establecimiento using (rut)
                                         inner join persona on paciente_establecimiento.rut=persona.rut
                                         where m_cardiovascular='SI'  
-                                        and TIMESTAMPDIFF(DAY,historial_parametros_pscv.fecha_registro,CURRENT_DATE)<365
+                                        and TIMESTAMPDIFF(DAY,historial_parametros_pscv.fecha_registro,CURRENT_DATE)<730
                                         and (" . $filtro_sectores . ")
                                         and $rango
                                         group by historial_parametros_pscv.rut
@@ -801,7 +797,7 @@ $pacientes = array();
                                         inner join paciente_establecimiento using (rut)
                                         inner join persona on paciente_establecimiento.rut=persona.rut
                                         where m_cardiovascular='SI'
-                                        and TIMESTAMPDIFF(DAY,historial_parametros_pscv.fecha_registro,CURRENT_DATE)<365
+                                        and TIMESTAMPDIFF(DAY,historial_parametros_pscv.fecha_registro,CURRENT_DATE)<730
                                         and $rango
                                         group by historial_parametros_pscv.rut
                                         order by historial_parametros_pscv.id_historial desc
@@ -857,7 +853,7 @@ $pacientes = array();
                     "and hba1c like '< 8%' ",
                     "and hba1c like '< 7%' and parametros_pscv.pa like '%140/90%' and ldl like '%<100%' ",
                 );
-                $dias = 365;
+                $dias = 730;
 
                 foreach ($filas as $f => $valor_text) {
                     //parametros
@@ -891,7 +887,7 @@ $pacientes = array();
                                         inner join persona on paciente_establecimiento.rut=persona.rut
                                         where m_cardiovascular='SI'
                                         and (" . $filtro_sectores . ")
-                                        and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<365
+                                        and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<730
                                         and $rango
                                         group by historial_paciente.rut
                                         order by historial_paciente.id_historial desc
@@ -907,7 +903,7 @@ $pacientes = array();
                                         inner join paciente_establecimiento using (rut)
                                         inner join persona on paciente_establecimiento.rut=persona.rut
                                         where m_cardiovascular='SI'
-                                        and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<365
+                                        and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<730
                                         and $rango
                                         group by historial_paciente.rut
                                         order by historial_paciente.id_historial desc
@@ -952,7 +948,7 @@ $pacientes = array();
                 $filtro = array(
                     "and ldl like '%<100%' and riesgo_cv='ALTO' "
                 );
-                $dias = 365;
+                $dias = 730;
 
                 foreach ($filas as $f => $valor_text) {
                     //parametros
@@ -1052,7 +1048,7 @@ $pacientes = array();
                     "and (factor_riesgo_enf_cv='SI' or factor_riesgo_iam='SI') and tratamiento_estatina='SI'",
                     "and (factor_riesgo_enf_cv='SI' or factor_riesgo_iam='SI') and fumador_actual='SI'",
                 );
-                $dias = 365;
+                $dias = 730;
 
                 foreach ($filas as $f => $valor_text) {
                     //parametros
@@ -1259,7 +1255,7 @@ $pacientes = array();
                 , "AND vfg!='' AND patologia_dm='SI' and rac!=''"
                 , "AND fondo_ojo!='' AND patologia_dm='SI'"
                 , "AND podologia!='' AND patologia_dm='SI'"
-                , "AND TIMESTAMPDIFF(DAY,ekg,CURRENT_DATE)<365 AND patologia_dm='SI'"
+                , "AND TIMESTAMPDIFF(DAY,ekg,CURRENT_DATE)<730 AND patologia_dm='SI'"
                 , "AND nph!='' AND patologia_dm='SI'"
                 , "AND patologia_dm='SI' AND nph!='' and ( (persona.edad_total<80*12 and hba1c='< 7%') or (persona.edad_total>=80*12 and hba1c='< 8%')) "
                 , "AND patologia_dm='SI' AND nph!='' and  hba1c='>= 9%' "
@@ -1292,7 +1288,7 @@ $pacientes = array();
                         inner join paciente_establecimiento using (rut)
                         inner join persona on paciente_establecimiento.rut=persona.rut
                         where m_cardiovascular='SI'
-                        and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<365
+                        and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<730
                         and (" . $filtro_sectores . ")
                         and $rango
                         group by historial_paciente.rut
@@ -1315,7 +1311,7 @@ $pacientes = array();
                          
                         inner join persona on paciente_establecimiento.rut=persona.rut
                         where m_cardiovascular='SI'
-                        and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<365
+                        and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<730
                         and $rango
                         group by historial_paciente.rut
                         order by historial_paciente.id_historial desc
@@ -1404,7 +1400,7 @@ $pacientes = array();
                         
                         inner join persona on paciente_establecimiento.rut=persona.rut
                         where m_cardiovascular='SI'
-                        and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<365
+                        and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<730
                         and (" . $filtro_sectores . ")
                         and $rango
                         group by historial_paciente.rut
@@ -1423,7 +1419,7 @@ $pacientes = array();
                          
                         inner join persona on paciente_establecimiento.rut=persona.rut
                         where m_cardiovascular='SI'
-                        and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<365
+                        and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<730
                         and $rango
                         group by historial_paciente.rut
                         order by historial_paciente.id_historial desc
@@ -1506,7 +1502,7 @@ $pacientes = array();
                          
                         inner join persona on paciente_establecimiento.rut=persona.rut
                         where m_cardiovascular='SI'
-                        and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<365
+                        and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<730
                         and (" . $filtro_sectores . ")
                         and $rango
                         group by historial_paciente.rut
@@ -1525,7 +1521,7 @@ $pacientes = array();
                          
                         inner join persona on paciente_establecimiento.rut=persona.rut
                         where m_cardiovascular='SI'
-                        and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<365
+                        and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<730
                         and $rango
                         group by historial_paciente.rut
                         order by historial_paciente.id_historial desc
@@ -1711,7 +1707,6 @@ $pacientes = array();
                 , "AND patologia_hta='SI' and erc_vfg!='' "
 
 
-
             ];
             foreach ($VARIABLES_C as $fila_f => $texto) {
                 echo '<tr>
@@ -1759,7 +1754,7 @@ $pacientes = array();
                 inner join paciente_establecimiento using (rut)
                 inner join persona on paciente_establecimiento.rut=persona.rut
                 where m_cardiovascular='SI'
-                and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<365
+                and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<730
                 and (" . $filtro_sectores . ")
                 and $rango
                 group by historial_paciente.rut
@@ -1777,7 +1772,7 @@ $pacientes = array();
                  
                 inner join persona on paciente_establecimiento.rut=persona.rut
                 where m_cardiovascular='SI'
-                and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<365
+                and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<730
                 and $rango
                 group by historial_paciente.rut
                 order by historial_paciente.id_historial desc
@@ -1869,8 +1864,6 @@ $pacientes = array();
                    where m_cardiovascular='SI' and id_establecimiento='$id_establecimiento' 
                    and $rango 
                    $filtro_interno group by paciente_establecimiento.id_establecimiento; ";
-
-
                         }
 
                         $row = mysql_fetch_array(mysql_query($sql));
@@ -1919,10 +1912,10 @@ $pacientes = array();
             ];
 
             $filtro_c = [
-                "and imc='SP' "
-                , "and imc='SP' "
-                , "and imc='OB' "
-                , "and imc='OB' "
+                 "SP"
+                ,"SP"
+                ,"OB"
+                ,"OB"
 
 
             ];
@@ -1956,6 +1949,8 @@ $pacientes = array();
                             $ejecutar = true;
                         }
                     }
+
+
                     if ($i == 14 || $i == 15) {
                         $ejecutar = true;
                     }
@@ -1964,40 +1959,31 @@ $pacientes = array();
                         $fila .= '<td style="background-color: grey;"></td>';//mujer
                     } else {
                         if ($id_centro != '') {
-                            $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
-                sum(persona.sexo='M') as total_hombres
-                from persona inner join paciente_pscv using(rut)
-                inner join parametros_pscv on persona.rut=parametros_pscv.rut, (
-                select historial_paciente.rut from historial_paciente
-                inner join paciente_establecimiento using (rut)
-                 
-                inner join persona on paciente_establecimiento.rut=persona.rut
-                where m_cardiovascular='SI'
-                and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<365
-                and (" . $filtro_sectores . ")
-                and $rango
-                group by historial_paciente.rut
-                order by historial_paciente.id_historial desc
-                ) as personas
-                where persona.rut=personas.rut
-                $filtro_interno;";
+                            $sql = "select 
+                                        sum(persona.sexo='F') as total_mujeres,
+                                        sum(persona.sexo='M') as total_hombres 
+                                    from parametros_pscv
+                                        INNER JOIN persona  on parametros_pscv.rut = persona.rut
+                                        inner join paciente_establecimiento pe on persona.rut = pe.rut 
+                                        where id_establecimiento='$id_establecimiento'
+                                          and m_cardiovascular='SI'
+                                            and persona.rut!='' and pe.rut!='' 
+                                            and trim(imc)='$filtro_interno' 
+                                            and (" . $filtro_sectores . ")
+                                            and $rango  ";
                         } else {
-                            $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
-                sum(persona.sexo='M') as total_hombres
-                from persona inner join paciente_pscv using(rut)
-                inner join parametros_pscv on persona.rut=parametros_pscv.rut, (
-                select historial_paciente.rut from historial_paciente
-                inner join paciente_establecimiento using (rut)
-                 
-                inner join persona on paciente_establecimiento.rut=persona.rut
-                where m_cardiovascular='SI'
-                and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<365
-                and $rango
-                group by historial_paciente.rut
-                order by historial_paciente.id_historial desc
-                ) as personas
-                where persona.rut=personas.rut
-                $filtro_interno;";
+
+                            $sql = "select 
+                                        sum(persona.sexo='F') as total_mujeres,
+                                        sum(persona.sexo='M') as total_hombres 
+                                    from parametros_pscv
+                                        INNER JOIN persona  on parametros_pscv.rut = persona.rut
+                                        inner join paciente_establecimiento pe on persona.rut = pe.rut
+                                        where id_establecimiento='$id_establecimiento'
+                                          and m_cardiovascular='SI'
+                                          and persona.rut!='' and pe.rut!='' 
+                                            and trim(imc)='$filtro_interno' 
+                                            and $rango  ";
 
 
                         }
@@ -2016,12 +2002,13 @@ $pacientes = array();
                             $PACIENTE_DB[$valor]['HOMBRES'] = $PACIENTE_DB[$valor]['HOMBRES'] + $total_hombres;
                             $PACIENTE_DB[$valor]['MUJERES'] = $PACIENTE_DB[$valor]['MUJERES'] + $total_mujeres;
                             $PACIENTE_DB[$valor]['AMBOS'] = $PACIENTE_DB[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
+
+
                         }
 
                         $fila .= '<td>' . $total_hombres . '</td>';//hombre
                         $fila .= '<td>' . $total_mujeres . '</td>';//mujer
                     }
-
                 }
 
                 ?>

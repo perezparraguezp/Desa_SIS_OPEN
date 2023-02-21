@@ -149,7 +149,8 @@
         $("#excelExport").jqxButton();
         $("#excelExport").click(function () {
             // $("#grid").jqxGrid('exportdata', 'xls', 'jqxGrid');
-            $("#grid").jqxGrid('exportdata', 'xls', 'Pacientes PSCV', true,null,true, 'excel/save-file.php');
+            $("#grid").jqxGrid('exportdata', 'xls', 'Pacientes SIS Salud Mental', true,null,true, 'https://carahue.eh-open.com/exportar/save-file.php');
+
         });
     });
     function boxInfoEstablecimiento(id){
