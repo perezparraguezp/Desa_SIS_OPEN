@@ -43,8 +43,10 @@ $id_centro = $_POST['id'];
         });
     }
     function load_P2_SECCION(letra){
-        $("#div_seccion_"+letra).html('<div style="text-align: center;"><img src="../../images/calculadora.gif" width="16" /> PROCESANDO... </div>'+letra);
+        var id = $("#centro_interno").val();
+        $("#div_seccion_"+letra).html('<div style="text-align: center;"><img src="../../images/calculadora.gif" width="16" /> PROCESANDO SECCION '+letra+'... </div>');
         $.post('info/P2_'+letra+'.php',{
+            id:id
         },function(data){
             if(data !=='ERROR_SQL' ){
                 $("#div_seccion_"+letra).html(data);

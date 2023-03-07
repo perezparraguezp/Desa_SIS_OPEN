@@ -24,8 +24,9 @@ $carpeta_familiar = $_POST['carpeta_familiar'];
 $comuna = $_POST['comuna'];
 $modulos = $_POST['modulo'];
 $estado_paciente = $_POST['estado_paciente'];
+$complejidad = $_POST['complejidad'];
 
-$sql = "update paciente_establecimiento set estado_registro='$estado_paciente'
+$sql = "update paciente_establecimiento set estado_registro='$estado_paciente',complejidad='$complejidad' 
                     where id_establecimiento='$id_establecimiento' 
                     and rut='$rut'";
 echo $sql;

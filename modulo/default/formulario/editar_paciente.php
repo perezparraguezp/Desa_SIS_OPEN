@@ -29,7 +29,7 @@ if ($p->rut_papa != '') {
             $("#jqxNavigationBar").jqxNavigationBar({
                 width: '100%',
                 theme: 'eh-open',
-                height: alto-300
+                height: alto - 300
             });
         });
     </script>
@@ -149,7 +149,7 @@ if ($p->rut_papa != '') {
                         <select name="nanea" id="nanea">
                             <!--                            <option>NO</option>-->
                             <?php
-                            $sql1 = "select * from tipos_nanea order by id_nanea asc";
+                            $sql1 = "select * from tipos_nanea where vigencia='SI' order by id_nanea asc";
                             $res1 = mysql_query($sql1);
                             while ($row1 = mysql_fetch_array($res1)) {
 
@@ -159,6 +159,52 @@ if ($p->rut_papa != '') {
 
                             }
                             ?>
+                        </select>
+                        <script type="text/javascript">
+                            $(function () {
+                                $("#nanea").jqxDropDownList({
+                                    width: '100%',
+                                    checkboxes: true,
+                                    height: 30
+                                });
+                                $("#nanea").on('checkChange', function (event) {
+                                    if (event.args) {
+                                        var item = event.args.item;
+                                        if (item) {
+                                            var items = $("#nanea").jqxDropDownList('getCheckedItems');
+                                            var checkedItems = "";
+                                            $.each(items, function (index) {
+                                                checkedItems += this.label + ", ";
+                                            });
+                                            $("#naneas").val(checkedItems);
+                                        }
+                                    }
+                                });
+                                $("#nanea").jqxDropDownList('uncheckAll');
+                                <?php
+                                $naneas = explode(",", $p->nanea);
+                                foreach ($naneas as $i => $nanea){
+                                if($nanea != ''){
+                                ?>
+                                $("#nanea").jqxDropDownList('checkItem', '<?php echo $nanea; ?>');
+                                <?php
+                                }
+                                }
+                                ?>
+
+                            });
+
+                        </script>
+                    </div>
+                </div>
+                <div class="col l12 m12 s12">
+                    <div class="col l4">NANEA COMPLEJIDAD</div>
+                    <div class="col l8">
+                        <select name="complejidad" id="complejidad">
+                            <option>NO</option>
+                            <option>BAJA</option>
+                            <option>MEDIA</option>
+                            <option>ALTA</option>
                         </select>
                         <script type="text/javascript">
                             $(function () {
@@ -470,7 +516,7 @@ if ($p->rut_papa != '') {
                     </div>
                 </div>
             </div>
-            <hr class="row" />
+            <hr class="row"/>
             <!--            BAJA DE PACIENTES-->
             <div class="row">
                 <div class="col l12 m12 s12" style="padding-top: 10px;background-color: #ffeced;padding-left: 10px;">
@@ -504,7 +550,8 @@ if ($p->rut_papa != '') {
                     </div>
                 </div>
             </div>
-        </div>$ho
+        </div>
+        $ho
 
     </div>
 
