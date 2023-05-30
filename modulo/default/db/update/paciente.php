@@ -26,6 +26,9 @@ $modulos = $_POST['modulo'];
 $estado_paciente = $_POST['estado_paciente'];
 $complejidad = $_POST['complejidad'];
 
+$ninez = $_POST['sename'];
+$sename = $_POST['ninez'];
+
 $sql = "update paciente_establecimiento set estado_registro='$estado_paciente',complejidad='$complejidad' 
                     where id_establecimiento='$id_establecimiento' 
                     and rut='$rut'";
@@ -64,6 +67,9 @@ $mysq->update_persona_column($rut,'numero_ficha',$ficha);
 $mysq->update_persona_column($rut,'carpeta_familiar',$carpeta_familiar);
 $mysq->update_persona_column($rut,'email',$email);
 $mysq->update_persona_column($rut,'telefono',$telefono);
+
+$mysq->update_persona_column($rut,'sename',$sename);
+$mysq->update_persona_column($rut,'ninez',$ninez);
 
 
 

@@ -123,6 +123,7 @@ session_start();
                 $rut = $_SESSION['rut'];
                 $myId = $_SESSION['id_usuario'];
 
+
                 $profesional = new profesional($myId);
 
                 $sql = "select * from modulos_ehopen 
@@ -133,7 +134,7 @@ session_start();
                 while($row = mysql_fetch_array($res)){
                     $id_modulo = $row['id_modulo'];
                     $sql1 = "select * from menu_usuario 
-                            where rut='$rut' 
+                            where upper(rut)=upper('$rut') 
                               and id_modulo='$id_modulo' 
                               and id_establecimiento='$id_establecimiento' 
                               limit 1";
@@ -141,12 +142,11 @@ session_start();
                     if($row1){
                         echo  $row['html'];
                     }else{
-                        echo  $row['inactivo'];
+                        echo  $row['html'];
                     }
 
                 }
                 ?>
-
 
                 <?php
                 if($_SESSION['tipo_usuario']=='ADMINISTRADOR'){
@@ -187,7 +187,7 @@ session_start();
 
     <div class="col l6 m6 s12" style="position: relative;top: 0px;right: 0px;">
         <div class="card-panel">
-            <div class="card-panel" style="font-size: 0.8;">
+            <div class="card-panel" style="font-size: 0.8em;">
                 <div class="row">
                     <div class="col l6 ">
                         <div style="font-size: 0.7em;text-align: right;">Usuario:</div>
@@ -205,6 +205,9 @@ session_start();
                         <img src="perfil.jpeg" width="75%;"/>
                     </div>
                     <div class="col l8" style="text-align: left;">
+                        <?php
+                        $profesional = new profesional($myId);
+                        ?>
                         <div class="row">
                             <div class="col l12"><label>Nombre Completo</label></div>
                         </div>

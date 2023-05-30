@@ -337,7 +337,7 @@ if($comunal==true){
                 $nombre_base = $row1['nombre_base']." [".$row1['nombre_establecimiento']."]";
                 $id = $row1['id'];
 
-                $total = $row1['total']!='' ?$row1['total']:0; // general de pacientes que califican para el indicador
+                $total = $total_pacientes; // general de pacientes que califican para el indicador
                 $total_hombres   = $row1['total_hombres']!='' ?$row1['total_hombres']:0;
                 $total_mujeres   = $row1['total_mujeres']!='' ?$row1['total_mujeres']:0;
                 $total_indicador = $row1['total_indicador']!='' ?$row1['total_indicador']:0;

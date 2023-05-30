@@ -29,14 +29,14 @@ $sexo = [
 
 //rango de meses en dias
 $rango_seccion_a = [
-    'persona.edad_total_dias>=0 and persona.edad_total_dias<30', //menor 1 mes
-    'persona.edad_total_dias>=(30*1) and persona.edad_total_dias<(30*2)',//un mes
-    'persona.edad_total_dias>=(30*2) and persona.edad_total_dias<(30*3)',//dos meses
-    'persona.edad_total_dias>=(30*3) and persona.edad_total_dias<(30*4)',//tres meses
-    'persona.edad_total_dias>=(30*4) and persona.edad_total_dias<(30*5)',//cuatro meses
-    'persona.edad_total_dias>=(30*5) and persona.edad_total_dias<(30*6)',//cinco meses
-    'persona.edad_total_dias>=(30*6) and persona.edad_total_dias<(30*7)',//cinco meses
-    'persona.edad_total_dias>=(30*7) and persona.edad_total_dias<(30*12)',//7 a 11 meses
+    'persona.edad_total_dias>=0 and persona.edad_total_dias<(30)', //MENOR A 1 MES
+    'persona.edad_total_dias>=30 and persona.edad_total_dias<(30*2)', //1 MES
+    'persona.edad_total_dias>=(30*1) and persona.edad_total_dias<(30*3)', //2 MESES
+    'persona.edad_total_dias>=(30*2) and persona.edad_total_dias<(30*4)', //3 MESES
+    'persona.edad_total_dias>=(30*3) and persona.edad_total_dias<(30*5)', //4 MESES
+    'persona.edad_total_dias>=(30*4) and persona.edad_total_dias<(30*6)', //5 MESES
+    'persona.edad_total_dias>=(30*5) and persona.edad_total_dias<(30*7)', //6 MESES
+    'persona.edad_total_dias>=(30*6) and persona.edad_total_dias<(30*12)',//7 a 11 meses
     'persona.edad_total_dias>=(30*12) and persona.edad_total_dias<(30*18)',//12 a 17 meses
     'persona.edad_total_dias>=(30*18) and persona.edad_total_dias<(30*24)',//18 a 23 meses
     'persona.edad_total_dias>=(30*24) and persona.edad_total_dias<(30*36)',//24 a 35 meses
@@ -75,7 +75,7 @@ $rango_seccion_a = [
             </td>
         </tr>
         <tr>
-            <td colspan="2">MENOR DE 1 MES</td>
+            <td colspan="2">MENOR A 1 MES</td>
             <td colspan="2">1 MES</td>
             <td colspan="2">2 MESES</td>
             <td colspan="2">3 MESES</td>
@@ -97,24 +97,19 @@ $rango_seccion_a = [
 
             <td>HOMBRES</td>
             <td>MUJERES</td>
-
+            <td>HOMBRES</td>
+            <td>MUJERES</td>
+            <td>HOMBRES</td>
+            <td>MUJERES</td>
+            <td>HOMBRES</td>
+            <td>MUJERES</td>
+            <td>HOMBRES</td>
+            <td>MUJERES</td>
+            <td>HOMBRES</td>
+            <td>MUJERES</td>
             <td>HOMBRES</td>
             <td>MUJERES</td>
 
-            <td>HOMBRES</td>
-            <td>MUJERES</td>
-
-            <td>HOMBRES</td>
-            <td>MUJERES</td>
-
-            <td>HOMBRES</td>
-            <td>MUJERES</td>
-
-            <td>HOMBRES</td>
-            <td>MUJERES</td>
-
-            <td>HOMBRES</td>
-            <td>MUJERES</td>
 
             <td>HOMBRES</td>
             <td>MUJERES</td>

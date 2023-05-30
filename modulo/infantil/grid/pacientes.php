@@ -9,7 +9,7 @@
 
 
         $("#excelExport").click(function () {
-            $("#grid").jqxGrid('exportdata', 'xls', 'Lista_Pacientes_PSCV', true,null,true, 'excel/save-file.php');
+            $("#grid").jqxGrid('exportdata', 'xls', 'Lista_Pacientes_PSCV', true,null,true, 'https://carahue.eh-open.com/exportar/save-file.php');
         });
 
         $("#tipo_paciente").on('change',function () {
@@ -111,7 +111,7 @@
                 width: '98%',
                 theme: 'eh-open',
                 source: dataAdapter,
-                height:400,
+                height:alto-250,
                 columnsresize: true,
                 sortable: true,
                 filterable: true,

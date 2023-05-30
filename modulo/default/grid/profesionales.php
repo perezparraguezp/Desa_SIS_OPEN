@@ -63,11 +63,9 @@
             });
 
         $("#excelExport").click(function () {
-            $("#grid").jqxGrid('exportdata', 'xls', 'Profesionales', true,null,true, 'excel/save-file.php');
-
+            $("#grid").jqxGrid('exportdata', 'xls', 'Profesionales', true,null,true, 'https://carahue.eh-open.com/exportar/save-file.php');
         });
     });
-
     function boxInfoProfesional(id){
         $.post('modal/profesional.php',{
             id:id

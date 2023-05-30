@@ -541,7 +541,11 @@ if($paciente->validaNutricionista()==true){
                                             alertaLateral(data);
                                             $('.tooltipped').tooltip({delay: 50});
                                         });
-
+                                        if(val !==''){
+                                            $("#div_atencion_secundaria").show();
+                                        }else{
+                                            $("#div_atencion_secundaria").hide();
+                                        }
                                     });
                                     $('.tooltipped').tooltip({delay: 50});
                                 })
@@ -551,6 +555,44 @@ if($paciente->validaNutricionista()==true){
                             <i class="mdi-editor-insert-chart"
                                onclick="verHistorialInfantil('<?php echo $rut ?>','presion_arterial')"></i>
                         </div>
+                    </div>
+                    <div class="row" id="div_atencion_secundaria" style="display: none;">
+                        <div class="col l6">
+                            <span class="black-text" style="font-size: 0.8em;">ATENCIÓN SECUNDARIA <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="PACIENTE CON DERIVACION PARA ATENCION SECUNDARIA">(?)</strong></span>
+                        </div>
+                        <div class="col l6">
+                            <select name="atencion_secundaria" id="atencion_secundaria">
+                                <option>NO</option>
+                                <option>SI</option>
+                            </select>
+                            <script type="text/javascript">
+
+                                $(function(){
+                                    $('#atencion_secundaria').jqxDropDownList({
+                                        width: '100%',
+                                        theme: 'eh-open',
+                                        height: '25px'
+                                    });
+
+                                    $("#atencion_secundaria").on('change',function(){
+                                        var val = $("#atencion_secundaria").val();
+                                        $.post('db/update/paciente_antropometria.php',{
+                                            rut:'<?php echo $rut; ?>',
+                                            val:val,
+                                            column:'atencion_secundaria',
+                                            fecha_registro:'<?php echo $fecha_registro; ?>'
+
+                                        },function(data){
+                                            alertaLateral(data);
+                                            $('.tooltipped').tooltip({delay: 50});
+                                        });
+
+                                    });
+                                    $('.tooltipped').tooltip({delay: 50});
+                                })
+                            </script>
+                        </div>
+
                     </div>
                 </div>
             </div>

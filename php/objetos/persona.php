@@ -29,6 +29,7 @@ class persona
     //datos padres
     public $rut_mama;
     public $rut_papa;
+    public $sename,$ninez_2;
 
 
     public $existe, $ultima_actualizacion;
@@ -62,6 +63,9 @@ class persona
             $this->carpeta_familiar = $row['carpeta_familiar'];
 
             $this->ultima_actualizacion = $row['ultima_actualizacion'];
+
+            $this->sename = $row['sename'];
+            $this->ninez = $row['ninez'];
 
             list($fecha, $hora) = explode(" ", $this->ultima_actualizacion);
             $this->ultima_actualizacion = fechaNormal($fecha) . " [" . $hora . "]";
@@ -1168,6 +1172,7 @@ class persona
         } else {
             $sql2 = "insert into paciente_dental(rut,$column) values('$this->rut','$value')";
         }
+
         mysql_query($sql2);
         $this->addHistorialEspecial('SE REGISTRO UN CAMBIO EN LA INFORMACION DENTAL  ' . $column, 'DENTAL', $fecha);
         $this->insert_historial_dental($column, $value, $fecha);

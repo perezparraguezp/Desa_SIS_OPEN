@@ -360,7 +360,19 @@ if ($comunal == true) {
                 $porcentaje_indicador = number_format(($total_indicador * 100 / $total), 0, '.', '');
                 $porcentaje_cobertura = number_format(($total_cobertura * 100 / $total), 0, '.', '');
 
-                $series .= " { dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } } ,formatFunction: function (value) {return value + ' %';},total_general:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
+                $series .= " { dataField: '$id', displayText: '$nombre_base',
+                            labels: {
+                                visible: true,
+                                verticalAlignment: 'top',
+                                offset: { x: 0, y: -20 } } ,
+                                formatFunction: function (value) {return value + ' %';
+                                },
+                            total_general:$total,
+                            total_indicador:$total_indicador,
+                            hombres:$total_hombres,
+                            mujeres:$total_mujeres,
+                            total_pacientes:$total_pacientes
+                            },";
                 $rango .= ", $id:$porcentaje_indicador";
 
 
@@ -458,14 +470,14 @@ if ($comunal == true) {
                 $total_indicador = $row1['total_indicador'] != '' ? $row1['total_indicador'] : 0;
                 $total_cobertura = $row1['total_cobertura'] != '' ? $row1['total_cobertura'] : 0;
 
-                $porcentaje_indicador = number_format(($total_indicador * 100 / $total_cobertura), 0, '.', '');
+                $porcentaje_indicador = number_format(($total_indicador * 100 / $total), 0, '.', '');
                 $porcentaje_cobertura = number_format(($total_cobertura * 100 / $total), 0, '.', '');
 
-                $series .= " { dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } } ,formatFunction: function (value) {return value + ' %';},total_general:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total},";
-                $rango .= ", $id:$porcentaje_cobertura";
+                $series .= " { dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } } ,formatFunction: function (value) {return value + ' %';},total_general:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
+                $rango .= ", $id:$porcentaje_indicador";
 
 
-                $series_cobertura .= " \n{ dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } },formatFunction: function (value) {return value + ' %';} ,total_cobertura:$total_cobertura,total_general:$total,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total},";
+                $series_cobertura .= " \n{ dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 0, y: -20 } },formatFunction: function (value) {return value + ' %';} ,total_cobertura:$total_cobertura,total_general:$total,hombres:$total_hombres,mujeres:$total_mujeres,total_pacientes:$total_pacientes},";
                 $rango_cobertura .= ", $id:$porcentaje_cobertura";
             }
             $rango .= "},";
@@ -532,7 +544,7 @@ $estado = $estado == '' ? 'PENDIENTE' : $estado;
             return '<DIV style="text-align:left">' +
                 '<b>' + serie.displayText + '</b><br />' +
                 'Porcentaje: <b>' + value + '%</b><br />' +
-                'Datos: <b>' + serie.total_indicador + '/' + serie.total_general + '</b><br />' +
+                'Datos x: <b>' + serie.total_indicador + '/' + serie.total_general + '</b><br />' +
                 'Hombres: <b>' + serie.hombres + ' (' + parseInt(serie.hombres * 100 / serie.total_general) + '%)</b><br />' +
                 'Mujeres: <b>' + serie.mujeres + ' (' + parseInt(serie.mujeres * 100 / serie.total_general) + '%)</b><br />' +
                 'Total Pacientes: <b>' + serie.total_general + '</b><br />' +

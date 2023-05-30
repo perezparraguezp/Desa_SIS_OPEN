@@ -143,6 +143,36 @@ if ($p->rut_papa != '') {
             </div>
             <div class="row">
                 <div class="col l12 m12 s12">
+                    <div class="col l4">RED MEJOR NIÑEZ</div>
+                    <div class="col l4">
+                        <input type="radio" id="ninez_1" name="ninez"
+                               value="SI" <?php echo $p->ninez == 'SI' ? 'checked' : ''; ?> />
+                        <label for="ninez_1">SI</label>
+                    </div>
+                    <div class="col l4">
+                        <input type="radio" id="ninez_2" name="ninez"
+                               value="NO" <?php echo $p->ninez == 'NO' ? 'checked' : ''; ?> />
+                        <label for="ninez_2">NO</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l12 m12 s12">
+                    <div class="col l4">RED SENAME</div>
+                    <div class="col l4">
+                        <input type="radio" id="sename_1" name="sename"
+                               value="SI" <?php echo $p->sename == 'SI' ? 'checked' : ''; ?> />
+                        <label for="name_1">SI</label>
+                    </div>
+                    <div class="col l4">
+                        <input type="radio" id="sename_2" name="sename"
+                               value="NO" <?php echo $p->sename == 'NO' ? 'checked' : ''; ?> />
+                        <label for="sename_2">NO</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l12 m12 s12">
                     <div class="col l4">NANEA</div>
                     <div class="col l8">
                         <input type="hidden" name="naneas" id="naneas"/>
@@ -470,7 +500,7 @@ if ($p->rut_papa != '') {
                             $check = '';
                             $column = $row['column_sql'];
 
-                            if ($row['id_modulo'] != 1 && $row['nombre_modulo'] != 'INGRESO DE PACIENTES') {
+                            if ($row['nombre_modulo'] != 'INGRESO DE PACIENTES') {
                                 $sql2 = "select * from paciente_establecimiento 
                                          where id_establecimiento='$id_establecimiento'
                                          and rut='$p->rut'  

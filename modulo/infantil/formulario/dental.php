@@ -36,7 +36,7 @@ $paciente = new persona($rut);
 <div class="col l4">
     <?php
     //CERO DENTAL
-    if($paciente->validaCERO()){
+    if(1==2){
         ?>
         <div class="col l12 s12 m12">
             <div class="card-panel eh-open_fondo">
@@ -80,7 +80,7 @@ $paciente = new persona($rut);
     ?>
     <?php
     //GES6 DENTAL
-    if($paciente->validaGES6()){
+    if(1==2){
         ?>
         <div class="col l12 s12 m12">
             <div class="card-panel eh-open_fondo">
@@ -125,7 +125,7 @@ $paciente = new persona($rut);
     <?php
     //GES6 DENTAL
 //    echo $paciente->edad_meses;
-    if($paciente->edad_total>=6){
+    if(1==6){
         ?>
         <div class="col l12 s12 m12">
             <div class="card-panel  blue lighten-1">
@@ -377,58 +377,109 @@ $paciente = new persona($rut);
                 </div>
             </div>
         </div>
-
-        <div class="col l12 s12 m12">
-            <div class="card-panel red accent-2">
-                <div class="row">
-                    <div class="col l3">
-                        <span class="black-text">Riesgo <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="Cantidad de Dientes">(?)</strong></span>
-                    </div>
-                    <div class="col l8">
-                        <select name="dental_riesgo" id="dental_riesgo">
-                            <option></option>
-                            <option>BAJO</option>
-                            <option>ALTO</option>
-                        </select>
-
-                        <script type="text/javascript">
-                            $(function(){
-                                $('#dental_riesgo').jqxDropDownList({
-                                    width: '100%',
-                                    theme: 'eh-open',
-                                    height: '25px'
-                                });
-
-                                $("#dental_riesgo").on('change',function(){
-                                    var val = $("#dental_riesgo").val();
-                                    $.post('db/update/paciente_dental.php',{
-                                        rut:'<?php echo $rut; ?>',
-                                        val:val,
-                                        column:'riesgo',
-                                        fecha_registro:'<?php echo $fecha_registro; ?>'
-
-                                    },function(data){
-                                        alertaLateral(data);
-                                        $('.tooltipped').tooltip({delay: 50});
-                                        historial_dental('<?php echo $rut; ?>');
-                                    });
-
-                                });
-                                $('.tooltipped').tooltip({delay: 50});
-                            });
-                        </script>
-                    </div>
-                    <div class="col l1">
-                        <i class="mdi-editor-insert-chart"
-                           onclick="loadModalGraficoDental('<?php echo $rut ?>','riesgo')"></i>
-                    </div>
-
-                </div>
-            </div>
-        </div>
         <?php
     }
     ?>
+    <div class="col l12 s12 m12">
+        <div class="card-panel  blue lighten-1">
+            <div class="row">
+                <div class="col l3">
+                    <span class="black-text">INDICE <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="INDICE">(?)</strong></span>
+                </div>
+                <div class="col l8">
+                    <select name="dental_indice" id="dental_indice">
+                        <option></option>
+                        <option>0</option>
+                        <option>1 a 2</option>
+                        <option>3 a 4</option>
+                        <option>5 a 6</option>
+                        <option>7 a 8</option>
+                        <option>9 ó más</option>
+                    </select>
+
+                    <script type="text/javascript">
+                        $(function(){
+                            $('#dental_indice').jqxDropDownList({
+                                width: '100%',
+                                theme: 'eh-open',
+                                height: '25px'
+                            });
+
+                            $("#dental_indice").on('change',function(){
+                                var val = $("#dental_indice").val();
+                                $.post('db/update/paciente_dental.php',{
+                                    rut:'<?php echo $rut; ?>',
+                                    val:val,
+                                    column:'indice',
+                                    fecha_registro:'<?php echo $fecha_registro; ?>'
+
+                                },function(data){
+                                    alertaLateral(data);
+                                    $('.tooltipped').tooltip({delay: 50});
+                                    historial_dental('<?php echo $rut; ?>');
+                                });
+
+                            });
+                            $('.tooltipped').tooltip({delay: 50});
+                        });
+                    </script>
+                </div>
+                <div class="col l1">
+                    <i class="mdi-editor-insert-chart"
+                       onclick="loadModalGraficoDental('<?php echo $rut ?>','indice')"></i>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col l12 s12 m12">
+        <div class="card-panel red accent-2">
+            <div class="row">
+                <div class="col l3">
+                    <span class="black-text">Riesgo <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="Riesgo">(?)</strong></span>
+                </div>
+                <div class="col l8">
+                    <select name="dental_riesgo" id="dental_riesgo">
+                        <option></option>
+                        <option>BAJO</option>
+                        <option>ALTO</option>
+                    </select>
+
+                    <script type="text/javascript">
+                        $(function(){
+                            $('#dental_riesgo').jqxDropDownList({
+                                width: '100%',
+                                theme: 'eh-open',
+                                height: '25px'
+                            });
+
+                            $("#dental_riesgo").on('change',function(){
+                                var val = $("#dental_riesgo").val();
+                                $.post('db/update/paciente_dental.php',{
+                                    rut:'<?php echo $rut; ?>',
+                                    val:val,
+                                    column:'factor_riesgo',
+                                    fecha_registro:'<?php echo $fecha_registro; ?>'
+
+                                },function(data){
+                                    alertaLateral(data);
+                                    $('.tooltipped').tooltip({delay: 50});
+                                    historial_dental('<?php echo $rut; ?>');
+                                });
+
+                            });
+                            $('.tooltipped').tooltip({delay: 50});
+                        });
+                    </script>
+                </div>
+                <div class="col l1">
+                    <i class="mdi-editor-insert-chart"
+                       onclick="loadModalGraficoDental('<?php echo $rut ?>','riesgo')"></i>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 <div class="col l2 center-align center">
     <img src="../../images/odontologa.png" width="100" />

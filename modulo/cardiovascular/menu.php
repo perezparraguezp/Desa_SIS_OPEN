@@ -34,7 +34,7 @@ $profesional = new profesional($_SESSION['id_usuario']);
         <li id="menu_0" onclick="loadMenu_CardioVascular('menu_0','dashboard','')" class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Inicio</a></li>
         <li id="menu_1" onclick="loadMenu_CardioVascular('menu_1','registro_atencion','')"  class="bold"><a href="#"  class="waves-effect waves-cyan"><i class="mdi-action-assignment"></i> Registrar Atención</a></li>
 <!--        <li id="menu_2" onclick="loadMenu_CardioVascular('menu_2','pendientes','')" class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-social-notifications-on"></i> Pendientes <span class="new badge">new</span></a></li>-->
-        <li id="menu_2" onclick="loadMenu_CardioVascular('menu_2','pendientes','')" class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-social-notifications-on"></i> Pendientes</a></li>
+<!--        <li id="menu_2" onclick="loadMenu_CardioVascular('menu_2','pendientes','')" class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-social-notifications-on"></i> Pendientes</a></li>-->
         <li id="menu_3" onclick="loadMenu_CardioVascular('menu_3','pacientes','')"class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-action-account-child"></i> Pacientes</a></li>
         <li id="menu_5" onclick="loadMenu_CardioVascular('menu_5','informes','')"class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-action-assignment-turned-in"></i> Informes</a></li>
 

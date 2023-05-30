@@ -54,6 +54,7 @@ $rango_seccion_f = [
                     <td rowspan="2">CLASIFICACION</td>
                     <td rowspan="2">TOTAL</td>
                     <td colspan="3">GRUPO DE EDAD</td>
+                    <td colspan="1" rowspan="2">Derivación Nivel Secundario</td>
                 </tr>
                 <tr>
                     <?php
@@ -88,7 +89,28 @@ $rango_seccion_f = [
                         $td .= '<td>' . $total . '</td>';
 
                     }
-                    $tr .= '<td>' . $estado . '</td><td>' . $total_estado . '</td>' . $td;
+                    $sql = "select
+                                          sum(presion_arterial='$estado' and persona.edad_total>=36 and persona.edad_total<=(12*9)) as total
+                                        from persona
+                                        inner join antropometria on persona.rut=antropometria.rut 
+                                        inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                        inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno 
+                                        where paciente_establecimiento.id_establecimiento='$id_establecimiento' 
+                                        $filtro_centro 
+                                        and antropometria.atencion_secundaria='SI'";
+
+                    $row = mysql_fetch_array(mysql_query($sql));
+                    if ($row) {
+                        $total_secundaria = $row['total'];
+                    } else {
+                        $total_secundaria = 0;
+                    }
+
+                    $td .= '<td>' . $total_secundaria . '</td>';
+
+                    $tr .= '<td>' . $estado . '</td>
+                            <td>' . $total_estado . '</td>' . $td;
+
                     $tr .= '</tr>';
                     echo $tr;
                 }

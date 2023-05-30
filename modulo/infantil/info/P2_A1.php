@@ -28,7 +28,10 @@ $sexo = [
 ];
 $rango_seccion_a1 = [
     'persona.edad_total_dias>=(60*30) and persona.edad_total_dias<(72*30)', //entre 60 meses a 71 meses
-    'persona.edad_total_dias>=(30*12*6) and persona.edad_total_dias<(30*12*10)',//desde los 6 años y menores de 10 años
+    'persona.edad_total_dias>=(30*12*6) and persona.edad_total_dias<(30*12*7)',//desde los 6 años y 11 MESES
+    'persona.edad_total_dias>=(30*12*6) and persona.edad_total_dias<(30*12*8)',//desde los 7 años y 11 MESES
+    'persona.edad_total_dias>=(30*12*6) and persona.edad_total_dias<(30*12*9)',//desde los 8 años y 11 MESES
+    'persona.edad_total_dias>=(30*12*6) and persona.edad_total_dias<(30*12*10)',//desde los 9 años A 11 MESES
 
     "persona.edad_total_dias>=(60*30) and persona.edad_total_dias<(30*12*10) and persona.pueblo!='NO'",//PUEBLOS ORIGINARIOS
     "persona.edad_total_dias>=(60*30) and persona.edad_total_dias<(30*12*10) and persona.migrante!='NO'",//MIGRANTES
@@ -41,11 +44,14 @@ $rango_seccion_a1 = [
         <tr>
             <td colspan="2" rowspan="3">INDICADOR NUTRICIONAL Y PARÁMETROS DE MEDICIÓN</td>
             <td colspan="3" rowspan="2">TOTAL</td>
-            <td colspan="8">GRUPOS DE EDAD (MESES Y AÑOS) Y SEXO</td>
+            <td colspan="10">GRUPOS DE EDAD (MESES Y AÑOS) Y SEXO</td>
         </tr>
         <tr>
             <td colspan="2">60 A 71 meses</td>
-            <td colspan="2">6 A 9 años 11 meses</td>
+            <td colspan="2">6 AÑOS A 6 AÑOS Y 11 meses</td>
+            <td colspan="2">7 AÑOS A 7 AÑOS Y 11 meses</td>
+            <td colspan="2">8 AÑOS A 8 AÑOS Y 11 meses</td>
+            <td colspan="2">9 AÑOS A 9 AÑOS Y 11 meses</td>
             <td colspan="2">PUEBLOS ORIGINARIOS</td>
             <td colspan="2">POBLACION MIGRANTES</td>
         </tr>
@@ -54,6 +60,12 @@ $rango_seccion_a1 = [
             <td>HOMBRES</td>
             <td>MUJERES</td>
 
+            <td>HOMBRES</td>
+            <td>MUJERES</td>
+            <td>HOMBRES</td>
+            <td>MUJERES</td>
+            <td>HOMBRES</td>
+            <td>MUJERES</td>
             <td>HOMBRES</td>
             <td>MUJERES</td>
 

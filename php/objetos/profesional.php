@@ -21,6 +21,7 @@ class profesional{
 
 
 
+
         $row = mysql_fetch_array(mysql_query($sql));
         if($row){
             $this->id_profesional = $row['id_profesional'];

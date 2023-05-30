@@ -250,7 +250,7 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
                         while($row = mysql_fetch_array($res)){
                             $check = 'checked="checked"';
 
-                            if($row['id_modulo']!=1 && $row['nombre_modulo']!='INGRESO DE PACIENTES'){
+                            if( $row['nombre_modulo']!='INGRESO DE PACIENTES'){
                                 ?>
                                 <div class="row">
                                     <div class="col l2">
