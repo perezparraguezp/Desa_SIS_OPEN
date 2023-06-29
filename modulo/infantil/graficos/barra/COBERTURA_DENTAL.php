@@ -517,7 +517,7 @@ if($comunal==true){
 
         // setup the chart
         $('#cobertura_cero').jqxChart(settings_cero);
-        $('#cobertura_ges6').jqxChart(settings_ges6);
+        // $('#cobertura_ges6').jqxChart(settings_ges6);
 
         // function myEventHandler(event) {
         //     var eventData = '<div><b>Total General: </b>' + event.args.serie.total_general + '<b>, Total Indicador: </b>' + event.args.serie.total_indicador + "</div>";
@@ -630,7 +630,7 @@ if($comunal==true){
             });
         $("#excelExport").click(function () {
 
-            $("#table_grid").jqxGrid('exportdata', 'xls', 'grid', true,null,true, 'https://carahue.eh-open.com/exportar/save-file.php');
+            $("#table_grid").jqxGrid('exportdata', 'xls', 'archivo', true, null, true, 'https://carahue.eh-open.com/exportar/save-file.php');
 
         });
     });

@@ -23,12 +23,13 @@ if($tipo!='TODOS'){
 $id_establecimiento = $_SESSION['id_establecimiento'];
 
 
-$sql = "select * from persona inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut 
-                inner join sectores_centros_internos on id_sector_centro_interno=id_sector
-                inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
-                inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
-                 where paciente_establecimiento.id_establecimiento='$id_establecimiento' 
-                 and paciente_establecimiento.m_infancia='SI' 
+$sql = "select * from persona
+                inner join paciente_establecimiento pe on persona.rut = pe.rut
+                inner join sectores_centros_internos sci on sci.id_sector_centro_interno=pe.id_sector
+                inner join centros_internos ci on sci.id_centro_interno = ci.id_centro_interno
+                where pe.m_infancia = 'SI'
+                  and pe.id_establecimiento = '1'
+                   and estado_registro = 'ACTIVO'
                  $filtro_tipo ";
 //echo $sql;
 $res = mysql_query($sql);

@@ -938,11 +938,13 @@ class persona
             $sql2 = "update antropometria set $column='$val',fecha_sql=now(),
                       fecha_registro='$fecha' 
                       where rut='$this->rut' limit 1";
+
         } else {
             $sql2 = "insert into antropometria(rut,$column,fecha_registro) values('$this->rut','$val','$fecha')";
         }
         mysql_query($sql2);
         $this->hisotrialAntropometria($column, $val, $fecha);
+
         $this->addHistorial( 'SE REGISTRO UN CAMBIO EN ' . $column . ' con un valor ' . $val . ' EN LA FECHA ' . $fecha,'ANTROPOMETRIA','INFANTIL');
 
     }

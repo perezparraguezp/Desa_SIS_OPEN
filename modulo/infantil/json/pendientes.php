@@ -372,7 +372,7 @@ if($indicador == 'VACUNAS' || $indicador==''){
             }
         }
 
-        if($paciente->total_meses>=(5*12)){
+        if($paciente->total_meses>=(6*12)){
             $v = $paciente->vacuna5Anios();
             if($v == 'NO'){
                 $customers[] = array(
@@ -380,7 +380,7 @@ if($indicador == 'VACUNAS' || $indicador==''){
                     'link' => $paciente->rut,
                     'mail' => $paciente->email,'nombre' => $paciente->nombre,
                     'tipo' => 'VACUNAS',
-                    'indicador' => '5 AÑOS',
+                    'indicador' => '1 BASICO',
                     'edad_actual' => $paciente->edad,
                     'contacto' => $paciente->telefono,
                     'establecimiento' => $paciente->getEstablecimiento()

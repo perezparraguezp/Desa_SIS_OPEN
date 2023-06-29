@@ -480,6 +480,55 @@ $paciente = new persona($rut);
             </div>
         </div>
     </div>
+
+    <div class="col l12 s12 m12">
+        <div class="card-panel orange accent-2">
+            <div class="row">
+                <div class="col l3">
+                    <span class="black-text">ASISTENTE <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="PACIENTE ASISTENTE">(?)</strong></span>
+                </div>
+                <div class="col l8">
+                    <select name="dental_asistente" id="dental_asistente">
+                        <option></option>
+                        <option>ASISTENTE</option>
+                        <option>AUSENTE</option>
+                    </select>
+
+                    <script type="text/javascript">
+                        $(function(){
+                            $('#dental_asistente').jqxDropDownList({
+                                width: '100%',
+                                theme: 'eh-open',
+                                height: '25px'
+                            });
+
+                            $("#dental_asistente").on('change',function(){
+                                var val = $("#dental_asistente").val();
+                                $.post('db/update/paciente_dental.php',{
+                                    rut:'<?php echo $rut; ?>',
+                                    val:val,
+                                    column:'dental_asistente',
+                                    fecha_registro:'<?php echo $fecha_registro; ?>'
+
+                                },function(data){
+                                    alertaLateral(data);
+                                    $('.tooltipped').tooltip({delay: 50});
+                                    historial_dental('<?php echo $rut; ?>');
+                                });
+
+                            });
+                            $('.tooltipped').tooltip({delay: 50});
+                        });
+                    </script>
+                </div>
+                <div class="col l1">
+                    <i class="mdi-editor-insert-chart"
+                       onclick="loadModalGraficoDental('<?php echo $rut ?>','dental_asistente')"></i>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 <div class="col l2 center-align center">
     <img src="../../images/odontologa.png" width="100" />

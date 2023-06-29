@@ -27,29 +27,23 @@ $sexo = [
     "persona.sexo='F' "
 ];
 $label_rango_seccion_e = [
-    'Menor de 6 meses',
-    'de 6 a 11 meses',
-    'de 12 a 17 meses',
-    'de 18 a 23 meses',
-    '24 a 35 meses',//24 a 35 meses
-    '36 a 41 meses',//36 a 41 meses
-    '42 a 47 meses',//42 a 47 meses
-    '48 a 59 meses',//48 a 59 meses
-    '60 a 71 meses', //entre 60 meses a 71 meses
-    '6 a 9 años',//desde los 6 a 9 años
+
+    'de 0 a 11 meses',
+    'de 12 a 24 meses',
+    '25 a 35 meses',//24 a 35 meses
+    '36 a 59 meses',//36 a 41 meses
+    '60 a 9 años',//42 a 47 meses
+    'total',//TOTAL
 
 ];
 $filtro_rango_seccion_e = [
-    'persona.edad_total>=0 and persona.edad_total<=6 ', //menor 6 mes
-    'persona.edad_total>6 and persona.edad_total<=11', // 6 a 11 meses
-    'persona.edad_total>11 and persona.edad_total<=17', // 11 a 17 meses
-    'persona.edad_total>17 and persona.edad_total<=23', // 11 a 17 meses
-    'persona.edad_total>23 and persona.edad_total<=35', // 11 a 17 meses
-    'persona.edad_total>35 and persona.edad_total<=41', // 11 a 17 meses
-    'persona.edad_total>41 and persona.edad_total<=47', // 11 a 17 meses
-    'persona.edad_total>47 and persona.edad_total<=59', // 11 a 17 meses
-    'persona.edad_total>59 and persona.edad_total<=71', // 11 a 17 meses
-    'persona.edad_total>72 and persona.edad_total<=(12*9)', // 11 a 17 meses
+
+    'persona.edad_total>=0 and persona.edad_total<=11', // 0 a 11 meses
+    'persona.edad_total>11 and persona.edad_total<=24', // 12 a 24 meses
+    'persona.edad_total>24 and persona.edad_total<=35', // 25 A 35
+    'persona.edad_total>35 and persona.edad_total<=59', // 36 a 59 meses
+    'persona.edad_total>59 and persona.edad_total<=(12*30*9)', // 9 AÑOS
+    'persona.edad_total<=(12*30*9)', // TOTAL
 ];
 $filtro_inasistencia_e = [
     'and TIMESTAMPDIFF(DAY,agendamiento.fecha_registro,CURRENT_DATE)>30*4',

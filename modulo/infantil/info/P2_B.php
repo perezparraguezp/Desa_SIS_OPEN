@@ -12,7 +12,7 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
 
 $id_centro = $_POST['id'];
 if ($id_centro != '') {
-    $filtro_centro = " and id_centro_interno='$id_centro' ";
+    $filtro_centro = " and centros_internos.id_centro_interno='$id_centro' ";
     $sql0 = "select * from centros_internos 
                               WHERE id_centro_interno='$id_centro' limit 1";
     $row0 = mysql_fetch_array(mysql_query($sql0));
@@ -163,7 +163,7 @@ $label_rango_seccion_b = [
                                 $total_pueblo = $row['total'];
                             }
 
-                            $sql = "select COUNT(*) as total,
+                            $sql = "select COUNT(*) as total
                                     from paciente_psicomotor inner join persona using(rut)
                                     inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno,

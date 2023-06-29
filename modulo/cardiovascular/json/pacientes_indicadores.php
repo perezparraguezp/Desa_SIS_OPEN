@@ -29,6 +29,7 @@ while($row = mysql_fetch_array($res)){
 
             $row1 = mysql_fetch_array(mysql_query($sql1));
             $imc = $row1['imc'];
+            $erc = $row1['erc_vfg'];
             //PA
             if($row1['pa_fecha']==''){
                 $sql11 = "select * from historial_parametros_pscv 
@@ -202,6 +203,32 @@ while($row = mysql_fetch_array($res)){
             }else{
                 $fondo_ojo_fecha = $row1['fondo_ojo_fecha'];
             }
+            //$ERC VFG FECHA
+
+            if($erc=='S/ERC'){
+                $erc = 'SIN ERC';
+                $erc_fecha = '';
+            }else{
+                if($row1['erc_fecha']==''){
+                    $sql11 = "select * from historial_parametros_pscv 
+                    where rut='$paciente->rut' 
+                    and indicador='erc_vfg'
+                    order by id_historial desc limit 1";
+
+                    $row11 = mysql_fetch_array(mysql_query($sql11));
+                    if($row11){
+                        list($erc_fecha,$hora) = explode(" ",$row11['fecha_registro']);
+                        mysql_query("update parametros_pscv set erc_fecha='$erc_fecha' 
+                            where rut='$paciente->rut' ");
+                    }else{
+                        $erc_fecha ='';
+                    }
+                }else{
+                    $erc_fecha = $row1['erc_fecha'];
+                }
+            }
+
+
             $sql1 = "select * from parametros_pscv where rut='$paciente->rut' limit 1";
 
             $row1 = mysql_fetch_array(mysql_query($sql1));
@@ -222,7 +249,7 @@ while($row = mysql_fetch_array($res)){
                     'pa' => strtoupper(limpiaCadena($row1['pa'])),
                     'electro' => fechaNormal($row1['ekg']),
                     'ldl' => ($row1['ldl']),
-                    'erc' => strtoupper(limpiaCadena($row1['erc_vfg'])),
+                    'erc' => strtoupper($erc),
                     'rac' => strtoupper(limpiaCadena($row1['rac'])),
                     'vfg' => strtoupper(limpiaCadena($row1['vfg'])),
                     'imc' => strtoupper(limpiaCadena($row1['imc'])),
@@ -245,6 +272,7 @@ while($row = mysql_fetch_array($res)){
                     'hta_fecha' => fechaNormal($hta_fecha),
                     'dm_fecha' => fechaNormal($dm_fecha),
                     'dlp_fecha' => fechaNormal($dlp_fecha),
+                    'erc_fecha' => fechaNormal($erc_fecha),
                 );
 
                 $i++;

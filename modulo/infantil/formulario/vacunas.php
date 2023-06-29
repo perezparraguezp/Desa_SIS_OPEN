@@ -242,10 +242,10 @@ $paciente->calcularEdadFecha($fecha_registro);
 
 
                     //5 años
-                    if($paciente->total_meses>=(12*5)){
+                    if($paciente->total_meses>=(12*6)){
                         ?>
                         <div class="settings-section">
-                            <div class="settings-label">VACUNA 5 AÑOS</div>
+                            <div class="settings-label">VACUNA 1 BASICO</div>
                             <div class="settings-setter">
                                 <div id="vacuna5anios"></div>
                             </div>

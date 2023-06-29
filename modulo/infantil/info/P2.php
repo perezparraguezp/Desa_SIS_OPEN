@@ -31,14 +31,14 @@ $id_centro = $_POST['id'];
     function loadP2() {
         var id = $("#centro_interno").val();
         var div = 'tabla_p2';
-        loading_div(div);
+        // loading_div(div);
         $.post('info/tabla_p2.php',{
             id:id
         },function(data){
             if(data !=='ERROR_SQL' ){
                 $("#"+div).html(data);
             }else{
-
+                $("#"+div).html('Se produjo un error en la conexion, favor intentelo nuevamente');
             }
         });
     }

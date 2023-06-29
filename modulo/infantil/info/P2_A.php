@@ -36,12 +36,11 @@ $rango_seccion_a = [
     'persona.edad_total_dias>=(30*3) and persona.edad_total_dias<(30*5)', //4 MESES
     'persona.edad_total_dias>=(30*4) and persona.edad_total_dias<(30*6)', //5 MESES
     'persona.edad_total_dias>=(30*5) and persona.edad_total_dias<(30*7)', //6 MESES
-    'persona.edad_total_dias>=(30*6) and persona.edad_total_dias<(30*12)',//7 a 11 meses
+    'persona.edad_total_dias>=(30*7) and persona.edad_total_dias<(30*12)',//7 a 11 meses
     'persona.edad_total_dias>=(30*12) and persona.edad_total_dias<(30*18)',//12 a 17 meses
     'persona.edad_total_dias>=(30*18) and persona.edad_total_dias<(30*24)',//18 a 23 meses
     'persona.edad_total_dias>=(30*24) and persona.edad_total_dias<(30*36)',//24 a 35 meses
-    'persona.edad_total_dias>=(30*36) and persona.edad_total_dias<(30*42)',//36 a 41 meses
-    'persona.edad_total_dias>=(30*42) and persona.edad_total_dias<(30*48)',//42 a 47 meses
+    'persona.edad_total_dias>=(30*36) and persona.edad_total_dias<(30*48)',//36 a 47 meses
     'persona.edad_total_dias>=(30*48) and persona.edad_total_dias<(30*60)',//48 a 59 meses
 
     "persona.edad_total_dias>=0 and persona.edad_total_dias<(30*60) and persona.pueblo!='NO'",//PUEBLOS ORIGINARIOS
@@ -64,7 +63,7 @@ $rango_seccion_a = [
             <td rowspan="2" colspan="3">
                 TOTAL
             </td>
-            <td colspan="28">
+            <td colspan="26">
                 GRUPOS DE EDAD (EN MESES - AÑOS) Y SEXO
             </td>
             <td colspan="2" rowspan="2">
@@ -86,8 +85,7 @@ $rango_seccion_a = [
             <td colspan="2">12 A 17 MESES</td>
             <td colspan="2">18 A 23 MESES</td>
             <td colspan="2">24 A 35 MESES</td>
-            <td colspan="2">36 A 41 MESES</td>
-            <td colspan="2">42 A 47 MESES</td>
+            <td colspan="2">36 A 47 MESES</td>
             <td colspan="2">48 A 59 MESES</td>
         </tr>
         <tr>
@@ -120,8 +118,6 @@ $rango_seccion_a = [
             <td>HOMBRES</td>
             <td>MUJERES</td>
 
-            <td>HOMBRES</td>
-            <td>MUJERES</td>
 
             <td>HOMBRES</td>
             <td>MUJERES</td>
@@ -697,7 +693,7 @@ $rango_seccion_a = [
         </tr>
         <!--DNI - RI DESNUTRICION -->
         <tr>
-            <td rowspan="9">DIAGNOSTICO NUTRICIONAL INTEGRADO</td>
+            <td rowspan="8">DIAGNOSTICO NUTRICIONAL INTEGRADO</td>
             <td>RIESGO DE DESNUTRIR/ DEFICIT PONDERAL</td>
             <?php
             //
@@ -708,26 +704,88 @@ $rango_seccion_a = [
             //
             $tabla = 'antropometria';
             $indicador = 'DNI';
+            $valores = [
+                'RI DESNUTRICION',
+                'DESNUTRICION',
+                'SOBREPESO',
+                'OBESIDAD',
+                'NORMAL',
+                'DESNUTRICION SECUNDARIA'
+            ];
             $valor = 'RI DESNUTRICION';
             $DNI[$valor]['MUJERES'] = 0;
             $DNI[$valor]['HOMBRES'] = 0;
             $DNI[$valor]['AMBOS'] = 0;
             $fila = '';
-            foreach ($rango_seccion_a as $i => $rango) {
-                $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
-                $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
 
-                $total_dni[$i]['HOMBRES'] += $total_hombres;
-                $total_dni[$i]['MUJERES'] += $total_mujeres;
-                if($i<=13){
-                    $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
-                    $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
-                    $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
+            $total_dni = array();
+            foreach ($rango_seccion_a as $i => $rango) {
+
+                if ($id_centro != '') {
+                    $sql = "select
+                                   sum(sexo='M') as total_hombres,
+                                   sum(sexo='F') as total_mujeres
+                                   from antropometria
+                             inner join persona using (rut)
+                                     inner join paciente_establecimiento using (rut)
+                                     inner join sectores_centros_internos
+                                                on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                                     inner join centros_internos on sectores_centros_internos.id_centro_interno = centros_internos.id_centro_interno
+                                     inner join sector_comunal on centros_internos.id_sector_comunal = sector_comunal.id_sector_comunal
+                            where paciente_establecimiento.m_infancia='SI'
+                            and sectores_centros_internos.id_centro_interno = '$id_centro'
+                              and paciente_establecimiento.id_establecimiento = '1'
+                              and $indicador='$valor'
+                            and $rango
+                            and estado_registro='ACTIVO';";
+
+                } else {
+                    $sql = "select
+                                   sum(sexo='M') as total_hombres,
+                                   sum(sexo='F') as total_mujeres
+                                   from antropometria
+                             inner join persona using (rut)
+                                     inner join paciente_establecimiento using (rut)
+                                     inner join sectores_centros_internos
+                                                on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                                     inner join centros_internos on sectores_centros_internos.id_centro_interno = centros_internos.id_centro_interno
+                                     inner join sector_comunal on centros_internos.id_sector_comunal = sector_comunal.id_sector_comunal
+                            where paciente_establecimiento.m_infancia='SI'
+                            and id_sector!=0 
+                              and paciente_establecimiento.id_establecimiento = '1'
+                              and $indicador='$valor'
+                            and $rango
+                            and estado_registro='ACTIVO';";
+
+
                 }
 
+                $row = mysql_fetch_array(mysql_query($sql));
+                if($row){
 
-                $fila .= '<td>' . $total_hombres . '</td>';//hombre
-                $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+                    $total_hombres = $row['total_hombres'];
+                    $total_mujeres = $row['total_mujeres'];
+                }else{
+                    $total_hombres =0;
+                    $total_mujeres = 0;
+                }
+
+                if ($i < 1) {
+                    $fila .= '<td style="background-color: grey"></td>';//hombre
+                    $fila .= '<td style="background-color: grey"></td>';//hombre
+                } else {
+                    $fila .= '<td>' . $total_hombres . '</td>';//hombre
+                    $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+
+                    $total_dni[$i]['HOMBRES'] += $total_hombres;
+                    $total_dni[$i]['MUJERES'] += $total_mujeres;
+
+                    if ($i <= 12) {
+                        $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
+                        $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
+                        $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
+                    }
+                }
 
             }
             $DNI['AMBOS'] += $DNI[$valor]['AMBOS'];
@@ -751,19 +809,70 @@ $rango_seccion_a = [
             $DNI[$valor]['AMBOS'] = 0;
             $fila = '';
             foreach ($rango_seccion_a as $i => $rango) {
-                $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
-                $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if($i<=13) {
-                    $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
-                    $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
-                    $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
+                if ($id_centro != '') {
+                    $sql = "select
+                                   sum(sexo='M') as total_hombres,
+                                   sum(sexo='F') as total_mujeres
+                                   from antropometria
+                             inner join persona using (rut)
+                                     inner join paciente_establecimiento using (rut)
+                                     inner join sectores_centros_internos
+                                                on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                                     inner join centros_internos on sectores_centros_internos.id_centro_interno = centros_internos.id_centro_interno
+                                     inner join sector_comunal on centros_internos.id_sector_comunal = sector_comunal.id_sector_comunal
+                            where paciente_establecimiento.m_infancia='SI'
+                            and sectores_centros_internos.id_centro_interno = '$id_centro'
+                              and paciente_establecimiento.id_establecimiento = '1'
+                              and $indicador='$valor'
+                            and $rango
+                            and estado_registro='ACTIVO';";
+
+                } else {
+                    $sql = "select
+                                   sum(sexo='M') as total_hombres,
+                                   sum(sexo='F') as total_mujeres
+                                   from antropometria
+                             inner join persona using (rut)
+                                     inner join paciente_establecimiento using (rut)
+                                     inner join sectores_centros_internos
+                                                on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                                     inner join centros_internos on sectores_centros_internos.id_centro_interno = centros_internos.id_centro_interno
+                                     inner join sector_comunal on centros_internos.id_sector_comunal = sector_comunal.id_sector_comunal
+                            where paciente_establecimiento.m_infancia='SI'
+                            and id_sector!=0 
+                              and paciente_establecimiento.id_establecimiento = '1'
+                              and $indicador='$valor'
+                            and $rango
+                            and estado_registro='ACTIVO';";
+
+
                 }
 
-                $total_dni[$i]['HOMBRES'] += $total_hombres;
-                $total_dni[$i]['MUJERES'] += $total_mujeres;
+                $row = mysql_fetch_array(mysql_query($sql));
+                if($row){
 
-                $fila .= '<td>' . $total_hombres . '</td>';//hombre
-                $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+                    $total_hombres = $row['total_hombres'];
+                    $total_mujeres = $row['total_mujeres'];
+                }else{
+                    $total_hombres =0;
+                    $total_mujeres = 0;
+                }
+
+                if ($i < 1) {
+                    $fila .= '<td style="background-color: grey"></td>';//hombre
+                    $fila .= '<td style="background-color: grey"></td>';//hombre
+                } else {
+                    $fila .= '<td>' . $total_hombres . '</td>';//hombre
+                    $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+
+                    $total_dni[$i]['HOMBRES'] += $total_hombres;
+                    $total_dni[$i]['MUJERES'] += $total_mujeres;
+                    if ($i <= 12) {
+                        $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
+                        $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
+                        $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
+                    }
+                }
             }
 
             $DNI['AMBOS'] += $DNI[$valor]['AMBOS'];
@@ -786,20 +895,69 @@ $rango_seccion_a = [
             $DNI[$valor]['AMBOS'] = 0;
             $fila = '';
             foreach ($rango_seccion_a as $i => $rango) {
-                $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
-                $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if($i<=13) {
-                    $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
-                    $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
-                    $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
+                if ($id_centro != '') {
+                    $sql = "select
+                                   sum(sexo='M') as total_hombres,
+                                   sum(sexo='F') as total_mujeres
+                                   from antropometria
+                             inner join persona using (rut)
+                                     inner join paciente_establecimiento using (rut)
+                                     inner join sectores_centros_internos
+                                                on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                                     inner join centros_internos on sectores_centros_internos.id_centro_interno = centros_internos.id_centro_interno
+                                     inner join sector_comunal on centros_internos.id_sector_comunal = sector_comunal.id_sector_comunal
+                            where paciente_establecimiento.m_infancia='SI'
+                            and sectores_centros_internos.id_centro_interno = '$id_centro'
+                              and paciente_establecimiento.id_establecimiento = '1'
+                              and $indicador='$valor'
+                            and $rango
+                            and estado_registro='ACTIVO';";
+
+                } else {
+                    $sql = "select
+                                   sum(sexo='M') as total_hombres,
+                                   sum(sexo='F') as total_mujeres
+                                   from antropometria
+                             inner join persona using (rut)
+                                     inner join paciente_establecimiento using (rut)
+                                     inner join sectores_centros_internos
+                                                on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                                     inner join centros_internos on sectores_centros_internos.id_centro_interno = centros_internos.id_centro_interno
+                                     inner join sector_comunal on centros_internos.id_sector_comunal = sector_comunal.id_sector_comunal
+                            where paciente_establecimiento.m_infancia='SI'
+                            and id_sector!=0 
+                              and paciente_establecimiento.id_establecimiento = '1'
+                              and $indicador='$valor'
+                            and $rango
+                            and estado_registro='ACTIVO';";
+
+
                 }
 
+                $row = mysql_fetch_array(mysql_query($sql));
+                if($row){
 
-                $total_dni[$i]['HOMBRES'] += $total_hombres;
-                $total_dni[$i]['MUJERES'] += $total_mujeres;
+                    $total_hombres = $row['total_hombres'];
+                    $total_mujeres = $row['total_mujeres'];
+                }else{
+                    $total_hombres =0;
+                    $total_mujeres = 0;
+                }
+                if ($i < 1) {
+                    $fila .= '<td style="background-color: grey"></td>';//hombre
+                    $fila .= '<td style="background-color: grey"></td>';//hombre
+                } else {
+                    $fila .= '<td>' . $total_hombres . '</td>';//hombre
+                    $fila .= '<td>' . $total_mujeres . '</td>';//mujer
 
-                $fila .= '<td>' . $total_hombres . '</td>';//hombre
-                $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+                    $total_dni[$i]['HOMBRES'] += $total_hombres;
+                    $total_dni[$i]['MUJERES'] += $total_mujeres;
+                    if ($i <= 12) {
+                        $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
+                        $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
+                        $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
+                    }
+                }
             }
             $DNI['AMBOS'] += $DNI[$valor]['AMBOS'];
             $DNI['HOMBRES'] += $DNI[$valor]['HOMBRES'];
@@ -821,19 +979,69 @@ $rango_seccion_a = [
             $DNI[$valor]['AMBOS'] = 0;
             $fila = '';
             foreach ($rango_seccion_a as $i => $rango) {
-                $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
-                $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if($i<=13) {
-                    $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
-                    $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
-                    $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
+                if ($id_centro != '') {
+                    $sql = "select
+                                   sum(sexo='M') as total_hombres,
+                                   sum(sexo='F') as total_mujeres
+                                   from antropometria
+                             inner join persona using (rut)
+                                     inner join paciente_establecimiento using (rut)
+                                     inner join sectores_centros_internos
+                                                on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                                     inner join centros_internos on sectores_centros_internos.id_centro_interno = centros_internos.id_centro_interno
+                                     inner join sector_comunal on centros_internos.id_sector_comunal = sector_comunal.id_sector_comunal
+                            where paciente_establecimiento.m_infancia='SI'
+                            and sectores_centros_internos.id_centro_interno = '$id_centro'
+                              and paciente_establecimiento.id_establecimiento = '1'
+                              and $indicador='$valor'
+                            and $rango
+                            and estado_registro='ACTIVO';";
+
+                } else {
+                    $sql = "select
+                                   sum(sexo='M') as total_hombres,
+                                   sum(sexo='F') as total_mujeres
+                                   from antropometria
+                             inner join persona using (rut)
+                                     inner join paciente_establecimiento using (rut)
+                                     inner join sectores_centros_internos
+                                                on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                                     inner join centros_internos on sectores_centros_internos.id_centro_interno = centros_internos.id_centro_interno
+                                     inner join sector_comunal on centros_internos.id_sector_comunal = sector_comunal.id_sector_comunal
+                            where paciente_establecimiento.m_infancia='SI'
+                            and id_sector!=0 
+                              and paciente_establecimiento.id_establecimiento = '1'
+                              and $indicador='$valor'
+                            and $rango
+                            and estado_registro='ACTIVO';";
+
+
                 }
 
-                $total_dni[$i]['HOMBRES'] += $total_hombres;
-                $total_dni[$i]['MUJERES'] += $total_mujeres;
+                $row = mysql_fetch_array(mysql_query($sql));
+                if($row){
 
-                $fila .= '<td>' . $total_hombres . '</td>';//hombre
-                $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+                    $total_hombres = $row['total_hombres'];
+                    $total_mujeres = $row['total_mujeres'];
+                }else{
+                    $total_hombres =0;
+                    $total_mujeres = 0;
+                }
+                if ($i < 1) {
+                    $fila .= '<td style="background-color: grey"></td>';//hombre
+                    $fila .= '<td style="background-color: grey"></td>';//hombre
+                } else {
+                    $fila .= '<td>' . $total_hombres . '</td>';//hombre
+                    $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+
+                    $total_dni[$i]['HOMBRES'] += $total_hombres;
+                    $total_dni[$i]['MUJERES'] += $total_mujeres;
+                    if ($i <= 12) {
+                        $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
+                        $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
+                        $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
+                    }
+                }
             }
             $DNI['AMBOS'] += $DNI[$valor]['AMBOS'];
             $DNI['HOMBRES'] += $DNI[$valor]['HOMBRES'];
@@ -888,22 +1096,70 @@ $rango_seccion_a = [
             $fila = '';
             foreach ($rango_seccion_a as $i => $rango) {
 
-                $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
-                $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
+                if ($id_centro != '') {
+                    $sql = "select
+                                   sum(sexo='M') as total_hombres,
+                                   sum(sexo='F') as total_mujeres
+                                   from antropometria
+                             inner join persona using (rut)
+                                     inner join paciente_establecimiento using (rut)
+                                     inner join sectores_centros_internos
+                                                on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                                     inner join centros_internos on sectores_centros_internos.id_centro_interno = centros_internos.id_centro_interno
+                                     inner join sector_comunal on centros_internos.id_sector_comunal = sector_comunal.id_sector_comunal
+                            where paciente_establecimiento.m_infancia='SI'
+                            and sectores_centros_internos.id_centro_interno = '$id_centro'
+                              and paciente_establecimiento.id_establecimiento = '1'
+                              and $indicador='$valor'
+                            and $rango
+                            and estado_registro='ACTIVO';";
 
-                if($i<=13) {
-                    $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
-                    $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
-                    $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
+                } else {
+                    $sql = "select
+                                   sum(sexo='M') as total_hombres,
+                                   sum(sexo='F') as total_mujeres
+                                   from antropometria
+                             inner join persona using (rut)
+                                     inner join paciente_establecimiento using (rut)
+                                     inner join sectores_centros_internos
+                                                on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                                     inner join centros_internos on sectores_centros_internos.id_centro_interno = centros_internos.id_centro_interno
+                                     inner join sector_comunal on centros_internos.id_sector_comunal = sector_comunal.id_sector_comunal
+                            where paciente_establecimiento.m_infancia='SI'
+                            and id_sector!=0 
+                              and paciente_establecimiento.id_establecimiento = '1'
+                              and $indicador='$valor'
+                            and $rango
+                            and estado_registro='ACTIVO';";
+
+
                 }
 
+                $row = mysql_fetch_array(mysql_query($sql));
+                if($row){
 
-                $total_dni[$i]['HOMBRES'] += $total_hombres;
-                $total_dni[$i]['MUJERES'] += $total_mujeres;
+                    $total_hombres = $row['total_hombres'];
+                    $total_mujeres = $row['total_mujeres'];
+                }else{
+                    $total_hombres =0;
+                    $total_mujeres = 0;
+                }
 
+                if ($i < 1) {
+                    $fila .= '<td style="background-color: grey"></td>';//hombre
+                    $fila .= '<td style="background-color: grey"></td>';//hombre
+                } else {
+                    $fila .= '<td>' . $total_hombres . '</td>';//hombre
+                    $fila .= '<td>' . $total_mujeres . '</td>';//mujer
 
-                $fila .= '<td>' . $total_hombres . '</td>';//hombre
-                $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+                    $total_dni[$i]['HOMBRES'] += $total_hombres;
+                    $total_dni[$i]['MUJERES'] += $total_mujeres;
+                    if ($i <= 12) {
+                        $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
+                        $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
+                        $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
+                    }
+                }
 
 
             }
@@ -924,8 +1180,15 @@ $rango_seccion_a = [
                 $total_hombres = $total_dni[$i]['HOMBRES'];
                 $total_mujeres = $total_dni[$i]['MUJERES'];
 
-                $fila .= '<td>' . $total_hombres . '</td>';//hombre
-                $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+                if ($i < 1) {
+                    $fila .= '<td style="background-color: grey"></td>';//hombre
+                    $fila .= '<td style="background-color: grey"></td>';//hombre
+                } else {
+                    $fila .= '<td>' . $total_hombres . '</td>';//hombre
+                    $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+                }
+
+
             }
             ?>
             <td><?php echo $DNI['AMBOS'] ?></td>
@@ -938,25 +1201,76 @@ $rango_seccion_a = [
             <?php
             $tabla = 'antropometria';
             $indicador = 'DNI';
+
             $valor = 'DESNUTRICION SECUNDARIA';
             $DNI[$valor]['MUJERES'] = 0;
             $DNI[$valor]['HOMBRES'] = 0;
             $DNI[$valor]['AMBOS'] = 0;
             $fila = '';
             foreach ($rango_seccion_a as $i => $rango) {
-                $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
-                $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if($i<=13) {
-                    $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
-                    $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
-                    $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
+                if ($id_centro != '') {
+                    $sql = "select
+                                   sum(sexo='M') as total_hombres,
+                                   sum(sexo='F') as total_mujeres
+                                   from antropometria
+                             inner join persona using (rut)
+                                     inner join paciente_establecimiento using (rut)
+                                     inner join sectores_centros_internos
+                                                on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                                     inner join centros_internos on sectores_centros_internos.id_centro_interno = centros_internos.id_centro_interno
+                                     inner join sector_comunal on centros_internos.id_sector_comunal = sector_comunal.id_sector_comunal
+                            where paciente_establecimiento.m_infancia='SI'
+                            and sectores_centros_internos.id_centro_interno = '$id_centro'
+                              and paciente_establecimiento.id_establecimiento = '1'
+                              and $indicador='$valor'
+                            and $rango
+                            and estado_registro='ACTIVO';";
+
+                } else {
+                    $sql = "select
+                                   sum(sexo='M') as total_hombres,
+                                   sum(sexo='F') as total_mujeres
+                                   from antropometria
+                             inner join persona using (rut)
+                                     inner join paciente_establecimiento using (rut)
+                                     inner join sectores_centros_internos
+                                                on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                                     inner join centros_internos on sectores_centros_internos.id_centro_interno = centros_internos.id_centro_interno
+                                     inner join sector_comunal on centros_internos.id_sector_comunal = sector_comunal.id_sector_comunal
+                            where paciente_establecimiento.m_infancia='SI'
+                            and id_sector!=0 
+                              and paciente_establecimiento.id_establecimiento = '1'
+                              and $indicador='$valor'
+                            and $rango
+                            and estado_registro='ACTIVO';";
+
+
                 }
 
-                $total_dni[$i]['HOMBRES'] += $total_hombres;
-                $total_dni[$i]['MUJERES'] += $total_mujeres;
+                $row = mysql_fetch_array(mysql_query($sql));
+                if($row){
 
-                $fila .= '<td>' . $total_hombres . '</td>';//hombre
-                $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+                    $total_hombres = $row['total_hombres'];
+                    $total_mujeres = $row['total_mujeres'];
+                }else{
+                    $total_hombres =0;
+                    $total_mujeres = 0;
+                }
+                if ($i < 1) {
+                    $fila .= '<td style="background-color: grey"></td>';//hombre
+                    $fila .= '<td style="background-color: grey"></td>';//hombre
+                } else {
+                    $fila .= '<td>' . $total_hombres . '</td>';//hombre
+                    $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+
+                    $total_dni[$i]['HOMBRES'] += $total_hombres;
+                    $total_dni[$i]['MUJERES'] += $total_mujeres;
+                    if ($i <= 13) {
+                        $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
+                        $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
+                        $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
+                    }
+                }
             }
             $DNI['AMBOS'] += $DNI[$valor]['AMBOS'];
             $DNI['HOMBRES'] += $DNI[$valor]['HOMBRES'];
@@ -967,40 +1281,6 @@ $rango_seccion_a = [
             <td><?php echo $DNI[$valor]['MUJERES'] ?></td>
             <?php echo $fila; ?>
         </tr>
-        <tr>
-            <td>NIÑOS SIN EVALUACIÓN NUTRICIONAL CON CONDICIÓN ESPECIAL DE SALUD</td>
-            <?php
-            $tabla = 'antropometria';
-            $indicador = 'DNI';
-            $valor = '';
-            $DNI[$valor]['MUJERES'] = 0;
-            $DNI[$valor]['HOMBRES'] = 0;
-            $DNI[$valor]['AMBOS'] = 0;
-            $fila = '';
-            foreach ($rango_seccion_a as $i => $rango) {
-                $total_hombres = $mysql->getTotal_infancia_naneas($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
-                $total_mujeres = $mysql->getTotal_infancia_naneas($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if($i<=13) {
-                    $DNI['nanea']['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
-                    $DNI['nanea']['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
-                    $DNI['nanea']['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
-                }
-
-                $total_dni[$i]['HOMBRES'] += $total_hombres;
-                $total_dni[$i]['MUJERES'] += $total_mujeres;
-
-                $fila .= '<td>' . $total_hombres . '</td>';//hombre
-                $fila .= '<td>' . $total_mujeres . '</td>';//mujer
-            }
-            $DNI['AMBOS'] += $DNI['nanea']['AMBOS'];
-            $DNI['HOMBRES'] += $DNI['nanea']['HOMBRES'];
-            $DNI['MUJERES'] += $DNI['nanea']['MUJERES'];
-            ?>
-            <td><?php echo $DNI['nanea']['AMBOS'] ?></td>
-            <td><?php echo $DNI['nanea']['HOMBRES'] ?></td>
-            <td><?php echo $DNI['nanea']['MUJERES'] ?></td>
-            <?php echo $fila; ?>
-        </tr>
         <tr style="font-weight: bold;background-color: #d7efff;">
             <td>TOTAL</td>
             <?php
@@ -1009,13 +1289,97 @@ $rango_seccion_a = [
                 $total_hombres = $total_dni[$i]['HOMBRES'];
                 $total_mujeres = $total_dni[$i]['MUJERES'];
 
-                $fila .= '<td>' . $total_hombres . '</td>';//hombre
-                $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+                if ($i < 1) {
+                    $fila .= '<td style="background-color: grey"></td>';//hombre
+                    $fila .= '<td style="background-color: grey"></td>';//hombre
+                } else {
+                    $fila .= '<td>' . $total_hombres . '</td>';//hombre
+                    $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+                }
             }
             ?>
             <td><?php echo $DNI['AMBOS'] ?></td>
             <td><?php echo $DNI['HOMBRES'] ?></td>
             <td><?php echo $DNI['MUJERES'] ?></td>
+            <?php echo $fila; ?>
+        </tr>
+        <tr>
+            <td COLSPAN="2">NIÑOS SIN EVALUACIÓN NUTRICIONAL CON CONDICIÓN ESPECIAL DE SALUD</td>
+            <?php
+            $tabla = 'antropometria';
+            $indicador = 'DNI';
+            $valor = 'CONDICION ESPECIAL DE SALUD';
+            $DNI[$valor]['MUJERES'] = 0;
+            $DNI[$valor]['HOMBRES'] = 0;
+            $DNI[$valor]['AMBOS'] = 0;
+            $fila = '';
+            foreach ($rango_seccion_a as $i => $rango) {
+                if ($id_centro != '') {
+                    $sql = "select
+                                   sum(sexo='M') as total_hombres,
+                                   sum(sexo='F') as total_mujeres
+                                   from antropometria
+                             inner join persona using (rut)
+                                     inner join paciente_establecimiento using (rut)
+                                     inner join sectores_centros_internos
+                                                on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                                     inner join centros_internos on sectores_centros_internos.id_centro_interno = centros_internos.id_centro_interno
+                                     inner join sector_comunal on centros_internos.id_sector_comunal = sector_comunal.id_sector_comunal
+                            where paciente_establecimiento.m_infancia='SI'
+                            and sectores_centros_internos.id_centro_interno = '$id_centro'
+                              and paciente_establecimiento.id_establecimiento = '1'
+                              and $indicador='$valor'
+                            and $rango
+                            and estado_registro='ACTIVO';";
+
+                } else {
+                    $sql = "select
+                                   sum(sexo='M') as total_hombres,
+                                   sum(sexo='F') as total_mujeres
+                                   from antropometria
+                             inner join persona using (rut)
+                                     inner join paciente_establecimiento using (rut)
+                                     inner join sectores_centros_internos
+                                                on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                                     inner join centros_internos on sectores_centros_internos.id_centro_interno = centros_internos.id_centro_interno
+                                     inner join sector_comunal on centros_internos.id_sector_comunal = sector_comunal.id_sector_comunal
+                            where paciente_establecimiento.m_infancia='SI'
+                            and id_sector!=0 
+                              and paciente_establecimiento.id_establecimiento = '1'
+                              and $indicador='$valor'
+                            and $rango
+                            and estado_registro='ACTIVO';";
+
+
+                }
+
+                $row = mysql_fetch_array(mysql_query($sql));
+                if($row){
+
+                    $total_hombres = $row['total_hombres'];
+                    $total_mujeres = $row['total_mujeres'];
+                }else{
+                    $total_hombres =0;
+                    $total_mujeres = 0;
+                }
+                $fila .= '<td>' . $total_hombres . '</td>';//hombre
+                $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+
+                $total_dni[$i]['HOMBRES'] += $total_hombres;
+                $total_dni[$i]['MUJERES'] += $total_mujeres;
+                if ($i <= 12) {
+                    $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
+                    $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
+                    $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
+                }
+            }
+            $DNI['AMBOS'] += $DNI['nanea']['AMBOS'];
+            $DNI['HOMBRES'] += $DNI['nanea']['HOMBRES'];
+            $DNI['MUJERES'] += $DNI['nanea']['MUJERES'];
+            ?>
+            <td><?php echo $DNI[$valor]['AMBOS'] ?></td>
+            <td><?php echo $DNI[$valor]['HOMBRES'] ?></td>
+            <td><?php echo $DNI[$valor]['MUJERES'] ?></td>
             <?php echo $fila; ?>
         </tr>
     </table>

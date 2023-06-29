@@ -1301,7 +1301,7 @@ $rango_label_seccion_a = [
 
         </table>
     </section>
-
+<!---->
 <!--    <section id="seccion_a3" style="width: 100%;overflow-y: scroll;">-->
 <!--        <div class="row">-->
 <!--            <div class="col l10">-->
@@ -1374,14 +1374,14 @@ $rango_label_seccion_a = [
 //                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
 //                                  where sectores_centros_internos.id_centro_interno='$id_centro'
 //                                  and m_salud_mental='SI' and id_establecimiento='$id_establecimiento'
-//                                  and estado_gestacion='ACTIVA' ";
+//                                   ";
 //                    } else {
 //                        $sql = "select count(*) as total from persona
 //                                  inner join gestacion_mujer using(rut)
 //                                  inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
 //                                  inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
 //                                  where m_salud_mental='SI' and id_establecimiento='$id_establecimiento'
-//                                  and estado_gestacion='ACTIVA' ";
+//                                   ";
 //                    }
 //                    $sql .= $filtro . ' ' . $filtro_sql[$TR];
 ////                    echo $sql;
@@ -1403,8 +1403,7 @@ $rango_label_seccion_a = [
 //            ?>
 <!--        </table>-->
 <!--    </section>-->
-
-
+<!---->
 <!--    <section id="seccion_b1" style="width: 100%;overflow-y: scroll;">-->
 <!--        <div class="row">-->
 <!--            <div class="col l10">-->

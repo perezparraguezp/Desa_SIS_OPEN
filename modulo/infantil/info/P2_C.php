@@ -28,7 +28,7 @@ $sexo = [
 ];
 
 $rango_seccion_c = [
-    'persona.edad_total_dias>0', //menor 10 dias
+    'persona.edad_total_dias>0 and persona.edad_total<=12', //menor 10 dias
     'persona.edad_total_dias<10', //menor 10 dias
     'persona.edad_total=1',
     'persona.edad_total=2',
@@ -38,8 +38,8 @@ $rango_seccion_c = [
     'persona.edad_total=6',
     'persona.edad_total>6 and persona.edad_total<=12',
     'persona.edad_total<=12',
-    "persona.pueblo='SI' AND persona.edad_total>6 and persona.edad_total<=12 ",
-    "persona.migrante='SI' AND persona.edad_total>6 and persona.edad_total<=12 ",
+    "persona.pueblo='SI' AND persona.edad_total>0 and persona.edad_total<=12 ",
+    "persona.migrante='SI' AND persona.edad_total>0 and persona.edad_total<=12 ",
 
 ];
 
@@ -81,7 +81,10 @@ $label_rango_seccion_c = [
                 </tr>
                 <?php
                 $indicadores = ['SCORE DE RIESGO'];
-                $estados = ["SCORE_IRA='LEVE'", "SCORE_IRA='MODERADO'", "SCORE_IRA='GRAVE'", "SCORE_IRA='GRAVE' and SCORE_IRA='MODERADO' "];
+                $estados = ["SCORE_IRA='LEVE'",
+                            "SCORE_IRA='MODERADO'",
+                            "SCORE_IRA='GRAVE'",
+                            "(SCORE_IRA='GRAVE' or SCORE_IRA='MODERADO' or SCORE_IRA='LEVE') "];
                 $label_estados = ["LEVE", "MODERADO", "GRAVE", "TOTAL"];
                 $i_esatdo = 0;
                 foreach ($estados as $i => $estado) {
@@ -115,10 +118,8 @@ $label_rango_seccion_c = [
                                     from antropometria inner join persona using(rut)
                                     inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
-                                    where sectores_centros_internos.id_centro_interno='$id_centro' 
-                                    and m_infancia='SI'
-                                    and $estado AND $rango 
-                                    $filtro_centro;";
+                                    where m_infancia='SI'
+                                    and $estado AND $rango ;";
 
                             }
 

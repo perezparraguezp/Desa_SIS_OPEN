@@ -7,7 +7,7 @@ $rut = $_POST['rut'];
          style="font-size: 0.8em;">
         <ul>
             <li style="margin-left: 30px;text-align: center">REGISTRO POR RUT</li>
-            <li style="margin-left: 30px;">REGISTRO MEDIANTE IMPORTACIÓN</li>
+<!--            <li style="margin-left: 30px;">REGISTRO MEDIANTE IMPORTACIÓN</li>-->
         </ul>
         <div style="padding-left: 10px;">
             <!-- REGISTRO POR RUT -->
@@ -66,115 +66,115 @@ $rut = $_POST['rut'];
                 </div>
             </div>
         </div>
-        <div id="div_registro_importacion">
-            <div class="row">
-                <div class="col l12">
-                    <div class="col l12">
-                        <a href="https://sis.eh-open.com/importar/plantillas/plantilla_offline_ehopen.xlsx"
-                           target="_blank" class="btn green darken-2 col 12 s12 m12 white-text"><i class="mdi-image-grid-on right-align"></i> DESCARGAR PLANTILLA</a>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 10px;">
-                <div id="demos">
-                    <form name="frmload" id="frmload" method="post"
-                          class="card-panel center center-align"
-                          enctype="multipart/form-data">
-                        <header style="font-size: 2em;">CARGAR ARCHIVOS DE REGISTROS</header>
-                        <hr />
-                        <input type="hidden" name="batch" id="batch" />
-                        <input type="hidden" name="offset" id="offset" />
-                        <div class="row" style="width: 50%;">
-                            <div class="col l12 m12 s12">
-                                <input type="file" name="file" id="file" />
-                            </div>
-                        </div>
-                        <div class="row" style="width: 50%;">
-                            <div class="col l12 m12 s12">
-                                <input type="button" onclick="paso1_offline_infantil()"
-                                       style="background-color: #438eb9;color: white;padding: 10px;"
-                                       value="----- IMPORTAR REGISTROS OFF-LINE -----"  />
-                            </div>
-                        </div>
-                    </form>
-                    <div id="show_excel">
-                    </div>
-                    <script type="text/javascript">
-                        function paso2_offline_infantil(offset, batch = false) {
-                            $("#offset").val(offset);
-                            if (batch == false) {
-                                batch = parseInt($('#batch').val());
-                            } else {
-                                batch = parseInt(batch);
-                            }
-
-                            if (offset == 0) {
-                                $('#form_load_excel').hide();
-                                $('#loading_seccion').show();
-
-                            }else{
-                                $("#info_loading").html('LEYENDO '+offset+' de '+(batch)+' ('+parseInt(offset*100/batch)+'%)');
-                            }
-
-                            var formData = new FormData(document.getElementById("frmload"));
-
-                            $("#show_excel").html('');
-
-                            $.ajax({
-                                url: "../../importar/infantil/paso2.php",
-                                type: "post",
-                                dataType: "html",
-                                data: formData,
-                                success: function(response) {
-
-                                    if ( parseInt(offset*100/batch) >= 100) {
-                                        alert('DATOS CARGADOS CON EXITO');
-                                        $('#loading_seccion').hide();
-                                        $('#form_load_excel').show();
-                                        $('#frmload' +
-                                            '')[0].reset();
-                                    } else {
-                                        var newOffset = offset + 1;
-                                        paso2_offline_infantil(newOffset, batch);
-                                    }
-                                },
-                                error: function(XMLHttpRequest, textStatus, errorThrown) {
-                                    if (textStatus == 'parsererror') {
-                                        textStatus = 'Technical error: Unexpected response returned by server. Sending stopped.';
-                                    }
-                                    alert(textStatus);
-                                },
-                                cache: false,
-                                contentType: false,
-                                processData: false,
-                            });
-
-                        }
-                        function paso1_offline_infantil(){
-                            var formData = new FormData(document.getElementById("frmload"));
-                            $("#loading_seccion").show();
-                            $("#form_load_excel").hide();
-                            $("#show_excel").html('');
-                            $.ajax({
-                                url: "../../importar/infantil/paso1.php",
-                                type: "post",
-                                dataType: "html",
-                                data: formData,
-                                cache: false,
-                                contentType: false,
-                                processData: false,
-                            })
-                                .done(function(res){
-                                    $("#batch").val(res);
-                                    paso2_offline_infantil(0);
-                                });
-                        }
-
-                    </script>
-                </div>
-            </div>
-
-        </div>
+<!--        <div id="div_registro_importacion">-->
+<!--            <div class="row">-->
+<!--                <div class="col l12">-->
+<!--                    <div class="col l12">-->
+<!--                        <a href="https://sis.eh-open.com/importar/plantillas/plantilla_offline_ehopen.xlsx"-->
+<!--                           target="_blank" class="btn green darken-2 col 12 s12 m12 white-text"><i class="mdi-image-grid-on right-align"></i> DESCARGAR PLANTILLA</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="row" style="margin-top: 10px;">-->
+<!--                <div id="demos">-->
+<!--                    <form name="frmload" id="frmload" method="post"-->
+<!--                          class="card-panel center center-align"-->
+<!--                          enctype="multipart/form-data">-->
+<!--                        <header style="font-size: 2em;">CARGAR ARCHIVOS DE REGISTROS</header>-->
+<!--                        <hr />-->
+<!--                        <input type="hidden" name="batch" id="batch" />-->
+<!--                        <input type="hidden" name="offset" id="offset" />-->
+<!--                        <div class="row" style="width: 50%;">-->
+<!--                            <div class="col l12 m12 s12">-->
+<!--                                <input type="file" name="file" id="file" />-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="row" style="width: 50%;">-->
+<!--                            <div class="col l12 m12 s12">-->
+<!--                                <input type="button" onclick="paso1_offline_infantil()"-->
+<!--                                       style="background-color: #438eb9;color: white;padding: 10px;"-->
+<!--                                       value="----- IMPORTAR REGISTROS OFF-LINE -----"  />-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                    <div id="show_excel">-->
+<!--                    </div>-->
+<!--                    <script type="text/javascript">-->
+<!--                        function paso2_offline_infantil(offset, batch = false) {-->
+<!--                            $("#offset").val(offset);-->
+<!--                            if (batch == false) {-->
+<!--                                batch = parseInt($('#batch').val());-->
+<!--                            } else {-->
+<!--                                batch = parseInt(batch);-->
+<!--                            }-->
+<!---->
+<!--                            if (offset == 0) {-->
+<!--                                $('#form_load_excel').hide();-->
+<!--                                $('#loading_seccion').show();-->
+<!---->
+<!--                            }else{-->
+<!--                                $("#info_loading").html('LEYENDO '+offset+' de '+(batch)+' ('+parseInt(offset*100/batch)+'%)');-->
+<!--                            }-->
+<!---->
+<!--                            var formData = new FormData(document.getElementById("frmload"));-->
+<!---->
+<!--                            $("#show_excel").html('');-->
+<!---->
+<!--                            $.ajax({-->
+<!--                                url: "../../importar/infantil/paso2.php",-->
+<!--                                type: "post",-->
+<!--                                dataType: "html",-->
+<!--                                data: formData,-->
+<!--                                success: function(response) {-->
+<!---->
+<!--                                    if ( parseInt(offset*100/batch) >= 100) {-->
+<!--                                        alert('DATOS CARGADOS CON EXITO');-->
+<!--                                        $('#loading_seccion').hide();-->
+<!--                                        $('#form_load_excel').show();-->
+<!--                                        $('#frmload' +-->
+<!--                                            '')[0].reset();-->
+<!--                                    } else {-->
+<!--                                        var newOffset = offset + 1;-->
+<!--                                        paso2_offline_infantil(newOffset, batch);-->
+<!--                                    }-->
+<!--                                },-->
+<!--                                error: function(XMLHttpRequest, textStatus, errorThrown) {-->
+<!--                                    if (textStatus == 'parsererror') {-->
+<!--                                        textStatus = 'Technical error: Unexpected response returned by server. Sending stopped.';-->
+<!--                                    }-->
+<!--                                    alert(textStatus);-->
+<!--                                },-->
+<!--                                cache: false,-->
+<!--                                contentType: false,-->
+<!--                                processData: false,-->
+<!--                            });-->
+<!---->
+<!--                        }-->
+<!--                        function paso1_offline_infantil(){-->
+<!--                            var formData = new FormData(document.getElementById("frmload"));-->
+<!--                            $("#loading_seccion").show();-->
+<!--                            $("#form_load_excel").hide();-->
+<!--                            $("#show_excel").html('');-->
+<!--                            $.ajax({-->
+<!--                                url: "../../importar/infantil/paso1.php",-->
+<!--                                type: "post",-->
+<!--                                dataType: "html",-->
+<!--                                data: formData,-->
+<!--                                cache: false,-->
+<!--                                contentType: false,-->
+<!--                                processData: false,-->
+<!--                            })-->
+<!--                                .done(function(res){-->
+<!--                                    $("#batch").val(res);-->
+<!--                                    paso2_offline_infantil(0);-->
+<!--                                });-->
+<!--                        }-->
+<!---->
+<!--                    </script>-->
+<!--                </div>-->
+<!--            </div>-->
+<!---->
+<!--        </div>-->
     </div>
 </div>
 

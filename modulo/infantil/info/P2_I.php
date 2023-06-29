@@ -112,8 +112,8 @@ $label_rango_seccion_i = [
                     ?>
                 </tr>
                 <?php
-                $estados = ['TOTAL POBLACIÓN NANES BAJO CONTROL','ALTA COMPLEJIDAD', 'MEDIANA COMPLEJIDAD','BAJA COMPLEJIDAD	'];
-                $estados_sql = [''," AND complejidad='BAJA'"," AND complejidad='ALTA'"," AND complejidad='MEDIA'"];
+                $estados = ['TOTAL POBLACIÓN NANES BAJO CONTROL','BAJA COMPLEJIDAD	', 'MEDIANA COMPLEJIDAD','ALTA COMPLEJIDAD'];
+                $estados_sql = [''," AND complejidad='BAJA'"," AND complejidad='MEDIA'"," AND complejidad='ALTA'"];
 
                 foreach ($estados as $f => $estado) {
                     $total_estado = 0;

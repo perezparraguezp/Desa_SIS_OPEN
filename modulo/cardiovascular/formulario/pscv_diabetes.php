@@ -265,6 +265,21 @@ if($paciente->anios<80){
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col l10 m6 s12">
+                                <div class="row">
+                                    <div class="col l12 m12 s12">
+                                        <div class="col l12 m12 s12">
+                                            <input type="checkbox" id="ulcera_curacion_avanzada"
+                                                   onchange="update_ayudaTecnica('ulcera_curacion_avanzada')"
+                                                <?php echo $ulcera_ayuda_tecnica=='SI'?'checked="checked"':'' ?>
+                                                   name="ulcera_curacion_avanzada"  />
+                                            <label class="white-text" for="ulcera_curacion_avanzada">CURACION AVANZADA EN ULCERA VENOSA</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

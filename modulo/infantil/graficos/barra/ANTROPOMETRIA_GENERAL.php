@@ -766,7 +766,7 @@ $estado = $estado == '' ? 'PENDIENTE' : $estado;
                 ]
             });
         $("#excelExport").click(function () {
-            $("#table_grid").jqxGrid('exportdata', 'xls', 'grid', true, null, true, 'https://carahue.eh-open.com/exportar/save-file.php');
+            $("#table_grid").jqxGrid('exportdata', 'xls', 'archivo', true, null, true, 'https://carahue.eh-open.com/exportar/save-file.php');
 
         });
         $("#print").click(function () {
@@ -871,6 +871,7 @@ $estado = $estado == '' ? 'PENDIENTE' : $estado;
                         var indicador = '<?php echo $indicador_estado ?>';
 
                         loadGif_graficos('header_graficos');
+                        $("#div_indicador_grafico").hide();
                         $.post('graficos/barra/ANTROPOMETRIA_GENERAL.php', {
                             sector_comunal: sector_comunal,
                             centro_interno: centro_interno,
@@ -880,6 +881,7 @@ $estado = $estado == '' ? 'PENDIENTE' : $estado;
                         }, function (data) {
                             $("#header_graficos").html('');
                             $("#div_indicador_grafico").html(data);
+                            $("#div_indicador_grafico").show();
                             //updateHeadEscritorio(sector_comunal,centro_interno,sector_interno);
                         });
                         updateHeadEscritorio();

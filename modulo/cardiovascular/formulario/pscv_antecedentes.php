@@ -22,6 +22,7 @@ $factor_riesgo_fumador_actual   =  $paciente->getIndicadorPSCV('fumador_actual')
 $factor_riesgo_tabaquismo   =  $paciente->getIndicadorPSCV('factor_riesgo_tabaquismo');
 $factor_riesgo_iam          =  $paciente->getIndicadorPSCV('factor_riesgo_iam');
 $factor_riesgo_enf_cv       =  $paciente->getIndicadorPSCV('factor_riesgo_enf_cv');
+$factor_riesgo_hipoglicemias=  $paciente->getIndicadorPSCV('factor_riesgo_hipoglicemias');
 $tratamiento_aas            =  $paciente->getIndicadorPSCV('tratamiento_aas');
 $tratamiento_ieeca          =  $paciente->getIndicadorPSCV('tratamiento_ieeca');
 $tratamiento_estatina       =  $paciente->getIndicadorPSCV('tratamiento_estatina');
@@ -182,6 +183,13 @@ $hemodialisis = $paciente->getIndicadorPSCV('hemodialisis');
                                             <?php echo $factor_riesgo_enf_cv=='SI'?'checked="checked"':'' ?>
                                                name="factor_riesgo_enf_cv"  />
                                         <label class="white-text" for="factor_riesgo_enf_cv">ENF. CEREBRO VASCULAR</label>
+                                    </div>
+                                    <div class="col l12 m12 s12">
+                                        <input type="checkbox" id="factor_riesgo_hipoglicemias"
+                                               onchange="updateIndicadorPSCV('factor_riesgo_hipoglicemias')"
+                                            <?php echo $factor_riesgo_hipoglicemias=='SI'?'checked="checked"':'' ?>
+                                               name="factor_riesgo_hipoglicemias"  />
+                                        <label class="white-text" for="factor_riesgo_hipoglicemias">CON HIPOGLICEMIAS RECURRENTES</label>
                                     </div>
                                 </div>
                             </div>

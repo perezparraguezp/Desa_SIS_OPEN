@@ -116,7 +116,7 @@ $label_rango_seccion_h = [
                 </tr>
                 <?php
                 $sql1 = "select * from tipos_nanea where vigencia='SI'
-                              order by id_nanea";
+                              order by orden asc";
                 $res1 = mysql_query($sql1);
                 $FILA = array();
                 $filtro_total = '';

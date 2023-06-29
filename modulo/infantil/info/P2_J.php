@@ -274,6 +274,57 @@ $estados_indice_sql = [
                     echo $tr;
                     ?>
                 </tr>
+
+
+                <tr>
+                    <td colspan="2">INASISTENTES A CONTROL ODONTOLÓGICO</td>
+                    <?php
+
+                    $tr = '';
+                    $td = '';
+                    $indice = "paciente_dental.dental_asistente='AUSENTE' ";
+                    $total_h = 0;
+                    $total_m = 0;
+                    foreach ($rango_seccion_j as $i => $rango) {
+                        $sql = "select
+                                          sum($indice and $rango and persona.sexo='M' ) as total_hombre,
+                                          sum($indice and $rango and persona.sexo='F' ) as total_mujer
+                                        from persona
+                                        inner join paciente_dental on persona.rut=paciente_dental.rut 
+                                        inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
+                                        inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno 
+                                        where paciente_establecimiento.id_establecimiento='$id_establecimiento' 
+                                        $filtro_centro ";
+
+                        $row = mysql_fetch_array(mysql_query($sql));
+                        if ($row) {
+                            $total_hombres = $row['total_hombre'];
+                            $total_mujeres = $row['total_mujer'];
+                        } else {
+                            $total_mujeres = 0;
+                            $total_hombres = 0;
+                        }
+
+                        if ($i < 10) {
+                            $total_h += $total_hombres;
+                            $total_m += $total_mujeres;
+                        }
+
+
+                        $td .= '<td>' . $total_hombres . '</td>';
+                        $td .= '<td>' . $total_mujeres . '</td>';
+
+                    }
+                    $tr .= '<td>' . ($total_m + $total_h) . '</td>
+                                <td>' . $total_h . '</td>
+                                <td>' . $total_m . '</td>';
+                    $tr .= $td ;
+
+
+
+                    echo $tr;
+                    ?>
+                </tr>
             </table>
         </div>
     </div>

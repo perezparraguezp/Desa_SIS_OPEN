@@ -282,17 +282,15 @@ $imc =  $paciente->getParametroPSCV('imc');
 
                                     </div>
                                     <div class="col l12 m12 s12">
-
-                                        <!--                                        <select class="browser-default"-->
-                                        <!--                                                name="imc" id="imc"-->
-                                        <!--                                                onchange="updateParametroPSCV('imc')">-->
-                                        <!--                                            <option></option>-->
-                                        <!--                                            <option>BP</option>-->
-                                        <!--                                            <option>NORMAL</option>-->
-                                        <!--                                            <option>SP</option>-->
-                                        <!--                                            <option>OB</option>-->
-                                        <!---->
-                                        <!--                                        </select>-->
+                                        <div class="row center-align">
+                                            <label class="white-text" for="imc_AF">
+                                                <img src="https://desarrollo.sis-open.com/images/imc_AF.png" height="150px"  />
+                                            </label><br />
+                                            <input type="radio"
+                                                   style="position: relative;visibility: visible;left: 0px;"
+                                                   onclick="updateParametroPSCV_IMC('AF')"
+                                                   id="imc_AF" name="imc" value="AF" >
+                                        </div>
                                     </div>
                                 </div>
                             </div>

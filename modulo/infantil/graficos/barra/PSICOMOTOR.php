@@ -546,7 +546,7 @@ $txt_grafico = strtoupper(str_replace("_", " ", $_POST['indicador']) . " [" . $_
                 ]
             });
         $("#excelExport").click(function () {
-            $("#table_grid").jqxGrid('exportdata', 'xls', 'psicomotor', true, null, true, 'https://carahue.eh-open.com/exportar/save-file.php');
+            $("#table_grid").jqxGrid('exportdata', 'xls', 'archivo', true, null, true, 'https://carahue.eh-open.com/exportar/save-file.php');
         });
 
     });
@@ -593,7 +593,7 @@ $txt_grafico = strtoupper(str_replace("_", " ", $_POST['indicador']) . " [" . $_
                 function loadIndicador_Grafico_PSICOMOTOR() {
                     var indicador = $("#select_psicomotor").val();
                     var estados_psicomotor = $("#estados_psicomotor").val();
-
+                    loadGif_graficos('header_graficos');
 
                     $.post('graficos/barra/PSICOMOTOR.php', {
                         sector_comunal: sector_comunal,
@@ -602,10 +602,11 @@ $txt_grafico = strtoupper(str_replace("_", " ", $_POST['indicador']) . " [" . $_
                         indicador: indicador,
                         estados_psicomotor: estados_psicomotor,
                     }, function (data) {
+                        $("#header_graficos").html('');
                         $("#div_indicador_grafico").html(data);
                         //updateHeadEscritorio(sector_comunal,centro_interno,sector_interno);
                     });
-                    updateHeadEscritorio();
+                    // updateHeadEscritorio();
 
                 }
             </script>

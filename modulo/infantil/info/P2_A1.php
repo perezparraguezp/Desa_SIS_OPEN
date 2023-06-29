@@ -29,12 +29,12 @@ $sexo = [
 $rango_seccion_a1 = [
     'persona.edad_total_dias>=(60*30) and persona.edad_total_dias<(72*30)', //entre 60 meses a 71 meses
     'persona.edad_total_dias>=(30*12*6) and persona.edad_total_dias<(30*12*7)',//desde los 6 años y 11 MESES
-    'persona.edad_total_dias>=(30*12*6) and persona.edad_total_dias<(30*12*8)',//desde los 7 años y 11 MESES
-    'persona.edad_total_dias>=(30*12*6) and persona.edad_total_dias<(30*12*9)',//desde los 8 años y 11 MESES
-    'persona.edad_total_dias>=(30*12*6) and persona.edad_total_dias<(30*12*10)',//desde los 9 años A 11 MESES
+    'persona.edad_total_dias>=(30*12*7) and persona.edad_total_dias<(30*12*8)',//desde los 7 años y 11 MESES
+    'persona.edad_total_dias>=(30*12*8) and persona.edad_total_dias<(30*12*9)',//desde los 8 años y 11 MESES
+    'persona.edad_total_dias>=(30*12*9) and persona.edad_total_dias<(30*12*10)',//desde los 9 años A 11 MESES
 
-    "persona.edad_total_dias>=(60*30) and persona.edad_total_dias<(30*12*10) and persona.pueblo!='NO'",//PUEBLOS ORIGINARIOS
-    "persona.edad_total_dias>=(60*30) and persona.edad_total_dias<(30*12*10) and persona.migrante!='NO'",//MIGRANTES
+    "persona.edad_total_dias>=(60*30) and persona.edad_total_dias<(30*12*10) and persona.pueblo='SI'",//PUEBLOS ORIGINARIOS
+    "persona.edad_total_dias>=(60*30) and persona.edad_total_dias<(30*12*10) and persona.migrante='SI'",//MIGRANTES
 ];
 ?>
 <section id="seccion_a1" style="width: 100%;overflow-y: scroll;">
@@ -634,7 +634,7 @@ $rango_seccion_a1 = [
         </tr>
         <!-- DNI -->
         <tr>
-            <td rowspan="10">DIAGNOSTICO NUTRICIONAL INTEGRADO</td>
+            <td rowspan="9">DIAGNOSTICO NUTRICIONAL INTEGRADO</td>
             <td>RIESGO DE DESNUTRIR/ DEFICIT PONDERAL</td>
             <?php
             //
@@ -650,19 +650,18 @@ $rango_seccion_a1 = [
             $DNI[$valor]['HOMBRES'] = 0;
             $DNI[$valor]['AMBOS'] = 0;
             $fila = '';
+            $total_dni = Array();
             foreach ($rango_seccion_a1 as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
 
-                if($i<=1){
-                    $total_dni[$i]['HOMBRES'] += $total_hombres;
-                    $total_dni[$i]['MUJERES'] += $total_mujeres;
-
+                $total_dni[$i]['HOMBRES'] += $total_hombres;
+                $total_dni[$i]['MUJERES'] += $total_mujeres;
+                if($i<=4){
                     $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
                     $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
                     $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
                 }
-
 
 
                 $fila .= '<td>' . $total_hombres . '</td>';//hombre
@@ -692,10 +691,10 @@ $rango_seccion_a1 = [
             foreach ($rango_seccion_a1 as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if($i<=1){
-                    $total_dni[$i]['HOMBRES'] += $total_hombres;
-                    $total_dni[$i]['MUJERES'] += $total_mujeres;
 
+                $total_dni[$i]['HOMBRES'] += $total_hombres;
+                $total_dni[$i]['MUJERES'] += $total_mujeres;
+                if($i<=4){
                     $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
                     $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
                     $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
@@ -727,10 +726,10 @@ $rango_seccion_a1 = [
             foreach ($rango_seccion_a1 as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if($i<=1){
-                    $total_dni[$i]['HOMBRES'] += $total_hombres;
-                    $total_dni[$i]['MUJERES'] += $total_mujeres;
 
+                $total_dni[$i]['HOMBRES'] += $total_hombres;
+                $total_dni[$i]['MUJERES'] += $total_mujeres;
+                if($i<=4){
                     $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
                     $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
                     $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
@@ -761,10 +760,10 @@ $rango_seccion_a1 = [
             foreach ($rango_seccion_a1 as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if($i<=1){
-                    $total_dni[$i]['HOMBRES'] += $total_hombres;
-                    $total_dni[$i]['MUJERES'] += $total_mujeres;
 
+                $total_dni[$i]['HOMBRES'] += $total_hombres;
+                $total_dni[$i]['MUJERES'] += $total_mujeres;
+                if($i<=4){
                     $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
                     $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
                     $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
@@ -795,14 +794,15 @@ $rango_seccion_a1 = [
             foreach ($rango_seccion_a1 as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if($i<=1){
-                    $total_dni[$i]['HOMBRES'] += $total_hombres;
-                    $total_dni[$i]['MUJERES'] += $total_mujeres;
 
+                $total_dni[$i]['HOMBRES'] += $total_hombres;
+                $total_dni[$i]['MUJERES'] += $total_mujeres;
+                if($i<=4){
                     $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
                     $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
                     $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
                 }
+
                 $fila .= '<td>' . $total_hombres . '</td>';//hombre
                 $fila .= '<td>' . $total_mujeres . '</td>';//mujer
             }
@@ -830,7 +830,7 @@ $rango_seccion_a1 = [
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
 
-                if($i<=1){
+                if($i<=4){
                     $total_dni[$i]['HOMBRES'] += $total_hombres;
                     $total_dni[$i]['MUJERES'] += $total_mujeres;
 
@@ -858,6 +858,8 @@ $rango_seccion_a1 = [
             <td>SUB-TOTAL</td>
             <?php
             $fila = '';
+            $total_hombres = 0;
+            $total_mujeresahor = 0;
             foreach ($rango_seccion_a1 as $i => $rango) {
                 $total_hombres = $total_dni[$i]['HOMBRES'];
                 $total_mujeres = $total_dni[$i]['MUJERES'];
@@ -886,10 +888,9 @@ $rango_seccion_a1 = [
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
 
-                if($i<=1){
-                    $total_dni[$i]['HOMBRES'] += $total_hombres;
-                    $total_dni[$i]['MUJERES'] += $total_mujeres;
-
+                $total_dni[$i]['HOMBRES'] += $total_hombres;
+                $total_dni[$i]['MUJERES'] += $total_mujeres;
+                if($i<=4){
                     $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
                     $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
                     $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
@@ -910,12 +911,30 @@ $rango_seccion_a1 = [
             <td><?php echo $DNI[$valor]['MUJERES'] ?></td>
             <?php echo $fila; ?>
         </tr>
+        <tr style="font-weight: bold;background-color: #d7efff;">
+            <td>TOTAL</td>
+            <?php
+            $fila = '';
+            foreach ($rango_seccion_a1 as $i => $rango) {
+                $total_hombres = $total_dni[$i]['HOMBRES'];
+                $total_mujeres = $total_dni[$i]['MUJERES'];
+
+                $fila .= '<td>' . $total_hombres . '</td>';//hombre
+                $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+            }
+            ?>
+            <td><?php echo $DNI['AMBOS'] ?></td>
+            <td><?php echo $DNI['HOMBRES'] ?></td>
+            <td><?php echo $DNI['MUJERES'] ?></td>
+            <?php echo $fila; ?>
+        </tr>
+
         <tr>
-            <td>NIÑOS SIN EVALUACIÓN NUTRICIONAL CON CONDICIÓN ESPECIAL DE SALUD</td>
+            <td COLSPAN="2">NIÑOS SIN EVALUACIÓN NUTRICIONAL CON CONDICIÓN ESPECIAL DE SALUD</td>
             <?php
             $tabla = 'antropometria';
             $indicador = 'DNI';
-            $valor = '';
+            $valor = 'CONDICION ESPECIAL DE SALUD';
             $DNI['nanea']['MUJERES'] = 0;
             $DNI['nanea']['HOMBRES'] = 0;
             $DNI['nanea']['AMBOS'] = 0;
@@ -925,7 +944,7 @@ $rango_seccion_a1 = [
                 $total_hombres = $mysql->getTotal_infancia_naneas($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia_naneas($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
 
-                if($i<=1){
+                if($i<=4){
                     $total_dni[$i]['HOMBRES'] += $total_hombres;
                     $total_dni[$i]['MUJERES'] += $total_mujeres;
 
@@ -947,23 +966,6 @@ $rango_seccion_a1 = [
             <td><?php echo $DNI['nanea']['AMBOS'] ?></td>
             <td><?php echo $DNI['nanea']['HOMBRES'] ?></td>
             <td><?php echo $DNI['nanea']['MUJERES'] ?></td>
-            <?php echo $fila; ?>
-        </tr>
-        <tr style="font-weight: bold;background-color: #d7efff;">
-            <td>TOTAL</td>
-            <?php
-            $fila = '';
-            foreach ($rango_seccion_a1 as $i => $rango) {
-                $total_hombres = $total_dni[$i]['HOMBRES'];
-                $total_mujeres = $total_dni[$i]['MUJERES'];
-
-                $fila .= '<td>' . $total_hombres . '</td>';//hombre
-                $fila .= '<td>' . $total_mujeres . '</td>';//mujer
-            }
-            ?>
-            <td><?php echo $DNI['AMBOS'] ?></td>
-            <td><?php echo $DNI['HOMBRES'] ?></td>
-            <td><?php echo $DNI['MUJERES'] ?></td>
             <?php echo $fila; ?>
         </tr>
     </table>

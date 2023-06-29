@@ -363,6 +363,7 @@ if($comunal==true){
         }
     }
 }
+echo $sql1;
 
 $estado = $estado=='' ? 'PENDIENTE':$estado;
 

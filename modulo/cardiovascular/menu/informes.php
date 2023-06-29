@@ -72,7 +72,7 @@ $dsm = new establecimiento($id_establecimiento);
     </div>
 </div>
 <script type="text/javascript">
-    function exportTable(table,file){
+    function exportTable_pscv(table,file){
         let export_to_excel = document.getElementById(table);
         let data_to_send = document.getElementById('data_to_send');
         data_to_send.value = export_to_excel.outerHTML;

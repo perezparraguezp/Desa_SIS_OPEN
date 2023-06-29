@@ -316,6 +316,7 @@ class mysql {
                 and paciente_establecimiento.id_establecimiento='1' ";
 
         }
+
         $row = mysql_fetch_array(mysql_query($sql));
         if($row){
             return $row['total'];
