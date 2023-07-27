@@ -5,7 +5,7 @@ $rut = str_replace('.','',$_POST['rut']);
 $fecha_registro = $_POST['fecha_registro'];
 
 $paciente = new persona($rut);
-
+$paciente->definirEdadFecha($fecha_registro);
 
 ?>
 <style type="text/css">
@@ -88,6 +88,54 @@ $paciente = new persona($rut);
                                             rut:'<?php echo $rut; ?>',
                                             val:val,
                                             column:'rx_pelvis',
+                                            fecha_registro:'<?php echo $fecha_registro; ?>'
+
+                                        },function(data){
+                                            alertaLateral(data);
+                                            historial_psicomotor('<?php echo $rut; ?>');
+                                            $('.tooltipped').tooltip({delay: 50});
+                                        });
+
+                                    });
+                                    $('.tooltipped').tooltip({delay: 50});
+                                })
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
+        }
+        ?>
+        <?php
+        //MCHAT
+        if($paciente->total_meses>=16 && $paciente->total_meses<=30){
+            ?>
+            <div class="col l12 s12 m12">
+                <div class="card-panel eh-open_fondo">
+                    <div class="row">
+                        <div class="col l4">
+                            <span class="black-text letra_datos_psicomotor">MCHAT <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="PACIENTES CON RIESGO AUTISTA">(?)</strong></span>
+                        </div>
+                        <div class="col l8">
+                            <select name="mchat" id="mchat">
+                                <option></option>
+                                <option>BAJO</option>
+                                <option>MEDIO</option>
+                                <option>ALTO</option>
+                            </select>
+                            <script type="text/javascript">
+                                $(function(){
+                                    $('#mchat').jqxDropDownList({
+                                        width: '100%',theme: 'eh-open',
+                                        height: '25px'
+                                    });
+                                    $("#mchat").on('change',function(){
+                                        var val = $("#mchat").val();
+                                        $.post('db/update/paciente_psicomotor.php',{
+                                            rut:'<?php echo $rut; ?>',
+                                            val:val,
+                                            column:'mchat',
                                             fecha_registro:'<?php echo $fecha_registro; ?>'
 
                                         },function(data){
@@ -456,6 +504,45 @@ $paciente = new persona($rut);
             }
         }
         ?>
+        <div class="col l12 s12 m12">
+            <div class="card-panel eh-open_fondo">
+                <div class="row">
+                    <div class="col l4">
+                        <span class="black-text letra_datos_psicomotor">OTRA VULNERABILIDAD <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="PACIENTES CON TIPO DE VULNERABILIDAD">(?)</strong></span>
+                    </div>
+                    <div class="col l8">
+                        <select name="otra_vulnerabilidad" id="otra_vulnerabilidad">
+                            <option></option>
+                            <option>SI</option>
+                        </select>
+                        <script type="text/javascript">
+                            $(function(){
+                                $('#otra_vulnerabilidad').jqxDropDownList({
+                                    width: '100%',theme: 'eh-open',
+                                    height: '25px'
+                                });
+                                $("#otra_vulnerabilidad").on('change',function(){
+                                    var val = $("#otra_vulnerabilidad").val();
+                                    $.post('db/update/paciente_psicomotor.php',{
+                                        rut:'<?php echo $rut; ?>',
+                                        val:val,
+                                        column:'otra_vulnerabilidad',
+                                        fecha_registro:'<?php echo $fecha_registro; ?>'
+
+                                    },function(data){
+                                        alertaLateral(data);
+                                        historial_psicomotor('<?php echo $rut; ?>');
+                                        $('.tooltipped').tooltip({delay: 50});
+                                    });
+
+                                });
+                                $('.tooltipped').tooltip({delay: 50});
+                            })
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col l6">
         <div class="col l12 s12 m12" >

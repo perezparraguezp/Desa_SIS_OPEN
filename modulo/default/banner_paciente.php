@@ -11,6 +11,7 @@ if($fecha_registro==''){
 }
 
 $paciente = new persona($rut);
+$paciente->definirEdadFecha($fecha_registro);
 list($establecimiento,$sector_interno,$sector_comunal) = explode(":",$paciente->getEstablecimiento());
 ?>
 <div class="row">

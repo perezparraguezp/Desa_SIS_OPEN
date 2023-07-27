@@ -6,9 +6,9 @@ $database = "sisopenc_desarrollo";
 $username = "sisopenc_desa";
 $password = "Ehopen2022$$";
 
-$database = "sisopenc_carahue";
-$username = "sisopenc_db";
-$password = "Carahue2021$$";
+//$database = "sisopenc_carahue";
+//$username = "sisopenc_db";
+//$password = "Carahue2021$$";
 
 
 if (!($conexion = mysql_connect($hostname, $username, $password))) {

@@ -733,7 +733,6 @@ $estado = $estado == '' ? 'PENDIENTE' : $estado;
                     {text: 'AÑO', datafield: 'anios', width: 80, filtertype: 'checkedlist', cellsalign: 'center'},
                     {text: 'MES', datafield: 'meses', width: 80, filtertype: 'checkedlist', cellsalign: 'center'},
                     {text: 'DIA', datafield: 'dias', width: 80, filtertype: 'checkedlist', cellsalign: 'center'},
-                    {text: 'CONTACTO', dataField: 'CONTACTO', cellsalign: 'left', width: 250},
                     {
                         text: '<?php echo $TITULO_GRAFICO; ?>',
                         dataField: 'INDICADOR',
@@ -762,6 +761,7 @@ $estado = $estado == '' ? 'PENDIENTE' : $estado;
                         width: 250,
                         filtertype: 'checkedlist'
                     },
+                    {text: 'CONTACTO', dataField: 'CONTACTO', cellsalign: 'left', width: 250},
 
                 ]
             });

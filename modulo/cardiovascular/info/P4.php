@@ -52,9 +52,10 @@ $rango_seccion_a = [
     'persona.edad_total>(69*12) and persona.edad_total<=(74*12)', //menor 70 a 74 años
     'persona.edad_total>(74*12) and persona.edad_total<=(79*12)', //menor 75 a 79 años
     'persona.edad_total>(79*12) ', //mayor o igual 80
+
     "persona.edad_total>=(14*12) and persona.pueblo='SI' ",//PUEBLOS ORIGINARIOS
     "persona.edad_total>=(14*12) and persona.migrante='SI' ",//MIGRANTES
-    "persona.edad_total>=(14*12) and paciente_pscv.patologia_dm='SI' ",//DIABETICOS
+
 ];
 $rango_seccion_a_texto = [
     '15 a 19 años', //menor 15 a 19 años
@@ -1314,10 +1315,7 @@ $pacientes = array();
                             ) as personas
                         where persona.rut=personas.rut 
                         $filtro_interno;";
-                        if ($filtro_interno == "AND patologia_dm='SI' AND nph!='' and  hba1c='>= 9%' ") {
 
-
-                        }
                     } else {
                         $sql = "SELECT sum(persona.sexo='F') as total_mujeres,
                                            sum(persona.sexo='M') as total_hombres
@@ -1337,10 +1335,6 @@ $pacientes = array();
                         where persona.rut=personas.rut 
                         $filtro_interno;";
                     }
-                    if ($texto == 'CON ERC ETAPA 3B O SUPERIOR Y EN TRATAMIENTO CON IECA O ARA II.') {
-//                        echo $sql."<br />";
-                    }
-
 
                     $row = mysql_fetch_array(mysql_query($sql));
                     if ($row) {
@@ -1358,8 +1352,9 @@ $pacientes = array();
                         $PACIENTE_DB[$valor]['AMBOS'] = $PACIENTE_DB[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
                     }
 
-                    $fila .= '<td></td>';//hombre
-                    $fila .= '<td></td>';//mujer
+                    $fila .= '<td>'.$total_hombres.'</td>';//hombre
+                    $fila .= '<td>'.$total_mujeres.'</td>';//mujer
+
                 }
 
                 ?>

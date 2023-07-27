@@ -134,8 +134,10 @@ $rango_seccion_a = [
             <td>HOMBRES</td>
             <td>MUJERES</td>
         </tr>
-        <tr>
+        <tr id="primera"style="font-weight: bold;">
             <td colspan="2">TOTAL DE NIÑOS EN CONTROL</td>
+
+
         </tr>
         <tr>
             <td rowspan="6">INDICADOR PESO/EDAD</td>
@@ -155,7 +157,7 @@ $rango_seccion_a = [
             foreach ($rango_seccion_a as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if ($i <= 13) {
+                if ($i < 13) {
                     $PE['2']['HOMBRES'] = $PE['2']['HOMBRES'] + $total_hombres;
                     $PE['2']['MUJERES'] = $PE['2']['MUJERES'] + $total_mujeres;
                     $PE['2']['AMBOS'] = $PE['2']['AMBOS'] + $total_mujeres + $total_hombres;
@@ -186,7 +188,7 @@ $rango_seccion_a = [
             foreach ($rango_seccion_a as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if ($i <= 13) {
+                if ($i < 13) {
                     $PE['1']['HOMBRES'] = $PE['1']['HOMBRES'] + $total_hombres;
                     $PE['1']['MUJERES'] = $PE['1']['MUJERES'] + $total_mujeres;
                     $PE['1']['AMBOS'] = $PE['1']['AMBOS'] + $total_mujeres + $total_hombres;
@@ -244,7 +246,7 @@ $rango_seccion_a = [
             foreach ($rango_seccion_a as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if ($i <= 13) {
+                if ($i < 13) {
                     $PE['-1']['HOMBRES'] = $PE['-1']['HOMBRES'] + $total_hombres;
                     $PE['-1']['MUJERES'] = $PE['-1']['MUJERES'] + $total_mujeres;
                     $PE['-1']['AMBOS'] = $PE['-1']['AMBOS'] + $total_mujeres + $total_hombres;
@@ -274,7 +276,7 @@ $rango_seccion_a = [
             foreach ($rango_seccion_a as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if ($i <= 13) {
+                if ($i < 13) {
                     $PE['-2']['HOMBRES'] = $PE['-2']['HOMBRES'] + $total_hombres;
                     $PE['-2']['MUJERES'] = $PE['-2']['MUJERES'] + $total_mujeres;
                     $PE['-2']['AMBOS'] = $PE['-2']['AMBOS'] + $total_mujeres + $total_hombres;
@@ -333,7 +335,7 @@ $rango_seccion_a = [
             foreach ($rango_seccion_a as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if ($i <= 13) {
+                if ($i < 13) {
                     $PE['2']['HOMBRES'] = $PE['2']['HOMBRES'] + $total_hombres;
                     $PE['2']['MUJERES'] = $PE['2']['MUJERES'] + $total_mujeres;
                     $PE['2']['AMBOS'] = $PE['2']['AMBOS'] + $total_mujeres + $total_hombres;
@@ -363,7 +365,7 @@ $rango_seccion_a = [
             foreach ($rango_seccion_a as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if ($i <= 13) {
+                if ($i < 13) {
                     $PE['1']['HOMBRES'] = $PE['1']['HOMBRES'] + $total_hombres;
                     $PE['1']['MUJERES'] = $PE['1']['MUJERES'] + $total_mujeres;
                     $PE['1']['AMBOS'] = $PE['1']['AMBOS'] + $total_mujeres + $total_hombres;
@@ -419,7 +421,7 @@ $rango_seccion_a = [
             foreach ($rango_seccion_a as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if ($i <= 13) {
+                if ($i < 13) {
                     $PE['-1']['HOMBRES'] = $PE['-1']['HOMBRES'] + $total_hombres;
                     $PE['-1']['MUJERES'] = $PE['-1']['MUJERES'] + $total_mujeres;
                     $PE['-1']['AMBOS'] = $PE['-1']['AMBOS'] + $total_mujeres + $total_hombres;
@@ -448,7 +450,7 @@ $rango_seccion_a = [
             foreach ($rango_seccion_a as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if ($i <= 13) {
+                if ($i < 13) {
                     $PE['-2']['HOMBRES'] = $PE['-2']['HOMBRES'] + $total_hombres;
                     $PE['-2']['MUJERES'] = $PE['-2']['MUJERES'] + $total_mujeres;
                     $PE['-2']['AMBOS'] = $PE['-2']['AMBOS'] + $total_mujeres + $total_hombres;
@@ -506,7 +508,7 @@ $rango_seccion_a = [
             foreach ($rango_seccion_a as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if ($i <= 13) {
+                if ($i < 13) {
                     $PE['2']['HOMBRES'] = $PE['2']['HOMBRES'] + $total_hombres;
                     $PE['2']['MUJERES'] = $PE['2']['MUJERES'] + $total_mujeres;
                     $PE['2']['AMBOS'] = $PE['2']['AMBOS'] + $total_mujeres + $total_hombres;
@@ -536,7 +538,7 @@ $rango_seccion_a = [
             foreach ($rango_seccion_a as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if ($i <= 13) {
+                if ($i < 13) {
                     $PE['1']['HOMBRES'] = $PE['1']['HOMBRES'] + $total_hombres;
                     $PE['1']['MUJERES'] = $PE['1']['MUJERES'] + $total_mujeres;
                     $PE['1']['AMBOS'] = $PE['1']['AMBOS'] + $total_mujeres + $total_hombres;
@@ -591,7 +593,7 @@ $rango_seccion_a = [
             foreach ($rango_seccion_a as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if ($i <= 13) {
+                if ($i < 13) {
                     $PE['-1']['HOMBRES'] = $PE['-1']['HOMBRES'] + $total_hombres;
                     $PE['-1']['MUJERES'] = $PE['-1']['MUJERES'] + $total_mujeres;
                     $PE['-1']['AMBOS'] = $PE['-1']['AMBOS'] + $total_mujeres + $total_hombres;
@@ -620,7 +622,7 @@ $rango_seccion_a = [
             foreach ($rango_seccion_a as $i => $rango) {
                 $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
                 $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-                if ($i <= 13) {
+                if ($i < 13) {
                     $PE['-2']['HOMBRES'] = $PE['-2']['HOMBRES'] + $total_hombres;
                     $PE['-2']['MUJERES'] = $PE['-2']['MUJERES'] + $total_mujeres;
                     $PE['-2']['AMBOS'] = $PE['-2']['AMBOS'] + $total_mujeres + $total_hombres;
@@ -674,7 +676,7 @@ $rango_seccion_a = [
         foreach ($rango_seccion_a as $i => $rango) {
             $total_hombres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[0], $id_centro);
             $total_mujeres = $mysql->getTotal_infancia($tabla, $indicador, $valor, $rango, $sexo[1], $id_centro);
-            if ($i <= 13) {
+            if ($i < 13) {
                 $PE['2']['HOMBRES'] = $PE['2']['HOMBRES'] + $total_hombres;
                 $PE['2']['MUJERES'] = $PE['2']['MUJERES'] + $total_mujeres;
                 $PE['2']['AMBOS'] = $PE['2']['AMBOS'] + $total_mujeres + $total_hombres;
@@ -952,6 +954,7 @@ $rango_seccion_a = [
 
                     $total_dni[$i]['HOMBRES'] += $total_hombres;
                     $total_dni[$i]['MUJERES'] += $total_mujeres;
+
                     if ($i <= 12) {
                         $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
                         $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
@@ -1265,7 +1268,7 @@ $rango_seccion_a = [
 
                     $total_dni[$i]['HOMBRES'] += $total_hombres;
                     $total_dni[$i]['MUJERES'] += $total_mujeres;
-                    if ($i <= 13) {
+                    if ($i < 13) {
                         $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
                         $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
                         $DNI[$valor]['AMBOS'] = $DNI[$valor]['AMBOS'] + $total_mujeres + $total_hombres;
@@ -1367,6 +1370,7 @@ $rango_seccion_a = [
 
                 $total_dni[$i]['HOMBRES'] += $total_hombres;
                 $total_dni[$i]['MUJERES'] += $total_mujeres;
+
                 if ($i <= 12) {
                     $DNI[$valor]['HOMBRES'] = $DNI[$valor]['HOMBRES'] + $total_hombres;
                     $DNI[$valor]['MUJERES'] = $DNI[$valor]['MUJERES'] + $total_mujeres;
@@ -1382,5 +1386,24 @@ $rango_seccion_a = [
             <td><?php echo $DNI[$valor]['MUJERES'] ?></td>
             <?php echo $fila; ?>
         </tr>
+        <?php
+        $fila = '';
+        foreach ($rango_seccion_a as $i => $rango) {
+            $total_hombres = $total_dni[$i]['HOMBRES'];
+            $total_mujeres = $total_dni[$i]['MUJERES'];
+
+            $fila .= '<td>' . $total_hombres . '</td>';//hombre
+            $fila .= '<td>' . $total_mujeres . '</td>';//mujer
+        }
+
+        $primera = '<td colspan="2">TOTAL DE NIÑOS EN CONTROL</td>'.
+            '<td>'.$DNI['AMBOS'].'</td>'.
+            '<td>'.$DNI['HOMBRES'].'</td>'.
+            '<td>'.$DNI['MUJERES'].'</td>'.$fila;
+        ?>
+
     </table>
 </section>
+<script type="text/javascript">
+    $("#primera").html('<?php echo $primera; ?>');
+</script>

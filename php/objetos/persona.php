@@ -506,6 +506,36 @@ class persona
 
     }
 
+    function definirEdadFecha($fecha_actual){
+        $fecha_nac = new DateTime(date('Y/m/d', strtotime($this->fecha_nacimiento))); // Creo un objeto DateTime de la fecha ingresada
+        $fecha_hoy = new DateTime(date('Y/m/d', strtotime($fecha_actual))); // Creo un objeto DateTime de la fecha registrada
+        $edad = date_diff($fecha_hoy, $fecha_nac); // La funcion ayuda a calcular la diferencia, esto seria un objeto
+
+        $this->edad = "{$edad->format('%Y')} años, {$edad->format('%m')} meses y {$edad->format('%d')} días.";
+        $this->anios = $edad->format('%Y');
+        $this->meses = $edad->format('%m');
+        $this->dias = $edad->format('%d');
+
+        $this->total_meses = (int)($this->edad * 12) + $this->meses;
+
+        $this->updateEdadTotal($this->total_meses);
+        $this->updateEdadTotal_dias($this->total_meses * 30);
+
+        $meses = $this->total_meses;
+        $this->edad_anios = (int)abs($meses / 12);
+        $this->edad_meses = (int)abs($meses % 12);
+        $dias = 0;
+        $d = date('d');//dia actual
+        list($a1, $m1, $d1) = explode("-", $this->fecha_nacimiento);
+
+        if ($d > $d1) {//ya paso el mes
+            $dias = $d - $d1;
+        } else {
+            $dias = abs(30 - $d1 - $d);
+        }
+        $this->edad_dias = $dias;
+    }
+
     function calcularEdadDias($fecha)
     {
         $fecha_nacimiento = $this->fecha_nacimiento;
@@ -669,7 +699,7 @@ class persona
 
     function validaLME()
     {
-        if ($this->total_meses <= 7) {
+        if ($this->total_meses <= 35) {
             return true;//si mostrar este formulario
         } else {
             return false;

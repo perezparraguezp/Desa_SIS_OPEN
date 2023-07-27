@@ -84,7 +84,7 @@ $label_rango_seccion_c = [
                 $estados = ["SCORE_IRA='LEVE'",
                             "SCORE_IRA='MODERADO'",
                             "SCORE_IRA='GRAVE'",
-                            "(SCORE_IRA='GRAVE' or SCORE_IRA='MODERADO' or SCORE_IRA='LEVE') "];
+                            "(SCORE_IRA='GRAVE' or SCORE_IRA='MODERADO' ) "];
                 $label_estados = ["LEVE", "MODERADO", "GRAVE", "TOTAL"];
                 $i_esatdo = 0;
                 foreach ($estados as $i => $estado) {
@@ -124,17 +124,20 @@ $label_rango_seccion_c = [
                             }
 
 
-                            $total = 0;
-                            $row = mysql_fetch_array(mysql_query($sql));
-                            if ($row) {
-                                $total = $row['total'];
-                            }
+
 
                             if ($i == 0 && $j == 9) {
                                 ?>
                                 <td style="background-color: gray;"></td>
                                 <?php
                             } else {
+
+                                $total = 0;
+                                $row = mysql_fetch_array(mysql_query($sql));
+                                if ($row) {
+                                    $total = $row['total'];
+                                }
+
                                 ?>
                                 <td><?php echo $total; ?></td>
                                 <?php

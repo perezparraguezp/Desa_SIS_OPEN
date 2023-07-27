@@ -6,8 +6,8 @@ $rut = str_replace('.','',$_POST['rut']);
 $fecha_registro = $_POST['fecha_registro'];
 
 $paciente = new persona($rut);
-$paciente->calcularEdadFecha($fecha_registro);
 
+$paciente->definirEdadFecha($fecha_registro);
 //echo $paciente->total_meses;
 ?>
 <style type="text/css">

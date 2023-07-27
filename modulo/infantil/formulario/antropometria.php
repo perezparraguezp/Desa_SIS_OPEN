@@ -6,6 +6,7 @@ $rut = str_replace('.','',$_POST['rut']);
 $fecha_registro = $_POST['fecha_registro'];
 
 $paciente = new persona($rut);
+$paciente->definirEdadFecha($fecha_registro);
 $paciente->loadAntropometria();
 
 
@@ -128,6 +129,60 @@ if($paciente->validaNutricionista()==true){
         }
         ?>
         <?php
+        if($paciente->validaTE()){
+            ?>
+            <div class="col l4 s12 m6">
+                <div class="card-panel eh-open_fondo">
+                    <div class="row">
+                        <div class="col l3">
+                            <span class="black-text">TE <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="TALLA EDAD">(?)</strong></span>
+                        </div>
+                        <div class="col l8">
+                            <select name="te" id="te">
+                                <option></option>
+                                <option value="2">2</option>
+                                <option value="1">1</option>
+                                <option  value="N">N</option>
+                                <option value="-1">-1</option>
+                                <option value="-2">-2</option>
+                            </select>
+                            <script type="text/javascript">
+                                $(function(){
+                                    $('#te').jqxDropDownList({
+                                        width: '100%',
+                                        theme: 'eh-open',
+                                        height: '25px'
+                                    });
+
+                                    $("#te").on('change',function(){
+                                        var val = $("#te").val();
+                                        $.post('db/update/paciente_antropometria.php',{
+                                            rut:'<?php echo $rut; ?>',
+                                            val:val,
+                                            column:'TE',
+                                            fecha_registro:'<?php echo $fecha_registro; ?>'
+
+                                        },function(data){
+                                            alertaLateral(data);
+                                            $('.tooltipped').tooltip({delay: 50});
+                                        });
+
+                                    });
+                                    $('.tooltipped').tooltip({delay: 50});
+                                })
+                            </script>
+                        </div>
+                        <div class="col l1">
+                            <i class="mdi-editor-insert-chart"
+                               onclick="verHistorialInfantil('<?php echo $rut ?>','TE')"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
+        }
+        ?>
+        <?php
         if($paciente->validaPT()){
             ?>
             <div class="col l4 s12 m6">
@@ -237,60 +292,7 @@ if($paciente->validaNutricionista()==true){
             <?php
         }
         ?>
-        <?php
-        if($paciente->validaTE()){
-            ?>
-            <div class="col l4 s12 m6">
-                <div class="card-panel eh-open_fondo">
-                    <div class="row">
-                        <div class="col l3">
-                            <span class="black-text">TE <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="TALLA EDAD">(?)</strong></span>
-                        </div>
-                        <div class="col l8">
-                            <select name="te" id="te">
-                                <option></option>
-                                <option value="2">2</option>
-                                <option value="1">1</option>
-                                <option  value="N">N</option>
-                                <option value="-1">-1</option>
-                                <option value="-2">-2</option>
-                            </select>
-                            <script type="text/javascript">
-                                $(function(){
-                                    $('#te').jqxDropDownList({
-                                        width: '100%',
-                                        theme: 'eh-open',
-                                        height: '25px'
-                                    });
 
-                                    $("#te").on('change',function(){
-                                        var val = $("#te").val();
-                                        $.post('db/update/paciente_antropometria.php',{
-                                            rut:'<?php echo $rut; ?>',
-                                            val:val,
-                                            column:'TE',
-                                            fecha_registro:'<?php echo $fecha_registro; ?>'
-
-                                        },function(data){
-                                            alertaLateral(data);
-                                            $('.tooltipped').tooltip({delay: 50});
-                                        });
-
-                                    });
-                                    $('.tooltipped').tooltip({delay: 50});
-                                })
-                            </script>
-                        </div>
-                        <div class="col l1">
-                            <i class="mdi-editor-insert-chart"
-                               onclick="verHistorialInfantil('<?php echo $rut ?>','TE')"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <?php
-        }
-        ?>
         <?php
         if($paciente->validaDNI()){
             ?>
@@ -311,6 +313,8 @@ if($paciente->validaNutricionista()==true){
                                 <option>DESNUTRICION</option>
                                 <option>DESNUTRICION SECUNDARIA</option>
                                 <option>CONDICION ESPECIAL DE SALUD</option>
+                                <option disabled="disabled">--------------</option>
+                                <option>NO SE LOGRA EVALUAR</option>
                             </select>
                             <script type="text/javascript">
                                 $(function(){
@@ -520,6 +524,8 @@ if($paciente->validaNutricionista()==true){
                                 <option>PRE-HIPERTENSION</option>
                                 <option>ETAPA 1</option>
                                 <option>ETAPA 2</option>
+                                <option disabled="disabled">--------------</option>
+                                <option>NO SE LOGRA EVALUAR</option>
                             </select>
                             <script type="text/javascript">
 

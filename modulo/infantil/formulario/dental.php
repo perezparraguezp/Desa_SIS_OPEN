@@ -5,7 +5,7 @@ $rut = str_replace('.','',$_POST['rut']);
 $fecha_registro = $_POST['fecha_registro'];
 
 $paciente = new persona($rut);
-
+$paciente->definirEdadFecha($fecha_registro);
 
 ?>
 <style type="text/css">

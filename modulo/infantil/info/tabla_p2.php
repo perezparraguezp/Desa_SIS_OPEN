@@ -93,7 +93,7 @@ $sexo = [
 </div>
 <script type="text/javascript">
     $(function(){
-        // load_P2_SECCION('A');
+        load_P2_SECCION('A');
         load_P2_SECCION('A1');
         // load_P2_SECCION('B');
         // load_P2_SECCION('C');

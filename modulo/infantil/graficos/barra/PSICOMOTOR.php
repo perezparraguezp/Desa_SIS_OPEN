@@ -513,7 +513,6 @@ $txt_grafico = strtoupper(str_replace("_", " ", $_POST['indicador']) . " [" . $_
                     {text: 'AÑO', datafield: 'anios', width: 80, filtertype: 'checkedlist', cellsalign: 'center'},
                     {text: 'MES', datafield: 'meses', width: 80, filtertype: 'checkedlist', cellsalign: 'center'},
                     {text: 'DIA', datafield: 'dias', width: 80, filtertype: 'checkedlist', cellsalign: 'center'},
-                    {text: 'CONTACTO', dataField: 'CONTACTO', cellsalign: 'left', width: 250},
                     {
                         text: 'INDICADOR',
                         dataField: 'INDICADOR',
@@ -542,6 +541,7 @@ $txt_grafico = strtoupper(str_replace("_", " ", $_POST['indicador']) . " [" . $_
                         width: 250,
                         filtertype: 'checkedlist'
                     },
+                    {text: 'CONTACTO', dataField: 'CONTACTO', cellsalign: 'left', width: 250},
 
                 ]
             });

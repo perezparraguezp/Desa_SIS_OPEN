@@ -35,8 +35,7 @@ if($row){
     $_SESSION['login'] = 'true';
     //actualizamos las edades
     mysql_query("UPDATE usuarios SET ultimo_ingreso=now() where rut='$username' ");
-    mysql_query("UPDATE persona SET edad_total=TIMESTAMPDIFF(MONTH, fecha_nacimiento, current_date())");
-    mysql_query("UPDATE persona SET edad_total_dias=TIMESTAMPDIFF(DAY , fecha_nacimiento, current_date());");
+
     header('Location: ../i.php?LOGIN=TRUE');
 }else{
     header('Location: ../index.php?LOGIN=FALSE');

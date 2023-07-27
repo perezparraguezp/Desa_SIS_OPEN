@@ -10,6 +10,8 @@ if($fecha_registro==''){
 }
 
 $paciente = new persona($rut);
+$paciente->definirEdadFecha($fecha_registro);
+
 $profesional = new profesional($_SESSION['id_usuario']);
 if($paciente->existe==false){
     echo "ERROR_RUT";
@@ -257,7 +259,20 @@ if($paciente->getModuloPaciente('m_infancia')=='NO'){
             </div>
         </div>
         <div class="row" style="font-size: 0.9em;">
-            <div class="col l12 right-align" style="padding-right: 10px;text-align: right;">FECHA REGISTRO <?php echo fechaNormal($fecha_registro); ?></div>
+            <?php
+            if($fecha_registro!=date('Y-m-d')){
+                ?>
+                    <div class="col l10">Profesional <strong><?php echo $profesional->nombre; ?></strong></div>
+                    <div class="col l2" style="padding-right: 10px;text-align: right;animation-name: parpadeo;background-color: red;color: white;font-weight: bold;">FECHA REGISTRO <?php echo fechaNormal($fecha_registro); ?></div>
+                <?php
+            }else{
+                ?>
+                <div class="col l10">Profesional <strong><?php echo $profesional->nombre; ?></strong></div>
+                <div class="col l2 right-align" style="padding-right: 10px;text-align: right;background-color: #0D47A1;color: white;font-weight: bold;">FECHA REGISTRO <?php echo fechaNormal($fecha_registro); ?></div>
+            <?php
+            }
+            ?>
+
         </div>
         <div id='tabs_registro' style="font-size: 0.8em;">
             <ul>
