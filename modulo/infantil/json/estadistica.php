@@ -29,6 +29,14 @@ while($row = mysql_fetch_array($res)){
                     where rut='$paciente->rut' limit 1";
             $row1 = mysql_fetch_array(mysql_query($sql1));
 
+            $sql2 = "select * from paciente_psicomotor 
+                    where rut='$paciente->rut' limit 1";
+            $row2 = mysql_fetch_array(mysql_query($sql2));
+
+            $sql3 = "select * from vacunas_paciente 
+                    where rut='$paciente->rut' limit 1";
+            $row3 = mysql_fetch_array(mysql_query($sql3));
+
 
 
             if(strtoupper($paciente->nombre_sector_comunal)!=''){
@@ -59,6 +67,23 @@ while($row = mysql_fetch_array($res)){
                     'agudeza_visual' => trim($row1['agudeza_visual']),
                     'evaluacion_auditiva' => trim($row1['evaluacion_auditiva']),
                     'atencion_secundaria' => trim($row1['atencion_secundaria']),
+
+                    'ev_neurosensorial' => trim($row2['ev_neurosensorial']),
+                    'rx_pelvis' => trim($row2['rx_pelvis']),
+                    'eedp' => trim($row2['eedp']),
+                    'tepsi' => trim($row2['tepsi']),
+                    'pauta_breve' => trim($row2['pauta_breve']),
+                    'mchat' => trim($row2['mchat']),
+                    'otra_vulnerabilidad' => trim($row2['otra_vulnerabilidad']),
+
+                    '2m' => trim($row3['2m']),
+                    '4m' => trim($row3['4m']),
+                    '6m' => trim($row3['6m']),
+                    '12m' => trim($row3['12m']),
+                    '18m' => trim($row3['18m']),
+                    '3anios' => trim($row3['3anios']),
+                    '5anios' => trim($row3['5anios']),
+
                 );
 
                 $i++;

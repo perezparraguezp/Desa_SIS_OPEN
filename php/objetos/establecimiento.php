@@ -128,6 +128,21 @@ class establecimiento {
         }
         return $id;
     }
+    function getInfoCentro($id_sector_interno){
+        $sql = "select
+                    concat('SECTOR: ',nombre_sector_comunal,', CENTRO: ',nombre_centro_interno,', SECTOR INTERNO: ',nombre_sector_interno) AS NOMBRE
+                    from sector_comunal
+                    inner join centros_internos on sector_comunal.id_sector_comunal=centros_internos.id_sector_comunal
+                    inner join sectores_centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
+                    where sectores_centros_internos.id_sector_centro_interno='$id_sector_interno' limit 1";
+        $row = mysql_fetch_array(mysql_query($sql));
+        if($row){
+            $id = $row['NOMBRE'];
+        }else{
+            $id = 'PENDIENTE';
+        }
+        return $id;
+    }
 
 
 

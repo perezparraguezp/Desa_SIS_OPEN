@@ -369,6 +369,11 @@ if($paciente->validaNutricionista()==true){
                             <select name="lme" id="lme">
                                 <option></option>
                                 <option value="LME">LME</option>
+                                <option>LM/FL</option>
+                                <option>FL</option>
+                                <option>LM/AC</option>
+                                <option>LM/FL/AC</option>
+                                <option>FL/AC</option>
                                 <option>SIN LME</option>
                             </select>
                             <script type="text/javascript">

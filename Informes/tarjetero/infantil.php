@@ -22,97 +22,216 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'iso-885
 
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
-$pdf->SetAuthor('I. Municipalidad de Carahue');
-$pdf->SetTitle('Tarjetero');
-$pdf->SetSubject('Tarjetero');
+$pdf->SetAuthor('Eh-Open -Sistema Integral de Salud Infantil (SIS INFANTIL) ');
+$pdf->SetTitle('Tarjetero Infantil');
+$pdf->SetSubject('Tarjetero Infantil');
 
-$pagina2 = '<table border="1px" style="border: dotted 1px black;">
+$p->psicomotor();;
+
+$info_centro_medico = '<table style="border: solid 1px black;" border="1px">
+        <tr>
+            <td style="width: 20%;background-color: #cffcff;">CENTRO MEDICO</td>
+            <td style="width: 80%;font-weight: bold;;">'.$p->getCentroMedico().'</td>
+        </tr>
+</table>';
+
+
+$pagina2 = '<table border="1px" style="border: solid 1px black;">
                 <tr style="background-color: #cffcff;width: 100%;">
                     <td colspan="4" style="text-align: center;font-weight: bold;">TARJETERO INFANIL</td>
                 </tr>
                 <tr>
-                    <td style="width: 20%;">RUT</td>
+                    <td style="width: 20%;background-color: #cffcff;">RUT</td>
                     <td style="width: 30%;font-weight: bold;">'.strtoupper($p->rut).'</td>
-                    <td style="width: 20%;">NACIMIENTO</td>
+                    <td style="width: 20%;background-color: #cffcff;">NACIMIENTO</td>
                     <td style="width: 30%;font-weight: bold;">'.fechaNormal($p->fecha_nacimiento).'</td>
                 </tr>
                 <tr>
-                    <td style="width: 10%;">NOMBRE</td>
-                    <td style="width: 65%;font-weight: bold;">'.strtoupper($p->nombre).'</td>
-                    <td style="width: 10%;">EDAD</td>
-                    <td style="width: 15%;font-weight: bold;">'.strtoupper($p->edad_anios).' años</td>
+                    <td colspan="2" style="background-color: #cffcff;">NOMBRE</td>
+                    <td style="background-color: #cffcff;">EDAD</td>
+                    <td style="font-weight: bold;">'.strtoupper($p->edad_anios).' años</td>
                 </tr>
                 <tr>
-                    <td style="width: 20%;">DIRECCIÓN</td>
+                    <td style="font-weight: bold;" colspan="4">'.strtoupper($p->nombre).'</td>
+                </tr>
+                <tr>
+                    <td style="width: 20%;background-color: #cffcff;">DIRECCIÓN</td>
                     <td style="width: 80%;font-weight: bold;">'.strtoupper($p->direccion).'</td>
                 </tr>
                 <tr>
-                    <td style="width: 20%;">TELÉFONO</td>
+                    <td style="width: 20%;background-color: #cffcff;">TELÉFONO</td>
                     <td style="width: 80%;font-weight: bold;">'.strtoupper($p->telefono).'</td>
                 </tr>
                 <tr>
-                    <td style="width: 20%;">E-MAIL</td>
+                    <td style="width: 20%;background-color: #cffcff;">E-MAIL</td>
                     <td style="width: 80%;font-weight: bold;">'.strtoupper($p->email).'</td>
                 </tr>
                 <tr>
-                    <td style="width: 20%;">SECTOR</td>
+                    <td style="width: 20%;background-color: #cffcff;">SECTOR</td>
                     <td style="width: 80%;font-weight: bold;">'.strtoupper($p->nombre_sector_comunal).'</td>
                 </tr>
                 <tr>
-                    <td style="width: 20%;">CENTRO MEDICO</td>
+                    <td style="width: 20%;background-color: #cffcff;">CENTRO MEDICO</td>
                     <td style="width: 80%;font-weight: bold;">'.strtoupper($p->nombre_centro_medico).'</td>
                 </tr>
                 <tr>
-                    <td style="width: 20%;">SECTOR INTERNO</td>
+                    <td style="width: 20%;background-color: #cffcff;">SECTOR INTERNO</td>
                     <td style="width: 80%;font-weight: bold;">'.strtoupper($p->nombre_sector_interno).'</td>
                 </tr>
                 <tr style="background-color: #cffcff;">
-                    <td colspan="4" style="text-align: center;font-weight: bold;">DATOS DE NACIMIENTO</td>
+                    <td style="text-align: center;font-weight: bold;width: 100%;">DATOS DE NACIMIENTO</td>
                 </tr>
                 <tr>
-                    <td style="width: 25%;">EOA</td>
+                    <td style="width: 25%;background-color: #cffcff;">EOA</td>
                     <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getDatosNacimiento('EOA')).'</td>
-                    <td style="width: 25%;">PKU</td>
+                    <td style="width: 25%;background-color: #cffcff;">PKU</td>
                     <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getDatosNacimiento('PKU')).'</td>
                 </tr>
                 <tr>
-                    <td style="width: 25%;">HC</td>
+                    <td style="width: 25%;background-color: #cffcff;">HC</td>
                     <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getDatosNacimiento('HC')).'</td>
-                    <td style="width: 25%;">APEGO INMEDIATO</td>
+                    <td style="width: 25%;background-color: #cffcff;">APEGO INMEDIATO</td>
                     <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getDatosNacimiento('APEGO_INMEDIATO')).'</td>
                 </tr>
                 <tr>
-                    <td style="width: 25%;">VACUNA BCG</td>
+                    <td style="width: 25%;background-color: #cffcff;">VACUNA BCG</td>
                     <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getDatosNacimiento('VACUNA_BCG')).'</td>
-                    <td style="width: 25%;">VACUNA HEPATITIS B</td>
+                    <td style="width: 25%;background-color: #cffcff;">VACUNA HEPATITIS B</td>
                     <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getDatosNacimiento('VACUNA_HP')).'</td>
                 </tr>
                 <tr style="background-color: #cffcff;">
                     <td colspan="4" style="text-align: center;font-weight: bold;">REGISTRO DE VACUNAS</td>
                 </tr>
                 <tr>
-                    <td style="width: 25%;">2 MESES</td>
+                    <td style="width: 25%;background-color: #cffcff;">2 MESES</td>
                     <td style="width: 25%;font-weight: bold;">'.strtoupper($p->vacuna2M()).'</td>
-                    <td style="width: 25%;">4 MESES</td>
+                    <td style="width: 25%;background-color: #cffcff;">4 MESES</td>
                     <td style="width: 25%;font-weight: bold;">'.strtoupper($p->vacuna4M()).'</td>
                 </tr>
                 <tr>
-                    <td style="width: 25%;">6 MESES</td>
+                    <td style="width: 25%;background-color: #cffcff;">6 MESES</td>
                     <td style="width: 25%;font-weight: bold;">'.strtoupper($p->vacuna6M()).'</td>
-                    <td style="width: 25%;">12 MESES</td>
+                    <td style="width: 25%;background-color: #cffcff;">12 MESES</td>
                     <td style="width: 25%;font-weight: bold;">'.strtoupper($p->vacuna12M()).'</td>
                 </tr>
                 <tr>
-                    <td style="width: 25%;">18 MESES</td>
+                    <td style="width: 25%;background-color: #cffcff;">18 MESES</td>
                     <td style="width: 25%;font-weight: bold;">'.strtoupper($p->vacuna18M()).'</td>
-                    <td style="width: 25%;">5 AÑOS</td>
+                    <td style="width: 25%;background-color: #cffcff;">5 AÑOS</td>
                     <td style="width: 25%;font-weight: bold;">'.strtoupper($p->vacuna5Anios()).'</td>
+                </tr>
+                <tr style="background-color: #cffcff;">
+                    <td style="text-align: center;font-weight: bold;width: 100%;">ANTROPOMETRIA</td>
+                </tr>
+                <tr>
+                    <td style="width: 16%;background-color: #cffcff;">PE</td>
+                    <td style="width: 16%;font-weight: bold;">'.strtoupper($p->getAntropometria('PE')).'</td>
+                    <td style="width: 16%;background-color: #cffcff;">TE</td>
+                    <td style="width: 16%;font-weight: bold;">'.strtoupper($p->getAntropometria('TE')).'</td>
+                    <td style="width: 16%;background-color: #cffcff;">PT</td>
+                    <td style="width: 20%;font-weight: bold;">'.strtoupper($p->getAntropometria('PT')).'</td>
+                    
+                </tr>
+                <tr>
+                    <td style="width: 16%;background-color: #cffcff;">LME</td>
+                    <td style="width: 16%;font-weight: bold;">'.strtoupper($p->getAntropometria('LME')).'</td>
+                    <td style="width: 16%;background-color: #cffcff;">Ri MALN</td>
+                    <td style="width: 16%;font-weight: bold;">'.strtoupper($p->getAntropometria('RIMALN')).'</td>
+                    <td style="width: 16%;background-color: #cffcff;">PERIMETRO CRANEAL</td>
+                    <td style="width: 20%;font-weight: bold;">'.strtoupper($p->getAntropometria('perimetro_craneal')).'</td>
+                    
+                </tr>
+                <tr>
+                    <td style="width: 16%;background-color: #cffcff;">PCINT</td>
+                    <td style="width: 16%;font-weight: bold;">'.strtoupper($p->getAntropometria('PCINT')).'</td>
+                    <td style="width: 16%;background-color: #cffcff;">IMC</td>
+                    <td style="width: 16%;font-weight: bold;">'.strtoupper($p->getAntropometria('IMC')).'</td>
+                    <td style="width: 16%;background-color: #cffcff;">DNI</td>
+                    <td style="width: 20%;font-weight: bold;">'.strtoupper($p->getAntropometria('DNI')).'</td>
+                   
+                </tr>
+                 <tr>
+                    <td style="width: 16%;background-color: #cffcff;">PRESION ARTERIAL</td>
+                    <td style="width: 16%;font-weight: bold;">'.strtoupper($p->getAntropometria('presion_arterial')).'</td>
+                    <td style="width: 16%;background-color: #cffcff;">AGUDEZA VISUAL</td>
+                    <td style="width: 16%;font-weight: bold;">'.strtoupper($p->getAntropometria('agudeza_visual')).'</td>
+                    <td style="width: 16%;background-color: #cffcff;">EVAL. AUDITIVA</td>
+                    <td style="width: 20%;font-weight: bold;">'.strtoupper($p->getAntropometria('evaluacion_auditiva')).'</td>
+                </tr>
+                <tr style="background-color: #cffcff;">
+                    <td style="text-align: center;font-weight: bold;width: 100%;">DESARROLLO PSICOMOTOR</td>
+                </tr>
+                 <tr>
+                    <td style="width: 25%;background-color: #cffcff;">EV NEUROSENSORIAL</td>
+                    <td style="width: 25%;font-weight: bold;">'.strtoupper($p->ev_neurosensorial).'</td>
+                    <td style="width: 25%;background-color: #cffcff;">RX PELVIS</td>
+                    <td style="width: 25%;font-weight: bold;">'.strtoupper($p->rx_pelvis).'</td>
+                </tr>
+                <tr>
+                    <td style="width: 25%;background-color: #cffcff;">PAUTA BREVE</td>
+                    <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getPsicomotor('pauta_breve')).'</td>
+                    <td style="width: 25%;background-color: #cffcff;">OTRA VULNERABILIDAD</td>
+                    <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getPsicomotor('otra_vulnerabilidad')).'</td>
+                </tr>
+                <tr>
+                    <td style="width: 25%;background-color: #cffcff;">EEDP</td>
+                    <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getPsicomotor('eedp')).'</td>
+                    <td style="width: 25%;background-color: #cffcff;">TEPSI</td>
+                    <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getPsicomotor('tepsi')).'</td>
+                </tr>
+                <tr>
+                    <td style="width: 25%;background-color: #cffcff;">EEDP LENGUAJE</td>
+                    <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getPsicomotor('eedp_lenguaje')).'</td>
+                    <td style="width: 25%;background-color: #cffcff;">TEPSI LENGUAJE</td>
+                    <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getPsicomotor('tepsi_lenguaje')).'</td>
+                </tr>
+                <tr>
+                    <td style="width: 25%;background-color: #cffcff;">EEDP MOTRICIDAD</td>
+                    <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getPsicomotor('eedp_motrocidad')).'</td>
+                    <td style="width: 25%;background-color: #cffcff;">TEPSI MOTRICIDAD</td>
+                    <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getPsicomotor('tepsi_motrocidad')).'</td>
+                </tr>
+                <tr>
+                    <td style="width: 25%;background-color: #cffcff;">EEDP COORDINACION</td>
+                    <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getPsicomotor('eedp_coordinacion')).'</td>
+                    <td style="width: 25%;background-color: #cffcff;">TEPSI COORDINACION</td>
+                    <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getPsicomotor('tepsi_coordinacion')).'</td>
+                </tr>
+                <tr>
+                    <td style="width: 25%;background-color: #cffcff;">EEDP SOCIAL</td>
+                    <td style="width: 25%;font-weight: bold;">'.strtoupper($p->getPsicomotor('eedp_social')).'</td>
+                    
                 </tr>
             </table>';
 
 
-
-$pagina1 = '';
+$pagina2 = str_replace('PENDIENTE','',$pagina2);
+$sql1 = "select fecha_registro,tipo_contrato,persona.nombre_completo from historial_paciente
+inner join personal_establecimiento pe on historial_paciente.id_profesional = pe.id_profesional
+inner join persona on pe.rut=persona.rut
+where historial_paciente.rut='$p->rut'
+and fecha_registro!=''
+group by YEAR(fecha_registro),MONTH(fecha_registro),DAY(fecha_registro)
+order by id_historial asc limit 30;";
+$res1 = mysql_query($sql1);
+$fila = '';
+while($row1 = mysql_fetch_array($res1)){
+    list($fecha,$hora) = explode(" ",$row1['fecha_registro']);
+    $fila .= '<tr>
+                <td STYLE="text-align: center">'.fechaNormal($fecha).'</td>
+                <td>'.$row1['tipo_contrato'].'</td>
+                <td>'.$row1['nombre_completo'].'</td>
+            </tr>';
+}
+$pagina1 = '<table border="1px" style="border: solid 1px black;">
+                <tr style="background-color: #cffcff;width: 100%;">
+                    <td colspan="3" style="text-align: center;font-weight: bold;">HISTORIAL DE ATENCIONES</td>
+                </tr>
+                <tr style="background-color: #cffcff;width: 100%;">
+                    <td colspan="1" style="text-align: center;font-weight: bold;width: 15%;">FECHA</td>
+                    <td colspan="1" style="text-align: center;font-weight: bold;width: 30%;">PROFESIONAL</td>
+                    <td colspan="1" style="text-align: center;font-weight: bold;width: 55%;">NOMBRE COMPLETO</td>
+                </tr>'.$fila.'</table>';
 
 $html ='<style type="text/css">
             table{
@@ -122,14 +241,14 @@ $html ='<style type="text/css">
             line-height: 2em;;
             }
         </style>';
-$html .= '<table border="1" style="border: solid black;width: 100%;">
+$html .= '<table style="width: 100%;">
+
             <tr>
                 <td>'.$pagina1.'</td>
-                <td>
-                '.$pagina2.'
-                </td>
+                <td>'.$pagina2.'</td>
             </tr>
-        </table>';
+        </table>
+        ';
 
 $title_pdf = $e->nombre;
 $sub_title_pdf = $p->nombre_centro_medico;
@@ -138,22 +257,22 @@ $sub_title_pdf = $p->nombre_centro_medico;
 $pdf->setFooterData($tc = array(0, 0, 0), $lc = array(0, 0, 0));
 
 // set header and footer fonts
-$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
-$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+//$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+//$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
 
 // set default monospaced font
-$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+//$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 //set margins
-$pdf->SetMargins(2, 2, 2);
-$pdf->SetHeaderMargin(0);
-$pdf->SetFooterMargin(0);
+$pdf->SetMargins(2, 2, 0);
+//$pdf->SetHeaderMargin(0);
+//$pdf->SetFooterMargin(0);
 
 //set auto page breaks
-$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+//$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
 //set image scale factor
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+//$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 //set some language-dependent strings
 

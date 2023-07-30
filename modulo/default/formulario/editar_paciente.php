@@ -519,6 +519,8 @@ if ($p->rut_papa != '') {
                                             <label>
                                                 <input type="checkbox"
                                                        name="modulo[<?php echo $i ?>]"
+                                                       id="modulo[<?php echo $i ?>]"
+                                                       class="modulo_eh_open"
                                                     <?php echo $check; ?>
                                                        value="<?php echo $row['column_sql']; ?>"/>
                                                 <span class="lever"></span>
@@ -531,9 +533,7 @@ if ($p->rut_papa != '') {
                                     </div>
                                     <!---->
                                     <div class="col l4">
-                                        <!--                                        <a href="../../Informes/tarjetero/infantil.php?rut=-->
-                                        <?php //echo $rut;
-                                        ?><!--" target="_blank">TARJETERO</a>-->
+<!--                                        <a href="../../Informes/tarjetero/infantil.php?rut=--><?php //echo $rut;?><!--" target="_blank">TARJETERO</a>                                    -->
                                     </div>
 
                                 </div>
@@ -548,7 +548,7 @@ if ($p->rut_papa != '') {
             </div>
             <hr class="row"/>
             <!--            BAJA DE PACIENTES-->
-            <div class="row">
+            <div class="row" id="div_baja">
                 <div class="col l12 m12 s12" style="padding-top: 10px;background-color: #ffeced;padding-left: 10px;">
                     <div class="col l4">
                         <header style="color: #0a73a7;font-family: Helvetica, Arial, Verdana, sans-serif;">EN CASO DE
@@ -581,7 +581,6 @@ if ($p->rut_papa != '') {
                 </div>
             </div>
         </div>
-        $ho
 
     </div>
 
@@ -595,7 +594,34 @@ if ($p->rut_papa != '') {
 </form>
 <script type="text/javascript">
     var rut_valido = 'NO';
+    function darBaja(){
+        // Obtener todos los elementos de tipo checkbox en la página
+        var checkboxes = document.querySelectorAll('.modulo_eh_open');
+
+        var i=0;
+        var estado = true;
+        // Verificar si todos los checkboxes están desactivados
+        for ( i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                estado = false; // Si al menos un checkbox está activado, devolver falso
+            }
+        }
+
+
+        if(estado===true){
+            $("#div_baja").show();
+        }else{
+            $("#div_baja").hide();
+        }
+    }
     $(document).ready(function () {
+
+        darBaja();
+
+        $(".switch").find("input[type=checkbox]").on("change",function() {
+            darBaja();
+        });
+
         $("#id_centro").jqxDropDownList({
             width: '100%', height: 30
         });

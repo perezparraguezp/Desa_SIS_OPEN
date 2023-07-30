@@ -42,6 +42,25 @@
                         {name: 'agudeza_visual', type: 'string'},
                         {name: 'evaluacion_auditiva', type: 'string'},
                         {name: 'atencion_secundaria', type: 'string'},
+
+                        {name: 'ev_neurosensorial', type: 'string'},
+                        {name: 'rx_pelvis', type: 'string'},
+                        {name: 'eedp', type: 'string'},
+                        {name: 'tepsi', type: 'string'},
+                        {name: 'tepsi', type: 'string'},
+                        {name: 'pauta_breve', type: 'string'},
+                        {name: 'mchat', type: 'string'},
+                        {name: 'otra_vulnerabilidad', type: 'string'},
+
+                        {name: '2m', type: 'string'},
+                        {name: '4m', type: 'string'},
+                        {name: '6m', type: 'string'},
+                        {name: '12m', type: 'string'},
+                        {name: '18m', type: 'string'},
+                        {name: '3anios', type: 'string'},
+                        {name: '5anios', type: 'string'},
+
+
                     ],
                 cache: false
             };
@@ -162,7 +181,22 @@
                         datafield: 'atencion_secundaria',
                         width: 100,
                         filtertype: 'checkedlist'
-                    }
+                    },
+                    {text: 'EV NEUROSENSORIAL', datafield: 'ev_neurosensorial', width: 100, filtertype: 'checkedlist'},
+                    {text: 'RX PELVIS', datafield: 'rx_pelvis', width: 100, filtertype: 'checkedlist'},
+                    {text: 'EEDP', datafield: 'eedp', width: 100, filtertype: 'checkedlist'},
+                    {text: 'TEPSI', datafield: 'tepsi', width: 100, filtertype: 'checkedlist'},
+                    {text: 'PAUTA BREVE', datafield: 'pauta_breve', width: 100, filtertype: 'checkedlist'},
+                    {text: 'MCHAT', datafield: 'mchat', width: 100, filtertype: 'checkedlist'},
+                    {text: 'OTRA VULNERABILIDAD', datafield: 'otra_vulnerabilidad', width: 100, filtertype: 'checkedlist'},
+
+                    {text: '2 MESES', datafield: '2m', width: 100, filtertype: 'checkedlist'},
+                    {text: '4 MESES', datafield: '4m', width: 100, filtertype: 'checkedlist'},
+                    {text: '6 MESES', datafield: '6m', width: 100, filtertype: 'checkedlist'},
+                    {text: '12 MESESL', datafield: '12m', width: 100, filtertype: 'checkedlist'},
+                    {text: '18 MESES', datafield: '18m', width: 100, filtertype: 'checkedlist'},
+                    {text: '3 AÑOS', datafield: '3anios', width: 100, filtertype: 'checkedlist'},
+                    {text: '5 AÑOS', datafield: '5anios', width: 100, filtertype: 'checkedlist'},
 
 
                 ]

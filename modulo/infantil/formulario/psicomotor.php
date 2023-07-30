@@ -205,7 +205,7 @@ $paciente->definirEdadFecha($fecha_registro);
                         <div class="col l4">
                             <span class="black-text letra_datos_psicomotor">EEDP <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="SOLO MENORES DE 12 MESES">(?)</strong></span>
                         </div>
-                        <div class="col l8">
+                        <div class="col l6">
                             <select name="eedp" id="eedp">
                                 <option selected="selected"></option>
                                 <option >NORMAL</option>
@@ -229,9 +229,17 @@ $paciente->definirEdadFecha($fecha_registro);
                                     });
                                     $("#eedp").on('change',function(){
                                         var val = $("#eedp").val();
+                                        var reeval = '';
+                                        if($('#reeval_eedp').prop('checked')){
+                                            reeval='SI'
+                                        }else{
+                                            reeval='NO'
+                                        }
+
                                         $.post('db/update/paciente_psicomotor.php',{
                                             rut:'<?php echo $rut; ?>',
                                             val:val,
+                                            reeval:reeval,
                                             column:'eedp',
                                             fecha_registro:'<?php echo $fecha_registro; ?>'
 
@@ -245,6 +253,14 @@ $paciente->definirEdadFecha($fecha_registro);
                                     $('.tooltipped').tooltip({delay: 50});
                                 })
                             </script>
+                        </div>
+                        <div class="col l2 right-align right">
+                            <input type="checkbox" id="reeval_eedp" value="SI"
+                                   name="reeval_eedp"  />
+                            <label class="white-text" for="reeval_eedp">
+                                <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="RE-EVALUACION DEL INDICADOR">RE-EVAL</strong>
+                            </label>
+
                         </div>
                     </div>
                 </div>
@@ -367,7 +383,7 @@ $paciente->definirEdadFecha($fecha_registro);
                             <div class="col l4">
                                 <span class="black-text letra_datos_psicomotor">TEPSI <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="SOLO MAYORES DE 12 MESES">(?)</strong></span>
                             </div>
-                            <div class="col l8">
+                            <div class="col l6">
                                 <select name="tepsi" id="tepsi">
                                     <option selected="selected"></option>
                                     <option>NORMAL</option>
@@ -395,9 +411,17 @@ $paciente->definirEdadFecha($fecha_registro);
 
                                         $("#tepsi").on('change',function(){
                                             var val = $("#tepsi").val();
-                                            $.post('db/update/tepsi.php',{
+                                            var reeval = '';
+                                            if($('#reeval_tepsi').prop('checked')){
+                                                reeval='SI'
+                                            }else{
+                                                reeval='NO'
+                                            }
+                                            $.post('db/update/paciente_psicomotor.php',{
                                                 rut:'<?php echo $rut; ?>',
                                                 val:val,
+                                                column:'tepsi',
+                                                reeval:reeval,
                                                 fecha_registro:'<?php echo $fecha_registro; ?>'
 
                                             },function(data){
@@ -411,6 +435,14 @@ $paciente->definirEdadFecha($fecha_registro);
                                         //historial_psicomotor('<?php //echo $rut; ?>//');
                                     })
                                 </script>
+                            </div>
+                            <div class="col l2 right-align right">
+                                <input type="checkbox" id="reeval_tepsi" value="SI"
+                                       name="reeval_tepsi"  />
+                                <label class="white-text" for="reeval_tepsi">
+                                    <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="RE-EVALUACION DEL INDICADOR">RE-EVAL</strong>
+                                </label>
+
                             </div>
                         </div>
                     </div>

@@ -13,7 +13,7 @@ class persona
     public $anios, $meses, $dias, $total_meses;
     public $edad_anios, $edad_meses, $edad_dias;
     public $myID, $myEstablecimiento, $pueblo, $nanea, $comuna, $migrante;
-    public $ev_neurosensorial, $edad_total, $ultimo_historial;
+    public $ev_neurosensorial, $edad_total, $ultimo_historial,$rx_pelvis;
     public $eedp, $eedp_coordinacion, $eedp_motrocidad, $eedp_lenguaje, $eedp_social;
     public $tepsi, $tepsi_coordinacion, $tepsi_motrocidad, $tepsi_lenguaje;
     public $dental_cero, $dental_ges6;
@@ -97,6 +97,15 @@ class persona
         }
     }
 
+    function getPsicomotor($column){
+        $sql = "select * from paciente_psicomotor where rut='$this->rut' limit 1";
+        $row = mysql_fetch_array(mysql_query($sql));
+        if ($row) {
+            return $row[$column];
+        } else {
+            return 'PENDIENTE';
+        }
+    }
     function getUltimoHistorial()
     {
         $sql1 = "select * from historial_paciente where rut='$this->rut' order by id_historial desc limit 1";
@@ -573,6 +582,7 @@ class persona
         $sql = "select * from paciente_psicomotor where rut='$this->rut' limit 1";
         $row = mysql_fetch_array(mysql_query($sql));
         $this->ev_neurosensorial = $row['ev_neurosensorial'];
+        $this->rx_pelvis = $row['rx_pelvis'];
         $this->eedp = $row['eedp'];
         $this->eedp_lenguaje = $row['eedp_lenguaje'];
         $this->eedp_coordinacion = $row['eedp_coordinacion'];

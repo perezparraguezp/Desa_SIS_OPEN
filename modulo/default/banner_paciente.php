@@ -32,6 +32,9 @@ list($establecimiento,$sector_interno,$sector_comunal) = explode(":",$paciente->
         <div class="row">
             <?php echo $paciente->rut ?>
         </div>
+        <div class="row">
+            NANEA <strong><?php echo $paciente->nanea ?></strong>
+        </div>
     </div>
     <div class="col l1">
         <img src="../../images/centro_medico.png" width="48" />

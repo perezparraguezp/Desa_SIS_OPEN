@@ -63,6 +63,7 @@ if ($indicador == 'IMCE') {
                                 $rango_edad_texto = 'Menores de 5 meses Y 30 días.';
                             } else {
                                 if ($indicador == 'perimetro_craneal') {
+                                    $estado = 'N';
                                     $filtro_edad = 'and persona.edad_total<(12*2) ';//menores de 2 años
                                     $rango_edad_texto = 'Menores de 2 años';
                                 } else {
@@ -98,6 +99,7 @@ $sql_column .= ",sum(antropometria.$indicador!='') as total_cobertura";
 
 $sql_total = "select COUNT(*) as total from paciente_establecimiento 
     inner join persona using(rut) where m_infancia='SI' $filtro_edad; ";
+
 $row_total = mysql_fetch_array(mysql_query($sql_total));
 if ($row_total) {
     $total_pacientes = $row_total['total'];
@@ -146,6 +148,8 @@ if ($comunal == true) {
 
 
     $total = $row1['total'] != '' ? $row1['total'] : 0; // general de pacientes que califican para el indicador
+
+    $total = $total_pacientes;
 
     $total_hombres = $row1['total_hombres'] != '' ? $row1['total_hombres'] : 0;
     $total_mujeres = $row1['total_mujeres'] != '' ? $row1['total_mujeres'] : 0;
@@ -247,6 +251,7 @@ if ($comunal == true) {
             $id = $row1['id'];
 
             $total = $row1['total'] != '' ? $row1['total'] : 0; // general de pacientes que califican para el indicador
+
             $total_hombres = $row1['total_hombres'] != '' ? $row1['total_hombres'] : 0;
             $total_mujeres = $row1['total_mujeres'] != '' ? $row1['total_mujeres'] : 0;
             $total_indicador = $row1['total_indicador'] != '' ? $row1['total_indicador'] : 0;

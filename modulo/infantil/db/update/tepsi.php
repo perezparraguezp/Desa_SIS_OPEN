@@ -2,6 +2,9 @@
 include "../../../../php/config.php";
 include "../../../../php/objetos/persona.php";
 
+$myID = $_SESSION['id_usuario'];
+$val = $_POST['val'];
+
 $val = $_POST['val'];
 $rut = $_POST['rut'];
 $fecha_registro = $_POST['fecha_registro'];
