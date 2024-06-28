@@ -143,6 +143,7 @@ if($paciente->anios<80){
                         <div class="row">
                             <div class="col l3 m6 s12">
                                 <strong style="line-height: 2em;font-size: 1.5em;">INSULINA <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
+                                <input type="hidden" name="fecha_insulina" id="fecha_insulina" value="<?php echo $fecha_registro; ?>" />
                             </div>
                             <div class="col l7 m6 s12">
                                 <div class="row">
@@ -150,7 +151,7 @@ if($paciente->anios<80){
                                         <select class="browser-default"
                                                 name="insulina" id="insulina"
                                                 style="font-size: 1.5em"
-                                                onchange="updateDiabetesPSCV_FechaRegistro('insulina')">
+                                                onchange="updateDiabetesPSCV_FechaRegistro_update('insulina')">
                                             <option><?php echo $insulina; ?></option>
                                             <option>SI</option>
                                             <option>NO</option>
@@ -165,22 +166,25 @@ if($paciente->anios<80){
                         </div>
                         <div class="row">
                             <div class="col l4">
+                                <input type="hidden" name="fecha_nph" id="fecha_nph" value="<?php echo $fecha_registro; ?>" />
                                 <input type="checkbox" id="nph"
-                                       onchange="updateDiabetesPSCV_FechaRegistro('nph')"
+                                       onchange="updateDiabetesPSCV_FechaRegistro_update('nph')"
                                     <?php echo $nph=='SI'?'checked="checked"':'' ?>
                                        name="nph"  />
                                 <label class="white-text" for="nph">NPH</label>
                             </div>
                             <div class="col l4">
+                                <input type="hidden" name="fecha_rapida" id="fecha_rapida" value="<?php echo $fecha_registro; ?>" />
                                 <input type="checkbox" id="rapida"
-                                       onchange="updateDiabetesPSCV_FechaRegistro('rapida')"
+                                       onchange="updateDiabetesPSCV_FechaRegistro_update('rapida')"
                                     <?php echo $rapida=='SI'?'checked="checked"':'' ?>
                                        name="rapida"  />
                                 <label class="white-text" for="rapida">RÀPIDA</label>
                             </div>
                             <div class="col l4">
+                                <input type="hidden" name="fecha_urapida" id="fecha_urapida" value="<?php echo $fecha_registro; ?>" />
                                 <input type="checkbox" id="urapida"
-                                       onchange="updateDiabetesPSCV_FechaRegistro('rapida')"
+                                       onchange="updateDiabetesPSCV_FechaRegistro_update('rapida')"
                                     <?php echo $urapida=='SI'?'checked="checked"':'' ?>
                                        name="urapida"  />
                                 <label class="white-text" for="urapida">U RÀPIDA</label>
@@ -201,11 +205,21 @@ if($paciente->anios<80){
                             </div>
                             <div class="col l7 m6 s12">
                                 <div class="row">
-                                    <div class="col l12 m12 s12">
+                                    <div class="col l6">
+                                        <input type="date"
+                                               class="tooltipped"
+                                               style="cursor: help"
+                                               data-position="bottom"
+                                               data-delay="50"
+                                               data-tooltip="FECHA EN QUE SE TOMO REGISTRO"
+                                               style="height: 2em;"
+                                               id="fecha_ev_pie" name="fecha_ev_pie" value="<?php echo $fecha_registro; ?>">
+                                    </div>
+                                    <div class="col l6">
                                         <select class="browser-default"
                                                 name="ev_pie" id="ev_pie"
                                                 style="font-size: 1.5em;"
-                                                onchange="updateDiabetesPSCV_FechaRegistro('ev_pie')">
+                                                onchange="updateDiabetesPSCV_FechaRegistro_update('ev_pie')">
 
 <!--                                            <option>--><?php //echo $ev_pie; ?><!--</option>-->
                                             <option></option>
@@ -231,13 +245,15 @@ if($paciente->anios<80){
                         <div class="row">
                             <div class="col l3 m6 s12">
                                 <strong style="line-height: 2em;font-size: 1.5em;">ULCERAS ACTIVAS <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
+
                             </div>
                             <div class="col l7 m6 s12">
                                 <div class="row">
                                     <div class="col l12 m12 s12">
+                                        <input type="hidden" name="fecha_ulceras" id="fecha_ulceras" value="<?php echo $fecha_registro; ?>" />
                                         <select class="browser-default"
                                                 name="ulceras" id="ulceras"
-                                                onchange="updateDiabetesPSCV_FechaRegistro('ulceras')">
+                                                onchange="updateDiabetesPSCV_FechaRegistro_update('ulceras')">
                                             <option><?php echo $ulceras; ?></option>
                                             <option>CURACIÓN CONVENCIONAL</option>
                                             <option>CURACIÓN AVANZADA</option>
@@ -289,6 +305,7 @@ if($paciente->anios<80){
                         <div class="row">
                             <div class="col l3 m6 s12">
                                 <strong style="line-height: 2em;font-size: 1.5em;">AMPUTACION <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
+                                <input type="hidden" name="fecha_amputacion" id="fecha_amputacion" value="<?php echo $fecha_registro; ?>" />
                             </div>
                             <div class="col l7 m6 s12">
                                 <div class="row">
@@ -296,7 +313,7 @@ if($paciente->anios<80){
                                         <select class="browser-default"
                                                 name="amputacion" id="amputacion"
                                                 style="font-size: 1.5em"
-                                                onchange="updateDiabetesPSCV_FechaRegistro('amputacion')">
+                                                onchange="updateDiabetesPSCV_FechaRegistro_update('amputacion')">
                                             <option><?php echo $amputacion; ?></option>
                                             <option>SI</option>
                                             <option>NO</option>
@@ -409,9 +426,9 @@ if($paciente->anios<80){
             alertaLateral(data);
         });
     }
-    function updateDiabetesPSCV_FechaRegistro(indicador){
+    function updateDiabetesPSCV_FechaRegistro_update(indicador){
         var value = $("#"+indicador).val();
-        var fecha = '<?php echo $fecha_registro; ?>';
+        var fecha = $("#fecha_"+indicador).val();;
         $.post('db/update/pscv_diabetes.php',{
             column:indicador,
             value:value,

@@ -20,6 +20,48 @@ $paciente->load_DatosNacimiento();
     <div class="card-panel eh-open_fondo">
         <div class="row">
             <div class="col l3">
+                <span class="black-text letra_datos_nacimiento">SEMANAS DE GESTACIÓN <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="INDICAR CUANTAS SEMANAS DE GESTACION TUVO EL PACIENTE">(?)</strong></span>
+            </div>
+            <div class="col l8">
+                <select name="semanas_gestacion" id="semanas_gestacion">
+                    <option><?php echo $paciente->semanas_gestacion;  ?></option>
+                    <?php
+                    FOR ($i=20;$i<=39;$i++){
+                        echo '<option>'.$i.' SEMANAS</option>';
+                    }
+                    ?>
+                    <option>+40 SEMANAS</option>
+                </select>
+                <script type="text/javascript">
+                    $(function(){
+                        $('#semanas_gestacion').jqxDropDownList({
+                            width: '100%',theme: 'eh-open',
+                            height: '25px'
+                        });
+                        $("#semanas_gestacion").jqxDropDownList('selectItem','<?php echo $paciente->semanas_gestacion;  ?>');
+                        $("#semanas_gestacion").on('change',function(){
+                            var val = $("#semanas_gestacion").val();
+                            $.post('db/update/paciente_datos_nacimiento.php',{
+                                rut:'<?php echo $rut; ?>',
+                                val:val,
+                                column:'semanas_gestacion',
+                                fecha_registro:'<?php echo $fecha_registro; ?>'
+
+                            },function(data){
+                                alertaLateral(data);
+                                $('.tooltipped').tooltip({delay: 50});
+                            });
+
+                        });
+                        $('.tooltipped').tooltip({delay: 50});
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="card-panel eh-open_fondo">
+        <div class="row">
+            <div class="col l3">
                 <span class="black-text letra_datos_nacimiento">EOA <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="PESO EDAD">(?)</strong></span>
             </div>
             <div class="col l8">

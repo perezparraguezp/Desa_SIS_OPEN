@@ -34,7 +34,7 @@ while($row = mysql_fetch_array($res)){
             if($row1['pa_fecha']==''){
                 $sql11 = "select * from historial_parametros_pscv 
                     where rut='$paciente->rut' 
-                    and indicador='pa' order by id_historial desc limit 1";
+                    and indicador='pa' order by fecha_registro desc limit 1";
 
                 $row11 = mysql_fetch_array(mysql_query($sql11));
                 $pa_fecha = $row11['fecha_registro'];
@@ -47,7 +47,7 @@ while($row = mysql_fetch_array($res)){
             if($row1['ldl_fecha']==''){
                 $sql11 = "select * from historial_parametros_pscv 
                     where rut='$paciente->rut' 
-                    and indicador='ldl' order by id_historial desc limit 1";
+                    and indicador='ldl' order by fecha_registro desc limit 1";
 
                 $row11 = mysql_fetch_array(mysql_query($sql11));
                 $ldl_fecha = $row11['fecha_registro'];
@@ -60,7 +60,7 @@ while($row = mysql_fetch_array($res)){
             if($row1['rac_fecha']==''){
                 $sql11 = "select * from historial_parametros_pscv 
                     where rut='$paciente->rut' 
-                    and indicador='rac' order by id_historial desc limit 1";
+                    and indicador='rac' order by fecha_registro desc limit 1";
 
                 $row11 = mysql_fetch_array(mysql_query($sql11));
                 $rac_fecha = $row11['fecha_registro'];
@@ -73,7 +73,7 @@ while($row = mysql_fetch_array($res)){
             if($row1['vfg_fecha']==''){
                 $sql11 = "select * from historial_parametros_pscv 
                     where rut='$paciente->rut' 
-                    and indicador='vfg' order by id_historial desc limit 1";
+                    and indicador='vfg' order by fecha_registro desc limit 1";
 
                 $row11 = mysql_fetch_array(mysql_query($sql11));
                 $vfg_fecha = $row11['fecha_registro'];
@@ -88,12 +88,20 @@ while($row = mysql_fetch_array($res)){
             $hta = $row1['patologia_hta'];
             $dm = $row1['patologia_dm'];
             $dlp = $row1['patologia_dlp'];
+            $tratamiento_estatina = $row1['tratamiento_estatina'];
+            $tratamiento_clo = $row1['tratamiento_clo'];
+            $tratamiento_aas = $row1['tratamiento_aas'];
+            $factor_riesgo_iam = $row1['factor_riesgo_iam'];
+            $factor_riesgo_enf_cv = $row1['factor_riesgo_enf_cv'];
+            $fumador_actual = $row1['fumador_actual'];
+
+
             //HTA
             if($row1['hta_fecha']==''){
                 $sql11 = "select * from historial_paciente 
                     where rut='$paciente->rut' 
                     and tipo_historial like '%patologia_hta con un valor SI%' 
-                    order by id_historial desc limit 1";
+                    order by fecha_registro desc limit 1";
 
                 $row11 = mysql_fetch_array(mysql_query($sql11));
                 if($row11){
@@ -111,12 +119,16 @@ while($row = mysql_fetch_array($res)){
                 $sql11 = "select * from historial_paciente 
                     where rut='$paciente->rut' 
                     and tipo_historial like '%patologia_dm con un valor SI%' 
-                    order by id_historial desc limit 1";
+                    order by fecha_registro desc limit 1";
 
                 $row11 = mysql_fetch_array(mysql_query($sql11));
                 if($row11){
                     list($dm_fecha,$hora) = explode(" ",$row11['fecha_registro']);
-                    mysql_query("update paciente_pscv set dm_fecha='$dm_fecha' 
+                    mysql_query("update paciente_pscv
+
+
+
+set dm_fecha='$dm_fecha' 
                             where rut='$paciente->rut' ");
                 }else{
                     $dm_fecha ='';
@@ -129,7 +141,7 @@ while($row = mysql_fetch_array($res)){
                 $sql11 = "select * from historial_paciente 
                     where rut='$paciente->rut' 
                     and tipo_historial like '%patologia_dlp con un valor SI%' 
-                    order by id_historial desc limit 1";
+                    order by fecha_registro desc limit 1";
 
                 $row11 = mysql_fetch_array(mysql_query($sql11));
                 if($row11){
@@ -149,12 +161,16 @@ while($row = mysql_fetch_array($res)){
             $hba1c = $row1['hba1c'];
             $insulina = $row1['insulina'];
             $fondo_ojo = $row1['fondo_ojo'];
+            $podologia = $row1['podologia'];
+            $ulcera_curacion_avanzada = $row1['ulcera_curacion_avanzada'];
+            $ulcera_ayuda_tecnica = $row1['ulcera_ayuda_tecnica'];
+            $amputacion = $row1['amputacion'];
             //hba1c_fecha
             if($row1['hba1c_fecha']==''){
                 $sql11 = "select * from historial_diabetes_mellitus 
                     where rut='$paciente->rut' 
                     and indicador='hba1c' 
-                    order by id_historial desc limit 1";
+                    order by fecha_registro desc limit 1";
 
                 $row11 = mysql_fetch_array(mysql_query($sql11));
                 if($row11){
@@ -172,7 +188,7 @@ while($row = mysql_fetch_array($res)){
                 $sql11 = "select * from historial_diabetes_mellitus 
                     where rut='$paciente->rut' 
                     and indicador='ev_pie' 
-                    order by id_historial desc limit 1";
+                    order by fecha_registro desc limit 1";
 
                 $row11 = mysql_fetch_array(mysql_query($sql11));
                 if($row11){
@@ -190,7 +206,7 @@ while($row = mysql_fetch_array($res)){
                 $sql11 = "select * from historial_diabetes_mellitus 
                     where rut='$paciente->rut' 
                     and indicador='fondo_ojo' 
-                    order by id_historial desc limit 1";
+                    order by fecha_registro desc limit 1";
 
                 $row11 = mysql_fetch_array(mysql_query($sql11));
                 if($row11){
@@ -204,28 +220,19 @@ while($row = mysql_fetch_array($res)){
                 $fondo_ojo_fecha = $row1['fondo_ojo_fecha'];
             }
             //$ERC VFG FECHA
-
-            if($erc=='S/ERC'){
-                $erc = 'SIN ERC';
-                $erc_fecha = '';
-            }else{
-                if($row1['erc_fecha']==''){
-                    $sql11 = "select * from historial_parametros_pscv 
+            $sql11 = "select * from historial_parametros_pscv 
                     where rut='$paciente->rut' 
                     and indicador='erc_vfg'
-                    order by id_historial desc limit 1";
+                    order by fecha_registro desc limit 1";
 
-                    $row11 = mysql_fetch_array(mysql_query($sql11));
-                    if($row11){
-                        list($erc_fecha,$hora) = explode(" ",$row11['fecha_registro']);
-                        mysql_query("update parametros_pscv set erc_fecha='$erc_fecha' 
+            $row11 = mysql_fetch_array(mysql_query($sql11));
+            if($row11){
+                $erc_fecha = $row11['fecha_registro'];
+                mysql_query("update parametros_pscv set erc_fecha='$erc_fecha' 
                             where rut='$paciente->rut' ");
-                    }else{
-                        $erc_fecha ='';
-                    }
-                }else{
-                    $erc_fecha = $row1['erc_fecha'];
-                }
+            }else{
+                $erc_fecha ='';
+                $erc = 'SIN REGISTRO';
             }
 
 
@@ -273,6 +280,18 @@ while($row = mysql_fetch_array($res)){
                     'dm_fecha' => fechaNormal($dm_fecha),
                     'dlp_fecha' => fechaNormal($dlp_fecha),
                     'erc_fecha' => fechaNormal($erc_fecha),
+                    'podologia' => fechaNormal($podologia),
+
+                    'tratamiento_clo' => strtoupper($tratamiento_clo),
+                    'tratamiento_estatina' => strtoupper($tratamiento_estatina),
+                    'tratamiento_aas' => strtoupper($tratamiento_aas),
+                    'factor_riesgo_iam' => strtoupper($factor_riesgo_iam),
+                    'factor_riesgo_enf_cv' => strtoupper($factor_riesgo_enf_cv),
+                    'fumador_actual' => strtoupper($fumador_actual),
+
+                    'ulcera_curacion_avanzada' => strtoupper($ulcera_curacion_avanzada),
+                    'ulcera_ayuda_tecnica' => strtoupper($ulcera_ayuda_tecnica),
+                    'amputacion' => strtoupper($amputacion),
                 );
 
                 $i++;

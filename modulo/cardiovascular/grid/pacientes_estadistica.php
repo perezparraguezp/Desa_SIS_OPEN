@@ -54,6 +54,17 @@
                         {name: 'fondo_ojo_fecha', type: 'string'},
                         {name: 'insulina', type: 'string'},
                         {name: 'link', type: 'string'},
+
+                        {name: 'tratamiento_clo', type: 'string'},
+                        {name: 'tratamiento_estatina', type: 'string'},
+                        {name: 'tratamiento_aas', type: 'string'},
+                        {name: 'factor_riesgo_iam', type: 'string'},
+                        {name: 'factor_riesgo_enf_cv', type: 'string'},
+                        {name: 'fumador_actual', type: 'string'},
+                        {name: 'podologia', type: 'string'},
+                        {name: 'ulcera_curacion_avanzada', type: 'string'},
+                        {name: 'ulcera_ayuda_tecnica', type: 'string'},
+                        {name: 'amputacion', type: 'string'},
                     ],
                 cache: false
             };
@@ -166,6 +177,17 @@
                     { text: 'FONDO OJO', datafield: 'fondo_ojo', width: 100 ,filtertype: 'checkedlist'},
                     { text: 'FONDO OJO/FECHA', datafield: 'fondo_ojo_fecha', width: 100 ,filtertype: 'checkedlist'},
                     { text: 'INSULINA', datafield: 'insulina', width: 50 ,filtertype: 'checkedlist'},
+
+                    { text: 'FUMADOR ACTUAL', datafield: 'fumador_actual', width: 50 ,filtertype: 'checkedlist'},
+                    { text: 'RIESGO ENF CV', datafield: 'factor_riesgo_enf_cv', width: 50 ,filtertype: 'checkedlist'},
+                    { text: 'RIESGO IAM', datafield: 'factor_riesgo_iam', width: 50 ,filtertype: 'checkedlist'},
+                    { text: 'TRATAMIENTO AAS', datafield: 'tratamiento_aas', width: 50 ,filtertype: 'checkedlist'},
+                    { text: 'TRATAMIENTO ESTATINA', datafield: 'tratamiento_estatina', width: 50 ,filtertype: 'checkedlist'},
+                    { text: 'TRATAMIENTO CLO', datafield: 'tratamiento_clo', width: 50 ,filtertype: 'checkedlist'},
+                    { text: 'PODOLOGIA', datafield: 'podologia', width: 50 ,filtertype: 'checkedlist'},
+                    { text: 'ULCERA AYUDA TECNICA', datafield: 'ulcera_ayuda_tecnica', width: 50 ,filtertype: 'checkedlist'},
+                    { text: 'ULCERA CURACION AVANZADA', datafield: 'ulcera_curacion_avanzada', width: 50 ,filtertype: 'checkedlist'},
+                    { text: 'AMPUTACION', datafield: 'amputacion', width: 50 ,filtertype: 'checkedlist'},
 
 
                 ]

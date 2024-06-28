@@ -14,6 +14,10 @@ $sector_interno = explode(",",$_POST['sector_interno']);
 $estado = trim($_POST['estado']);
 
 $indicador      = $_POST['indicador'];
+if($estado==''){
+    $indicador='2m';
+    $estado='2m';
+}
 $indicador_estado = $indicador;
 
 $indicador = $estado;
@@ -40,10 +44,16 @@ if($indicador=='2m'){
                     $rango_edad_texto = '18 Meses y 29 Dias';
 
                 }else{
-                    if($indicador=='5anios'){
+                    if($indicador=='3anios'){
                         $filtro_edad = ' and persona.edad_total_dias>=((5*12*30)+29) ';//mayores de 5 años
                         $rango_edad_texto = '5 años y 29 dias';
 
+                    }else{
+                        if($indicador=='5anios'){
+                            $filtro_edad = ' and persona.edad_total_dias>=((5*12*30)+29) ';//mayores de 5 años
+                            $rango_edad_texto = '5 años y 29 dias';
+
+                        }
                     }
                 }
             }
@@ -95,7 +105,9 @@ $json = '';
 
 //total pacientes
 $sql0 = "select *  from paciente_establecimiento inner join persona using(rut) 
-              where m_infancia='SI' and persona.rut!='' 
+              where m_infancia='SI' 
+                and persona.rut!=''
+                    and paciente_establecimiento.id_sector!='' 
                $filtro_edad ";
 $res0  = mysql_query($sql0);
 $total_pacientes = 0;
@@ -360,7 +372,7 @@ if($comunal==true){
     }
 }
 //echo $sql1;
-$estado = $estado=='' ? 'PENDIENTE':$estado;
+$estado = $estado=='' ? 'PENDIENTE':$indicador;
 
 ?>
 <script type="text/javascript">
@@ -549,15 +561,14 @@ $estado = $estado=='' ? 'PENDIENTE':$estado;
                 <select id="estado" name="estado">
                     <option><?php echo $estado; ?></option>
                     <option disabled>-----------------</option>
-                    <?php
-                    $sql3 = "show columns from vacunas_paciente where Field!='rut' ";
-                    $res3 = mysql_query($sql3);
-                    while($row3 = mysql_fetch_array($res3)){
-                        ?>
-                        <option><?php echo $row3['Field']; ?></option>
-                        <?php
-                    }
-                    ?>
+                    <option>2m</option>
+                    <option>4m</option>
+                    <option>6m</option>
+                    <option>12m</option>
+                    <option>18m</option>
+                    <option value="3m">3 AÑOS</option>
+                    <option value="5anios">1 BASICO</option>
+
                 </select>
                 <script type="text/javascript">
                     $(function(){

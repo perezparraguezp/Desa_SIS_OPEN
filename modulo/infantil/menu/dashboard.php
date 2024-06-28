@@ -14,6 +14,7 @@ $sql1 = "select * from sector_comunal
         <div class="col l3 m6 s12">
             <label>INDICADOR</label>
             <select name="indicador" id="indicador">
+                <option disabled="disabled" selected="selected">SELECCIONAR</option>
                 <option VALUE="DNI1">DNI MENORES DE 6 AÑOS</option>
                 <option VALUE="DNI2">DNI ENTRE 6 A 9 AÑOS</option>
                 <option VALUE="DNI3">DNI TODOS</option>
@@ -34,6 +35,51 @@ $sql1 = "select * from sector_comunal
                         height: '25px',
                         theme: 'eh-open',
                     });
+                    $('#indicador').on('change',function () {
+                        var indicador = $("#indicador").text();
+                        var table_sql = $("#indicador").val();
+                        $.post('ajax/select/estado_indicador.php', {
+                            table_sql:table_sql,
+                            indicador:indicador
+                        }, function (data) {
+                            $("#estado_indicador_div").html(data);
+                            if(indicador==='PSICOMOTOR'){
+                                $("#boton_graficar").attr('onclick','graficoPsicomotor()');
+                                $("#estado_indicador_div").html('');
+                            }else{
+                                if(indicador==='VACUNAS'){
+                                    $("#boton_graficar").attr('onclick','graficoVacunas()');
+                                    $("#estado_indicador_div").html('');
+                                }else{
+                                    if(indicador==='COBERTURA DENTAL'){
+                                        $("#boton_graficar").attr('onclick','graficoDental()');
+                                        $("#estado_indicador_div").html('');
+                                    }else{
+                                        $("#boton_graficar").attr('onclick','graficoAntropometria()');
+                                    }
+
+                                }
+                            }
+                            if(indicador==='LME'){
+                                $("#estado").val('LME');
+                            }else{
+                                if(indicador==='SCORE_IRA'){
+                                    $("#estado").val('LEVE');
+                                }else{
+                                    if(indicador==='perimetro_craneal'){
+                                        $("#estado").val('N');
+                                    }else{
+                                        $("#estado").val('NORMAL');
+                                    }
+
+                                }
+
+                            }
+
+
+
+                        });
+                    })
                 })
             </script>
         </div>
@@ -75,10 +121,16 @@ $sql1 = "select * from sector_comunal
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col l3 m6 s12" id="estado_indicador_div">
+
+        </div>
+    </div>
 
     <div class="row" style="margin-top: 15px;">
         <div class="col l12 m12 s12">
             <input type="button"
+                   id="boton_graficar"
                    class="btn col l12 m12 s12"
                    value="CARGAR GRAFICO" onclick="loadIndicador_Grafico()" />
         </div>
@@ -309,6 +361,67 @@ $sql1 = "select * from sector_comunal
                 }
             }
         }
+    }
+    function graficoAntropometria(){
+        loadGif_graficos('div_indicador_grafico');
+        var indicador = $("#indicador").val();
+        var estado = $("#estado").val();
+        $.post('graficos/barra/ANTROPOMETRIA_GENERAL.php', {
+            sector_comunal: sector_comunal,
+            centro_interno: centro_interno,
+            sector_interno: sector_interno,
+            indicador: indicador,
+            estado:estado
+        }, function (data) {
+            $("#div_indicador_grafico").html(data);
+
+        });
+    }
+    function graficoDental(){
+
+        loadGif_graficos('div_indicador_grafico');
+        var indicador = $("#indicador").val();
+        var estado = $("#estado").val();
+        $.post('graficos/barra/COBERTURA_DENTAL.php', {
+            sector_comunal: sector_comunal,
+            centro_interno: centro_interno,
+            sector_interno: sector_interno,
+            indicador: indicador,
+            estado:estado
+        }, function (data) {
+            $("#div_indicador_grafico").html(data);
+
+        });
+    }
+    function graficoVacunas(){
+        loadGif_graficos('div_indicador_grafico');
+        var indicador = $("#indicador").val();
+        var estado = $("#estado").val();
+        $.post('graficos/barra/VACUNAS.php', {
+            sector_comunal: sector_comunal,
+            centro_interno: centro_interno,
+            sector_interno: sector_interno,
+            indicador: indicador,
+            estado:estado
+        }, function (data) {
+            $("#div_indicador_grafico").html(data);
+
+        });
+    }
+    function graficoPsicomotor(){
+        loadGif_graficos('div_indicador_grafico');
+        var indicador = $("#indicador").val();
+        var estado = $("#estado").val();
+        $.post('graficos/barra/PSICOMOTOR.php', {
+            sector_comunal: sector_comunal,
+            centro_interno: centro_interno,
+            sector_interno: sector_interno,
+            indicador: indicador,
+            estado:estado
+        }, function (data) {
+            $("#div_indicador_grafico").html(data);
+
+        });
     }
 
     function loadGif_graficos(div) {

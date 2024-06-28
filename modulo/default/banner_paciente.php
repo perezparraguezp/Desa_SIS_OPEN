@@ -14,7 +14,12 @@ $paciente = new persona($rut);
 $paciente->definirEdadFecha($fecha_registro);
 list($establecimiento,$sector_interno,$sector_comunal) = explode(":",$paciente->getEstablecimiento());
 ?>
-<div class="row">
+<style type="text/css">
+    #banner_informativo{
+        font-size: 1.4em;
+    }
+</style>
+<div class="row" id="banner_informativo">
     <div class="col l1 center">
         <?php $imagen = $paciente->sexo=='F'?'mujer.png':'hombre.png'; ?>
         <img src="../../images/<?php echo $imagen; ?>" width="48" />
@@ -32,9 +37,25 @@ list($establecimiento,$sector_interno,$sector_comunal) = explode(":",$paciente->
         <div class="row">
             <?php echo $paciente->rut ?>
         </div>
-        <div class="row">
-            NANEA <strong><?php echo $paciente->nanea ?></strong>
-        </div>
+        <?php
+        if(trim($paciente->nanea)!='NO' && $paciente->nanea!=''){
+            ?>
+            <div class="row">
+                NANEA <strong><?php echo $paciente->nanea ?></strong>
+            </div>
+            <?php
+        }
+        ?>
+        <?php
+        if( $paciente->semanas_gestacion!=''){
+            ?>
+            <div class="row">
+                SEMANAS DE GESTACIÓN <strong><?php echo $paciente->semanas_gestacion ?></strong>
+            </div>
+            <?php
+        }
+        ?>
+
     </div>
     <div class="col l1">
         <img src="../../images/centro_medico.png" width="48" />

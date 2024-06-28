@@ -1,7 +1,7 @@
 <?php
 include "../../../php/config.php";
 include '../../../php/objetos/persona.php';
-$rut = str_replace('.','',$_POST['rut']);
+$rut = str_replace('.', '', $_POST['rut']);
 
 $fecha_registro = $_POST['fecha_registro'];
 
@@ -12,51 +12,198 @@ $paciente->loadAntropometria();
 
 ?>
 <script type="text/javascript">
-    function verHistorialInfantil(rut,indicador){
-        $.post('grid/historial_antropometria.php',{
-            rut:rut,
-            indicador:indicador
-        },function(data){
-            if(data !== 'ERROR_SQL'){
+    var pe, te, pt, imc;
+    pe = 0;
+    te = 0;
+    pt = 0;
+    imc = 0;
+
+    function verHistorialInfantil(rut, indicador) {
+        $.post('grid/historial_antropometria.php', {
+            rut: rut,
+            indicador: indicador
+        }, function (data) {
+            if (data !== 'ERROR_SQL') {
                 $("#modal").html(data);
-                $("#modal").css({'width':'800px'});
+                $("#modal").css({'width': '800px'});
                 document.getElementById("btn-modal").click();
             }
         });
     }
 
+    function updateRegistroEspecial() {
+        var pe, te, pt, imc, dni;
+        pe = 0;
+        te = 0;
+        pt = 0;
+        imc = 0;
+        dni = 0;
+
+        var ira = 0;
+
+        if ($("#pe").val() === '') {
+            $("#pe").css({'border': 'solid 2px red'});
+            pe = 1;
+        } else {
+            if ($("#pe").val() == null) {
+                pe = 0;
+            } else {
+                $("#pe").css({'border': 'solid 2px green'});
+            }
+        }
+        if ($("#te").val() === '') {
+            $("#te").css({'border': 'solid 2px red'});
+            te = 1;
+        } else {
+            if ($("#te").val() == null) {
+                te = 0;
+            } else {
+                $("#te").css({'border': 'solid 2px green'});
+            }
+        }
+        if ($("#pt").val() === '') {
+            $("#pt").css({'border': 'solid 2px red'});
+            pt = 1;
+        } else {
+            if ($("#pt").val() == null) {
+                pt = 0;
+            } else {
+                $("#pt").css({'border': 'solid 2px green'});
+            }
+        }
+        if ($("#imce").val() === '') {
+            $("#imce").css({'border': 'solid 2px red'});
+            imc = 1;
+        } else {
+            if ($("#imce").val() == null) {
+                imc = 0;
+            } else {
+                $("#imce").css({'border': 'solid 2px green'});
+            }
+        }
+        if ($("#dni").val() === '') {
+            $("#dni").css({'border': 'solid 2px red'});
+            dni = 1;
+        } else {
+            if ($("#dni").val() == null) {
+                dni = 0;
+            } else {
+                $("#dni").css({'border': 'solid 2px green'});
+            }
+        }
+
+        <?php
+        if ($paciente->validaIRA()){
+        ?>
+
+        if ($("#ira_score").val() === '') {
+            $("#ira_score").css({'border': 'solid 2px red'});
+            ira = 1;
+        } else {
+            if ($("#ira_score").val() == null) {
+                ira = 0;
+            } else {
+                $("#ira_score").css({'border': 'solid 2px green'});
+            }
+        }
+        <?php
+        }
+        ?>
+
+
+        if ((pe + pt + te + imc + dni + ira) === 0) {
+            var val_pe = $("#pe").val();
+            $.post('db/update/paciente_antropometria.php', {
+                rut: '<?php echo $rut; ?>',
+                val: val_pe,
+                column: 'PE',
+                fecha_registro: '<?php echo $fecha_registro; ?>'
+
+            }, function (data) {
+
+
+            });
+            var val_te = $("#te").val();
+            $.post('db/update/paciente_antropometria.php', {
+                rut: '<?php echo $rut; ?>',
+                val: val_te,
+                column: 'TE',
+                fecha_registro: '<?php echo $fecha_registro; ?>'
+
+            }, function (data) {
+
+            });
+            var val_pt = $("#pt").val();
+            $.post('db/update/paciente_antropometria.php', {
+                rut: '<?php echo $rut; ?>',
+                val: val_pt,
+                column: 'PT',
+                fecha_registro: '<?php echo $fecha_registro; ?>'
+
+            }, function (data) {
+
+            });
+            var val_imc = $("#imce").val();
+            $.post('db/update/paciente_antropometria.php', {
+                rut: '<?php echo $rut; ?>',
+                val: val_imc,
+                column: 'IMCE',
+                fecha_registro: '<?php echo $fecha_registro; ?>'
+
+            }, function (data) {
+
+            });
+            var val_dni = $("#dni").val();
+            $.post('db/update/paciente_antropometria.php', {
+                rut: '<?php echo $rut; ?>',
+                val: val_dni,
+                column: 'DNI',
+                fecha_registro: '<?php echo $fecha_registro; ?>'
+
+            }, function (data) {
+
+            });
+
+            alert('AHORA QUE LOS REGISTROS FUERON ACTUALIZADOS, DEBERA INDICAR CUAL ES LA FECHA PARA EL PROXIMO CONTROL');
+            boxAgendamiento('INFANTIL');
+        } else {
+            alertaLateral('DEBE REGISTRAR TODOS LOS CAMPOS');
+            $('.tooltipped').tooltip({delay: 50});
+        }
+    }
+
 </script>
-<input type="hidden" name="rut" value="<?php echo $rut; ?>" />
-<input type="hidden" name="fecha_registro" id="fecha_registro" value="<?php echo $fecha_registro; ?>" />
+<input type="hidden" name="rut" value="<?php echo $rut; ?>"/>
+<input type="hidden" name="fecha_registro" id="fecha_registro" value="<?php echo $fecha_registro; ?>"/>
 <?php
-if($paciente->validaNutricionista()==true){
+if ($paciente->validaNutricionista() == true) {
     ?>
     <div class="row">
         <div class="col l12 card-panel light-green lighten-4" style="padding-top: 10px;padding-bottom: 10px;">
             <div class="col l4">EVALUACIÓN NUTRICIONISTA</div>
-            <div class="col l8">
+            <div class="col l8" s>
                 <select name="eval_nutricionista" id="eval_nutricionista">
-                    <option></option>
+                    <option>NORMAL</option>
                     <option>5 MESES</option>
-                    <option>3 AÑOS 6 MESES</option>
+                    <option value="3 ANIOS 6 MESES">3 AÑOS 6 MESES</option>
                 </select>
                 <script type="text/javascript">
-                    $(function(){
+                    $(function () {
                         $('#eval_nutricionista').jqxDropDownList({
                             width: '100%',
                             theme: 'eh-open',
                             height: '25px'
                         });
 
-                        $("#peval_nutricionistae").on('change',function(){
+                        $("#eval_nutricionista").on('change', function () {
                             var val = $("#eval_nutricionista").val();
-                            $.post('db/update/paciente_antropometria.php',{
-                                rut:'<?php echo $rut; ?>',
-                                val:val,
-                                column:'EVAL_NUTRICIONISTA',
-                                fecha_registro:'<?php echo $fecha_registro; ?>'
+                            $.post('db/update/paciente_antropometria.php', {
+                                rut: '<?php echo $rut; ?>',
+                                val: val,
+                                column: 'EVAL_NUTRICIONISTA',
+                                fecha_registro: '<?php echo $fecha_registro; ?>'
 
-                            },function(data){
+                            }, function (data) {
                                 alertaLateral(data);
                                 $('.tooltipped').tooltip({delay: 50});
                             });
@@ -68,19 +215,21 @@ if($paciente->validaNutricionista()==true){
             </div>
         </div>
     </div>
-<?php
+    <?php
 }
 ?>
 <div class="row">
     <div class="col l12 m12 s12">
         <?php
-        if($paciente->validaPE()){
+        if ($paciente->validaPE()) {
             ?>
             <div class="col l4 s12 m6">
                 <div class="card-panel eh-open_fondo">
                     <div class="row">
                         <div class="col l3">
-                            <span class="black-text">PE <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="PESO EDAD">(?)</strong></span>
+                            <span class="black-text">PE <strong class="tooltipped" style="cursor: help"
+                                                                data-position="bottom" data-delay="50"
+                                                                data-tooltip="PESO EDAD">(?)</strong></span>
                         </div>
                         <div class="col l8">
                             <select name="pe" id="pe">
@@ -92,25 +241,16 @@ if($paciente->validaNutricionista()==true){
                                 <option value="-2">-2</option>
                             </select>
                             <script type="text/javascript">
-                                $(function(){
+                                $(function () {
                                     $('#pe').jqxDropDownList({
                                         width: '100%',
                                         theme: 'eh-open',
                                         height: '25px'
                                     });
 
-                                    $("#pe").on('change',function(){
-                                        var val = $("#pe").val();
-                                        $.post('db/update/paciente_antropometria.php',{
-                                            rut:'<?php echo $rut; ?>',
-                                            val:val,
-                                            column:'PE',
-                                            fecha_registro:'<?php echo $fecha_registro; ?>'
+                                    $("#pe").on('change', function () {
+                                        updateRegistroEspecial();
 
-                                        },function(data){
-                                            alertaLateral(data);
-                                            $('.tooltipped').tooltip({delay: 50});
-                                        });
 
                                     });
                                     $('.tooltipped').tooltip({delay: 50});
@@ -129,43 +269,35 @@ if($paciente->validaNutricionista()==true){
         }
         ?>
         <?php
-        if($paciente->validaTE()){
+        if ($paciente->validaTE()) {
             ?>
             <div class="col l4 s12 m6">
                 <div class="card-panel eh-open_fondo">
                     <div class="row">
                         <div class="col l3">
-                            <span class="black-text">TE <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="TALLA EDAD">(?)</strong></span>
+                            <span class="black-text">TE <strong class="tooltipped" style="cursor: help"
+                                                                data-position="bottom" data-delay="50"
+                                                                data-tooltip="TALLA EDAD">(?)</strong></span>
                         </div>
                         <div class="col l8">
                             <select name="te" id="te">
                                 <option></option>
                                 <option value="2">2</option>
                                 <option value="1">1</option>
-                                <option  value="N">N</option>
+                                <option value="N">N</option>
                                 <option value="-1">-1</option>
                                 <option value="-2">-2</option>
                             </select>
                             <script type="text/javascript">
-                                $(function(){
+                                $(function () {
                                     $('#te').jqxDropDownList({
                                         width: '100%',
                                         theme: 'eh-open',
                                         height: '25px'
                                     });
 
-                                    $("#te").on('change',function(){
-                                        var val = $("#te").val();
-                                        $.post('db/update/paciente_antropometria.php',{
-                                            rut:'<?php echo $rut; ?>',
-                                            val:val,
-                                            column:'TE',
-                                            fecha_registro:'<?php echo $fecha_registro; ?>'
-
-                                        },function(data){
-                                            alertaLateral(data);
-                                            $('.tooltipped').tooltip({delay: 50});
-                                        });
+                                    $("#te").on('change', function () {
+                                        updateRegistroEspecial();
 
                                     });
                                     $('.tooltipped').tooltip({delay: 50});
@@ -183,13 +315,15 @@ if($paciente->validaNutricionista()==true){
         }
         ?>
         <?php
-        if($paciente->validaPT()){
+        if ($paciente->validaPT()) {
             ?>
             <div class="col l4 s12 m6">
                 <div class="card-panel eh-open_fondo">
                     <div class="row">
                         <div class="col l3">
-                            <span class="black-text">PT <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="PESO TALLA">(?)</strong></span>
+                            <span class="black-text">PT <strong class="tooltipped" style="cursor: help"
+                                                                data-position="bottom" data-delay="50"
+                                                                data-tooltip="PESO TALLA">(?)</strong></span>
                         </div>
                         <div class="col l8">
                             <select name="pt" id="pt">
@@ -202,25 +336,15 @@ if($paciente->validaNutricionista()==true){
                                 <option value="-2">-2</option>
                             </select>
                             <script type="text/javascript">
-                                $(function(){
+                                $(function () {
                                     $('#pt').jqxDropDownList({
                                         width: '100%',
                                         theme: 'eh-open',
                                         height: '25px'
                                     });
 
-                                    $("#pt").on('change',function(){
-                                        var val = $("#pt").val();
-                                        $.post('db/update/paciente_antropometria.php',{
-                                            rut:'<?php echo $rut; ?>',
-                                            val:val,
-                                            column:'PT',
-                                            fecha_registro:'<?php echo $fecha_registro; ?>'
-
-                                        },function(data){
-                                            alertaLateral(data);
-                                            $('.tooltipped').tooltip({delay: 50});
-                                        });
+                                    $("#pt").on('change', function () {
+                                        updateRegistroEspecial();
 
                                     });
                                     $('.tooltipped').tooltip({delay: 50});
@@ -238,13 +362,15 @@ if($paciente->validaNutricionista()==true){
         }
         ?>
         <?php
-        if($paciente->validaIMCE()){
+        if ($paciente->validaIMCE()) {
             ?>
             <div class="col l4 s12 m6">
                 <div class="card-panel eh-open_fondo">
                     <div class="row">
                         <div class="col l4">
-                            <span class="black-text">IMC/E <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="INDICE DE MASA CORPORAL / EDAD">(?)</strong></span>
+                            <span class="black-text">IMC/E <strong class="tooltipped" style="cursor: help"
+                                                                   data-position="bottom" data-delay="50"
+                                                                   data-tooltip="INDICE DE MASA CORPORAL / EDAD">(?)</strong></span>
                         </div>
                         <div class="col l7">
                             <select name="imce" id="imce">
@@ -257,25 +383,15 @@ if($paciente->validaNutricionista()==true){
                                 <option value="-2">-2</option>
                             </select>
                             <script type="text/javascript">
-                                $(function(){
+                                $(function () {
                                     $('#imce').jqxDropDownList({
                                         width: '100%',
                                         theme: 'eh-open',
                                         height: '25px'
                                     });
 
-                                    $("#imce").on('change',function(){
-                                        var val = $("#imce").val();
-                                        $.post('db/update/paciente_antropometria.php',{
-                                            rut:'<?php echo $rut; ?>',
-                                            val:val,
-                                            column:'IMCE',
-                                            fecha_registro:'<?php echo $fecha_registro; ?>'
-
-                                        },function(data){
-                                            alertaLateral(data);
-                                            $('.tooltipped').tooltip({delay: 50});
-                                        });
+                                    $("#imce").on('change', function () {
+                                        updateRegistroEspecial();
 
                                     });
                                     $('.tooltipped').tooltip({delay: 50});
@@ -294,13 +410,14 @@ if($paciente->validaNutricionista()==true){
         ?>
 
         <?php
-        if($paciente->validaDNI()){
+        if ($paciente->validaDNI()) {
             ?>
             <div class="col l4 s12 m6">
                 <div class="card-panel eh-open_fondo">
                     <div class="row">
                         <div class="col l3">
-                            <span class="black-text">DNI <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="">(?)</strong></span>
+                            <span class="black-text">DNI <strong class="tooltipped" style="cursor: help"
+                                                                 data-position="bottom" data-delay="50" data-tooltip="">(?)</strong></span>
                         </div>
                         <div class="col l8">
                             <select name="dni" id="dni">
@@ -317,25 +434,16 @@ if($paciente->validaNutricionista()==true){
                                 <option>NO SE LOGRA EVALUAR</option>
                             </select>
                             <script type="text/javascript">
-                                $(function(){
+                                $(function () {
                                     $('#dni').jqxDropDownList({
                                         width: '100%',
                                         theme: 'eh-open',
                                         height: '25px'
                                     });
 
-                                    $("#dni").on('change',function(){
-                                        var val = $("#dni").val();
-                                        $.post('db/update/paciente_antropometria.php',{
-                                            rut:'<?php echo $rut; ?>',
-                                            val:val,
-                                            column:'DNI',
-                                            fecha_registro:'<?php echo $fecha_registro; ?>'
+                                    $("#dni").on('change', function () {
+                                        updateRegistroEspecial();
 
-                                        },function(data){
-                                            alertaLateral(data);
-                                            $('.tooltipped').tooltip({delay: 50});
-                                        });
 
                                     });
                                     $('.tooltipped').tooltip({delay: 50});
@@ -357,13 +465,15 @@ if($paciente->validaNutricionista()==true){
 <div class="row">
     <div class="col l12 m12 s12">
         <?php
-        if($paciente->validaLME()){
+        if ($paciente->validaLME()) {
             ?>
             <div class="col l4 s12 m6">
                 <div class="card-panel eh-open_fondo">
                     <div class="row">
                         <div class="col l3">
-                            <span class="black-text">TIPO LACTANCIA <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="LME">(?)</strong></span>
+                            <span class="black-text">TIPO LACTANCIA <strong class="tooltipped" style="cursor: help"
+                                                                            data-position="bottom" data-delay="50"
+                                                                            data-tooltip="LME">(?)</strong></span>
                         </div>
                         <div class="col l8">
                             <select name="lme" id="lme">
@@ -377,21 +487,21 @@ if($paciente->validaNutricionista()==true){
                                 <option>SIN LME</option>
                             </select>
                             <script type="text/javascript">
-                                $(function(){
+                                $(function () {
                                     $('#lme').jqxDropDownList({
                                         width: '100%',
                                         theme: 'eh-open',
                                         height: '25px'
                                     });
-                                    $("#lme").on('change',function(){
+                                    $("#lme").on('change', function () {
                                         var val = $("#lme").val();
-                                        $.post('db/update/paciente_antropometria.php',{
-                                            rut:'<?php echo $rut; ?>',
-                                            val:val,
-                                            column:'LME',
-                                            fecha_registro:'<?php echo $fecha_registro; ?>'
+                                        $.post('db/update/paciente_antropometria.php', {
+                                            rut: '<?php echo $rut; ?>',
+                                            val: val,
+                                            column: 'LME',
+                                            fecha_registro: '<?php echo $fecha_registro; ?>'
 
-                                        },function(data){
+                                        }, function (data) {
                                             alertaLateral(data);
                                             $('.tooltipped').tooltip({delay: 50});
                                         });
@@ -412,13 +522,15 @@ if($paciente->validaNutricionista()==true){
         }
         ?>
         <?php
-        if($paciente->validaPCINT()){
+        if ($paciente->validaPCINT()) {
             ?>
             <div class="col l4 m6 s12">
                 <div class="card-panel eh-open_fondo">
                     <div class="row">
                         <div class="col l4">
-                            <span class="black-text">PCint/ed <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="PERIMETRO CINTURA">(?)</strong></span>
+                            <span class="black-text">PCint/ed <strong class="tooltipped" style="cursor: help"
+                                                                      data-position="bottom" data-delay="50"
+                                                                      data-tooltip="PERIMETRO CINTURA">(?)</strong></span>
                         </div>
                         <div class="col l7">
                             <select name="pcint" id="pcint">
@@ -428,22 +540,22 @@ if($paciente->validaNutricionista()==true){
                                 <option value="OBESIDAD ABDOMINAL">OBESIDAD ABDOMINAL</option>
                             </select>
                             <script type="text/javascript">
-                                $(function(){
+                                $(function () {
                                     $('#pcint').jqxDropDownList({
                                         width: '100%',
                                         theme: 'eh-open',
                                         height: '25px'
                                     });
 
-                                    $("#pcint").on('change',function(){
+                                    $("#pcint").on('change', function () {
                                         var val = $("#pcint").val();
-                                        $.post('db/update/paciente_antropometria.php',{
-                                            rut:'<?php echo $rut; ?>',
-                                            val:val,
-                                            column:'PCINT',
-                                            fecha_registro:'<?php echo $fecha_registro; ?>'
+                                        $.post('db/update/paciente_antropometria.php', {
+                                            rut: '<?php echo $rut; ?>',
+                                            val: val,
+                                            column: 'PCINT',
+                                            fecha_registro: '<?php echo $fecha_registro; ?>'
 
-                                        },function(data){
+                                        }, function (data) {
                                             alertaLateral(data);
                                             $('.tooltipped').tooltip({delay: 50});
                                         });
@@ -464,36 +576,38 @@ if($paciente->validaNutricionista()==true){
         }
         ?>
         <?php
-        if($paciente->validaRIMALNEXCESO()){
+        if ($paciente->validaRIMALNEXCESO()) {
             ?>
             <div class="col l4 m6 s12">
                 <div class="card-panel eh-open_fondo">
                     <div class="row">
                         <div class="col l5">
-                            <span class="black-text">Ri MALN EXCESO <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="(?)">(?)</strong></span>
+                            <span class="black-text">Ri MALN EXCESO <strong class="tooltipped" style="cursor: help"
+                                                                            data-position="bottom" data-delay="50"
+                                                                            data-tooltip="(?)">(?)</strong></span>
                         </div>
                         <div class="col l6">
                             <select name="rimaln" id="rimaln">
                                 <option></option>
-                                <option >SIN RIESGO</option>
+                                <option>SIN RIESGO</option>
                                 <option>CON RIESGO</option>
                             </select>
                             <script type="text/javascript">
-                                $(function(){
+                                $(function () {
                                     $('#rimaln').jqxDropDownList({
                                         width: '100%',
                                         theme: 'eh-open',
                                         height: '25px'
                                     });
-                                    $("#rimaln").on('change',function(){
+                                    $("#rimaln").on('change', function () {
                                         var val = $("#rimaln").val();
-                                        $.post('db/update/paciente_antropometria.php',{
-                                            rut:'<?php echo $rut; ?>',
-                                            val:val,
-                                            column:'RIMALN',
-                                            fecha_registro:'<?php echo $fecha_registro; ?>'
+                                        $.post('db/update/paciente_antropometria.php', {
+                                            rut: '<?php echo $rut; ?>',
+                                            val: val,
+                                            column: 'RIMALN',
+                                            fecha_registro: '<?php echo $fecha_registro; ?>'
 
-                                        },function(data){
+                                        }, function (data) {
                                             alertaLateral(data);
                                             $('.tooltipped').tooltip({delay: 50});
                                         });
@@ -514,18 +628,20 @@ if($paciente->validaNutricionista()==true){
         }
         ?>
         <?php
-        if($paciente->validaPRESIONARTERIAL()){
+        if ($paciente->validaPRESIONARTERIAL()) {
             ?>
             <div class="col l4 m6 s12">
                 <div class="card-panel eh-open_fondo">
                     <div class="row">
                         <div class="col l4">
-                            <span class="black-text" style="font-size: 0.8em;">PRESION ARTERIAL <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="PRESION ARTERIAL">(?)</strong></span>
+                            <span class="black-text" style="font-size: 0.8em;">PRESION ARTERIAL <strong
+                                        class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50"
+                                        data-tooltip="PRESION ARTERIAL">(?)</strong></span>
                         </div>
                         <div class="col l7">
                             <select name="presion_arterial" id="presion_arterial">
                                 <option></option>
-                                <option >NORMAL</option>
+                                <option>NORMAL</option>
                                 <option>PRE-HIPERTENSION</option>
                                 <option>ETAPA 1</option>
                                 <option>ETAPA 2</option>
@@ -534,28 +650,28 @@ if($paciente->validaNutricionista()==true){
                             </select>
                             <script type="text/javascript">
 
-                                $(function(){
+                                $(function () {
                                     $('#presion_arterial').jqxDropDownList({
                                         width: '100%',
                                         theme: 'eh-open',
                                         height: '25px'
                                     });
 
-                                    $("#presion_arterial").on('change',function(){
+                                    $("#presion_arterial").on('change', function () {
                                         var val = $("#presion_arterial").val();
-                                        $.post('db/update/paciente_antropometria.php',{
-                                            rut:'<?php echo $rut; ?>',
-                                            val:val,
-                                            column:'presion_arterial',
-                                            fecha_registro:'<?php echo $fecha_registro; ?>'
+                                        $.post('db/update/paciente_antropometria.php', {
+                                            rut: '<?php echo $rut; ?>',
+                                            val: val,
+                                            column: 'presion_arterial',
+                                            fecha_registro: '<?php echo $fecha_registro; ?>'
 
-                                        },function(data){
+                                        }, function (data) {
                                             alertaLateral(data);
                                             $('.tooltipped').tooltip({delay: 50});
                                         });
-                                        if(val !==''){
+                                        if (val !== '') {
                                             $("#div_atencion_secundaria").show();
-                                        }else{
+                                        } else {
                                             $("#div_atencion_secundaria").hide();
                                         }
                                     });
@@ -570,7 +686,9 @@ if($paciente->validaNutricionista()==true){
                     </div>
                     <div class="row" id="div_atencion_secundaria" style="display: none;">
                         <div class="col l6">
-                            <span class="black-text" style="font-size: 0.8em;">ATENCIÓN SECUNDARIA <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="PACIENTE CON DERIVACION PARA ATENCION SECUNDARIA">(?)</strong></span>
+                            <span class="black-text" style="font-size: 0.8em;">ATENCIÓN SECUNDARIA <strong
+                                        class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50"
+                                        data-tooltip="PACIENTE CON DERIVACION PARA ATENCION SECUNDARIA">(?)</strong></span>
                         </div>
                         <div class="col l6">
                             <select name="atencion_secundaria" id="atencion_secundaria">
@@ -579,22 +697,22 @@ if($paciente->validaNutricionista()==true){
                             </select>
                             <script type="text/javascript">
 
-                                $(function(){
+                                $(function () {
                                     $('#atencion_secundaria').jqxDropDownList({
                                         width: '100%',
                                         theme: 'eh-open',
                                         height: '25px'
                                     });
 
-                                    $("#atencion_secundaria").on('change',function(){
+                                    $("#atencion_secundaria").on('change', function () {
                                         var val = $("#atencion_secundaria").val();
-                                        $.post('db/update/paciente_antropometria.php',{
-                                            rut:'<?php echo $rut; ?>',
-                                            val:val,
-                                            column:'atencion_secundaria',
-                                            fecha_registro:'<?php echo $fecha_registro; ?>'
+                                        $.post('db/update/paciente_antropometria.php', {
+                                            rut: '<?php echo $rut; ?>',
+                                            val: val,
+                                            column: 'atencion_secundaria',
+                                            fecha_registro: '<?php echo $fecha_registro; ?>'
 
-                                        },function(data){
+                                        }, function (data) {
                                             alertaLateral(data);
                                             $('.tooltipped').tooltip({delay: 50});
                                         });
@@ -610,20 +728,22 @@ if($paciente->validaNutricionista()==true){
             </div>
             <?php
         }
-        
+
         ?>
     </div>
 </div>
 <div class="row">
     <div class="col l12 m12 s12">
         <?php
-        if($paciente->validaPerimetroCraneal()){
+        if ($paciente->validaPerimetroCraneal()) {
             ?>
             <div class="col l4 m6 s12">
                 <div class="card-panel eh-open_fondo">
                     <div class="row">
                         <div class="col l3">
-                            <span class="black-text">PERIMETRO CRANEAL <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="RIESGO IRA PARA MENORES DE 3 AÑOS">(?)</strong></span>
+                            <span class="black-text">PERIMETRO CRANEAL <strong class="tooltipped" style="cursor: help"
+                                                                               data-position="bottom" data-delay="50"
+                                                                               data-tooltip="RIESGO IRA PARA MENORES DE 3 AÑOS">(?)</strong></span>
                         </div>
                         <div class="col l8">
                             <select name="perimetro_craneal" id="perimetro_craneal">
@@ -635,7 +755,7 @@ if($paciente->validaNutricionista()==true){
                                 <option>-2</option>
                             </select>
                             <script type="text/javascript">
-                                $(function(){
+                                $(function () {
                                     $('#perimetro_craneal').jqxDropDownList({
                                         width: '100%',
                                         theme: 'eh-open',
@@ -643,15 +763,15 @@ if($paciente->validaNutricionista()==true){
                                     });
 
 
-                                    $("#perimetro_craneal").on('change',function(){
+                                    $("#perimetro_craneal").on('change', function () {
                                         var val = $("#perimetro_craneal").val();
-                                        $.post('db/update/paciente_antropometria.php',{
-                                            rut:'<?php echo $rut; ?>',
-                                            val:val,
-                                            column:'perimetro_craneal',
-                                            fecha_registro:'<?php echo $fecha_registro; ?>'
+                                        $.post('db/update/paciente_antropometria.php', {
+                                            rut: '<?php echo $rut; ?>',
+                                            val: val,
+                                            column: 'perimetro_craneal',
+                                            fecha_registro: '<?php echo $fecha_registro; ?>'
 
-                                        },function(data){
+                                        }, function (data) {
                                             alertaLateral(data);
                                             $('.tooltipped').tooltip({delay: 50});
                                         });
@@ -673,13 +793,15 @@ if($paciente->validaNutricionista()==true){
         ?>
         <?php
 
-        if($paciente->valida_AgudezaVisual()){
+        if ($paciente->valida_AgudezaVisual()) {
             ?>
             <div class="col l4 m6 s12">
                 <div class="card-panel eh-open_fondo">
                     <div class="row">
                         <div class="col l3">
-                            <span class="black-text">AGUDEZA VIDUAL <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="RIESGO IRA PARA MENORES DE 3 AÑOS">(?)</strong></span>
+                            <span class="black-text">AGUDEZA VIDUAL <strong class="tooltipped" style="cursor: help"
+                                                                            data-position="bottom" data-delay="50"
+                                                                            data-tooltip="RIESGO IRA PARA MENORES DE 3 AÑOS">(?)</strong></span>
                         </div>
                         <div class="col l8">
                             <select name="agudeza_visual" id="agudeza_visual">
@@ -689,7 +811,7 @@ if($paciente->validaNutricionista()==true){
                                 <option>ALTERADA</option>
                             </select>
                             <script type="text/javascript">
-                                $(function(){
+                                $(function () {
                                     $('#agudeza_visual').jqxDropDownList({
                                         width: '100%',
                                         theme: 'eh-open',
@@ -697,15 +819,15 @@ if($paciente->validaNutricionista()==true){
                                     });
 
 
-                                    $("#agudeza_visual").on('change',function(){
+                                    $("#agudeza_visual").on('change', function () {
                                         var val = $("#agudeza_visual").val();
-                                        $.post('db/update/paciente_antropometria.php',{
-                                            rut:'<?php echo $rut; ?>',
-                                            val:val,
-                                            column:'agudeza_visual',
-                                            fecha_registro:'<?php echo $fecha_registro; ?>'
+                                        $.post('db/update/paciente_antropometria.php', {
+                                            rut: '<?php echo $rut; ?>',
+                                            val: val,
+                                            column: 'agudeza_visual',
+                                            fecha_registro: '<?php echo $fecha_registro; ?>'
 
-                                        },function(data){
+                                        }, function (data) {
                                             alertaLateral(data);
                                             $('.tooltipped').tooltip({delay: 50});
                                         });
@@ -726,13 +848,15 @@ if($paciente->validaNutricionista()==true){
         }
         ?>
         <?php
-        if($paciente->valida_AgudezaVisual()){
+        if ($paciente->valida_AgudezaVisual()) {
             ?>
             <div class="col l4 m6 s12">
                 <div class="card-panel eh-open_fondo">
                     <div class="row">
                         <div class="col l3">
-                            <span class="black-text">EV. AUDITIVA <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="RIESGO IRA PARA MENORES DE 3 AÑOS">(?)</strong></span>
+                            <span class="black-text">EV. AUDITIVA <strong class="tooltipped" style="cursor: help"
+                                                                          data-position="bottom" data-delay="50"
+                                                                          data-tooltip="RIESGO IRA PARA MENORES DE 3 AÑOS">(?)</strong></span>
                         </div>
                         <div class="col l8">
                             <select name="evaluacion_auditiva" id="evaluacion_auditiva">
@@ -742,7 +866,7 @@ if($paciente->validaNutricionista()==true){
                                 <option>ALTERADA</option>
                             </select>
                             <script type="text/javascript">
-                                $(function(){
+                                $(function () {
                                     $('#evaluacion_auditiva').jqxDropDownList({
                                         width: '100%',
                                         theme: 'eh-open',
@@ -750,15 +874,15 @@ if($paciente->validaNutricionista()==true){
                                     });
 
 
-                                    $("#evaluacion_auditiva").on('change',function(){
+                                    $("#evaluacion_auditiva").on('change', function () {
                                         var val = $("#evaluacion_auditiva").val();
-                                        $.post('db/update/paciente_antropometria.php',{
-                                            rut:'<?php echo $rut; ?>',
-                                            val:val,
-                                            column:'evaluacion_auditiva',
-                                            fecha_registro:'<?php echo $fecha_registro; ?>'
+                                        $.post('db/update/paciente_antropometria.php', {
+                                            rut: '<?php echo $rut; ?>',
+                                            val: val,
+                                            column: 'evaluacion_auditiva',
+                                            fecha_registro: '<?php echo $fecha_registro; ?>'
 
-                                        },function(data){
+                                        }, function (data) {
                                             alertaLateral(data);
                                             $('.tooltipped').tooltip({delay: 50});
                                         });
@@ -783,13 +907,15 @@ if($paciente->validaNutricionista()==true){
 <div class="row">
     <div class="col l12 m12 s12">
         <?php
-        if($paciente->validaIRA()){
+        if ($paciente->validaIRA()){
         ?>
         <div class="col l12 s12 m12">
             <div class="card-panel red darken-4">
                 <div class="row">
                     <div class="col l3">
-                        <span class="black-text">SCORE IRA <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="RIESGO IRA PARA MENORES DE 7 MESES">(?)</strong></span>
+                        <span class="black-text">SCORE IRA <strong class="tooltipped" style="cursor: help"
+                                                                   data-position="bottom" data-delay="50"
+                                                                   data-tooltip="RIESGO IRA PARA MENORES DE 7 MESES">(?)</strong></span>
                     </div>
                     <div class="col l8">
                         <select name="ira_score" id="ira_score">
@@ -799,28 +925,28 @@ if($paciente->validaNutricionista()==true){
                             <option>GRAVE</option>
                         </select>
                         <script type="text/javascript">
-                            $(function(){
+                            $(function () {
                                 $('#ira_score').jqxDropDownList({
                                     width: '100%',
                                     theme: 'eh-open',
                                     height: '25px'
                                 });
 
-                                $("#ira_score").on('change',function(){
+                                $("#ira_score").on('change', function () {
                                     var val = $("#ira_score").val();
-                                    $.post('db/update/paciente_antropometria.php',{
-                                        rut:'<?php echo $rut; ?>',
-                                        val:val,
-                                        column:'SCORE_IRA',
-                                        fecha_registro:'<?php echo $fecha_registro; ?>'
+                                    $.post('db/update/paciente_antropometria.php', {
+                                        rut: '<?php echo $rut; ?>',
+                                        val: val,
+                                        column: 'SCORE_IRA',
+                                        fecha_registro: '<?php echo $fecha_registro; ?>'
 
-                                    },function(data){
+                                    }, function (data) {
                                         alertaLateral(data);
                                         $('.tooltipped').tooltip({delay: 50});
                                     });
-                                    if(val!=='LEVE'){
+                                    if (val !== 'LEVE') {
                                         $('#IRA_ATENCION').show("swing");
-                                    }else{
+                                    } else {
                                         $('#IRA_ATENCION').hide("swing");
                                     }
 
@@ -837,7 +963,9 @@ if($paciente->validaNutricionista()==true){
                 <div class="row" id="IRA_ATENCION" style="display: none">
                     <p class="white-text">INDICAR SI TIENE VISITA POR PROFESIONAL KINESIOLOGO</p>
                     <div class="col l3">
-                        <span class="black-text">TIENE VISITA <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="RIESGO IRA PARA MENORES DE 7 MESES">(?)</strong></span>
+                        <span class="black-text">TIENE VISITA <strong class="tooltipped" style="cursor: help"
+                                                                      data-position="bottom" data-delay="50"
+                                                                      data-tooltip="RIESGO IRA PARA MENORES DE 7 MESES">(?)</strong></span>
                     </div>
                     <div class="col l8">
                         <select name="ira_visita" id="ira_visita">
@@ -846,22 +974,22 @@ if($paciente->validaNutricionista()==true){
                             <option>NO</option>
                         </select>
                         <script type="text/javascript">
-                            $(function(){
+                            $(function () {
                                 $('#ira_visita').jqxDropDownList({
                                     width: '100%',
                                     theme: 'eh-open',
                                     height: '25px'
                                 });
 
-                                $("#ira_visita").on('change',function(){
+                                $("#ira_visita").on('change', function () {
                                     var val = $("#ira_visita").val();
-                                    $.post('db/update/paciente_antropometria.php',{
-                                        rut:'<?php echo $rut; ?>',
-                                        val:val,
-                                        column:'VISITA_SCORE',
-                                        fecha_registro:'<?php echo $fecha_registro; ?>'
+                                    $.post('db/update/paciente_antropometria.php', {
+                                        rut: '<?php echo $rut; ?>',
+                                        val: val,
+                                        column: 'VISITA_SCORE',
+                                        fecha_registro: '<?php echo $fecha_registro; ?>'
 
-                                    },function(data){
+                                    }, function (data) {
                                         alertaLateral(data);
                                         $('.tooltipped').tooltip({delay: 50});
                                     });
@@ -880,7 +1008,7 @@ if($paciente->validaNutricionista()==true){
     </div>
 </div>
 <style type="text/css">
-    .btn:hover{
+    .btn:hover {
         background-color: #3fff7f;
     }
 </style>

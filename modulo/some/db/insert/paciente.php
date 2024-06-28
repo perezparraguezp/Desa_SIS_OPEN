@@ -34,5 +34,7 @@ $mysq->limpiarModulos($rut);
 
 $modulos = $_POST['modulo'];
 foreach ($modulos as $i => $menu){
-    $mysq->updateModuloPaciente($rut,$menu,'SI');
+    $mysq->updateModuloPaciente($rut,'m_infancia','SI');
 }
+//por defecto agregar infantil
+$mysq->updateModuloPaciente($rut,'m_infancia','SI');

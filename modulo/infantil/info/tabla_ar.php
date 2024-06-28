@@ -54,7 +54,7 @@ $sexo = [
 
 
 ?>
-<div class="card" id="todo_p2">
+<div class="card" id="todo_ar">
     <div class="row" style="padding:20px;">
         <div class="col l10">
             <header>CENTRO MEDICO: <?php echo $nombre_centro; ?></header>
@@ -62,48 +62,19 @@ $sexo = [
         <div class="col l2">
             <input type="button"
                    class="btn green lighten-2 white-text"
-                   value="EXPORTAR A EXCEL" onclick="exportTable('todo_p2','P2')"/>
+                   value="EXPORTAR A EXCEL" onclick="exportTable('todo_ar','AR')"/>
         </div>
     </div>
     <hr class="row" style="margin-bottom: 10px;"/>
     <div id="div_seccion_A">
-    </div>
-    <div id="div_seccion_A1">
-    </div>
-    <div id="div_seccion_B">
-    </div>
-    <div id="div_seccion_C">
-    </div>
-    <div id="div_seccion_D">
-    </div>
-    <div id="div_seccion_E">
-    </div>
-    <div id="div_seccion_F">
-    </div>
-    <div id="div_seccion_G">
-    </div>
-    <div id="div_seccion_H">
-    </div>
-    <div id="div_seccion_I">
-    </div>
-    <div id="div_seccion_J">
     </div>
 
 
 </div>
 <script type="text/javascript">
     $(function(){
-        // load_P2_SECCION('A');
-        // load_P2_SECCION('A1');
-        load_P2_SECCION('B');
-        // load_P2_SECCION('C');
-        // load_P2_SECCION('D');
-        // load_P2_SECCION('E');
-        // load_P2_SECCION('F');
-        // load_P2_SECCION('G');
-        // load_P2_SECCION('H');
-        // load_P2_SECCION('I');
-        // load_P2_SECCION('J');
+        load_AR_SECCION('A');
+
 
     })
 </script>

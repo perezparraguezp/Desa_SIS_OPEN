@@ -39,7 +39,7 @@ $profesional = new profesional($_SESSION['id_usuario']);
         ?>
             <li id="menu_0" onclick="loadMenu_Infantil('menu_0','dashboard','')" class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Inicio</a></li>
             <li id="menu_1" onclick="loadMenu_Infantil('menu_1','registro_tarjetero','')"  class="bold"><a href="#"  class="waves-effect waves-cyan"><i class="mdi-action-assignment"></i> Tarjetero Infantil</a></li>
-<!--            <li id="menu_2" onclick="loadMenu_Infantil('menu_2','pendientes','')" class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-social-notifications-on"></i> Pendientes <span class="new badge">new</span></a></li>-->
+            <li id="menu_2" onclick="loadMenu_Infantil('menu_2','pendientes','')" class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-social-notifications-on"></i> Pendientes </a></li>
         <?php
         }
         ?>

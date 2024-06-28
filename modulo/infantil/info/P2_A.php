@@ -40,7 +40,8 @@ $rango_seccion_a = [
     'persona.edad_total_dias>=(30*12) and persona.edad_total_dias<(30*18)',//12 a 17 meses
     'persona.edad_total_dias>=(30*18) and persona.edad_total_dias<(30*24)',//18 a 23 meses
     'persona.edad_total_dias>=(30*24) and persona.edad_total_dias<(30*36)',//24 a 35 meses
-    'persona.edad_total_dias>=(30*36) and persona.edad_total_dias<(30*48)',//36 a 47 meses
+    'persona.edad_total_dias>=(30*36) and persona.edad_total_dias<(30*42)',//36 a 41 meses
+    'persona.edad_total_dias>=(30*42) and persona.edad_total_dias<(30*48)',//42 a 47 meses
     'persona.edad_total_dias>=(30*48) and persona.edad_total_dias<(30*60)',//48 a 59 meses
 
     "persona.edad_total_dias>=0 and persona.edad_total_dias<(30*60) and persona.pueblo!='NO'",//PUEBLOS ORIGINARIOS
@@ -85,7 +86,8 @@ $rango_seccion_a = [
             <td colspan="2">12 A 17 MESES</td>
             <td colspan="2">18 A 23 MESES</td>
             <td colspan="2">24 A 35 MESES</td>
-            <td colspan="2">36 A 47 MESES</td>
+            <td colspan="2">36 A 41 MESES</td>
+            <td colspan="2">42 A 47 MESES</td>
             <td colspan="2">48 A 59 MESES</td>
         </tr>
         <tr>
@@ -109,6 +111,8 @@ $rango_seccion_a = [
             <td>MUJERES</td>
 
 
+            <td>HOMBRES</td>
+            <td>MUJERES</td>
             <td>HOMBRES</td>
             <td>MUJERES</td>
 

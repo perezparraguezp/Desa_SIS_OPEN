@@ -381,6 +381,54 @@ $paciente->definirEdadFecha($fecha_registro);
     }
     ?>
     <div class="col l12 s12 m12">
+        <div class="card-panel green accent-2">
+            <div class="row">
+                <div class="col l3">
+                    <span class="black-text">Tipo Atención <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="Riesgo">(?)</strong></span>
+                </div>
+                <div class="col l8">
+                    <select name="ultima_atencion" id="ultima_atencion">
+                        <option></option>
+                        <option>INGRESO</option>
+                        <option>EGRESO</option>
+                    </select>
+
+                    <script type="text/javascript">
+                        $(function(){
+                            $('#ultima_atencion').jqxDropDownList({
+                                width: '100%',
+                                theme: 'eh-open',
+                                height: '25px'
+                            });
+
+                            $("#ultima_atencion").on('change',function(){
+                                var val = $("#ultima_atencion").val();
+                                $.post('db/update/paciente_dental.php',{
+                                    rut:'<?php echo $rut; ?>',
+                                    val:val,
+                                    column:'ultima_atencion',
+                                    fecha_registro:'<?php echo $fecha_registro; ?>'
+
+                                },function(data){
+                                    alertaLateral(data);
+                                    $('.tooltipped').tooltip({delay: 50});
+                                    historial_dental('<?php echo $rut; ?>');
+                                });
+
+                            });
+                            $('.tooltipped').tooltip({delay: 50});
+                        });
+                    </script>
+                </div>
+                <div class="col l1">
+                    <i class="mdi-editor-insert-chart"
+                       onclick="loadModalGraficoDental('<?php echo $rut ?>','ultima_atencion')"></i>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col l12 s12 m12">
         <div class="card-panel  blue lighten-1">
             <div class="row">
                 <div class="col l3">
@@ -480,7 +528,57 @@ $paciente->definirEdadFecha($fecha_registro);
             </div>
         </div>
     </div>
+    <div class="col l12 s12 m12">
+        <div class="card-panel  blue lighten-1">
+            <div class="row">
+                <div class="col l3">
+                    <span class="black-text">Nº Dientes <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="Cantidad de Dientes">(?)</strong></span>
+                </div>
+                <div class="col l8">
+                    <select name="dental_dientes" id="dental_dientes">
+                        <option></option>
+                        <option>0</option>
+                        <option>1 a 9</option>
+                        <option>10 a 19</option>
+                        <option>20 a 27</option>
+                        <option>28 ó más</option>
+                    </select>
 
+                    <script type="text/javascript">
+                        $(function(){
+                            $('#dental_dientes').jqxDropDownList({
+                                width: '100%',
+                                theme: 'eh-open',
+                                height: '25px'
+                            });
+
+                            $("#dental_dientes").on('change',function(){
+                                var val = $("#dental_dientes").val();
+                                $.post('db/update/paciente_dental.php',{
+                                    rut:'<?php echo $rut; ?>',
+                                    val:val,
+                                    column:'dientes',
+                                    fecha_registro:'<?php echo $fecha_registro; ?>'
+
+                                },function(data){
+                                    alertaLateral(data);
+                                    $('.tooltipped').tooltip({delay: 50});
+                                    historial_dental('<?php echo $rut; ?>');
+                                });
+
+                            });
+                            $('.tooltipped').tooltip({delay: 50});
+                        });
+                    </script>
+                </div>
+                <div class="col l1">
+                    <i class="mdi-editor-insert-chart"
+                       onclick="loadModalGraficoDental('<?php echo $rut ?>','dientes')"></i>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <div class="col l12 s12 m12">
         <div class="card-panel orange accent-2">
             <div class="row">

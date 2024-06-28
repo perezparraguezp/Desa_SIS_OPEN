@@ -13,6 +13,8 @@ $sql = "select * from paciente_establecimiento
                 where paciente_establecimiento.id_establecimiento='$id_establecimiento' 
                 and paciente_establecimiento.m_infancia='SI' 
                 and persona.rut!='' 
+                and persona.fecha_nacimiento!=''
+                and paciente_establecimiento.id_sector!=''
                 group by paciente_establecimiento.rut 
                 ";
 $res = mysql_query($sql);
@@ -83,6 +85,9 @@ while($row = mysql_fetch_array($res)){
                     '18m' => trim($row3['18m']),
                     '3anios' => trim($row3['3anios']),
                     '5anios' => trim($row3['5anios']),
+
+                    'ultimo_control' => $paciente->getUltimaEval(),
+                    'proximo_control' => $paciente->getProximoControl(),
 
                 );
 

@@ -13,6 +13,10 @@ $sector_interno = explode(",", $_POST['sector_interno']);
 
 $estado = trim($_POST['estado']);
 
+if($estado==''){
+    $estado='PENDIENTE';
+}
+
 $indicador = $_POST['indicador'];
 $indicador_estado = $indicador;
 $total_pacientes = 0;
@@ -838,61 +842,7 @@ $estado = $estado == '' ? 'PENDIENTE' : $estado;
 <div id="div_imprimir">
     <div class="card-panel" id="imprimir_grafico">
         <div class="row">
-            <div class="col l12 m12 s12">
-                <label for="estado">ESTADO</label>
-                <select id="estado" name="estado">
-                    <option><?php echo $estado; ?></option>
-                    <option disabled>-----------------</option>
-                    <?php
-                    $sql3 = "select * from antropometria 
-                                        where $indicador!='' 
-                                        group by $indicador";
-                    $res3 = mysql_query($sql3);
-                    print_r($sql3);
-                    print_r($res3);
-                    while ($row3 = mysql_fetch_array($res3)) {
-                        ?>
-                        <option><?php echo $row3[$indicador]; ?></option>
-                        <?php
-                    }
-                    ?>
-                    <!--                    <option value="">PENDIENTE</option>-->
-                </select>
-                <script type="text/javascript">
-                    $(function () {
-                        $('#estado').jqxDropDownList({
-                            width: '100%',
-                            theme: 'eh-open',
-                            height: '25px'
-                        });
-                        $('#estado').on('select', function (event) {
-                            loadIndicador_Grafico_PRESIONARTERIAL();
-                        });
 
-                    });
-
-                    function loadIndicador_Grafico_PRESIONARTERIAL() {
-                        var estado = $("#estado").val();
-                        var indicador = '<?php echo $indicador_estado ?>';
-
-                        loadGif_graficos('header_graficos');
-                        $("#div_indicador_grafico").hide();
-                        $.post('graficos/barra/ANTROPOMETRIA_GENERAL.php', {
-                            sector_comunal: sector_comunal,
-                            centro_interno: centro_interno,
-                            sector_interno: sector_interno,
-                            indicador: indicador,
-                            estado: estado,
-                        }, function (data) {
-                            $("#header_graficos").html('');
-                            $("#div_indicador_grafico").html(data);
-                            $("#div_indicador_grafico").show();
-                            //updateHeadEscritorio(sector_comunal,centro_interno,sector_interno);
-                        });
-                        updateHeadEscritorio();
-                    }
-                </script>
-            </div>
         </div>
         <div class="row">
             <div class="col l12 m12 s12">

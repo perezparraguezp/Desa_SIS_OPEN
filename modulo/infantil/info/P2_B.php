@@ -31,7 +31,8 @@ $rango_seccion_b = [
     'persona.edad_total>=12 and persona.edad_total<=17',
     'persona.edad_total>=18 and persona.edad_total<=23',
     'persona.edad_total>=24 and persona.edad_total<=35',
-    'persona.edad_total>=36 and persona.edad_total<=47',
+    'persona.edad_total_dias>=(30*36) and persona.edad_total_dias<(30*42)',//36 a 41 meses
+    'persona.edad_total_dias>=(30*42) and persona.edad_total_dias<(30*48)',//42 a 47 meses
     'persona.edad_total>=48 and persona.edad_total<=59',
 ];
 $label_rango_seccion_b = [
@@ -39,7 +40,8 @@ $label_rango_seccion_b = [
     'desde 12 meses a 17 meses',
     'desde 18 meses a 23 meses',
     'desde 24 meses a 35 meses',
-    'desde 36 meses a 47 meses',
+    'desde 36 meses a 41 meses',
+    'desde 42 meses a 47 meses',
     'desde 48 meses a 59 meses',
 
 ];
@@ -69,11 +71,12 @@ $label_rango_seccion_b = [
                     foreach ($rango_seccion_b as $j => $rango) {
                         ?>
                         <tr>
+
                             <?php
 
                             if ($i_esatdo == 0) {
                                 ?>
-                                <td rowspan="6"><?php echo $estado; ?></td>
+                                <td rowspan="7"><?php echo $estado; ?></td>
                                 <?php
                             }
 
@@ -92,7 +95,7 @@ $label_rango_seccion_b = [
                                             inner join persona on paciente_establecimiento.rut=persona.rut
                                             where m_infancia='SI'
                                               $filtro_centro
-                                            and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<365
+                                            and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<395
                                             group by historial_paciente.rut
                                             order by historial_paciente.id_historial desc
                                         ) as personas  
@@ -122,7 +125,7 @@ $label_rango_seccion_b = [
                                             inner join persona on paciente_establecimiento.rut=persona.rut
                                             where m_infancia='SI'
                                               $filtro_centro
-                                            and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<365
+                                            and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<395
                                             group by historial_paciente.rut 
                                             order by historial_paciente.id_historial desc
                                         ) as personas     
@@ -149,7 +152,7 @@ $label_rango_seccion_b = [
                                             inner join persona on paciente_establecimiento.rut=persona.rut
                                             where m_infancia='SI' and persona.pueblo='SI'
                                               $filtro_centro
-                                            and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<365
+                                            and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<395
                                             group by historial_paciente.rut
                                             order by historial_paciente.id_historial desc
                                         ) as personas  
@@ -176,7 +179,7 @@ $label_rango_seccion_b = [
                                             inner join persona on paciente_establecimiento.rut=persona.rut
                                             where m_infancia='SI' and persona.migrante='SI'
                                               $filtro_centro
-                                            and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<365
+                                            and TIMESTAMPDIFF(DAY,historial_paciente.fecha_registro,CURRENT_DATE)<395
                                             group by historial_paciente.rut 
                                             order by historial_paciente.id_historial desc
                                         ) as personas     

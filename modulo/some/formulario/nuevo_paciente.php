@@ -256,7 +256,12 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
                                     <div class="col l2">
                                         <div class="switch">
                                             <label>
-                                                <input type="checkbox" name="modulo[<?php echo $i ?>]" value="<?php echo $row['column_sql']; ?>"  />
+                                                <input type="checkbox"
+                                                       name="modulo[<?php echo $i ?>]"
+                                                       id="modulo[<?php echo $i ?>]"
+                                                       class="modulo_eh_open"
+                                                    <?php echo $check; ?>
+                                                       value="<?php echo $row['column_sql']; ?>"/>
                                                 <span class="lever"></span>
                                             </label>
                                         </div>

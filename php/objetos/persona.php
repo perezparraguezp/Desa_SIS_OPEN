@@ -23,7 +23,7 @@ class persona
 
     public $pt, $pe, $te, $imce, $dni, $lme, $pcint, $rimaln, $presion_arterial, $ira;
     public $perimetro_craneal;
-    public $eoa, $pku, $hc, $apego_inmediato, $vacuna_bcg;
+    public $eoa, $pku, $hc, $apego_inmediato, $vacuna_bcg,$semanas_gestacion;
     public $agudeza_visual, $evaluacion_auditiva;
 
     //datos padres
@@ -53,7 +53,16 @@ class persona
             $this->email = $row['email'];
             $this->direccion = limpiaCadena($row['direccion']);
             $this->fecha_nacimiento = $row['fecha_nacimiento'];
+            if($this->fecha_nacimiento==''){
+
+            }else{
+
+            }
+
             $this->sexo = $row['sexo'];
+            if($this->sexo==''){
+                $this->sexo = '?';
+            }
             $this->pueblo = $row['pueblo'];
             $this->migrante = $row['migrante'];
             $this->nanea = $row['nanea'];
@@ -67,6 +76,8 @@ class persona
             $this->sename = $row['sename'];
             $this->ninez = $row['ninez'];
 
+            $this->semanas_gestacion = $row['semanas_gestacion'];
+
             list($fecha, $hora) = explode(" ", $this->ultima_actualizacion);
             $this->ultima_actualizacion = fechaNormal($fecha) . " [" . $hora . "]";
             $this->calcularEdad();
@@ -75,6 +86,7 @@ class persona
             $this->getEstablecimiento();
             $this->getDatosComunas();
             $this->getUltimoHistorial();
+            $this->load_DatosNacimiento();
             $this->existe = true;
         } else {
             $this->existe = false;
@@ -115,6 +127,18 @@ class persona
             $this->ultimo_historial = $fecha;
         } else {
             $this->ultimo_historial = 'NUNCA';
+        }
+    }
+    function getProximoControl(){
+        $sql1 = "select * from agendamiento 
+                where rut='$this->rut'
+                and estado_control='PENDIENTE'
+                order by id_agendamiento asc limit 1";
+        $row1 = mysql_fetch_array(mysql_query($sql1));
+        if ($row1) {
+            return $row1['mes_proximo_control'].'-'.$row1['anio_proximo_control'];;
+        } else {
+            return 'SIN AGENDAR';;
         }
     }
 
@@ -471,90 +495,126 @@ class persona
 
     function calcularEdad()
     {
-        $fecha_nac = new DateTime(date('Y/m/d', strtotime($this->fecha_nacimiento))); // Creo un objeto DateTime de la fecha ingresada
-        $fecha_hoy = new DateTime(date('Y/m/d', time())); // Creo un objeto DateTime de la fecha de hoy
-        $edad = date_diff($fecha_hoy, $fecha_nac); // La funcion ayuda a calcular la diferencia, esto seria un objeto
-        $this->edad = "{$edad->format('%Y')} años, {$edad->format('%m')} meses y {$edad->format('%d')} días.";
-        $this->anios = $edad->format('%Y');
-        $this->meses = $edad->format('%m');
-        $this->dias = $edad->format('%d');
+        if($this->fecha_nacimiento==''){
+            $this->edad = 'S/R';
+            $this->anios = 'S/R';
+            $this->meses ='S/R';
+            $this->dias = 'S/R';
 
-        $this->total_meses = (int)($this->edad * 12) + $this->meses;
+            $this->edad_anios = 'S/R';
+            $this->total_meses = 'S/R';
+            $this->edad_meses = 'S/R';
+            $this->edad_dias = 'S/R';
+        }else{
+            $fecha_nac = new DateTime(date('Y/m/d', strtotime($this->fecha_nacimiento))); // Creo un objeto DateTime de la fecha ingresada
+            $fecha_hoy = new DateTime(date('Y/m/d', time())); // Creo un objeto DateTime de la fecha de hoy
+            $edad = date_diff($fecha_hoy, $fecha_nac); // La funcion ayuda a calcular la diferencia, esto seria un objeto
+            $this->edad = "{$edad->format('%Y')} años, {$edad->format('%m')} meses y {$edad->format('%d')} días.";
+            $this->anios = $edad->format('%Y');
+            $this->meses = $edad->format('%m');
+            $this->dias = $edad->format('%d');
 
-        $this->updateEdadTotal($this->total_meses);
-        $this->updateEdadTotal_dias($this->total_meses * 30);
+            $this->total_meses = (int)($this->edad * 12) + $this->meses;
 
-        $meses = $this->total_meses;
-        $this->edad_anios = (int)abs($meses / 12);
-        $this->edad_meses = (int)abs($meses % 12);
-        $dias = 0;
-        $d = date('d');//dia actual
-        list($a1, $m1, $d1) = explode("-", $this->fecha_nacimiento);
+            $this->updateEdadTotal($this->total_meses);
+            $this->updateEdadTotal_dias($this->total_meses * 30);
 
-        if ($d > $d1) {//ya paso el mes
-            $dias = $d - $d1;
-        } else {
-            $dias = abs(30 - $d1 - $d);
+            $meses = $this->total_meses;
+            $this->edad_anios = (int)abs($meses / 12);
+            $this->edad_meses = (int)abs($meses % 12);
+            $dias = 0;
+            $d = date('d');//dia actual
+            list($a1, $m1, $d1) = explode("-", $this->fecha_nacimiento);
+
+            if ($d > $d1) {//ya paso el mes
+                $dias = $d - $d1;
+            } else {
+                $dias = abs(30 - $d1 - $d);
+            }
+            $this->edad_dias = $dias;
         }
-        $this->edad_dias = $dias;
+
 
     }
 
     function calcularEdadFecha($fecha_actual)
     {
-        $fecha_nac = new DateTime(date('Y/m/d', strtotime($this->fecha_nacimiento))); // Creo un objeto DateTime de la fecha ingresada
-        $fecha_hoy = new DateTime(date('Y/m/d', strtotime($fecha_actual))); // Creo un objeto DateTime de la fecha registrada
-        $edad = date_diff($fecha_hoy, $fecha_nac); // La funcion ayuda a calcular la diferencia, esto seria un objeto
+        if($this->fecha_nacimiento!=''){
+            $fecha_nac = new DateTime(date('Y/m/d', strtotime($this->fecha_nacimiento))); // Creo un objeto DateTime de la fecha ingresada
+            $fecha_hoy = new DateTime(date('Y/m/d', strtotime($fecha_actual))); // Creo un objeto DateTime de la fecha registrada
+            $edad = date_diff($fecha_hoy, $fecha_nac); // La funcion ayuda a calcular la diferencia, esto seria un objeto
 
-        $this->edad = "{$edad->format('%Y')} años, {$edad->format('%m')} meses y {$edad->format('%d')} días.";
-        $this->anios = $edad->format('%Y');
-        $this->meses = $edad->format('%m');
-        $this->dias = $edad->format('%d');
+            $this->edad = "{$edad->format('%Y')} años, {$edad->format('%m')} meses y {$edad->format('%d')} días.";
+            $this->anios = $edad->format('%Y');
+            $this->meses = $edad->format('%m');
+            $this->dias = $edad->format('%d');
 
-        return $this->edad;
+            return $this->edad;
+        }else{
+            return 'S/R';
+        }
+
 
     }
 
     function definirEdadFecha($fecha_actual){
-        $fecha_nac = new DateTime(date('Y/m/d', strtotime($this->fecha_nacimiento))); // Creo un objeto DateTime de la fecha ingresada
-        $fecha_hoy = new DateTime(date('Y/m/d', strtotime($fecha_actual))); // Creo un objeto DateTime de la fecha registrada
-        $edad = date_diff($fecha_hoy, $fecha_nac); // La funcion ayuda a calcular la diferencia, esto seria un objeto
+        if($this->fecha_nacimiento!=''){
+            $fecha_nac = new DateTime(date('Y/m/d', strtotime($this->fecha_nacimiento))); // Creo un objeto DateTime de la fecha ingresada
+            $fecha_hoy = new DateTime(date('Y/m/d', strtotime($fecha_actual))); // Creo un objeto DateTime de la fecha registrada
+            $edad = date_diff($fecha_hoy, $fecha_nac); // La funcion ayuda a calcular la diferencia, esto seria un objeto
 
-        $this->edad = "{$edad->format('%Y')} años, {$edad->format('%m')} meses y {$edad->format('%d')} días.";
-        $this->anios = $edad->format('%Y');
-        $this->meses = $edad->format('%m');
-        $this->dias = $edad->format('%d');
+            $this->edad = "{$edad->format('%Y')} años, {$edad->format('%m')} meses y {$edad->format('%d')} días.";
+            $this->anios = $edad->format('%Y');
+            $this->meses = $edad->format('%m');
+            $this->dias = $edad->format('%d');
 
-        $this->total_meses = (int)($this->edad * 12) + $this->meses;
+            $this->total_meses = (int)($this->edad * 12) + $this->meses;
 
-        $this->updateEdadTotal($this->total_meses);
-        $this->updateEdadTotal_dias($this->total_meses * 30);
+            $this->updateEdadTotal($this->total_meses);
+            $this->updateEdadTotal_dias($this->total_meses * 30);
 
-        $meses = $this->total_meses;
-        $this->edad_anios = (int)abs($meses / 12);
-        $this->edad_meses = (int)abs($meses % 12);
-        $dias = 0;
-        $d = date('d');//dia actual
-        list($a1, $m1, $d1) = explode("-", $this->fecha_nacimiento);
+            $meses = $this->total_meses;
+            $this->edad_anios = (int)abs($meses / 12);
+            $this->edad_meses = (int)abs($meses % 12);
+            $dias = 0;
+            $d = date('d');//dia actual
+            list($a1, $m1, $d1) = explode("-", $this->fecha_nacimiento);
 
-        if ($d > $d1) {//ya paso el mes
-            $dias = $d - $d1;
-        } else {
-            $dias = abs(30 - $d1 - $d);
+            if ($d > $d1) {//ya paso el mes
+                $dias = $d - $d1;
+            } else {
+                $dias = abs(30 - $d1 - $d);
+            }
+            $this->edad_dias = $dias;
+        }else{
+            $this->edad = 'S/R';
+            $this->anios = 'S/R';
+            $this->meses ='S/R';
+            $this->dias = 'S/R';
+
+            $this->edad_anios = 'S/R';
+            $this->total_meses = 'S/R';
+            $this->edad_meses = 'S/R';
+            $this->edad_dias = 'S/R';
         }
-        $this->edad_dias = $dias;
+
     }
 
     function calcularEdadDias($fecha)
     {
-        $fecha_nacimiento = $this->fecha_nacimiento;
-        $sql = "SELECT TIMESTAMPDIFF(DAY,'$fecha_nacimiento','$fecha' ) AS dias;";
-        $row = mysql_fetch_array(mysql_query($sql));
-        if ($row) {
-            return $row['dias'];
-        } else {
+        if($this->fecha_nacimiento!=''){
+            $fecha_nacimiento = $this->fecha_nacimiento;
+            $sql = "SELECT TIMESTAMPDIFF(DAY,'$fecha_nacimiento','$fecha' ) AS dias;";
+            $row = mysql_fetch_array(mysql_query($sql));
+            if ($row) {
+                return $row['dias'];
+            } else {
+                return 0;
+            }
+        }else{
             return 0;
         }
+
     }
 
     function updateEdadTotal($edad)
@@ -621,7 +681,7 @@ class persona
         $sql = "select * from personal_establecimiento where id_profesional='$id_profesional' limit 1";
         $row = mysql_fetch_array(mysql_query($sql));
         $tipo = $row['tipo_contrato'];
-        if ($tipo == 'NUTRICIONOSTA') {
+        if ($tipo == 'NUTRICIONISTA') {
             return true;
         } else {
             return false;//cambiar
@@ -961,6 +1021,7 @@ class persona
             $this->hc = $row['HC'];
             $this->apego_inmediato = $row['APEGO_INMEDIATO'];
             $this->vacuna_bcg = $row['VACUNA_BCG'];
+            $this->semanas_gestacion = $row['semanas_gestacion'];
         }
     }
 

@@ -65,7 +65,7 @@
 <div id="demos">
     <h3>CARGAR ARCHIVO EXCEL</h3>
     <hr />
-    <form name="frmload" method="post" action="pacientes.php" enctype="multipart/form-data">
+    <form name="frmload" method="post" action="antropometria.php" enctype="multipart/form-data">
         <input type="file" name="file" />
         <br />
         <hr />
@@ -86,7 +86,7 @@
             <script type="text/javascript">
                 $('#loading').show()
             </script>
-        <?php
+            <?php
 
             require_once 'reader/Classes/PHPExcel/IOFactory.php';
 
@@ -157,20 +157,11 @@
                         $cellValue = get_cell($h . $v, $objPHPExcel);//valido que exista datos en la celda
 
                         if($cellValue !== null){
-                            //tiene datos
-                            if($h == "H"){
-                                //fecha de nacimiento
-                                $timestamp = PHPExcel_Shared_Date::ExcelToPHP($cellValue);
-                                $timestamp = strtotime("+1 day",$timestamp);
-                                $fecha_php = date("Y-m-d H:i:s",$timestamp);
-                                $dato = $fecha_php;
+                            if($h == "A"){
+                                $dato = $cellValue;
+                                $rut = $cellValue;
                             }else{
-                                if($h == "A"){
-                                    $dato = $cellValue;
-                                    $rut = $cellValue;
-                                }else{
-                                    $dato = $cellValue;
-                                }
+                                $dato = $cellValue;
                             }
                         }else{
                             $dato = '';
@@ -182,57 +173,30 @@
                         if(valida_rut($rut)==true){
                             $rut = str_replace("    ","",str_replace(" ","",trim($rut)));
                             $rut = str_replace(".","",$rut);
-                            $nombre = $fila['C']." ".$fila['D']." ".$fila['E'];
-                            $nacimiento = $fila['H'];
-                            $sexo = $fila['I'];
-                            $migrante = $fila['G'] == '' ? 'NO':$fila['G'] ;
-                            $pueblo = $fila['F'] == '' ? 'NO':$fila['F'];
-                            $telefono = $fila['J'];
+                            $DNI = $fila['B'];
+                            $SCORE_IRA = $fila['C'];
 
-                            if($fila['B']=='AZUL'){
-                                $sector=86;
+
+                            $duplicado = false;
+                            $sql0 ="select * from antropometria where rut='$rut' limit 1";
+
+                            $row0 = mysql_fetch_array(mysql_query($sql0));
+                            if($row0){
+                                $sql1 = "update antropometria set DNI=upper('$DNI'),SCORE_IRA=UPPER('$SCORE_IRA') where rut='$rut'";
+                                //no se puede sobre escribir los datos personales de un paciente
+                                $error .='<div style="padding: 5px;background-color: #ff898b;margin-bottom: 2px;border: solid 2px green;">ACTUALIZADO REGISTRO RUT '.$rut.'</div>';
                             }else{
-                                if($fila['B']=='ROJO'){
-                                    $sector=84;
-                                }else{
-                                    if($fila['B']=='VERDE'){
-                                        $sector=85;
-                                    }else{
-                                        $sector=0;
-                                    }
-                                }
-                            }
-                            if($sector!=0){
-                                $id_establecimiento = 1;
-                                $duplicado = false;
-                                $sql0 ="select * from persona where rut='$rut' limit 1";
-
-                                $row0 = mysql_fetch_array(mysql_query($sql0));
-                                if($row0){
-                                    //no se puede sobre escribir los datos personales de un paciente
-                                    $error .='<div style="padding: 5px;background-color: #ff898b;margin-bottom: 2px;border: solid 2px red;">EL RUT INGRESADO SE ENCUENTRA DUPLICADO, ERROR EN LA FILA '.$v.', NO SE PUEDE REGISTRAR</div>';
-                                }else{
-                                    $sql1 = "insert into persona(rut,nombre_completo,sexo,telefono,comuna,pueblo,migrante,fecha_nacimiento) 
-                                  values('$rut',upper('$nombre'),upper('$sexo'),'$telefono','Nueva Imperial','$pueblo','$migrante','$nacimiento')";
-                                    mysql_query($sql1);
-
-                                    $sql2 = "insert into paciente_establecimiento(rut,id_establecimiento,id_sector,m_infancia) 
-                                  values('$rut','$id_establecimiento','$sector','SI')";
-                                    mysql_query($sql2);
-
-                                    $error .='<div style="padding: 5px;background-color: #d7efff;margin-bottom: 2px;border: solid 2px blue;">CAMBIOS REGISTRADOS CORRECTAMENTE FILA  '.$v.', PERSONA REGISTRADA EN SECTOR '.$sector.'</div>';
-                                }
-                            }else{
-                                $error .='<div style="padding: 5px;background-color: #d7efff;margin-bottom: 2px;border: solid 2px red;">EL PACIENTE NO PERTENECE A NINGUN SECTOR DEFINIDO</div>';
+                                $error .='<div style="padding: 5px;background-color: #d7efff;margin-bottom: 2px;border: solid 2px blue;">NUEVO REGISTRO RUT '.$rut.'</div>';
+                                $sql1 = "insert into antropometria(rut,DNI,SCORE_IRA) 
+                                  values('$rut',upper('$DNI'),upper('$SCORE_IRA'))";
                             }
 
-
-
+                            mysql_query($sql1);
                         }else{
                             $error .='<div style="padding: 5px;background-color: #ff898b;margin-bottom: 2px;border: solid 2px red;">EL RUT INGRESADO NO ES VALIDO EN LA FILA '.$v.', NO SE PUEDE REGISTRAR</div>';
                         }
                     }else{
-                         $error .='<div style="padding: 5px;background-color: #ff898b;margin-bottom: 2px;border: solid 2px red;">NO EXISTE RUT EN LA FILA '.$v.', NO SE PUEDE REGISTRAR</div>';
+                        $error .='<div style="padding: 5px;background-color: #ff898b;margin-bottom: 2px;border: solid 2px red;">NO EXISTE RUT EN LA FILA '.$v.', NO SE PUEDE REGISTRAR</div>';
                     }
                 }//fin if cabecera de excel
             }

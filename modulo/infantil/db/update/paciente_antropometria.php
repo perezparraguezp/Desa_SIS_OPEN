@@ -7,8 +7,9 @@ $column = $_POST['column'];
 $rut = $_POST['rut'];
 $fecha_registro = $_POST['fecha_registro'];
 
+if($val!=''){
+    $paciente = new persona($rut);
+    $paciente->update_Antropometria($column,$val,$fecha_registro);
 
-$paciente = new persona($rut);
-$paciente->update_Antropometria($column,$val,$fecha_registro);
-
-echo "ACTUALIZADO";
+    echo "ACTUALIZADO";
+}

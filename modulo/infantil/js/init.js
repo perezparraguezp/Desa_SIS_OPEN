@@ -19,16 +19,15 @@ function infoLateral(){
     });
 }
 function loadMenu_Infantil(menu,php,rut) {
-    var url = 'menu/'+php+'.php';
-    window.open(url, '_blank');
-    // var div = 'content';
-    // $.post('menu/'+php+'.php',{
-    //     rut:rut
-    // },function(data){
-    //     $("#"+div).html(data);
-    // });
-    // $( "aside #slide-out li" ).removeClass( "active" );
-    // $( "aside #slide-out #"+menu ).addClass( "active" );
+
+    var div = 'content';
+    $.post('menu/'+php+'.php',{
+        rut:rut
+    },function(data){
+        $("#"+div).html(data);
+    });
+    $( "aside #slide-out li" ).removeClass( "active" );
+    $( "aside #slide-out #"+menu ).addClass( "active" );
 }
 function loading_div(div){
     $.post('../../php/loading.php',{

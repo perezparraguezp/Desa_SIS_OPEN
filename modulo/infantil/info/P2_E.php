@@ -83,20 +83,17 @@ $filtro_inasistencia_e = [
                                    inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                    inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno,
                                  (
-                                                    select agendamiento.rut from agendamiento
-                                                    inner join paciente_establecimiento using (rut)
+                                                    select antropometria.rut from antropometria
+                                                    inner  join paciente_establecimiento using (rut)
                                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                                     inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                                                     inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
                                                     inner join persona on paciente_establecimiento.rut=persona.rut
-                                                    where m_infancia='SI' and estado_control='PENDIENTE'
-                                                    and sectores_centros_internos.id_centro_interno='$id_centro' 
-                                                      AND mes_proximo_control < MONTH(CURRENT_DATE())
-                                                      AND anio_proximo_control <= YEAR(CURRENT_DATE()) 
-                                                      and $rango
-                                                    group by agendamiento.rut
+                                                    where  TIMESTAMPDIFF(DAY,antropometria.fecha_registro,CURRENT_DATE)<365
+                                                     and m_infancia='SI' and paciente_establecimiento.id_establecimiento=1
+                                                     and sectores_centros_internos.id_centro_interno='$id_centro' 
                                  ) as personas
-                                where personas.rut=persona.rut and $rango;";
+                                where personas.rut=persona.rut and $rango ;";
 
                     } else {
                         $sql = "select COUNT(*) as total
@@ -104,24 +101,23 @@ $filtro_inasistencia_e = [
                                    inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                    inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno,
                                  (
-                                                    select agendamiento.rut from agendamiento
-                                                    inner join paciente_establecimiento using (rut)
-                                                    inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
-                                                    inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
-                                                    inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
-                                                    inner join persona on paciente_establecimiento.rut=persona.rut
-                                                    where m_infancia='SI' and estado_control='PENDIENTE'
-                                                      AND mes_proximo_control < MONTH(CURRENT_DATE())
-                                                      AND anio_proximo_control <= YEAR(CURRENT_DATE()) 
-                                                    and $rango
-                                                    group by agendamiento.rut
+                                    select antropometria.rut from antropometria
+                                    inner  join paciente_establecimiento using (rut)
+                                    inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
+                                    inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
+                                    inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
+                                    inner join persona on paciente_establecimiento.rut=persona.rut
+                                    where  TIMESTAMPDIFF(DAY,antropometria.fecha_registro,CURRENT_DATE)<365
+                                     and m_infancia='SI' and paciente_establecimiento.id_establecimiento=1
+
                                  ) as personas
-                                where personas.rut=persona.rut and $rango;";
+                                where personas.rut=persona.rut
+                                  and $rango;";
 
                     }
 
 
-//                        echo $sql;
+//                        echo '<br />'.$sql;
                     $row = mysql_fetch_array(mysql_query($sql));
                     if ($row) {
                         $total = $row['total'];

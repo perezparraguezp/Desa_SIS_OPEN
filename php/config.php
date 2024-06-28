@@ -10,6 +10,9 @@ $password = "Ehopen2022$$";
 //$username = "sisopenc_db";
 //$password = "Carahue2021$$";
 
+//$database = "sisopenc_imperial";
+//$username = "sisopenc_db";
+//$password = "Carahue2021$$";
 
 if (!($conexion = mysql_connect($hostname, $username, $password))) {
     echo "Error conectando a la base de datos.".$database;

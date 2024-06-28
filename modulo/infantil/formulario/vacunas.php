@@ -228,7 +228,7 @@ $paciente->definirEdadFecha($fecha_registro);
                                     offLabel:'NO',
                                 });
                                 $('#vacuna3anios').on('change',function(){
-                                    $.post('db/update/vacuna_5anios.php',{
+                                    $.post('db/update/vacuna_3anios.php',{
                                         vacuna:$('#vacuna3anios').val(),
                                         rut:'<?php echo $rut; ?>'
                                     },function(data){
@@ -284,7 +284,7 @@ $paciente->definirEdadFecha($fecha_registro);
 <div class="col l4">
     <div class="card-panel cyan lighten-2">
         <div class="row">
-            <header ONCLICK="loadHistorialVacunas()">HISTORIAL DE VACUNAS - INFANTIL</header>
+            <header onclick="loadHistorialVacunas()">HISTORIAL DE VACUNAS - INFANTIL</header>
             <div class="col l12" id="div_historialVacunas">
 
             </div>

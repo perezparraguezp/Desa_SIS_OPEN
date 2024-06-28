@@ -57,6 +57,11 @@ switch ($psicomotor) {
         $column = 'edimburgo';
         break;
     }
+    case 'MCHAT':
+    {
+        $column = 'mchat';
+        break;
+    }
 }
 $estado_indidacor = $_POST['estados_psicomotor'];
 if ($estado_indidacor == '') {
@@ -563,6 +568,7 @@ $txt_grafico = strtoupper(str_replace("_", " ", $_POST['indicador']) . " [" . $_
                 <option><?php echo $psicomotor; ?></option>
                 <option disabled>-----------------</option>
                 <option>EV NEUROSENSORIAL</option>
+                <option>MCHAT</option>
                 <option>RX PELVIS</option>
                 <option>EEDP MENOR 12 MESES</option>
                 <option>EEDP ENTRE 12 A 23 MESES</option>
@@ -594,7 +600,7 @@ $txt_grafico = strtoupper(str_replace("_", " ", $_POST['indicador']) . " [" . $_
                     var indicador = $("#select_psicomotor").val();
                     var estados_psicomotor = $("#estados_psicomotor").val();
                     loadGif_graficos('header_graficos');
-
+                    $("#div_indicador_grafico").html('');
                     $.post('graficos/barra/PSICOMOTOR.php', {
                         sector_comunal: sector_comunal,
                         centro_interno: centro_interno,

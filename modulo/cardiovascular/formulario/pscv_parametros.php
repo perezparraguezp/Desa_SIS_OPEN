@@ -41,9 +41,18 @@ $imc =  $paciente->getParametroPSCV('imc');
                                 <strong style="line-height: 2em;font-size: 1.5em;">P/A <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EL REGISTRO SERÁ GUARDADO AUTOMATICAMENTE">(?)</strong></strong>
                             </div>
                             <div class="col l7 m6 s12">
-                                <input type="hidden" name="fecha_pa" id="fecha_pa" value="<?php echo $fecha_registro; ?>" />
                                 <div class="row">
-                                    <div class="col l12 m12 s12">
+                                    <div class="col l6">
+                                        <input type="date"
+                                               class="tooltipped"
+                                               style="cursor: help"
+                                               data-position="bottom"
+                                               data-delay="50"
+                                               data-tooltip="FECHA EN QUE SE TOMO REGISTRO"
+                                               style="height: 2em;"
+                                               id="fecha_pa" name="fecha_pa" value="<?php echo $fecha_registro; ?>">
+                                    </div>
+                                    <div class="col l6">
                                         <select class="browser-default"
                                                 name="pa" id="pa"
                                                 style="height: 35px;"

@@ -60,6 +60,9 @@
                         {name: '3anios', type: 'string'},
                         {name: '5anios', type: 'string'},
 
+                        {name: 'ultimo_control', type: 'string'},
+                        {name: 'proximo_control', type: 'string'},
+
 
                     ],
                 cache: false
@@ -197,6 +200,9 @@
                     {text: '18 MESES', datafield: '18m', width: 100, filtertype: 'checkedlist'},
                     {text: '3 AÑOS', datafield: '3anios', width: 100, filtertype: 'checkedlist'},
                     {text: '5 AÑOS', datafield: '5anios', width: 100, filtertype: 'checkedlist'},
+
+                    {text: 'ULTIMO CONTROL', datafield: 'ultimo_control', width: 100},
+                    {text: 'PROXIMO CONTROL', datafield: 'proximo_control', width: 100},
 
 
                 ]
