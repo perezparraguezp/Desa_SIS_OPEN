@@ -3201,16 +3201,9 @@ input[type="text"].jqx-input-eh-open:-ms-input-placeholder, input[type="text"].j
     background-color: var(--jqx-accordion-item-background-color-eh-open);
     color: var(--jqx-accordion-item-text-color-eh-open);
 }
-
-.jqx-expander-content.jqx-fill-state-focus-eh-open {
-    border-color: var(--jqx-accordion-item-focused-border-color-eh-open) !important;
-    background-color: var(--jqx-accordion-item-focused-background-color-eh-open);
-    color: var(--jqx-accordion-item-focused-text-color-eh-open);
-}
 .jqx-expander-header-eh-open {
     padding:10px;
 }
-
 .jqx-ribbon-header-vertical-eh-open, .jqx-widget-header-vertical-eh-open {
     background:#f0f0f0;
 }

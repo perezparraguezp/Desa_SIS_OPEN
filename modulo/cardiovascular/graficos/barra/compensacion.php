@@ -231,11 +231,13 @@ while ($row_0 = mysql_fetch_array($res_0)) {
         $json .= ',';
     }
     if ($atributo == 'patologia_dm') {
-        $sql_1 = "select *,hba1c as valor_json,hba1c_fecha as fecha_registro from pscv_diabetes_mellitus
+        $sql_1 = "select *,indicador,hba1c as valor_json,historial_diabetes_mellitus.fecha_registro as fecha_registro 
+                        from pscv_diabetes_mellitus
                         inner join persona on pscv_diabetes_mellitus.rut=persona.rut
-                  where persona.rut='$persona->rut'
-                  and trim(hba1c)=$estado_sql
-                  and TIMESTAMPDIFF(DAY,hba1c_fecha,CURRENT_DATE)<=365 
+                        inner join historial_diabetes_mellitus on historial_diabetes_mellitus.rut=pscv_diabetes_mellitus.rut
+                  where persona.rut='$persona->rut' and indicador='hba1c'
+                  and TIMESTAMPDIFF(DAY,fecha_registro,CURRENT_DATE)<=365
+                  order by historial_diabetes_mellitus.fecha_registro desc
                   limit 1";
 
     } else {

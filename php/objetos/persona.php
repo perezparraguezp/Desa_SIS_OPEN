@@ -22,9 +22,9 @@ class persona
     public $id_region, $nombre_region, $id_provincia, $nombre_provincia, $id_comuna, $nombre_comuna;
 
     public $pt, $pe, $te, $imce, $dni, $lme, $pcint, $rimaln, $presion_arterial, $ira;
-    public $perimetro_craneal;
+    public $perimetro_craneal,$obs_personal;
     public $eoa, $pku, $hc, $apego_inmediato, $vacuna_bcg,$semanas_gestacion;
-    public $agudeza_visual, $evaluacion_auditiva;
+    public $agudeza_visual, $evaluacion_auditiva,$parentesco;
 
     //datos padres
     public $rut_mama;
@@ -53,6 +53,8 @@ class persona
             $this->email = $row['email'];
             $this->direccion = limpiaCadena($row['direccion']);
             $this->fecha_nacimiento = $row['fecha_nacimiento'];
+            $this->obs_personal = $row['obs_personal'];
+            $this->parentesco = $row['parentesco'];
             if($this->fecha_nacimiento==''){
 
             }else{
@@ -973,6 +975,11 @@ class persona
         } else {
             return 'NO';
         }
+    }
+    function updateSQL($column, $value)
+    {
+        $sql = "update persona set $column='$value' where rut='$this->rut' limit 1";
+        mysql_query($sql) or die('ERROR 1');
     }
 
     function loadAntropometria()
