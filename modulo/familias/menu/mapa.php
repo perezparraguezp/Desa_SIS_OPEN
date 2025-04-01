@@ -10,9 +10,9 @@ $direccion = $_GET['direccion'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modal con Google Maps</title>
+    <title>MODIFICAR UBICACION FAMILIA</title>
     <!-- Asegúrate de reemplazar TU_API_KEY por tu clave de Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_zUciThMErBFgkBIDx1ekdCcR6PUDKMI&libraries=places" async defer></script>
+    <script src="../../../js/mapjs.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
         body { font-family: Arial, sans-serif; }
@@ -39,7 +39,7 @@ $direccion = $_GET['direccion'];
 
         #map {
             height: 400px;
-            width: 100%;
+            width: 800px;
         }
 
         /* Estilos para botones */
@@ -66,14 +66,15 @@ $direccion = $_GET['direccion'];
         }
     </style>
 </head>
-<body>
+<body onload="initMap()">
 <h2>Ubica el marcador en el mapa</h2>
-<label>INGRESE UNA DIRECCION <input id="searchInput" type="text" value="<?php echo $direccion; ?>" placeholder="Ingresa una dirección o lugar" /></label>
+<label>INGRESE UNA DIRECCION (Debe ubicar el icono en la ubicación que sea la mas cercana, se guarda automaticamente) <input id="searchInput" type="text" value="<?php echo $direccion; ?>" placeholder="Ingresa una dirección o lugar" /></label>
 <div id="map"></div>
-<button id="confirmLocation" class="btn">Confirmar ubicación</button>
-<p id="coords">Coordenadas: (latitud, longitud)</p>
+<div class="btn" onclick="updateUbicacion()" style="text-align: center;">CONFIRMAR UBICACIÓN</div>
+<button id="confirmLocation" style="display: none;" class="btn">Confirmar ubicación</button>
+<p style="display: none;" id="coords">Coordenadas: (latitud, longitud)</p>
 
-<script>
+<script type="text/javascript">
     var map, marker, latLng;
 
     // Inicializar el mapa en el modal
@@ -126,14 +127,13 @@ $direccion = $_GET['direccion'];
             updateCoordinates();
         });
 
-
         updateCoordinates();
     }
 
     // Actualizar las coordenadas en el texto dentro del modal
     function updateCoordinates() {
         document.getElementById('coords').textContent = `Coordenadas: (${latLng.lat.toFixed(5)}, ${latLng.lng.toFixed(5)})`;
-        updateUbicacion();
+
     }
 
 
@@ -144,10 +144,10 @@ $direccion = $_GET['direccion'];
             lat:latLng.lat.toFixed(5),
             long:latLng.lng.toFixed(5)
         }, function (data) {
-
+            alert('SE HA MODIFICADO LA UBICACION DE LA FAMILIA');
+            window.close();
         });
     }
-    initMap();
 </script>
 </body>
 </html>

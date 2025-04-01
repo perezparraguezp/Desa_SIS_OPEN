@@ -153,7 +153,32 @@ $indice_dientes_label = [
     <div class="card" id="todo_p2">
         <div class="row" style="padding:20px;">
             <div class="col l10">
-                <header><?php echo $nombre_centro; ?></header>
+                <label>CENTRO MEDICO
+                    <select class="browser-default"
+                            name="centro_interno"
+                            id="centro_interno"
+                            onchange="loadP7_familia()" >
+                        <option value="" disabled="disabled" selected="selected">SELECCIONAR CENTRO MEDICO</option>
+                        <?php
+                        $sql0 = "select * from centros_internos 
+                              order by nombre_centro_interno ";
+                        $res0 = mysql_query($sql0);
+                        while($row0 = mysql_fetch_array($res0)){
+                            if($id_centro==$row0['id_centro_interno']){
+                                ?>
+                                <option selected value="<?php echo $row0['id_centro_interno']; ?>"><?php echo $row0['nombre_centro_interno']; ?></option>
+                                <?php
+                            }else{
+                                ?>
+                                <option value="<?php echo $row0['id_centro_interno']; ?>"><?php echo $row0['nombre_centro_interno']; ?></option>
+                                <?php
+                            }
+
+                        }
+                        ?>
+                        <option value="">TODOS</option>
+                    </select>
+                </label>
             </div>
             <div class="col l2">
                 <input type="button"

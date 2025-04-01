@@ -85,6 +85,7 @@ $integrantes = $familia->integrantes;
                 $("#modal").html(data);
                 $("#modal").css({'width': '1100px'});
                 document.getElementById("btn-modal").click();
+                document.getElementById("close_modal").click();
             }
         });
     }
@@ -131,8 +132,20 @@ $integrantes = $familia->integrantes;
 
 
     function abrirMapa() {
-        const url = `https://www.google.com/maps?q=${latitud},${longitud}`;
-        window.open(url, '_blank'); // Abre el enlace en una nueva pestaña
+        $.post('db/buscar/coordenadas_familia.php', {
+            id_familia: '<?php echo $id_familia; ?>'
+        }, function (data) {
+            if(data!==''){
+                if(data!=='ERROR'){
+                    const url = `https://www.google.com/maps?q=${latitud},${longitud}`;
+                    window.open(data, '_blank'); // Abre el enlace en una nueva pestaña
+                }
+            }else{
+                alertaLateral('NO EXISTE UBICACION DEFINIDA PARA LA FAMILIA');
+            }
+
+        });
+
     }
 </script>
 

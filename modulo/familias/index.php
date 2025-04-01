@@ -35,6 +35,7 @@
     <!-- jQuery Library -->
 
     <script type="text/javascript" src="../../js/jquery-1.11.2.min.js"></script>
+
     <!-- JQUERY -->
     <!-- php script -->
     <link type="text/css" rel="stylesheet" href="../../jqwidgets/styles/jqx.base.css"  />
@@ -48,7 +49,6 @@
     <script type="text/javascript" src="../../jqwidgets/jqxscrollbar.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxtabs.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxmenu.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxwindow.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxdatetimeinput.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxcalendar.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxtooltip.js"></script>
@@ -60,35 +60,28 @@
     <script type="text/javascript" src="../../jqwidgets/jqxlistbox.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxdropdownlist.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxgrid.filter.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxgrid.selection.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxgrid.columnsresize.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxgrid.edit.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxnavigationbar.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxdraw.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxchart.core.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxgrid.sort.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxdata.js"></script>
+
     <script type="text/javascript" src="../../jqwidgets/jqxinput.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxcheckbox.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxfileupload.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxeditor.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxdropdownbutton.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxtoolbar.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxbuttons.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxswitchbutton.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxscrollbar.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxlistbox.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxdropdownlist.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxcombobox.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxdropdownbutton.js"></script>
+
     <script type="text/javascript" src="../../jqwidgets/jqxcolorpicker.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxprogressbar.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxwindow.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxtooltip.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxcheckbox.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxnumberinput.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxmaskedinput.js"></script>
-    <script type="text/javascript" src="../../jqwidgets/jqxgrid.edit.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxgrid.grouping.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxtreegrid.js"></script>
     <script type="text/javascript" src="../../jqwidgets/jqxfileupload.js"></script>
@@ -116,17 +109,14 @@
     <script type="text/javascript" src="../../js/plugins/sparkline/jquery.sparkline.min.js"></script>
     <script type="text/javascript" src="../../js/plugins/sparkline/sparkline-script.js"></script>
 
-    <!--jvectormap-->
-    <script type="text/javascript" src="../../js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-    <script type="text/javascript" src="../../js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-    <script type="text/javascript" src="../../js/plugins/jvectormap/vectormap-script.js"></script>
     <!--plugins.js - Some Specific JS codes for Plugin Settings-->
     <script type="text/javascript" src="../../js/plugins.js"></script>
     <script type="text/javascript" src="../../js/rut.js"></script>
     <script type="text/javascript" src="../../js/inti.js"></script>
 
+    <script src="../../js/mapjs.js" async defer></script>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_zUciThMErBFgkBIDx1ekdCcR6PUDKMI" async defer></script>
+<!--    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_zUciThMErBFgkBIDx1ekdCcR6PUDKMI" async defer></script>-->
     <script src="https://unpkg.com/@google/markerclustererplus@5.1.0/dist/markerclustererplus.min.js"></script>
 
 

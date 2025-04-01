@@ -4,6 +4,7 @@
     <div class="row">
         <div class="col l2">
             <form id="formFiltroMap_final" class="card-panel">
+                <header>FILTRO DE FAMILIAS</header>
                 <p>
                     <input class="with-gap"
                            name="riesgo" type="radio" id="alto" onclick="updateVistaMapa('ALTO')" />
@@ -18,15 +19,14 @@
                     <label for="bajo">RIESGO BAJO</label>
                 </p>
                 <p>
-                    <input class="with-gap" name="riesgo" type="radio" id="todos" onclick="updateVistaMapa('TODOS')" checked />
+                    <input class="with-gap" name="riesgo" type="radio" id="todos" onclick="updateVistaMapa('TODOS')" />
                     <label for="todos">TODOS</label>
                 </p>
             </form>
         </div>
         <div class="col l10">
             <div class="container" id="mapa_actualizado">
-                <iframe src="mapa/general.php" style="width: 100%;height: 700px;">
-                </iframe>
+                DEBE INDICAR QUE FAMILIAS DESEA VISUALIZAR
             </div>
 
         </div>

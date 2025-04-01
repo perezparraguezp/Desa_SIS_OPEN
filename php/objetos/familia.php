@@ -43,6 +43,7 @@ class familia
             $this->nombre_centro = $row['nombre_sector_interno'];
             $this->nombre_sector_comunal = $row['nombre_sector_comunal'];
             $this->integrantes = $this->calcularIntegrantes();
+
             if($this->estado_general=='ALTO'){
                 $this->valor_indicador=10;
             }else{
@@ -363,17 +364,21 @@ color: #0D47A1;
                 order by fecha_registro desc limit 1";
         $row = mysql_fetch_array(mysql_query($sql));
         if($row){
-            $fecha_nac = new DateTime(date('Y/m/d', strtotime($row['fecha_registro']))); // Creo un objeto DateTime de la fecha ingresada
-            $fecha_hoy = new DateTime(date('Y/m/d', time())); // Creo un objeto DateTime de la fecha de hoy
-
-            $edad = date_diff($fecha_hoy, $fecha_nac);
-            $anios = $edad->format('%Y');
-            if($anios<=2){
-                //menor a 2 años
-                return 'VIGENTE';
+            if($row['fecha_registro']!=''){
+                $fecha_nac = new DateTime(date('Y/m/d', strtotime($row['fecha_registro']))); // Creo un objeto DateTime de la fecha ingresada
+                $fecha_hoy = new DateTime(date('Y/m/d', time())); // Creo un objeto DateTime de la fecha de hoy
+                $edad = date_diff($fecha_hoy, $fecha_nac);
+                $anios = $edad->format('%Y');
+                if($anios<=2){
+                    //menor a 2 años
+                    return 'VIGENTE';
+                }else{
+                    //mayor a 2 años
+                    return 'NO VIGENTE';
+                }
             }else{
-                //mayor a 2 años
-                return 'NO VIGENTE';
+                //no quedo una fecha de registro valida
+                return 'SIN VDI';
             }
 
         }else{

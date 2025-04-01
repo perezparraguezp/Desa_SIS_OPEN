@@ -1,9 +1,12 @@
 <?php
+
+
 #Include the connect.php file
 include("../../../php/config.php");
-include("../../../php/objetos/persona.php");
-include("../../../php/objetos/familia.php");
 
+include("../../../php/objetos/persona.php");
+
+include("../../../php/objetos/familia.php");
 
 function calcularDiferenciaDias($fechaInicio, $fechaFin) {
     // Convertir las fechas en objetos DateTime
@@ -42,8 +45,10 @@ inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.i
 $res = mysql_query($sql);
 $i = 0;
 while($row = mysql_fetch_array($res)){
+    
     $id_familia = $row['id_familia'];
     $familia = new familia($id_familia);
+    
 
     $fecha = $familia->getFechaPautaRiesgo();
     if($fecha!=''){

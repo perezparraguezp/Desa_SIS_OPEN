@@ -25,7 +25,7 @@ while($row = mysql_fetch_array($res)){
     if($cantidad>0){
         $listado.=",";
     }
-    $listado .= "createMarker({lat: ".$row['ubicacion_x'].", lng: ".$row['ubicacion_y']."}, '".$familia->estadoFamilia()."', '".$NOMBRE_FAMILIA."', '".$familia->getSQL('telefono_familia')."', '".$familia->estadoFamilia()."'),";
+    $listado .= "createMarker({lat: ".$row['ubicacion_x'].", lng: ".$row['ubicacion_y']."}, '".$familia->estadoFamilia()."', '".$NOMBRE_FAMILIA."', '".$familia->getSQL('telefono_familia')."', '".$familia->estadoFamilia()."', '".$familia->codigo_familia."'),";
     $ULTIMO = "lat: ".$row['ubicacion_x'].", lng: ".$row['ubicacion_y']."";
 }
 ?>
@@ -56,7 +56,7 @@ while($row = mysql_fetch_array($res)){
         });
     }
 
-    function createMarker(position, color,Familia, Telefono, Estado) {
+    function createMarker(position, color,Familia, Telefono, Estado,Codigo) {
         var iconBase = {
             'ALTO': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
             'BAJO': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
@@ -83,7 +83,7 @@ while($row = mysql_fetch_array($res)){
         marker.addListener('click', function () {
             // Crear un InfoWindow con contenido dinámico
             const infoWindow = new google.maps.InfoWindow({
-                content: '<h3>Familia: <strong>'+Familia+'</strong></h3><p>Estado: <strong>'+Estado+'</strong><br />Telefono: <strong>'+Telefono+'</strong></p>'
+                content: '<h3>Familia: <strong>'+Familia+'</strong></h3><p>Codigo: <strong>'+Codigo+'</strong><br />Estado: <strong>'+Estado+'</strong><br />Telefono: <strong>'+Telefono+'</strong></p>'
             });
             infoWindow.open(map, marker); // Abrir el InfoWindow en el marcador
         });

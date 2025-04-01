@@ -13,7 +13,8 @@ if($row){
     ?>
     <div class="row orange lighten-1">
         <div class="col l2">OPCION</div>
-        <div class="col l5">NOMBRE DE FAMILIA</div>
+        <div class="col l2">CODIGO DE FAMILIA</div>
+        <div class="col l3">NOMBRE DE FAMILIA</div>
         <div class="col l5">DIRECCION</div>
     </div>
     <div class="row">
@@ -21,7 +22,8 @@ if($row){
             <strong style="cursor: pointer;color: blue;"
                     onclick="cargarAccesoFamilia();" href="">ACCEDER A FICHA</strong>
         </div>
-        <div class="col l5"><?php echo $row['nombre_familia']; ?></div>
+        <div class="col l2"><?php echo $row['codigo_familia']; ?></div>
+        <div class="col l3"><?php echo $row['nombre_familia']; ?></div>
         <div class="col l5"><?php echo $row['direccion_familia']; ?></div>
     </div>
     <script type="text/javascript">

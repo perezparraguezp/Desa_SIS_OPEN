@@ -14,10 +14,20 @@ $id_establecimiento = $_SESSION['id_establecimiento'];
 
 $id_centro = $_POST['id'];
 
+$id_centro = $_POST['id'];
+
+if($id_centro==''){
+    $filtro_sql = "";
+}else{
+    $filtro_sql = " and id_centro_interno='$id_centro' ";
+}
+
 $sql = "SELECT id_sector_centro_interno,nombre_sector_interno,nombre_centro_interno from centros_internos
 inner join sectores_centros_internos using(id_centro_interno)
 inner join sector_comunal sc on centros_internos.id_sector_comunal = sc.id_sector_comunal
-where sc.id_establecimiento='1' order by id_sector_centro_interno,nombre_sector_interno";
+where sc.id_establecimiento='1'
+$filtro_sql
+order by id_sector_centro_interno,nombre_sector_interno";
 
 $res = mysql_query($sql);
 $centros = 0;
