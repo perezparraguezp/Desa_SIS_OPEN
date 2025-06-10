@@ -47,7 +47,7 @@ $rango_seccion_a1 = [
             <td colspan="10">GRUPOS DE EDAD (MESES Y AÑOS) Y SEXO</td>
         </tr>
         <tr>
-            <td colspan="2">60 A 71 meses</td>
+            <td colspan="2">5 A 5 AÑOS 11 meses	</td>
             <td colspan="2">6 AÑOS A 6 AÑOS Y 11 meses</td>
             <td colspan="2">7 AÑOS A 7 AÑOS Y 11 meses</td>
             <td colspan="2">8 AÑOS A 8 AÑOS Y 11 meses</td>

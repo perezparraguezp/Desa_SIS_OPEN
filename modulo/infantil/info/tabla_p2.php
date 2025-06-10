@@ -93,17 +93,17 @@ $sexo = [
 </div>
 <script type="text/javascript">
     $(function(){
-        // load_P2_SECCION('A');
-        // load_P2_SECCION('A1');
-        // load_P2_SECCION('B');
-        // load_P2_SECCION('C');
-        // load_P2_SECCION('D');
+        load_P2_SECCION('A');
+        load_P2_SECCION('A1');
+        load_P2_SECCION('B');
+        load_P2_SECCION('C');
+        load_P2_SECCION('D');
         load_P2_SECCION('E');
-        // load_P2_SECCION('F');
-        // load_P2_SECCION('G');
-        // load_P2_SECCION('H');
-        // load_P2_SECCION('I');
-        // load_P2_SECCION('J');
+        load_P2_SECCION('F');
+        load_P2_SECCION('G');
+        load_P2_SECCION('H');
+        load_P2_SECCION('I');
+        load_P2_SECCION('J');
 
     })
 </script>

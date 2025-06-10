@@ -55,13 +55,14 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
     <script type="text/javascript">
         $(document).ready(function () {
             // Create jqxTabs.
-            $('#tabs_registro').jqxTabs({ width: '100%', theme: 'eh-open',height: 450, position: 'top',scrollPosition: 'both'});
+            $('#tabs_registro').jqxTabs({ width: '100%', theme: 'eh-open',height: alto-350, position: 'top',scrollPosition: 'both'});
             loadInfoPaciente('<?php echo $rut; ?>');
 
             load_sm_antecedentes2('<?php echo $rut; ?>');
             load_sm_diagnosticos('<?php echo $rut; ?>');
             load_sm_farmacos('<?php echo $rut; ?>');
             load_sm_actividad('<?php echo $rut; ?>');
+            load_sm_form_diagnosticos_general('<?php echo $rut; ?>');
         });
         function loadInfoPaciente(rut){
             $.post('info/banner_paciente.php',{
@@ -76,6 +77,17 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
             var div = 'form_actividad';
             loading_div(div);
             $.post('formulario/actividad.php',{
+                rut:rut,
+                fecha_registro:'<?php echo $fecha_registro; ?>'
+            },function(data){
+                $("#"+div).html(data);
+            });
+        }
+
+        function load_sm_form_diagnosticos_general(rut){
+            var div = 'form_diagnosticos_general';
+            loading_div(div);
+            $.post('formulario/diagnosticos_trastornos_mentales.php',{
                 rut:rut,
                 fecha_registro:'<?php echo $fecha_registro; ?>'
             },function(data){
@@ -225,12 +237,18 @@ if($paciente->getModuloPaciente('m_salud_mental')=='NO'){
         </div>
         <div id="tabs_registro" style="font-size: 0.8em;">
             <ul>
+                <li style="margin-left: 30px;text-align: center" onclick="load_sm_form_diagnosticos_general('<?php echo $rut; ?>')">DIAGNOSTICOS</li>
                 <li style="margin-left: 30px;text-align: center" onclick="load_sm_actividad('<?php echo $rut; ?>')">ACTIVIDAD</li>
                 <li style="margin-left: 30px;text-align: center" onclick="load_sm_antecedentes2('<?php echo $rut; ?>')">ANTECEDENTES</li>
                 <li style="margin-left: 30px;text-align: center" onclick="('<?php echo $rut; ?>')">DIAGNOSTICOS</li>
                 <li style="margin-left: 30px;" onclick="load_sm_farmacos('<?php echo $rut; ?>')">FARMACOS</li>
                 <li style="background-color: #0a73a7;cursor: pointer;color: white" onclick="boxAgendamiento('SALUD MENTAL')">FINALIZAR ATENCIÓN</li>
             </ul>
+
+            <div>
+                <!-- DIAGNOSTICO SM -->
+                <form name="form_diagnosticos_general" id="form_diagnosticos_general" class="col l12"></form>
+            </div>
             <div>
                 <!-- ACTIVIDAD -->
                 <form name="form_actividad" id="form_actividad" class="col l12"></form>

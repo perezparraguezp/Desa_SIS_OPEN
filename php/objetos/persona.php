@@ -2252,5 +2252,31 @@ class persona
         }
     }
 
+    function updateSM_Diagnostico($column,$valor,$fecha)
+    {
+        $column_fecha = $column."_fecha";
+        $sql = "select * from sm_registros where rut='$this->rut' limit 1";
+        $row = mysql_fetch_array(mysql_query($sql));
+        if ($row) {
+            $sql1 = "update sm_registros 
+                        set $column='$valor', $column_fecha='$fecha',ultimo_control=now()
+                        where rut='$this->rut' ";
+        } else {
+            //no tiene vacunas registradas
+            $sql1 = "insert into sm_registros(rut,$column,$column_fecha,ultimo_control) 
+                    values('$this->rut','$valor','$fecha',now()) ";
+
+        }
+
+        mysql_query($sql1) or die(false);
+    }
+
+    function addHistorial_SM_Diagnostico($texto){
+        $sql1 = "insert into historial_sm_diagnostico(rut,texto,id_profesional) 
+                    values('$this->rut',upper('$texto'),'$this->myID') ";
+
+        mysql_query($sql1) or die(false);
+    }
+
 
 }

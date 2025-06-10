@@ -64,7 +64,7 @@ $rango_seccion_a = [
             <td rowspan="2" colspan="3">
                 TOTAL
             </td>
-            <td colspan="26">
+            <td colspan="28">
                 GRUPOS DE EDAD (EN MESES - AÑOS) Y SEXO
             </td>
             <td colspan="2" rowspan="2">

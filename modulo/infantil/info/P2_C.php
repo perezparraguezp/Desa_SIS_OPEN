@@ -45,7 +45,7 @@ $rango_seccion_c = [
 
 $label_rango_seccion_c = [
     'TOTAL',
-    'menor de 10 dias',
+    'Diada, menor de 10 días',
     '1 mes',
     '2 meses',
     '3 meses',
