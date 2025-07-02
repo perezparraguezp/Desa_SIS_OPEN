@@ -34,7 +34,7 @@ if($paciente->existe==false){
                                     <i class="mdi-social-people"></i>
                                 </div>
                                 <div class="col l8 m8 s8">
-                                    <a style="color: black" href="../some/index.php" target="_blank">
+                                    <a style="color: black" href="../some/" target="_blank">
                                         <strong>INGRESO DE PACIENTES</strong>
                                     </a>
                                 </div>
