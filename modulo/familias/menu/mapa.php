@@ -14,6 +14,7 @@ $direccion = $_GET['direccion'];
     <!-- Asegúrate de reemplazar TU_API_KEY por tu clave de Google Maps API -->
     <script src="../../../js/mapjs.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_zUciThMErBFgkBIDx1ekdCcR6PUDKMI&callback=initMap" async defer></script>
     <style>
         body { font-family: Arial, sans-serif; }
         /* Estilos del modal */

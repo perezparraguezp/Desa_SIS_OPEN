@@ -158,6 +158,36 @@ if ($p->rut_papa != '') {
             </div>
             <div class="row">
                 <div class="col l12 m12 s12">
+                    <div class="col l4">SALA DE ESTIMULACION</div>
+                    <div class="col l4">
+                        <input type="radio" id="sala_1" name="sala_estimulacoin"
+                               value="SI" <?php echo $p->sala_estimulacoin == 'SI' ? 'checked' : ''; ?> />
+                        <label for="sala_1">SI</label>
+                    </div>
+                    <div class="col l4">
+                        <input type="radio" id="sala_2" name="sala_estimulacoin"
+                               value="NO" <?php echo $p->sala_estimulacoin == 'NO' ? 'checked' : ''; ?> />
+                        <label for="sala_2">NO</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l12 m12 s12">
+                    <div class="col l4">PASMI</div>
+                    <div class="col l4">
+                        <input type="radio" id="pasmi_1" name="pasmi"
+                               value="SI" <?php echo $p->pasmi == 'SI' ? 'checked' : ''; ?> />
+                        <label for="pasmi_1">SI</label>
+                    </div>
+                    <div class="col l4">
+                        <input type="radio" id="pasmi_2" name="pasmi"
+                               value="NO" <?php echo $p->pasmi == 'NO' ? 'checked' : ''; ?> />
+                        <label for="pasmi_2">NO</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l12 m12 s12">
                     <div class="col l4">RED SENAME</div>
                     <div class="col l4">
                         <input type="radio" id="sename_1" name="sename"

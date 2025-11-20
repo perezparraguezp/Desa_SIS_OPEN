@@ -69,6 +69,8 @@ class persona
             $this->migrante = $row['migrante'];
             $this->nanea = $row['nanea'];
             $this->comuna = $row['comuna'];
+            $this->sala_estimulacoin = $row['sala_estimulacoin'];
+            $this->pasmi = $row['pasmi'];
 
             $this->numero_ficha = $row['numero_ficha'];
             $this->carpeta_familiar = $row['carpeta_familiar'];

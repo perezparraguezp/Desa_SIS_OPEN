@@ -9,7 +9,7 @@
 
 
         $("#excelExport").click(function () {
-            $("#grid").jqxGrid('exportdata', 'xls', 'Lista_Pacientes_PSCV', true,null,true, 'https://carahue.eh-open.com/exportar/save-file.php');
+            $("#grid").jqxGrid('exportdata', 'xls', 'Pacientes Modulo Infantil', true,null,true, 'https://loncoche.sis-open.com/exportar/save-file.php');
         });
 
         $("#tipo_paciente").on('change',function () {
@@ -204,6 +204,8 @@
                         <option disabled="disabled" selected="selected">SELECCIONAR TIPO DE PACIENTE INFANTIL</option>
                         <option>TODOS</option>
                         <option>NANEAS</option>
+                        <option>SALA DE ESTIMULACION</option>
+                        <option>PASMI</option>
                         <option>PUEBLOS ORIGINARIOS</option>
                         <option>POBLACION MIGRANTE</option>
                     </select>

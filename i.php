@@ -9,6 +9,8 @@ if($LOGIN=='TRUE'){
 session_start();
 
 
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -188,9 +190,6 @@ session_start();
 
     <div class="col l6 m6 s12" style="position: relative;top: 0px;right: 0px;">
         <div class="card-panel">
-            <div class="container center-align">
-                <img src="images/aviso_carahue.png" width="70%" />
-            </div>
             <div class="card-panel" style="font-size: 0.8em;">
                 <div class="row">
                     <div class="col l6 ">

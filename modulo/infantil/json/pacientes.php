@@ -15,6 +15,14 @@ if($tipo!='TODOS'){
         }else{
             if($tipo=='POBLACION MIGRANTE'){
                 $filtro_tipo = " and persona.migrante!='' and persona.migrante!='NO' ";
+            }else{
+                if($tipo=='SALA ESTIMULACION'){
+                    $filtro_tipo = " and persona.sala_estimulacoin='SI' ";
+                }else{
+                    if($tipo=='PASMI'){
+                        $filtro_tipo = " and persona.pasmi='SI' ";
+                    }
+                }
             }
         }
     }
@@ -27,6 +35,7 @@ $sql = "select * from persona
                 inner join paciente_establecimiento pe on persona.rut = pe.rut
                 inner join sectores_centros_internos sci on sci.id_sector_centro_interno=pe.id_sector
                 inner join centros_internos ci on sci.id_centro_interno = ci.id_centro_interno
+                inner join sector_comunal sc on ci.id_sector_comunal = sc.id_sector_comunal
                 where pe.m_infancia = 'SI'
                   and pe.id_establecimiento = '1'
                   and pe.id_sector!=''

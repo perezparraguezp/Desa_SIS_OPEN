@@ -13,9 +13,10 @@ if($fecha_registro==''){
 $paciente = new persona($rut);
 list($establecimiento,$sector_interno,$sector_comunal) = explode(":",$paciente->getEstablecimiento());
 ?>
-<div class="row">
+<div class="row" style="font-size: 1.7em;">
     <div class="col l1 center">
         <?php $imagen = $paciente->sexo=='F'?'mujer.png':'hombre.png'; ?>
+
         <img src="images/AM_<?php echo $imagen; ?>" width="100%" />
     </div>
     <div class="col l4" style="padding-left: 10px;">

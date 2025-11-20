@@ -576,6 +576,59 @@ if ($paciente->validaNutricionista() == true) {
         }
         ?>
         <?php
+        if ($paciente->total_meses < (4 * 12)) {
+            //menores de 4 años
+            ?>
+            <div class="col l4 m6 s12">
+                <div class="card-panel eh-open_fondo">
+                    <div class="row">
+                        <div class="col l4">
+                            <span class="black-text">Asiste con Padres <strong class="tooltipped" style="cursor: help"
+                                                                      data-position="bottom" data-delay="50"
+                                                                      data-tooltip="El niño viene acompañado de sus padres">(?)</strong></span>
+                        </div>
+                        <div class="col l7">
+                            <select name="con_padres" id="con_padres">
+                                <option>SI</option>
+                                <option>NO</option>
+                            </select>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('#con_padres').jqxDropDownList({
+                                        width: '100%',
+                                        theme: 'eh-open',
+                                        height: '25px'
+                                    });
+
+                                    $("#con_padres").on('change', function () {
+                                        var val = $("#con_padres").val();
+                                        $.post('db/update/paciente_antropometria.php', {
+                                            rut: '<?php echo $rut; ?>',
+                                            val: val,
+                                            column: 'con_padres',
+                                            fecha_registro: '<?php echo $fecha_registro; ?>'
+
+                                        }, function (data) {
+                                            alertaLateral(data);
+                                            $('.tooltipped').tooltip({delay: 50});
+                                        });
+
+                                    });
+                                    $('.tooltipped').tooltip({delay: 50});
+                                })
+                            </script>
+                        </div>
+                        <div class="col l1">
+                            <i class="mdi-editor-insert-chart"
+                               onclick="verHistorialInfantil('<?php echo $rut ?>','PCINT')"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
+        }
+        ?>
+        <?php
         if ($paciente->validaRIMALNEXCESO()) {
             ?>
             <div class="col l4 m6 s12">

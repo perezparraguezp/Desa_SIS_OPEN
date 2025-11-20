@@ -196,7 +196,7 @@
         $("#excelExport_estadistica").click(function () {
             alertaLateral('EXPORTANDO INFORMACION');
             // $("#grid").jqxGrid('exportdata', 'xls', 'jqxGrid');
-            $("#grid_paciente").jqxGrid('exportdata', 'xls', 'Pacientes PSCV', true,null,true, 'https://carahue.eh-open.com/exportar/save-file.php');
+            $("#grid_paciente").jqxGrid('exportdata', 'xls', 'Pacientes PSCV', true,null,true, 'https://sidmun.carahue.cl/web/export.php');
             // $("#grid_paciente").jqxGrid('exportdata', 'xls', 'Pacientes PSCV - DETALLE');
         });
     }

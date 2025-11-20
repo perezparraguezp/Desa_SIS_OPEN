@@ -168,7 +168,7 @@ if($paciente->getModuloPaciente('m_adulto_mayor')=='NO'){
                 </div>
             </div>
             <div class="col l2">
-                <div class="card center" style="font-size: 0.7em;">
+                <div class="card center" style="font-size: 0.9em;">
                     <div class="row">
                         <button style="width: 100%;height: 30px;line-height: 20px;"
                                 onclick="boxEditarPaciente('<?php echo $rut; ?>')"

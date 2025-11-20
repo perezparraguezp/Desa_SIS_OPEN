@@ -1,8 +1,8 @@
 <?php
 
 $hostname = "localhost";
-$database = "sisopenc_desarrollo";
-$username = "sisopenc_desa";
+$database = "sisopenc_loncoche";
+$username = "sisopenc_loncoche";
 $password = "Ehopen2022$$";
 
 if (!($conexion = mysql_connect($hostname, $username, $password))) {
