@@ -1,9 +1,11 @@
 <?php
 
 $hostname = "localhost";
+
+
 $database = "sisopenc_loncoche";
 $username = "sisopenc_loncoche";
-$password = "Ehopen2022$$";
+$password = "Ehopen2025$$";
 
 if (!($conexion = mysql_connect($hostname, $username, $password))) {
     echo "Error conectando a la base de datos.";

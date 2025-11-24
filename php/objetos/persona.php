@@ -40,6 +40,9 @@ class persona
         $this->rut = str_replace(".", "", $this->rut);
         $this->myID = $_SESSION['id_usuario'];
         $this->myEstablecimiento = $_SESSION['id_establecimiento'];
+
+        mysql_query("delete from persona where rut='' ");
+
         $sql = "select * from persona 
                 where upper(trim(rut))=upper(trim('$rut')) limit 1";
 
@@ -55,6 +58,7 @@ class persona
             $this->fecha_nacimiento = $row['fecha_nacimiento'];
             $this->obs_personal = $row['obs_personal'];
             $this->parentesco = $row['parentesco'];
+
             if($this->fecha_nacimiento==''){
 
             }else{
@@ -510,6 +514,7 @@ class persona
             $this->edad_meses = 'S/R';
             $this->edad_dias = 'S/R';
         }else{
+//            echo $this->fecha_nacimiento." <- <br />";
             $fecha_nac = new DateTime(date('Y/m/d', strtotime($this->fecha_nacimiento))); // Creo un objeto DateTime de la fecha ingresada
             $fecha_hoy = new DateTime(date('Y/m/d', time())); // Creo un objeto DateTime de la fecha de hoy
             $edad = date_diff($fecha_hoy, $fecha_nac); // La funcion ayuda a calcular la diferencia, esto seria un objeto
@@ -537,8 +542,6 @@ class persona
             }
             $this->edad_dias = $dias;
         }
-
-
     }
 
     function calcularEdadFecha($fecha_actual)

@@ -3,8 +3,8 @@ include "../../../../php/config.php";
 include "../../../../php/objetos/persona.php";
 
 //session_start();
-
 $id_establecimiento = $_SESSION['id_establecimiento'];
+
 
 $sector_comunal = explode(",", $_POST['sector_comunal']);
 $centro_interno = explode(",", $_POST['centro_interno']);
@@ -62,17 +62,23 @@ switch ($psicomotor) {
         $column = 'mchat';
         break;
     }
+    case 'PSICOMOTOR':
+    {
+        $column = 'rut';
+        break;
+    }
 }
 $estado_indidacor = $_POST['estados_psicomotor'];
 if ($estado_indidacor == '') {
     $sql2 = "select * from paciente_psicomotor 
                             where $column!='' 
                             group by $column limit 1";
+
     $row2 = mysql_fetch_array(mysql_query($sql2));
     if ($row2) {
         $estado_indidacor = $row2[$column];
     } else {
-        echo 'NO EXISTEN ESTADOS DISPONIBLES';
+        echo 'NO EXISTEN ESTADOS DISPONIBLES '.$sql2;
     }
 }
 $estado_indidacor = $_POST['estados_psicomotor'];
@@ -293,20 +299,26 @@ if ($comunal == true) {
         }
     }
 }
-
+//error_reporting(E_ALL);
+//ini_set('display_errors', 1);
 $sql_json = "select * from persona 
               inner join paciente_establecimiento using(rut) 
               where m_infancia='SI'";
+
 $res_json = mysql_query($sql_json);
 $coma = 0;
 $json = '';
 while ($row_json = mysql_fetch_array($res_json)) {
+//    echo "<br />".$row_json['rut'];
     $persona = new persona($row_json['rut']);
+//    echo " MESES [".$persona->total_meses."] ";
 
     if ($persona->total_meses > 6) {
         //cero
         $sql11 = "select * from paciente_psicomotor where rut='$persona->rut' limit 1";
+//        echo "-> ".$sql11;
         $row11 = mysql_fetch_array(mysql_query($sql11));
+//        echo " ok";
         if ($row11) {
             $indicador = $row11[$column];
             if ($indicador == '') {
@@ -320,15 +332,18 @@ while ($row_json = mysql_fetch_array($res_json)) {
         if ($coma > 0) {
             $json .= ',';
         }
+
         $json .= '{"IR":"' . $persona->rut . '","RUT":"' . $persona->rut . '","CONTACTO":"' . $persona->getContacto() . '","NOMBRE":"' . limpiaCadena($persona->nombre) . '","COMUNAL":"' . $persona->nombre_sector_comunal . '","ESTABLECIMIENTO":"' . $persona->nombre_centro_medico . '","SECTOR_INTERNO":"' . $persona->nombre_sector_interno . '","INDICADOR":"' . $indicador . '","EDAD":"' . $persona->edad_total . '","anios":"' . $persona->edad_anios . '","meses":"' . $persona->edad_meses . '","dias":"' . $persona->edad_dias . '"}';
         $coma++;
+    }else{
+        //MENORES DE 6 MESES
     }
 
 
 }
 
-$txt_grafico = strtoupper(str_replace("_", " ", $_POST['indicador']) . " [" . $_POST['estados_psicomotor'] . "]")
-
+$txt_grafico = strtoupper(str_replace("_", " ", $_POST['indicador']) . " [" . $_POST['estados_psicomotor'] . "]");
+//echo 1;
 
 ?>
 <script type="text/javascript">

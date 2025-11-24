@@ -2,9 +2,9 @@
 error_reporting(0);
 session_start();
 $hostname = "localhost";
-$database = "sisopenc_desarrollo";
-$username = "sisopenc_desa";
-$password = "Ehopen2022$$";
+$database = "sisopenc_loncoche";
+$username = "sisopenc_loncoche";
+$password = "Ehopen2025$$";
 
 //$database = "sisopenc_carahue";
 //$username = "sisopenc_db";
@@ -13,6 +13,7 @@ $password = "Ehopen2022$$";
 //$database = "sisopenc_imperial";
 //$username = "sisopenc_db";
 //$password = "Carahue2021$$";
+
 
 if (!($conexion = mysql_connect($hostname, $username, $password))) {
     echo "Error conectando a la base de datos.".$database;
