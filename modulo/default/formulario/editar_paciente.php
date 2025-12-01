@@ -147,6 +147,21 @@ if ($p->rut_papa != '') {
               ?>
                 <div class="row">
                     <div class="col l12 m12 s12">
+                        <div class="col l4">APLV <strong title="PACIENTE ALÑERGICO A LA PROTEÍNA DE LECHE DE VACA">(?)</strong></div>
+                        <div class="col l4">
+                            <input type="radio" id="aplv_1" name="aplv"
+                                   value="SI" <?php echo $p->aplv == 'SI' ? 'checked' : ''; ?> />
+                            <label for="aplv_1">SI</label>
+                        </div>
+                        <div class="col l4">
+                            <input type="radio" id="aplv_2" name="aplv"
+                                   value="NO" <?php echo $p->aplv == 'NO' ? 'checked' : ''; ?> />
+                            <label for="aplv_2">NO</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l12 m12 s12">
                         <div class="col l4">RED MEJOR NIÑEZ</div>
                         <div class="col l4">
                             <input type="radio" id="ninez_1" name="ninez"

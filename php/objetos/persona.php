@@ -29,7 +29,7 @@ class persona
     //datos padres
     public $rut_mama;
     public $rut_papa;
-    public $sename,$ninez_2;
+    public $sename,$ninez_2,$aplv;
 
 
     public $existe, $ultima_actualizacion;
@@ -58,6 +58,7 @@ class persona
             $this->fecha_nacimiento = $row['fecha_nacimiento'];
             $this->obs_personal = $row['obs_personal'];
             $this->parentesco = $row['parentesco'];
+            $this->aplv = $row['aplv'];
 
             if($this->fecha_nacimiento==''){
 

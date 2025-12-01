@@ -315,6 +315,64 @@ if ($paciente->validaNutricionista() == true) {
         }
         ?>
         <?php
+        if ($paciente->total_meses<=12*10) {
+            //menores de 1 año
+            $editar = true;
+            if($paciente->total_meses<2){
+                //menores de 1 mes solo se puede editar
+                $editar = false;
+            }
+            ?>
+            <div class="col l4 s12 m6">
+                <div class="card-panel eh-open_fondo">
+                    <div class="row">
+                        <div class="col l3">
+                            <span class="black-text">INCREMENTO DE PESO <strong class="tooltipped" style="cursor: help"
+                                                                data-position="bottom" data-delay="50"
+                                                                data-tooltip="SOLO PUEDE EDITAR EN NIÑOS MENORES DE 1 MES">(?)</strong></span>
+                        </div>
+                        <div class="col l8">
+                            <select name="incremento_peso" id="incremento_peso">
+                                <option></option>
+                                <option>BAJO</option>
+                                <option>ADECUADO</option>
+                            </select>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('#incremento_peso').jqxDropDownList({
+                                        width: '100%',
+                                        theme: 'eh-open',
+                                        height: '25px',
+                                        disabled:<?php echo $editar; ?>
+                                    });
+
+                                    $("#incremento_peso").on('change', function () {
+                                        var val = $("#lme").val();
+                                        $.post('db/update/paciente_antropometria.php', {
+                                            rut: '<?php echo $rut; ?>',
+                                            val: val,
+                                            column: 'INCREMENTO_PESO',
+                                            fecha_registro: '<?php echo $fecha_registro; ?>'
+
+                                        }, function (data) {
+                                            alertaLateral(data);
+                                            $('.tooltipped').tooltip({delay: 50});
+                                        });
+
+                                    });
+                                    $('.tooltipped').tooltip({delay: 50});
+                                })
+                            </script>
+                        </div>
+                        <div class="col l1">
+                            <i class="mdi-editor-insert-chart"
+                               onclick="verHistorialInfantil('<?php echo $rut ?>','INCREMENTO_PESO')"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
+        }
         if ($paciente->validaPT()) {
             ?>
             <div class="col l4 s12 m6">
@@ -583,12 +641,13 @@ if ($paciente->validaNutricionista() == true) {
                 <div class="card-panel eh-open_fondo">
                     <div class="row">
                         <div class="col l4">
-                            <span class="black-text">Asiste con Padres <strong class="tooltipped" style="cursor: help"
+                            <span class="black-text">Asiste con Padre <strong class="tooltipped" style="cursor: help"
                                                                       data-position="bottom" data-delay="50"
                                                                       data-tooltip="El niño viene acompañado de sus padres">(?)</strong></span>
                         </div>
                         <div class="col l7">
                             <select name="con_padres" id="con_padres">
+                                <option></option>
                                 <option>SI</option>
                                 <option>NO</option>
                             </select>

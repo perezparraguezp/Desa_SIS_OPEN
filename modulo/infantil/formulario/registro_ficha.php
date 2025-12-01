@@ -277,6 +277,7 @@ if($paciente->existe==false){
             function boxEditarPaciente(rut) {
                 $.post('../default/formulario/editar_paciente.php',{
                     rut:rut,
+                    modulo:'INFANTIL'
                 },function(data){
                     if(data !== 'ERROR_SQL'){
                         $("#modal").html(data);

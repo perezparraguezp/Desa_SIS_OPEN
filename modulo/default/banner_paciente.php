@@ -47,7 +47,7 @@ list($establecimiento,$sector_interno,$sector_comunal) = explode(":",$paciente->
         }
         ?>
         <?php
-        if( $paciente->semanas_gestacion!=''){
+        if( $paciente->semanas_gestacion!='' && $paciente->total_meses<=(12*2)){
             ?>
             <div class="row">
                 SEMANAS DE GESTACIÓN <strong><?php echo $paciente->semanas_gestacion ?></strong>

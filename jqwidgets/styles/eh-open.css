@@ -430,7 +430,8 @@
 .jqx-fill-state-focus-eh-open, .jqx-item-eh-open.jqx-fill-state-focus {
     border-color: var(--jqx-focused-state-background-color-eh-open);
 }
-.jqx-fill-state-pressed-eh-open.jqx-fill-state-hover-eh-open, .jqx-dropdownlist-state-selected-eh-open{
+.jqx-fill-state-pressed-eh-open.jqx-fill-state-hover-eh-open,
+.jqx-dropdownlist-state-selected-eh-open{
     color: var(--jqx-focused-state-text-color-eh-open);
 }
 
@@ -927,9 +928,9 @@
 }
 
 .jqx-expander-content.jqx-fill-state-focus-eh-open {
-    border-color: var(--jqx-accordion-item-focused-border-color-eh-open) !important;
-    background-color: var(--jqx-accordion-item-focused-background-color-eh-open);
-    color: var(--jqx-accordion-item-focused-text-color-eh-open);
+    /*border-color: var(--jqx-accordion-item-focused-border-color-eh-open) !important;*/
+    /*background-color: var(--jqx-accordion-item-focused-background-color-eh-open);*/
+    /*color: var(--jqx-accordion-item-focused-text-color-eh-open);*/
 }
 .jqx-expander-header-eh-open {
     padding:10px;
