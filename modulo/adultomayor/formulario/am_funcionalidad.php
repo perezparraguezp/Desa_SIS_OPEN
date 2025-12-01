@@ -6,7 +6,8 @@ include "../../../php/objetos/persona.php";
 $rut = $_POST['rut'];
 $fecha_registro = $_POST['fecha_registro'];
 $paciente = new persona($rut);
-//$funcionalidad =  str_replace(" ","_",$paciente->getParametro_AM('funcionalidad'));
+$funcionalidad =  str_replace(" ","_",$paciente->getParametro_AM('funcionalidad'));
+$minimental =  str_replace(" ","_",$paciente->getParametro_AM('minimental'));
 
 
 ?>
@@ -91,6 +92,45 @@ $paciente = new persona($rut);
                                                style="position: relative;visibility: visible;left: 0px;"
                                                onclick="updateIndicadorAM_variable('funcionalidad','DEPENDENCIA TOTAL'),loadHistorialParametroAM_funcionalidad('<?php echo $rut; ?>','funcionalidad');"
                                                id="af_<?php echo $funcionalidad; ?>" name="af" value="DEPENDENCIA TOTAL" />
+                                    </div>
+                                </div>
+                                <div class="row IMC">
+                                    <div class="col l8 m8 s8">MINIMENTAL</div>
+                                    <div class="col l3 m3 s3">
+                                        <select id="minimental" name="minimental">
+                                            <option><?php echo $minimental; ?></option>
+                                            <option></option>
+                                            <option>NORMAL</option>
+                                            <option>ALTERADO</option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(function(){
+                                                $('#minimental').jqxDropDownList({
+                                                    width: '100%',theme: 'eh-open',
+                                                    height: '25px'
+                                                });
+                                                $("#minimental").on('change',function(){
+                                                    var val = $("#minimental").val();
+                                                    $.post('db/update/am_parametros.php',{
+                                                        rut:'<?php echo $rut; ?>',
+                                                        value:val,
+                                                        column:'minimental',
+                                                        fecha_registro:'<?php echo $fecha_registro; ?>'
+
+                                                    },function(data){
+                                                        alertaLateral(data);
+                                                        loadHistorialParametroAM_funcionalidad('<?php echo $rut; ?>','MINIMENTAL');
+                                                        $('.tooltipped').tooltip({delay: 50});
+                                                    });
+
+                                                });
+                                                $('.tooltipped').tooltip({delay: 50});
+                                            })
+                                        </script>
+                                    </div>
+                                    <div class="col l1 center-align">
+                                        <i class="mdi-editor-insert-chart"
+                                           onclick="loadHistorialParametroAM('<?php echo $rut ?>','minimental')"></i>
                                     </div>
                                 </div>
                             </div>

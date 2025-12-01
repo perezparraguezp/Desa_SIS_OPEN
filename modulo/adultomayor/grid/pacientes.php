@@ -163,6 +163,7 @@
     function boxEditarPaciente_AM(rut) {
         $.post('../default/formulario/editar_paciente.php',{
             rut:rut,
+            modulo:'AM'
         },function(data){
             if(data !== 'ERROR_SQL'){
                 $("#modal").html(data);

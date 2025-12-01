@@ -22,7 +22,8 @@ $paciente->definirEdadFecha($fecha_registro);
                 <div class="card-panel eh-open_fondo">
                     <div class="row">
                         <div class="col l4">
-                            <span class="black-text letra_datos_psicomotor">EV NEUROSENSORIAL <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EVALUACIÓN NEUROSENSORIAL">(?)</strong></span>
+                            <span class="black-text letra_datos_psicomotor">EV NEUROSENSORIAL
+                                <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EVALUACIÓN NEUROSENSORIAL">(?)</strong></span>
                         </div>
                         <div class="col l8">
                             <select name="ev_neurosensorial" id="ev_neurosensorial">
@@ -559,6 +560,46 @@ $paciente->definirEdadFecha($fecha_registro);
                                         rut:'<?php echo $rut; ?>',
                                         val:val,
                                         column:'otra_vulnerabilidad',
+                                        fecha_registro:'<?php echo $fecha_registro; ?>'
+
+                                    },function(data){
+                                        alertaLateral(data);
+                                        historial_psicomotor('<?php echo $rut; ?>');
+                                        $('.tooltipped').tooltip({delay: 50});
+                                    });
+
+                                });
+                                $('.tooltipped').tooltip({delay: 50});
+                            })
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col l12 s12 m12">
+            <div class="card-panel eh-open_fondo">
+                <div class="row">
+                    <div class="col l4">
+                        <span class="black-text letra_datos_psicomotor">EDIMBURGO <strong class="tooltipped" style="cursor: help" data-position="bottom" data-delay="50" data-tooltip="EDIMBURGO">(?)</strong></span>
+                    </div>
+                    <div class="col l8">
+                        <select name="edimburgo" id="edimburgo">
+                            <option></option>
+                            <option>NORMAL</option>
+                            <option>ALTERADO</option>
+                        </select>
+                        <script type="text/javascript">
+                            $(function(){
+                                $('#edimburgo').jqxDropDownList({
+                                    width: '100%',theme: 'eh-open',
+                                    height: '25px'
+                                });
+                                $("#edimburgo").on('change',function(){
+                                    var val = $("#edimburgo").val();
+                                    $.post('db/update/paciente_psicomotor.php',{
+                                        rut:'<?php echo $rut; ?>',
+                                        val:val,
+                                        column:'edimburgo',
                                         fecha_registro:'<?php echo $fecha_registro; ?>'
 
                                     },function(data){

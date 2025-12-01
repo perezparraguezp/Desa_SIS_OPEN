@@ -30,7 +30,7 @@
 
 
     <link href="../../jqwidgets/styles/jqx.energyblue.css" type="text/css" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <!-- jQuery Library -->
 
@@ -471,7 +471,7 @@ $profesional = new profesional($myId);
         <div class="container">
             Copyright © <?php echo date('Y'); ?>
             <span class="right">
-            <a class="light-blue-text" href="http://www.eh-open.com" style="text-decoration: none">
+            <a class="light-blue-text" href="https://www.eh-open.com" style="text-decoration: none">
                 <img src="../../ehopen_logo.png" alt="materialize logo" height="64" />
             </a>
         </span>

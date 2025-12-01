@@ -2,9 +2,11 @@
 error_reporting(0);
 session_start();
 $hostname = "localhost";
-$database = "sisopenc_loncoche";
-$username = "sisopenc_loncoche";
-$password = "Ehopen2025$$";
+
+
+//$database = "sisopenc_loncoche";
+//$username = "sisopenc_loncoche";
+//$password = "Ehopen2025$$";
 
 //$database = "sisopenc_carahue";
 //$username = "sisopenc_db";
@@ -13,6 +15,10 @@ $password = "Ehopen2025$$";
 //$database = "sisopenc_imperial";
 //$username = "sisopenc_db";
 //$password = "Carahue2021$$";
+
+$database = "sisopenc_desarrollo";
+$username = "sisopenc_desa";
+$password = "psdyqmf7e12b";
 
 
 if (!($conexion = mysql_connect($hostname, $username, $password))) {

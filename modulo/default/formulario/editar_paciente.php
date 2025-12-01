@@ -4,6 +4,7 @@ include '../../../php/objetos/persona.php';
 
 $id_establecimiento = $_SESSION['id_establecimiento'];
 $rut = $_POST['rut'];
+$modulo = $_POST['modulo'];
 $p = new persona($rut);
 
 $centro_medico = $p->getArrayCentroMedico();
@@ -141,169 +142,175 @@ if ($p->rut_papa != '') {
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="col l4">RED MEJOR NIÑEZ</div>
-                    <div class="col l4">
-                        <input type="radio" id="ninez_1" name="ninez"
-                               value="SI" <?php echo $p->ninez == 'SI' ? 'checked' : ''; ?> />
-                        <label for="ninez_1">SI</label>
-                    </div>
-                    <div class="col l4">
-                        <input type="radio" id="ninez_2" name="ninez"
-                               value="NO" <?php echo $p->ninez == 'NO' ? 'checked' : ''; ?> />
-                        <label for="ninez_2">NO</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="col l4">SALA DE ESTIMULACION</div>
-                    <div class="col l4">
-                        <input type="radio" id="sala_1" name="sala_estimulacoin"
-                               value="SI" <?php echo $p->sala_estimulacoin == 'SI' ? 'checked' : ''; ?> />
-                        <label for="sala_1">SI</label>
-                    </div>
-                    <div class="col l4">
-                        <input type="radio" id="sala_2" name="sala_estimulacoin"
-                               value="NO" <?php echo $p->sala_estimulacoin == 'NO' ? 'checked' : ''; ?> />
-                        <label for="sala_2">NO</label>
+            <?php
+            if($modulo=='INFANTIL'){
+              ?>
+                <div class="row">
+                    <div class="col l12 m12 s12">
+                        <div class="col l4">RED MEJOR NIÑEZ</div>
+                        <div class="col l4">
+                            <input type="radio" id="ninez_1" name="ninez"
+                                   value="SI" <?php echo $p->ninez == 'SI' ? 'checked' : ''; ?> />
+                            <label for="ninez_1">SI</label>
+                        </div>
+                        <div class="col l4">
+                            <input type="radio" id="ninez_2" name="ninez"
+                                   value="NO" <?php echo $p->ninez == 'NO' ? 'checked' : ''; ?> />
+                            <label for="ninez_2">NO</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="col l4">PASMI</div>
-                    <div class="col l4">
-                        <input type="radio" id="pasmi_1" name="pasmi"
-                               value="SI" <?php echo $p->pasmi == 'SI' ? 'checked' : ''; ?> />
-                        <label for="pasmi_1">SI</label>
-                    </div>
-                    <div class="col l4">
-                        <input type="radio" id="pasmi_2" name="pasmi"
-                               value="NO" <?php echo $p->pasmi == 'NO' ? 'checked' : ''; ?> />
-                        <label for="pasmi_2">NO</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="col l4">RED SENAME</div>
-                    <div class="col l4">
-                        <input type="radio" id="sename_1" name="sename"
-                               value="SI" <?php echo $p->sename == 'SI' ? 'checked' : ''; ?> />
-                        <label for="name_1">SI</label>
-                    </div>
-                    <div class="col l4">
-                        <input type="radio" id="sename_2" name="sename"
-                               value="NO" <?php echo $p->sename == 'NO' ? 'checked' : ''; ?> />
-                        <label for="sename_2">NO</label>
+                <div class="row">
+                    <div class="col l12 m12 s12">
+                        <div class="col l4">SALA DE ESTIMULACION</div>
+                        <div class="col l4">
+                            <input type="radio" id="sala_1" name="sala_estimulacoin"
+                                   value="SI" <?php echo $p->sala_estimulacoin == 'SI' ? 'checked' : ''; ?> />
+                            <label for="sala_1">SI</label>
+                        </div>
+                        <div class="col l4">
+                            <input type="radio" id="sala_2" name="sala_estimulacoin"
+                                   value="NO" <?php echo $p->sala_estimulacoin == 'NO' ? 'checked' : ''; ?> />
+                            <label for="sala_2">NO</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="col l4">NANEA</div>
-                    <div class="col l8">
-                        <input type="hidden" name="naneas" id="naneas"/>
-                        <select name="nanea" id="nanea">
-                            <!--                            <option>NO</option>-->
-                            <?php
-                            $sql1 = "select * from tipos_nanea where vigencia='SI' order by id_nanea asc";
-                            $res1 = mysql_query($sql1);
-                            while ($row1 = mysql_fetch_array($res1)) {
-
-                                ?>
-                                <option><?php echo $row1['nanea']; ?></option>
+                <div class="row">
+                    <div class="col l12 m12 s12">
+                        <div class="col l4">PASMI</div>
+                        <div class="col l4">
+                            <input type="radio" id="pasmi_1" name="pasmi"
+                                   value="SI" <?php echo $p->pasmi == 'SI' ? 'checked' : ''; ?> />
+                            <label for="pasmi_1">SI</label>
+                        </div>
+                        <div class="col l4">
+                            <input type="radio" id="pasmi_2" name="pasmi"
+                                   value="NO" <?php echo $p->pasmi == 'NO' ? 'checked' : ''; ?> />
+                            <label for="pasmi_2">NO</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l12 m12 s12">
+                        <div class="col l4">RED SENAME</div>
+                        <div class="col l4">
+                            <input type="radio" id="sename_1" name="sename"
+                                   value="SI" <?php echo $p->sename == 'SI' ? 'checked' : ''; ?> />
+                            <label for="name_1">SI</label>
+                        </div>
+                        <div class="col l4">
+                            <input type="radio" id="sename_2" name="sename"
+                                   value="NO" <?php echo $p->sename == 'NO' ? 'checked' : ''; ?> />
+                            <label for="sename_2">NO</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l12 m12 s12">
+                        <div class="col l4">NANEA</div>
+                        <div class="col l8">
+                            <input type="hidden" name="naneas" id="naneas"/>
+                            <select name="nanea" id="nanea">
+                                <!--                            <option>NO</option>-->
                                 <?php
+                                $sql1 = "select * from tipos_nanea where vigencia='SI' order by id_nanea asc";
+                                $res1 = mysql_query($sql1);
+                                while ($row1 = mysql_fetch_array($res1)) {
 
-                            }
-                            ?>
-                        </select>
-                        <script type="text/javascript">
-                            $(function () {
-                                $("#nanea").jqxDropDownList({
-                                    width: '100%',
-                                    checkboxes: true,
-                                    height: 30
-                                });
-                                $("#nanea").on('checkChange', function (event) {
-                                    if (event.args) {
-                                        var item = event.args.item;
-                                        if (item) {
-                                            var items = $("#nanea").jqxDropDownList('getCheckedItems');
-                                            var checkedItems = "";
-                                            $.each(items, function (index) {
-                                                checkedItems += this.label + ", ";
-                                            });
-                                            $("#naneas").val(checkedItems);
+                                    ?>
+                                    <option><?php echo $row1['nanea']; ?></option>
+                                    <?php
+
+                                }
+                                ?>
+                            </select>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $("#nanea").jqxDropDownList({
+                                        width: '100%',
+                                        checkboxes: true,
+                                        height: 30
+                                    });
+                                    $("#nanea").on('checkChange', function (event) {
+                                        if (event.args) {
+                                            var item = event.args.item;
+                                            if (item) {
+                                                var items = $("#nanea").jqxDropDownList('getCheckedItems');
+                                                var checkedItems = "";
+                                                $.each(items, function (index) {
+                                                    checkedItems += this.label + ", ";
+                                                });
+                                                $("#naneas").val(checkedItems);
+                                            }
                                         }
+                                    });
+                                    $("#nanea").jqxDropDownList('uncheckAll');
+                                    <?php
+                                    $naneas = explode(",", $p->nanea);
+                                    foreach ($naneas as $i => $nanea){
+                                    if($nanea != ''){
+                                    ?>
+                                    $("#nanea").jqxDropDownList('checkItem', '<?php echo $nanea; ?>');
+                                    <?php
                                     }
+                                    }
+                                    ?>
+
                                 });
-                                $("#nanea").jqxDropDownList('uncheckAll');
-                                <?php
-                                $naneas = explode(",", $p->nanea);
-                                foreach ($naneas as $i => $nanea){
-                                if($nanea != ''){
-                                ?>
-                                $("#nanea").jqxDropDownList('checkItem', '<?php echo $nanea; ?>');
-                                <?php
-                                }
-                                }
-                                ?>
 
-                            });
-
-                        </script>
+                            </script>
+                        </div>
                     </div>
-                </div>
-                <div class="col l12 m12 s12">
-                    <div class="col l4">NANEA COMPLEJIDAD</div>
-                    <div class="col l8">
-                        <select name="complejidad" id="complejidad">
-                            <option>NO</option>
-                            <option>BAJA</option>
-                            <option>MEDIA</option>
-                            <option>ALTA</option>
-                        </select>
-                        <script type="text/javascript">
-                            $(function () {
-                                $("#nanea").jqxDropDownList({
-                                    width: '100%',
-                                    checkboxes: true,
-                                    height: 30
-                                });
-                                $("#nanea").on('checkChange', function (event) {
-                                    if (event.args) {
-                                        var item = event.args.item;
-                                        if (item) {
-                                            var items = $("#nanea").jqxDropDownList('getCheckedItems');
-                                            var checkedItems = "";
-                                            $.each(items, function (index) {
-                                                checkedItems += this.label + ", ";
-                                            });
-                                            $("#naneas").val(checkedItems);
+                    <div class="col l12 m12 s12">
+                        <div class="col l4">NANEA COMPLEJIDAD</div>
+                        <div class="col l8">
+                            <select name="complejidad" id="complejidad">
+                                <option>NO</option>
+                                <option>BAJA</option>
+                                <option>MEDIA</option>
+                                <option>ALTA</option>
+                            </select>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $("#nanea").jqxDropDownList({
+                                        width: '100%',
+                                        checkboxes: true,
+                                        height: 30
+                                    });
+                                    $("#nanea").on('checkChange', function (event) {
+                                        if (event.args) {
+                                            var item = event.args.item;
+                                            if (item) {
+                                                var items = $("#nanea").jqxDropDownList('getCheckedItems');
+                                                var checkedItems = "";
+                                                $.each(items, function (index) {
+                                                    checkedItems += this.label + ", ";
+                                                });
+                                                $("#naneas").val(checkedItems);
+                                            }
                                         }
+                                    });
+                                    $("#nanea").jqxDropDownList('uncheckAll');
+                                    <?php
+                                    $naneas = explode(",", $p->nanea);
+                                    foreach ($naneas as $i => $nanea){
+                                    if($nanea != ''){
+                                    ?>
+                                    $("#nanea").jqxDropDownList('checkItem', '<?php echo $nanea; ?>');
+                                    <?php
                                     }
+                                    }
+                                    ?>
+
                                 });
-                                $("#nanea").jqxDropDownList('uncheckAll');
-                                <?php
-                                $naneas = explode(",", $p->nanea);
-                                foreach ($naneas as $i => $nanea){
-                                if($nanea != ''){
-                                ?>
-                                $("#nanea").jqxDropDownList('checkItem', '<?php echo $nanea; ?>');
-                                <?php
-                                }
-                                }
-                                ?>
 
-                            });
-
-                        </script>
+                            </script>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <?php
+            }
+            ?>
         </div>
         <div>DATOS DE CONTACTO</div>
         <div>
@@ -412,99 +419,122 @@ if ($p->rut_papa != '') {
             </div>
         </div>
         <div>DATOS DE TARJETA</div>
-        <div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="col l4">Nº DE FICHA</div>
+        <div class="container">
+            <p></p>
+            <div class="card-panel">
+                <div class="row">
+                    <div class="col l4">
+                        <img src="../../images/carpetas_salud.png" width="200" />
+                    </div>
                     <div class="col l8">
-                        <input type="text" name="ficha" value="<?php echo $p->numero_ficha; ?>"/>
+                        <p>Para localizar el expediente físico del paciente en nuestros archivos, por favor ingrese la siguiente información de identificación. Estos datos son esenciales para ubicar con precisión la documentación física almacenada fuera de la plataforma digital.</p>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="col l4">Nº CARPETA FAMILIA</div>
-                    <div class="col l8">
-                        <input type="text" name="carpeta_familiar" value="<?php echo $p->carpeta_familiar; ?>"/>
+            <div class="card-panel">
+                <header>IDENTIFICACION DEL EXPEDIENTE DEL PACIENTE</header>
+                <div class="row">
+                    <div class="col l12 m12 s12">
+                        <div class="col l4">Nº DE FICHA</div>
+                        <div class="col l8">
+                            <input type="text" name="ficha" value="<?php echo $p->numero_ficha; ?>"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l12 m12 s12">
+                        <div class="col l4">Nº CARPETA FAMILIA</div>
+                        <div class="col l8">
+                            <input type="text" name="carpeta_familiar" value="<?php echo $p->carpeta_familiar; ?>"/>
+                        </div>
                     </div>
                 </div>
             </div>
 
+
+
+
         </div>
-        <div>DATOS DE LA MADRE</div>
-        <div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="col l4">RUT MADRE</div>
-                    <div class="col l8">
-                        <input type="text" name="rut_mama" id="rut_mama"
-                               value="<?php echo $p->rut_mama; ?>"
-                               placeholder="11222333-4"/>
+        <?php
+        if($modulo=='INFANTIL'){
+            ?>
+            <div>DATOS DE LA MADRE</div>
+            <div>
+                <div class="row">
+                    <div class="col l12 m12 s12">
+                        <div class="col l4">RUT MADRE</div>
+                        <div class="col l8">
+                            <input type="text" name="rut_mama" id="rut_mama"
+                                   value="<?php echo $p->rut_mama; ?>"
+                                   placeholder="11222333-4"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l12 m12 s12">
+                        <div class="col l4">NOMBRE COMPLETO</div>
+                        <div class="col l8">
+                            <input type="text" name="nombre_mama" value="<?php echo $mama->nombre; ?>"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l12 m12 s12">
+                        <div class="col l4">FECHA DE NACIMIENTO</div>
+                        <div class="col l8">
+                            <input type="date" name="nacimiento_mama" value="<?php echo $mama->fecha_nacimiento; ?>"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l12 m12 s12">
+                        <div class="col l4">TELEFONO DE CONTACTO</div>
+                        <div class="col l8">
+                            <input type="text" name="telefono_mama" value="<?php echo $mama->telefono; ?>"/>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="col l4">NOMBRE COMPLETO</div>
-                    <div class="col l8">
-                        <input type="text" name="nombre_mama" value="<?php echo $mama->nombre; ?>"/>
+            <div>DATOS DEL PADRE</div>
+            <div>
+                <div class="row">
+                    <div class="col l12 m12 s12">
+                        <div class="col l4">RUT PADRE</div>
+                        <div class="col l8">
+                            <input type="text" name="rut_papa" id="rut_papa"
+                                   value="<?php echo $p->rut_papa; ?>"
+                                   placeholder="11222333-4"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l12 m12 s12">
+                        <div class="col l4">NOMBRE COMPLETO</div>
+                        <div class="col l8">
+                            <input type="text" name="nombre_papa" value="<?php echo $papa->nombre; ?>"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l12 m12 s12">
+                        <div class="col l4">FECHA DE NACIMIENTO</div>
+                        <div class="col l8">
+                            <input type="date" name="nacimiento_papa" value="<?php echo $papa->fecha_nacimiento; ?>"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col l12 m12 s12">
+                        <div class="col l4">TELEFONO DE CONTACTO</div>
+                        <div class="col l8">
+                            <input type="text" name="telefono_papa" value="<?php echo $papa->telefono; ?>"/>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="col l4">FECHA DE NACIMIENTO</div>
-                    <div class="col l8">
-                        <input type="date" name="nacimiento_mama" value="<?php echo $mama->fecha_nacimiento; ?>"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="col l4">TELEFONO DE CONTACTO</div>
-                    <div class="col l8">
-                        <input type="text" name="telefono_mama" value="<?php echo $mama->telefono; ?>"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>DATOS DEL PADRE</div>
-        <div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="col l4">RUT PADRE</div>
-                    <div class="col l8">
-                        <input type="text" name="rut_papa" id="rut_papa"
-                               value="<?php echo $p->rut_papa; ?>"
-                               placeholder="11222333-4"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="col l4">NOMBRE COMPLETO</div>
-                    <div class="col l8">
-                        <input type="text" name="nombre_papa" value="<?php echo $papa->nombre; ?>"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="col l4">FECHA DE NACIMIENTO</div>
-                    <div class="col l8">
-                        <input type="date" name="nacimiento_papa" value="<?php echo $papa->fecha_nacimiento; ?>"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col l12 m12 s12">
-                    <div class="col l4">TELEFONO DE CONTACTO</div>
-                    <div class="col l8">
-                        <input type="text" name="telefono_papa" value="<?php echo $papa->telefono; ?>"/>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php
+        }
+        ?>
         <div>CONFIGURACIÓN DEL PACIENTE</div>
         <div>
             <div class="row">

@@ -130,6 +130,7 @@ if($paciente->existe==false){
                 loadFormPsicomotor('<?php echo $rut; ?>');
                 loadFormDental('<?php echo $rut; ?>');
                 loadInfoNacimiento('<?php echo $rut; ?>');
+                loadVDI_formulario('<?php echo $rut; ?>');
             });
             function loadInfoPaciente(rut){
                 $.post('../default/banner_paciente.php',{
@@ -156,6 +157,15 @@ if($paciente->existe==false){
 
                 },function(data){
                     $("#form_historial").html(data);
+                });
+            }
+            function loadVDI_formulario(rut) {
+                $.post('formulario/vdi.php',{
+                    rut:rut,
+                    fecha_registro:'<?php echo $fecha_registro; ?>'
+
+                },function(data){
+                    $("#form_vdi").html(data);
                 });
             }
             function historial_psicomotor(rut){
@@ -352,7 +362,9 @@ if($paciente->existe==false){
                     <li onclick="loadHistorialVacunas()">REGISTRO VACUNAS</li>
                     <li onclick="historial_psicomotor('<?php echo $rut; ?>');">DESARROLLO PSICOMOTOR</li>
                     <li onclick="historial_dental('<?php echo $rut; ?>')">PROGRAMA DENTAL</li>
+                    <li onclick="loadVDI_formulario('<?php echo $rut; ?>');">VDI</li>
                     <li onclick="loadFormPendientes('<?php echo $rut; ?>');">PENDIENTES</li>
+
                     <li style="background-color: #0a73a7;cursor: pointer;color: white" onclick="boxAgendamiento('INFANTIL')">FINALIZAR ATENCIÓN</li>
                 </ul>
                 <div>
@@ -384,6 +396,10 @@ if($paciente->existe==false){
                 <div>
                     <!-- DENTAL -->
                     <form name="form_dental" id="form_dental" class="col l12"></form>
+                </div>
+                <div>
+                    <!-- VDI -->
+                    <form name="form_vdi" id="form_vdi" class="col l12"></form>
                 </div>
                 <div>
                     <!-- PENDIENTES -->

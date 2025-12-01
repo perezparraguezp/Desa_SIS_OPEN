@@ -19,6 +19,14 @@
             <?php
             break;
         }
+        case 'MINIMENTAL':{
+            ?>
+            <option value="" >NO INDICA</option>
+            <option >NORMAL</option>
+            <option >ALTERADO</option>
+            <?php
+            break;
+        }
         case 'ACTIVIDAD FISICA':{
             ?>
             <option>SI</option>

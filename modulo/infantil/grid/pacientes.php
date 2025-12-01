@@ -172,6 +172,7 @@
     function boxEditarPaciente_infantil(rut) {
         $.post('../default/formulario/editar_paciente.php',{
             rut:rut,
+            modulo:'INFANTIL'
         },function(data){
             if(data !== 'ERROR_SQL'){
                 $("#modal").html(data);
