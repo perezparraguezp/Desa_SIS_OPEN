@@ -27,10 +27,10 @@ $paciente->load_DatosNacimiento();
                     <option><?php echo $paciente->semanas_gestacion;  ?></option>
                     <?php
                     FOR ($i=20;$i<=39;$i++){
-                        echo '<option>'.$i.' SEMANAS</option>';
+                        echo '<option value="'.$i.'">'.$i.' SEMANAS</option>';
                     }
                     ?>
-                    <option>+40 SEMANAS</option>
+                    <option value="41">+40 SEMANAS</option>
                 </select>
                 <script type="text/javascript">
                     $(function(){

@@ -28,6 +28,7 @@ $complejidad = $_POST['complejidad'];
 
 $ninez = $_POST['sename'];
 $sename = $_POST['ninez'];
+$aplv = $_POST['aplv'];
 
 $sql = "update paciente_establecimiento set estado_registro='$estado_paciente',complejidad='$complejidad' 
                     where id_establecimiento='$id_establecimiento' 
@@ -70,6 +71,7 @@ $mysq->update_persona_column($rut,'telefono',$telefono);
 
 $mysq->update_persona_column($rut,'sename',$sename);
 $mysq->update_persona_column($rut,'ninez',$ninez);
+$mysq->update_persona_column($rut,'aplv',$aplv);
 
 
 

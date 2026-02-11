@@ -142,6 +142,9 @@
                 //loadEstadisticaGeneral();
             });
         }
+        function exportarGRID(grid,nombre){
+            $("#"+grid).jqxGrid('exportdata', 'xls', nombre, true,null,true, 'export.php');
+        }
         function alertaLateral(texto){
             var toastHTML = '<span>'+texto+'</span>';
             Materialize.toast(toastHTML, 4000);

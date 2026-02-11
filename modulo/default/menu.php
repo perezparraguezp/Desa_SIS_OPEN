@@ -40,6 +40,7 @@ $profesional = new profesional($_SESSION['id_usuario']);
         <li id="menu_0" onclick="loadMenu_default('menu_0','dashboard','')" class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-action-dashboard"></i> Inicio</a></li>
         <li id="menu_1" onclick="loadMenu_default('menu_1','profesionales','')"  class="bold"><a href="#"  class="waves-effect waves-cyan"><i class="mdi-communication-contacts"></i> Profesionales</a></li>
         <li id="menu_3" onclick="loadMenu_default('menu_3','centro_medico','')"class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-communication-business"></i> Centros Medicos</a></li>
+        <li id="menu_3" onclick="loadMenu_default('menu_3','importar','')"class="bold"><a href="#" class="waves-effect waves-cyan"><i class="mdi-communication-business"></i> IMPORTAR</a></li>
 
         <li class="bold"><a href="../../php/salir.php" class="waves-effect waves-cyan"><i class="mdi-action-lock"></i> CERRAR SESSIÓN </a></li>
     </ul>

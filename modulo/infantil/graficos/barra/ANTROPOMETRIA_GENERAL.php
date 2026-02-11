@@ -35,7 +35,7 @@ if ($indicador == 'IMCE') {
         } else {
             if ($indicador == 'DNI1') {
                 //MENORES DE 6 AÑOS
-                $filtro_edad = 'and persona.edad_total<(6*12) ';//Dede los 5 años
+                $filtro_edad = 'and persona.edad_total<(6*12) and persona.edad_total>=(2*12) ';//Dede los 5 años
                 $rango_edad_texto = 'Menores de 6 Años';
                 $indicador = 'DNI';
             } else {
@@ -50,34 +50,41 @@ if ($indicador == 'IMCE') {
                         $rango_edad_texto = 'Todos los niños menores de 10 años';
                         $indicador = 'DNI';
                     } else {
-                        if ($indicador == 'SCORE_IRA') {
-                            if($estado=='NORMAL'){
-                                $estado = 'LEVE';
-                            }
-
-                            $filtro_edad = 'and persona.edad_total<12 ';//menores de 8 meses
-                            $rango_edad_texto = 'Menores de 12 meses y 30 días';
-                        } else {
-                            if ($indicador == 'LME') {
+                        if ($indicador == 'DNI4') {
+                            $filtro_edad = 'and persona.edad_total<(2*12) ';//menores de 10 años
+                            $rango_edad_texto = 'Todos los niños menores de 10 años';
+                            $indicador = 'DNI';
+                        }else{
+                            if ($indicador == 'SCORE_IRA') {
                                 if($estado=='NORMAL'){
-                                    $estado = 'LME';
+                                    $estado = 'LEVE';
                                 }
-                                $estado = $estado;
-                                $filtro_edad = 'and persona.edad_total<6 ';//menores de 8 meses
-                                $rango_edad_texto = 'Menores de 5 meses Y 30 días.';
+
+                                $filtro_edad = 'and persona.edad_total<12 ';//menores de 8 meses
+                                $rango_edad_texto = 'Menores de 12 meses y 30 días';
                             } else {
-                                if ($indicador == 'perimetro_craneal') {
-                                    $estado = 'N';
-                                    $filtro_edad = 'and persona.edad_total<(12*2) ';//menores de 2 años
-                                    $rango_edad_texto = 'Menores de 2 años';
+                                if ($indicador == 'LME') {
+                                    if($estado=='NORMAL'){
+                                        $estado = 'LME';
+                                    }
+                                    $estado = $estado;
+                                    $filtro_edad = 'and persona.edad_total<6 ';//menores de 8 meses
+                                    $rango_edad_texto = 'Menores de 5 meses Y 30 días.';
                                 } else {
-                                    if ($indicador == 'evaluacion_auditiva') {
-                                        $filtro_edad = 'and persona.edad_total<=12 ';//menores de 8 meses
-                                        $rango_edad_texto = 'Menores de 1 año';
+                                    if ($indicador == 'perimetro_craneal') {
+                                        $estado = 'N';
+                                        $filtro_edad = 'and persona.edad_total<(12*2) ';//menores de 2 años
+                                        $rango_edad_texto = 'Menores de 2 años';
+                                    } else {
+                                        if ($indicador == 'evaluacion_auditiva') {
+                                            $filtro_edad = 'and persona.edad_total<=12 ';//menores de 8 meses
+                                            $rango_edad_texto = 'Menores de 1 año';
+                                        }
                                     }
                                 }
                             }
                         }
+
                     }
                 }
             }

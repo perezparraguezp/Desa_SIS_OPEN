@@ -50,7 +50,22 @@ list($establecimiento,$sector_interno,$sector_comunal) = explode(":",$paciente->
         if( $paciente->semanas_gestacion!='' && $paciente->total_meses<=(12*2)){
             ?>
             <div class="row">
-                SEMANAS DE GESTACIÓN <strong><?php echo $paciente->semanas_gestacion ?></strong>
+                SEMANAS DE GESTACIÓN <strong><?php echo $paciente->semanas_gestacion ?> SEMANAS</strong>
+            </div>
+            <?php
+            if($paciente->semanas_gestacion<=36){
+                $dias_corregir = (40 - $paciente->semanas_gestacion)*7;
+                $fecha = new DateTime(); // fecha actual
+                $fecha->modify('-'.$dias_corregir.' days'); // restar 5 días
+
+                echo 'EDAD CORREGIDA (-'.$dias_corregir.' Días) '.$paciente->calcularEdadFecha($fecha->format('Y-m-d'));
+            }
+        }
+
+        if( $paciente->aplv=='SI'){
+            ?>
+            <div class="row">
+                APLV <strong><?php echo $paciente->aplv ?></strong>
             </div>
             <?php
         }

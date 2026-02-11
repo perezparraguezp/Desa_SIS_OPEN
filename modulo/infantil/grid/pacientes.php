@@ -157,7 +157,12 @@
                     { text: 'POBLACION MIGRANTE', datafield: 'migrantes', width: 250  ,filtertype: 'checkedlist'},
                 ]
             });
-        $("#grid_pendientes").jqxGrid('exportdata', 'xls', 'Pacientes Infantil', true,null,true, 'https://carahue.eh-open.com/exportar/save-file.php');
+        $("#excelExport_pacientes").click(function () {
+            alertaLateral('EXPORTANDO INFORMACION');
+            $("#grid_pendientes").jqxGrid('exportdata', 'xls', 'Pacientes Infantil', true,null,true, 'export.php');
+        });
+
+
     }
     function boxInfoEstablecimiento(id){
         $.post('php/modal/establecimiento/informacion.php',{
@@ -180,6 +185,9 @@
                 document.getElementById("btn-modal").click();
             }
         });
+    }
+    function exportarGRID(grid,nombre){
+        $("#"+grid).jqxGrid('exportdata', 'xls', nombre, true,null,true, 'export.php');
     }
     function loadMenu_Infantil_target(menu,php,rut) {
         var url = 'menu/'+php+'.php';
@@ -209,10 +217,12 @@
                         <option>PASMI</option>
                         <option>PUEBLOS ORIGINARIOS</option>
                         <option>POBLACION MIGRANTE</option>
+                        <option>VDI</option>
+                        <option>APLV</option>
                     </select>
                 </div>
                 <div class="col l4 m6 s6">
-                    <button class="btn right-align eh-open_principal" id="excelExport" >
+                    <button class="btn right-align eh-open_principal" id="excelExport_pacientes" >
                         <i class="mdi-action-open-in-new left"></i>
                         EXPORTAR EXCEL
                     </button>

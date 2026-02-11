@@ -93,25 +93,47 @@ $paciente->loadAntropometria();
         }
 
         <?php
+        $valida = '0';
+
         if ($paciente->validaIRA()){
+            $valida.=' + ira';
         ?>
 
         if ($("#ira_score").val() === '') {
             $("#ira_score").css({'border': 'solid 2px red'});
             ira = 1;
         } else {
-            if ($("#ira_score").val() == null) {
-                ira = 0;
-            } else {
-                $("#ira_score").css({'border': 'solid 2px green'});
-            }
+            $("#ira_score").css({'border': 'solid 2px green'});
+            ira = 0;
         }
         <?php
         }
         ?>
 
 
-        if ((pe + pt + te + imc + dni + ira) === 0) {
+        <?php
+        if($paciente->validaPE()){
+            $valida.='+ pe ';
+        }
+        if($paciente->validaPT()){
+            $valida.='+ pt ';
+        }
+        if($paciente->validaTE()){
+            $valida.='+ te';
+        }
+        if($paciente->validaIMCE()){
+            $valida.='+ imc ';
+        }
+        
+        if($paciente->validaDNI()){
+            $valida.='+ dni ';
+        }
+
+
+
+        ?>
+
+        if ((<?php echo $valida ?>) === 0) {
             var val_pe = $("#pe").val();
             $.post('db/update/paciente_antropometria.php', {
                 rut: '<?php echo $rut; ?>',
@@ -1061,6 +1083,7 @@ if ($paciente->validaNutricionista() == true) {
                                     } else {
                                         $('#IRA_ATENCION').hide("swing");
                                     }
+                                    updateRegistroEspecial();
 
                                 });
                                 $('.tooltipped').tooltip({delay: 50});

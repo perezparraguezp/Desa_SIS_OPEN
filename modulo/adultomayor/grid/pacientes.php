@@ -5,15 +5,30 @@
 </style>
 <script type="text/javascript">
     $(document).ready(function() {
+        $("#tipo_paciente").on('change',function () {
+            loadPacientesAM();
+        });
+        $("#excelExport").jqxButton();
+        $("#excelExport").click(function () {
+            // $("#grid").jqxGrid('exportdata', 'xls', 'jqxGrid');
+            exportarGRID('grid','adultos_mayores');
+            // $("#grid").jqxGrid('exportdata', 'xls', 'Pacientes SIS Adulto Mayor', true,null,true, 'https://carahue.sidmun.cl/web/export.php');
+
+        });
+    });
+    function loadPacientesAM(){
+        var tipo = $("#tipo_paciente").val();
         var source =
             {
-                url: 'json/pacientes.php',
+                url: 'json/pacientes.php?tipo='+tipo,
                 datatype: "json",
                 root: 'Rows',
                 datafields:
                     [
                         {name: 'rut', type: 'string'},
                         {name: 'nombre', type: 'string'},
+                        {name: 'ultima', type: 'string'},
+                        {name: 'pendiente', type: 'string'},
                         {name: 'edad', type: 'number'},
                         {name: 'anios', type: 'number'},
                         {name: 'meses', type: 'number'},
@@ -128,6 +143,8 @@
                             return renderstring;
                         }
                     },
+                    { text: 'ULTIMO REGISTRO', datafield: 'ultima', width: 100},
+                    { text: 'ESTADO', datafield: 'pendiente', width: 120,filtertype: 'checkedlist'},
                     { text: 'Fecha Nacimiento', datafield: 'nacimiento', width: 100},
                     { text: 'AÑO', datafield: 'anios', width: 80 ,filtertype: 'checkedlist', cellsalign: 'center'},
                     { text: 'MES', datafield: 'meses', width: 80 ,filtertype: 'checkedlist', cellsalign: 'center'},
@@ -143,13 +160,7 @@
 
                 ]
             });
-        $("#excelExport").jqxButton();
-        $("#excelExport").click(function () {
-            // $("#grid").jqxGrid('exportdata', 'xls', 'jqxGrid');
-            $("#grid").jqxGrid('exportdata', 'xls', 'Pacientes SIS Adulto Mayor', true,null,true, 'https://carahue.eh-open.com/exportar/save-file.php');
-
-        });
-    });
+    }
     function boxInfoEstablecimiento(id){
         $.post('php/modal/establecimiento/informacion.php',{
             id:id
@@ -176,14 +187,29 @@
         // prepare the data
 
     }
+    function exportarGRID(grid,nombre){
+        $("#"+grid).jqxGrid('exportdata', 'xls', nombre, true,null,true, 'export.php');
+    }
 </script>
 <div class="row center-align">
     <div class="col l12">
         <div class="card-panel">
             <div class="row">
-                <div class="col l12 right-align">
-                    <input type="button" class="btn eh-open_principal"
-                           value="Exportar a Excel" id='excelExport' />
+                <div class="col l8 m6 s6">
+                    <select id="tipo_paciente"
+                            style="font-size: 1em;"
+                            name="tipo_paciente" class="browser-default">
+                        <option disabled="disabled" selected="selected">SELECCIONAR TIPO DE PACIENTE</option>
+                        <option>TODOS</option>
+                        <option>ELEAM</option>
+                        <option>+ ADULTOS MAYORES</option>
+                    </select>
+                </div>
+                <div class="col l4 m6 s6">
+                    <button class="btn right-align eh-open_principal" id="excelExport" >
+                        <i class="mdi-action-open-in-new left"></i>
+                        EXPORTAR EXCEL
+                    </button>
                 </div>
             </div>
             <div class="row">

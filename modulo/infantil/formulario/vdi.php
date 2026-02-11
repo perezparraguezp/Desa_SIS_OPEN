@@ -49,7 +49,7 @@ while($row = mysql_fetch_array($res)){
 <div class="row">
     <div class="col l6">
         <div class="col l12 s12 m12">
-            <div class="card-panel eh-open_fondo">
+            <div class="card-panel eh-open_fondo" style="color: black;">
                 <div class="row">
                     <div class="col l12"><label>INDICAR LA FECHA EN QUE REGISTRO LA VISITA DOMICILIARIA</label></div>
                 </div>
@@ -59,7 +59,7 @@ while($row = mysql_fetch_array($res)){
                 </div>
                 <div class="row">
                     <div class="col l4"><label>OBSERVACIONES</label></div>
-                    <div class="col l8"><textarea id="obs_vdi" name="obs_vdi" placeholder="DEBERA INDICAR ALGUNA OBSERVACION DURANTE LA VISITA"></textarea></div>
+                    <div class="col l8"><textarea id="obs_vdi" name="obs_vdi" style="background-color: whitesmoke;" placeholder="DEBERA INDICAR ALGUNA OBSERVACION DURANTE LA VISITA"></textarea></div>
                 </div>
                 <div class="row">
                     <div class="col l12">

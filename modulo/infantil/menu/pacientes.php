@@ -18,6 +18,7 @@
         load_lista_infantil_estadistica();
         $('#tabs_pacientes_pscv').jqxTabs({
             width: '100%',
+            height:alto-130,
             theme: 'eh-open',
             position: 'top'});
     });

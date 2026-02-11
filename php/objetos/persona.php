@@ -45,6 +45,8 @@ class persona
 
         $sql = "select * from persona 
                 where upper(trim(rut))=upper(trim('$rut')) limit 1";
+//        echo $sql."<br />";
+        
 
 
         $row = mysql_fetch_array(mysql_query($sql));
@@ -718,7 +720,7 @@ class persona
 
     function validaPE()
     {
-        if ($this->total_meses < (5 * 12)) {
+        if ($this->total_meses < (5 * 12) + 1 ) {
             return true;//mostrar el formulario PE
         } else {
             return false; //no mostrar el formulario PE
@@ -727,7 +729,7 @@ class persona
 
     function validaPT()
     {
-        if ($this->total_meses < (5 * 12)) {
+        if ($this->total_meses < (5 * 12) + 1) {
             return true;//mostrar el formulario PE
         } else {
             return false; //no mostrar el formulario PE
@@ -1056,6 +1058,7 @@ class persona
         } else {
             $sql2 = "insert into antropometria(rut,$column,fecha_registro) values('$this->rut','$val','$fecha')";
         }
+        echo $sql2;
         mysql_query($sql2);
         $this->hisotrialAntropometria($column, $val, $fecha);
 

@@ -21,6 +21,14 @@ if($tipo!='TODOS'){
                 }else{
                     if($tipo=='PASMI'){
                         $filtro_tipo = " and persona.pasmi='SI' ";
+                    }else{
+                        if($tipo=='VDI'){
+                            $filtro_tipo = " and persona.fecha_vdi!='' ";
+                        }else{
+                            if($tipo=='APLV'){
+                                $filtro_tipo = " and persona.aplv='SI' ";
+                            }
+                        }
                     }
                 }
             }
@@ -44,7 +52,7 @@ $sql = "select * from persona
                       and persona.fecha_nacimiento!=''
                    
                  $filtro_tipo ";
-//echo $sql;
+echo $sql;
 $res = mysql_query($sql);
 $i = 0;
 

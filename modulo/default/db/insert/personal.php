@@ -77,7 +77,7 @@ if($email!=''){
     <div class="content">
       <p>Estimado(a),</p>
       <p>Te informamos que ya formas parte de la red SIS OPEN, para lo cual te adjunto tus credenciales de acceso para registrar tus atenciones.</p>
-      <p>LINK DE ACCESO <a href="http://imperial.sis-open.com" target="_blank">INGRESAR</a> (imperial.sis-open.com).</p>
+      <p>LINK DE ACCESO <a href="http://loncoche.sis-open.com" target="_blank">INGRESAR</a> (loncoche.sis-open.com).</p>
       <p>USUARIO: '.$rut.'</p>
       <p>CLAVE DE ACCESO: '.$clave.'</p>
       <p></p>

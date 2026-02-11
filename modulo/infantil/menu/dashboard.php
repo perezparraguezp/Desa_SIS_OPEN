@@ -15,7 +15,8 @@ $sql1 = "select * from sector_comunal
             <label>INDICADOR</label>
             <select name="indicador" id="indicador">
                 <option disabled="disabled" selected="selected">SELECCIONAR</option>
-                <option VALUE="DNI1">DNI MENORES DE 6 AÑOS</option>
+                <option VALUE="DNI4">DNI MENORES DE 2 AÑOS</option>
+                <option VALUE="DNI1">DNI ENTRE 2 A 6 AÑOS</option>
                 <option VALUE="DNI2">DNI ENTRE 6 A 9 AÑOS</option>
                 <option VALUE="DNI3">DNI TODOS</option>
                 <option VALUE="PCINT">PCINT</option>

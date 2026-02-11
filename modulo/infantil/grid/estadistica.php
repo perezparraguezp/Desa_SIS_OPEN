@@ -115,7 +115,7 @@
                 width: '98%',
                 theme: 'eh-open',
                 source: dataAdapter,
-                height: 400,
+                height: alto-300,
                 columnsresize: true,
                 sortable: true,
                 filterable: true,
@@ -211,7 +211,7 @@
         $("#excelExport_estadistica").click(function () {
             alertaLateral('EXPORTANDO INFORMACION');
             // $("#grid").jqxGrid('exportdata', 'xls', 'jqxGrid');
-            $("#grid_paciente").jqxGrid('exportdata', 'xls', 'Pacientes INFANTIL', true, null, true, 'https://carahue.eh-open.com/exportar/save-file.php');
+            $("#grid_paciente").jqxGrid('exportdata', 'xls', 'ESTADISTICA INFANTIL', true, null, true, 'export.php');
             // $("#grid_paciente").jqxGrid('exportdata', 'xls', 'Pacientes PSCV - DETALLE');
         });
     }
@@ -239,7 +239,7 @@
                 <div class="col l4 m6 s6">
                     <button class="btn right-align eh-open_principal" id="excelExport_estadistica">
                         <i class="mdi-action-open-in-new left"></i>
-                        EXPORTAR
+                        EXPORTAR A EXCEL
                     </button>
                 </div>
             </div>

@@ -60,8 +60,8 @@
                 { text: 'Nombre Completo', datafield: 'nombre', width: 280,
                     aggregates: ['count']
                 },
-                { text: 'Atributo', datafield: 'indicador', width: 150 ,filtertype: 'checkedlist', cellsalign: 'center'},
                 { text: 'Edad Actual', datafield: 'edad_actual', width: 200 },
+                { text: 'Atributo', datafield: 'indicador', width: 150 ,filtertype: 'checkedlist', cellsalign: 'center'},
                 { text: 'ULTIMA EV.', datafield: 'ultima_ev', width: 200 },
                 { text: 'Teléfono', datafield: 'contacto', width: 120 ,filtertype: 'checkedlist'},
                 { text: 'E-mail', datafield: 'mail', width: 150},

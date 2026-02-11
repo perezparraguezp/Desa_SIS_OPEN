@@ -19,6 +19,6 @@ $dias = $persona->calcularEdadDias($fecha_registro);
 $sql = "insert into historial_paciente(rut,tipo_historial,fecha_registro,texto,id_profesional,edad_dias,modulo,id_establecimiento) 
 values('$rut','VID','$fecha_registro',upper('$obs'),'$myID','$dias','INFANTIL','1')";
 mysql_query($sql);
-
+$persona->updateSQL('fecha_vdi',$fecha_registro);
 
 echo "ACTUALIZADO";

@@ -1,20 +1,56 @@
 <?php
+//echo 1;
 #Include the connect.php file
 include("../../../php/config.php");
 include("../../../php/objetos/persona.php");
 
+
 session_start();
 $id_establecimiento = $_SESSION['id_establecimiento'];
+$tipo = $_GET['tipo'];
+$filtro = '';
+if($tipo!='TODOS'){
+    if($tipo=='+ ADULTOS MAYORES'){
+        $filtro = " AND mas_adulto_mayor='SI' ";
+    }else{
+        if($tipo=='ELEAM'){
+            $filtro = " AND eleam='SI' ";
+        }
+    }
+}
 
 $sql = "select * from paciente_establecimiento
+                inner join paciente_adultomayor on paciente_establecimiento.rut=paciente_adultomayor.rut
                 where paciente_establecimiento.id_establecimiento='$id_establecimiento' 
-                and paciente_establecimiento.m_adulto_mayor='SI' ";
+                and paciente_establecimiento.m_adulto_mayor='SI' $filtro";
+
 
 $res = mysql_query($sql);
 $i = 0;
 while($row = mysql_fetch_array($res)){
     $rut = trim($row['rut']);
+
+
     $paciente = new persona($rut);
+
+    $FECHA = $paciente->getUltimaEval();
+    if($FECHA=='PENDIENTE'){
+        $pendiente = 'NUNCA';
+    }else{
+        $ultima_fecha = new DateTime($FECHA);
+        $hoy   = new DateTime();
+
+        $diferencia = $ultima_fecha->diff($hoy);
+
+        if ($diferencia->y >= 1) {
+            $pendiente = 'PENDIENTE';
+
+        } else {
+            $pendiente = 'AL DIA';
+        }
+    }
+
+
     if($paciente->existe==true){
         if($paciente->nombre!=''){
 
@@ -35,6 +71,8 @@ while($row = mysql_fetch_array($res)){
                     'anios' => $paciente->edad_anios,
                     'meses' => $paciente->edad_meses,
                     'dias' => $paciente->edad_dias,
+                    'ultima' => $FECHA,
+                    'pendiente' => $pendiente,
                 );
                 $i++;
             }

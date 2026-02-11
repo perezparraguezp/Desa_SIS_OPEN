@@ -7,6 +7,7 @@
     $table_sql = $_POST['table_sql'];
     $tiene_estado = true;
     switch ($table_sql){
+        //MENORES ENTRE 2 A 6 AÑOS
         case 'DNI1':{
 
             $sql3 = "select * from antropometria 
@@ -24,6 +25,7 @@
 
             break;
         }
+        //MENORES ENTRE 6 A 9 AÑOS
         case 'DNI2':{
 
             $sql3 = "select * from antropometria 
@@ -41,7 +43,26 @@
 
             break;
         }
+        //DNI TODOS
         case 'DNI3':{
+
+            $sql3 = "select * from antropometria 
+                                        where DNI!='' 
+                                        group by DNI";
+            echo $sql3;
+            $res3 = mysql_query($sql3);
+            print_r($sql3);
+            print_r($res3);
+            while ($row3 = mysql_fetch_array($res3)) {
+                ?>
+                <option><?php echo $row3['DNI']; ?></option>
+                <?php
+            }
+
+            break;
+        }
+        //MENORES DE 2 AÑOS
+        case 'DNI4':{
 
             $sql3 = "select * from antropometria 
                                         where DNI!='' 

@@ -94,45 +94,47 @@ $minimental =  str_replace(" ","_",$paciente->getParametro_AM('minimental'));
                                                id="af_<?php echo $funcionalidad; ?>" name="af" value="DEPENDENCIA TOTAL" />
                                     </div>
                                 </div>
-                                <div class="row IMC">
-                                    <div class="col l8 m8 s8">MINIMENTAL</div>
-                                    <div class="col l3 m3 s3">
-                                        <select id="minimental" name="minimental">
-                                            <option><?php echo $minimental; ?></option>
-                                            <option></option>
-                                            <option>NORMAL</option>
-                                            <option>ALTERADO</option>
-                                        </select>
-                                        <script type="text/javascript">
-                                            $(function(){
-                                                $('#minimental').jqxDropDownList({
-                                                    width: '100%',theme: 'eh-open',
-                                                    height: '25px'
-                                                });
-                                                $("#minimental").on('change',function(){
-                                                    var val = $("#minimental").val();
-                                                    $.post('db/update/am_parametros.php',{
-                                                        rut:'<?php echo $rut; ?>',
-                                                        value:val,
-                                                        column:'minimental',
-                                                        fecha_registro:'<?php echo $fecha_registro; ?>'
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-panel indigo lighten-4">
+                        <div class="row IMC">
+                            <div class="col l8 m8 s8">MINIMENTAL</div>
+                            <div class="col l3 m3 s3">
+                                <select id="minimental" name="minimental">
+                                    <option><?php echo $minimental; ?></option>
+                                    <option></option>
+                                    <option>NORMAL</option>
+                                    <option>ALTERADO</option>
+                                </select>
+                                <script type="text/javascript">
+                                    $(function(){
+                                        $('#minimental').jqxDropDownList({
+                                            width: '100%',theme: 'eh-open',
+                                            height: '25px'
+                                        });
+                                        $("#minimental").on('change',function(){
+                                            var val = $("#minimental").val();
+                                            $.post('db/update/am_parametros.php',{
+                                                rut:'<?php echo $rut; ?>',
+                                                value:val,
+                                                column:'minimental',
+                                                fecha_registro:'<?php echo $fecha_registro; ?>'
 
-                                                    },function(data){
-                                                        alertaLateral(data);
-                                                        loadHistorialParametroAM_funcionalidad('<?php echo $rut; ?>','MINIMENTAL');
-                                                        $('.tooltipped').tooltip({delay: 50});
-                                                    });
-
-                                                });
+                                            },function(data){
+                                                alertaLateral(data);
+                                                loadHistorialParametroAM_funcionalidad('<?php echo $rut; ?>','MINIMENTAL');
                                                 $('.tooltipped').tooltip({delay: 50});
-                                            })
-                                        </script>
-                                    </div>
-                                    <div class="col l1 center-align">
-                                        <i class="mdi-editor-insert-chart"
-                                           onclick="loadHistorialParametroAM('<?php echo $rut ?>','minimental')"></i>
-                                    </div>
-                                </div>
+                                            });
+
+                                        });
+                                        $('.tooltipped').tooltip({delay: 50});
+                                    })
+                                </script>
+                            </div>
+                            <div class="col l1 center-align">
+                                <i class="mdi-editor-insert-chart"
+                                   onclick="loadHistorialParametroAM('<?php echo $rut ?>','minimental')"></i>
                             </div>
                         </div>
                     </div>
@@ -155,6 +157,28 @@ $minimental =  str_replace(" ","_",$paciente->getParametro_AM('minimental'));
                                    id="mas_adulto_mayor"
                                 <?php echo $paciente->getParametro_AM('mas_adulto_mayor')=='SI'? 'checked':''; ?>
                                 <?php echo $paciente->getParametro_AM('mas_adulto_mayor')=='SI'? 'value="NO"':'value="SI"'; ?>
+                            />
+                            <span class="lever"></span>
+                            SI
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l12 m12 s12 center-align">
+                    <img src="../../images/am/eleam_chile.png" width="90%" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l12 m12 s12 center-align">
+                    <div class="switch">
+                        <label>
+                            NO
+                            <input type="checkbox" name="eleam"
+                                   onchange="updateIndicadorAM('eleam',$('#eleam').val()),load_am_funcionalidad('<?php echo $rut; ?>')"
+                                   id="eleam"
+                                <?php echo $paciente->getParametro_AM('eleam')=='SI'? 'checked':''; ?>
+                                <?php echo $paciente->getParametro_AM('eleam')=='SI'? 'value="NO"':'value="SI"'; ?>
                             />
                             <span class="lever"></span>
                             SI

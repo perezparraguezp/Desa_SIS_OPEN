@@ -25,7 +25,7 @@ $filtro_tope = " and persona.edad_total<(10*12) ";
 $i = 0;
 
 //LME
-if($indicador=='ANTROPOMETRIA' || $indicador==''){
+if($indicador=='ANTROPOMETRIA'){
     $fecha_actual = date('Y-m-d');
     $sql = "select * from paciente_establecimiento
                 inner join persona on paciente_establecimiento.rut=persona.rut 
@@ -35,6 +35,7 @@ if($indicador=='ANTROPOMETRIA' || $indicador==''){
                 inner join antropometria on paciente_establecimiento.rut=antropometria.rut
           where paciente_establecimiento.id_establecimiento='$id_establecimiento' $filtro_rut $filtro_tope 
           and datediff(antropometria.fecha_sql,'$fecha_actual')>365 ";
+
 
     $res = mysql_query($sql);
 
