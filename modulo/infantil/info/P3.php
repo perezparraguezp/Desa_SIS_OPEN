@@ -62,7 +62,7 @@ if($id_centro!=''){
         }
     }
 </script>
-<formaction="https://carahue.eh-open.com/exportar/table.php"  method="post" target="_blank" id="formExport">
+<form action="https://www.sis-open.com/exportar/table.php"  method="post" target="_blank" id="formExport">
     <input type="hidden" id="data_to_send" name="data_to_send" />
     <input type="hidden" id="file" name="file" value="archivo" />
 </form>

@@ -38,6 +38,9 @@ list($establecimiento,$sector_interno,$sector_comunal) = explode(":",$paciente->
         <div class="row">
             Migrante <strong><?php echo $paciente->migrante; ?></strong>
         </div>
+        <div class="row">
+            INSCRITO DESDE <strong><?php echo fechaNormal($paciente->getParametro_M_table('paciente_establecimiento','m_adulto_mayor_fecha')); ?></strong>
+        </div>
     </div>
     <div class="col l1">
         <img src="../../images/centro_medico.png" width="48" />

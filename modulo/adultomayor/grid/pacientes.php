@@ -12,7 +12,7 @@
         $("#excelExport").click(function () {
             // $("#grid").jqxGrid('exportdata', 'xls', 'jqxGrid');
             exportarGRID('grid','adultos_mayores');
-            // $("#grid").jqxGrid('exportdata', 'xls', 'Pacientes SIS Adulto Mayor', true,null,true, 'https://carahue.sidmun.cl/web/export.php');
+            // $("#grid").jqxGrid('exportdata', 'xls', 'Pacientes SIS Adulto Mayor', true,null,true, 'https://www.sis-open.com/exportar/save-file.php');
 
         });
     });
@@ -188,7 +188,7 @@
 
     }
     function exportarGRID(grid,nombre){
-        $("#"+grid).jqxGrid('exportdata', 'xls', nombre, true,null,true, 'export.php');
+        $("#"+grid).jqxGrid('exportdata', 'xls', nombre, true,null,true, 'https://www.sis-open.com/exportar/save-file.php');
     }
 </script>
 <div class="row center-align">

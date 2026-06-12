@@ -782,7 +782,7 @@ $estado = $estado == '' ? 'PENDIENTE' : $estado;
                 ]
             });
         $("#excelExport").click(function () {
-            $("#table_grid").jqxGrid('exportdata', 'xls', 'archivo', true, null, true, 'https://carahue.eh-open.com/exportar/save-file.php');
+            $("#table_grid").jqxGrid('exportdata', 'xls', 'archivo', true, null, true,'https://imperial.sis-open.com/exportar/save-file.php');
 
         });
         $("#print").click(function () {

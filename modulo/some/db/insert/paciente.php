@@ -1,6 +1,7 @@
 <?php
 include '../../../../php/config.php';
 include '../../../../php/objetos/mysql.php';
+include '../../../../php/objetos/persona.php';
 
 $rut = str_replace(",","",$_POST['rut']);
 $rut = str_replace(".","",$rut);
@@ -19,6 +20,7 @@ $comuna = $_POST['comuna'];
 $id_sector_interno = $_POST['id_sector_centro'];
 
 
+
 $mysq = new mysql($_SESSION['id_usuario']);
 $mysq->insert_persona($rut,$nombre,$telefono,$email);
 $mysq->update_persona_column($rut,'direccion',$direccion);
@@ -30,11 +32,14 @@ $mysq->update_persona_column($rut,'pueblo',$pueblo);
 $mysq->update_persona_column($rut,'numero_ficha',$ficha);
 $mysq->update_persona_column($rut,'carpeta_familiar',$carpeta_familiar);
 $mysq->insert_paciente_establecimiento($rut,$id_sector_interno);
+$p = new persona($rut);
 $mysq->limpiarModulos($rut);
 
 $modulos = $_POST['modulo'];
 foreach ($modulos as $i => $menu){
-    $mysq->updateModuloPaciente($rut,'m_infancia','SI');
+    $mysq->updateModuloPaciente($rut,$menu,'SI');
+    $p->addHistorialEspecial('SE ASIGNO EL MODULO DE '.$menu.' AL PACIENTE','ACTUALIZACION',date('Y-m-d'));
+
 }
 //por defecto agregar infantil
 $mysq->updateModuloPaciente($rut,'m_infancia','SI');

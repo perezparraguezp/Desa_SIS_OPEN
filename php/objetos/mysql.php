@@ -184,9 +184,10 @@ class mysql {
         mysql_query($sql);
     }
     function updateModuloPaciente($rut,$modulo,$estado){
+        $fecha = $modulo."_fecha";
         $rut = str_replace(".","",$rut);
         $sql = "update paciente_establecimiento 
-                    set $modulo='$estado' 
+                    set $modulo='$estado' ,$fecha=current_date()
                     where id_establecimiento='$this->id_establecimiento' 
                     and rut='$rut' 
                     limit 1";

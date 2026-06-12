@@ -14,6 +14,7 @@ if($tipo=='ASISTENTE'){
 }
 $fecha_registro = $_POST['fecha_registro'];
 $persona = new persona($rut);
+$persona->fecha_registro = $fecha_registro;
 $dias = $persona->calcularEdadDias($fecha_registro);
 
 $sql = "insert into historial_paciente(rut,tipo_historial,fecha_registro,texto,id_profesional,edad_dias,modulo,id_establecimiento) 

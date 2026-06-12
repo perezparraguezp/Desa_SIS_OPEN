@@ -9,7 +9,7 @@ $fecha_registro = $_POST['fecha_registro'];
 
 
 $paciente = new persona($rut);
-
+$paciente->fecha_registro = $fecha_registro;
 $paciente->update_DatosNacimiento($column,$val,$fecha_registro);
 
 echo "ACTUALIZADO";

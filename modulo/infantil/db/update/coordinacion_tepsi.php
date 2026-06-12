@@ -11,6 +11,7 @@ if($val=='true'){
     $val='ALTERADO';
 }
 $paciente = new persona($rut);
+$paciente->fecha_registro = $fecha_registro;
 $paciente->update_tepsi_coordinacion($val,$fecha_registro);
 
 echo "ACTUALIZADO";

@@ -19,7 +19,7 @@ if($row){
 }else{
     $sql1 = "insert into vacunas_paciente(rut,2m) values(upper('$rut'),'$vacuna')";
 }
-echo $sql1;
+
 mysql_query($sql1);
 $paciente = new persona($rut);
 

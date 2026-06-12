@@ -84,6 +84,7 @@ $mysq->limpiarModulos($rut);
 $modulos = $_POST['modulo'];
 foreach ($modulos as $i => $menu){
     $mysq->updateModuloPaciente($rut,$menu,'SI');
+
 }
 
 $mysq->updateRUTPaciente($rut,$rut_new);

@@ -10,6 +10,7 @@ $rut = $_POST['rut'];
 $fecha_registro = $_POST['fecha_registro'];
 
 $paciente = new persona($rut);
+$paciente->fecha_registro = $fecha_registro;
 $paciente->update_tepsi($val,$fecha_registro);
 if($val=='NORMAL'){
     $paciente->update_tepsi_lenguaje($val,$fecha_registro);

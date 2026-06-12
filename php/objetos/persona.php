@@ -24,7 +24,7 @@ class persona
     public $pt, $pe, $te, $imce, $dni, $lme, $pcint, $rimaln, $presion_arterial, $ira;
     public $perimetro_craneal,$obs_personal;
     public $eoa, $pku, $hc, $apego_inmediato, $vacuna_bcg,$semanas_gestacion;
-    public $agudeza_visual, $evaluacion_auditiva,$parentesco;
+    public $agudeza_visual, $evaluacion_auditiva,$parentesco,$fecha_registro;
 
     //datos padres
     public $rut_mama;
@@ -61,6 +61,7 @@ class persona
             $this->obs_personal = $row['obs_personal'];
             $this->parentesco = $row['parentesco'];
             $this->aplv = $row['aplv'];
+            $this->fecha_registro = date('Y-m-d');
 
             if($this->fecha_nacimiento==''){
 
@@ -156,7 +157,9 @@ class persona
     function getUltimaEval()
     {
         $sql = "select * from historial_paciente 
-                where upper(rut)=upper('$this->rut') order by fecha_registro desc limit 1";
+                where upper(rut)=upper('$this->rut')
+                and id_profesional!=1 
+                order by fecha_registro desc limit 1";
         $row = mysql_fetch_array(mysql_query($sql));
         if ($row) {
             list($fecha, $hora) = explode(" ", $row['fecha_registro']);
@@ -327,9 +330,10 @@ class persona
 
     function addHistorial($texto, $tipo,$modulo)
     {
+        $fecha = $this->fecha_registro;
         $fecha_dias = $this->calcularEdadDias(date('Y-m-d'));
-        $sql = "insert into historial_paciente(rut,texto,id_profesional,id_establecimiento,tipo_historial,edad_dias,modulo) 
-                  values('$this->rut',upper('$texto'),'$this->myID','$this->myEstablecimiento','$tipo','$fecha_dias','$modulo')";
+        $sql = "insert into historial_paciente(rut,texto,id_profesional,id_establecimiento,tipo_historial,edad_dias,modulo,fecha_registro) 
+                  values('$this->rut',upper('$texto'),'$this->myID','$this->myEstablecimiento','$tipo','$fecha_dias','$modulo','$fecha')";
         mysql_query($sql);
 
     }
@@ -1189,7 +1193,7 @@ class persona
                 mysql_query($sql4);
             }
         }
-        $this->addHistorial('SE REGISTRO UN CAMBIO EN ' . $column . ' con un valor ' . $val . ' EN LA FECHA ' . $fecha,'PSICOMOTOR', 'INFANTIL');
+        $this->addHistorialEspecial('SE REGISTRO UN CAMBIO EN ' . $column . ' con un valor ' . $val . ' EN LA FECHA ' . $fecha,'PSICOMOTOR', 'INFANTIL',$fecha);
     }
 
     function update_historialPsicomotor($texto, $fecha_registro, $indicador, $valor)
@@ -1295,7 +1299,7 @@ class persona
         mysql_query($sql2);
         $this->addHistorialEspecial('SE REGISTRO UN CAMBIO EN LA INFORMACION DENTAL  ' . $column, 'DENTAL', $fecha);
         $this->insert_historial_dental($column, $value, $fecha);
-        $this->addHistorial('SE REGISTRO UN CAMBIO EN ' . $column . ' con un valor ' . $value . ' EN LA FECHA ' . $fecha,'DENTAL', 'INFANTIL');
+//        $this->addHistorial('SE REGISTRO UN CAMBIO EN ' . $column . ' con un valor ' . $value . ' EN LA FECHA ' . $fecha,'DENTAL', 'INFANTIL');
 
     }
 
@@ -1324,7 +1328,7 @@ class persona
         mysql_query($sql2);
         $this->addHistorialEspecial('SE REGISTRO UN CAMBIO EN EL MODULO DENTAL GES6', 'DENTAL', $fecha);
         $this->insert_historial_dental('GES6', $val, $fecha);
-        $this->addHistorial('SE REGISTRO UN CAMBIO EN GES6 con un valor ' . $val . ' EN LA FECHA ' . $fecha,'DENTAL', 'INFANTIL');
+//        $this->addHistorial('SE REGISTRO UN CAMBIO EN GES6 con un valor ' . $val . ' EN LA FECHA ' . $fecha,'DENTAL', 'INFANTIL');
     }
 
     function update_dental_cero($val, $fecha)
@@ -1341,7 +1345,7 @@ class persona
             $sql2 = "insert into paciente_dental(rut,cero) values('$this->rut','$val')";
         }
         mysql_query($sql2);
-        $this->addHistorial('DENTAL', 'SE REGISTRO UN CAMBIO EN CERO, VALOR ' . $val . ' EN LA FECHA ' . $fecha,'INFANTIL');
+//        $this->addHistorial('DENTAL', 'SE REGISTRO UN CAMBIO EN CERO, VALOR ' . $val . ' EN LA FECHA ' . $fecha,'INFANTIL');
         $this->addHistorialEspecial('SE REGISTRO UN CAMBIO EN EL MODULO DENTAL CERO, VALOR '.$val, 'DENTAL', $fecha);
         $this->insert_historial_dental('CERO', $val, $fecha);
     }
@@ -1505,7 +1509,7 @@ class persona
                 }
                 mysql_query($sql1);
                 $this->insert_historial_pscv($column, $value, $fecha);
-                $this->addHistorial('SE REGISTRO UN CAMBIO EN ' . $column . ' con un valor ' . $value . ' EN LA FECHA ' . $fecha,'ATRIBUTOS PSCV', 'PSCV');
+                $this->addHistorialEspecial('SE REGISTRO UN CAMBIO EN ' . $column . ' con un valor ' . $value . ' EN LA FECHA ' . $fecha,'ATRIBUTOS PSCV', $fecha);
             }
         }
 
@@ -1529,7 +1533,7 @@ class persona
 //                echo $sql1;
                 mysql_query($sql1);
                 $this->insert_historial_diabetes_pscv($column, $value, $fecha);
-                $this->addHistorial('SE REGISTRO UN CAMBIO EN ' . $column . ' con un valor ' . $value . ' EN LA FECHA ' . $fecha,'PSCV DM', 'PSCV');
+                $this->addHistorialEspecial('SE REGISTRO UN CAMBIO EN ' . $column . ' con un valor ' . $value . ' EN LA FECHA ' . $fecha,'PSCV DM', $fecha);
             }
         }
 
@@ -1552,7 +1556,7 @@ class persona
                 }
                 mysql_query($sql1);
                 $this->insert_historial_parametro_pscv($column, $value, $fecha);
-                $this->addHistorial('SE REGISTRO UN CAMBIO EN ' . $column . ' con un valor ' . $value . ' EN LA FECHA ' . $fecha,'PSCV PARAMETROS', 'PSCV');
+                $this->addHistorialEspecial('SE REGISTRO UN CAMBIO EN ' . $column . ' con un valor ' . $value . ' EN LA FECHA ' . $fecha,'PSCV PARAMETROS', $fecha);
             }
         }
     }
@@ -1826,7 +1830,7 @@ class persona
         }
 //        echo $sql1;
         mysql_query($sql1);
-        $this->addHistorial('REGISTRO EN ' . $column . ' con el Valor ' . $value . ' en la fecha ' . $fecha,'ATRIBUTOS ADULTO MAYOR', 'ADULTO MAYOR');
+        $this->addHistorialEspecial('REGISTRO EN ' . $column . ' con el Valor ' . $value . ' en la fecha ' . $fecha,'ATRIBUTOS ADULTO MAYOR', $fecha);
         $this->insert_historial_parametro_am($column, $value, $fecha);
 
     }
@@ -2054,7 +2058,7 @@ class persona
         mysql_query($sql);
 
         $texto = "Se Registro un Examen de Tipo " . $tipo . " en la fecha " . fechaNormal($fecha) . " de origen " . $origen . ', Con Resultado ' . $valor;
-        $this->addHistorial($texto, 'REGISTRO DE EXAMENES','MUJER');
+        $this->addHistorialEspecial($texto, 'REGISTRO DE EXAMENES',$fecha);
     }
 
     function insertTALLER_CLIMATERIO_M($fecha, $obs)
@@ -2064,7 +2068,7 @@ class persona
         mysql_query($sql);
 
         $texto = "Se Registro un taller en la fecha " . fechaNormal($fecha);
-        $this->addHistorial($texto, 'REGISTRO DE TALLERES','MUJER');
+        $this->addHistorialEspecial($texto, 'REGISTRO DE TALLERES',$fecha);
     }
 
     function insert_pauta_mrs($fecha, $valor, $obs)
@@ -2075,49 +2079,54 @@ class persona
         $this->update_parametro_m('pauta_mrs', $valor, $fecha);
 
         $texto = "Se Registro una Evaluacion de Pauta MRS en la fecha " . fechaNormal($fecha);
-        $this->addHistorial($texto, 'PAUTA MRS','MUJER');
+        $this->addHistorialEspecial($texto, 'PAUTA MRS',$fecha);
     }
 
     function deletePautaMRS($id)
     {
+        $fecha = $this->fecha_registro;
         $sql = "delete from pauta_mrs where id_pauta='$id' limit 1";
         mysql_query($sql);
         $texto = "El profesional codigo #" . $this->myID . " elimino la Pauta MRS";
-        $this->addHistorial($texto, 'PAUTA MRS','MUJER');
+        $this->addHistorialEspecial($texto, 'PAUTA MRS',$fecha);
     }
 
     function deleteTallerClimaterio($id)
     {
+        $fecha = $this->fecha_registro;
         $sql = "delete from talleres_climaterio where id_taller='$id' limit 1";
         mysql_query($sql);
         $texto = "El profesional codigo #" . $this->myID . " elimino el Taller Educativo";
-        $this->addHistorial($texto, 'REGISTRO DE TALLERES','MUJER');
+        $this->addHistorialEspecial($texto, 'REGISTRO DE TALLERES',$fecha);
     }
 
     function deleteHormonaReemplazo($id)
     {
+        $fecha = $this->fecha_registro;
         $sql = "delete from hormona_reemplazo_m where id_hormona='$id' limit 1";
         mysql_query($sql);
         $texto = "El profesional codigo #" . $this->myID . " elimino Hormona de Reemplazo";
-        $this->addHistorial($texto, 'REGISTRO DE HORMONAS','MUJER');
+        $this->addHistorialEspecial($texto, 'REGISTRO DE HORMONAS',$fecha);
     }
 
     function insert_hormona_reemplazo($tipo, $desde, $obs)
     {
+        $fecha = $this->fecha_registro;
         $sql = "insert into hormona_reemplazo_m(rut,id_profesional,fecha_desde,tipo_hormona,obs_hormona) 
                 values('$this->rut','$this->myID','$desde','$tipo',upper('$obs'))";
         mysql_query($sql);
 
         $texto = "Se Registro una Evaluacion de Pauta MRS en la fecha " . fechaNormal($desde);
-        $this->addHistorial($texto, 'REGISTRO DE HORMONAS','MUJER');
+        $this->addHistorialEspecial($texto, 'REGISTRO DE HORMONAS',$fecha);
     }
 
     function deleteExamen_M($tipo, $id)
     {
+        $fecha = $this->fecha_registro;
         $sql = "delete from examen_mujer where id_examen='$id' and tipo_examen='$tipo' limit 1";
         mysql_query($sql);
         $texto = "El profesional codigo #" . $this->myID . " elimino el examen tipo " . $tipo;;
-        $this->addHistorial($texto, 'REGISTRO DE EXAMENES','MUJER');
+        $this->addHistorialEspecial($texto, 'REGISTRO DE EXAMENES',$fecha);
     }
 
     function getIdGestacion()
@@ -2150,10 +2159,11 @@ class persona
 
     function crearGestacion()
     {
+        $fecha = $this->fecha_registro;
         $sql = "insert into gestacion_mujer(rut) values('$this->rut')";
         mysql_query($sql);
         $texto = 'SE CREA PROCESO DE GESTACION, EN LA FECHA '.date('d-m-Y');
-        $this->addHistorial($texto, 'GESTACION','MUJER');
+        $this->addHistorialEspecial($texto, 'GESTACION',$fecha);
     }
 
     //SALUD MENTAL
@@ -2177,6 +2187,7 @@ class persona
 
     function update_antecedentes_sm($column, $value, $fecha)
     {
+
         $sql1 = "select * from paciente_salud_mental 
                   where rut='$this->rut' limit 1";
         $row1 = mysql_fetch_array(mysql_query($sql1));
@@ -2190,7 +2201,7 @@ class persona
         }
         mysql_query($sql2);
         $this->hisotrial_SM_Antecedentes($column, $value, $fecha);
-        $this->addHistorial('SE REGISTRO UN CAMBIO EN ' . $column . ' con un valor ' . $value . ' EN LA FECHA ' . $fecha,'PARAMETROS SALUD MENTAL', 'SALUD MENTAL');
+        $this->addHistorialEspecial('SE REGISTRO UN CAMBIO EN ' . $column . ' con un valor ' . $value . ' EN LA FECHA ' . $fecha,'PARAMETROS SALUD MENTAL', $fecha);
     }
 
     function Alta_Antecedente($id, $fecha, $obs)
@@ -2202,7 +2213,7 @@ class persona
                 where id='$id'";
 
         mysql_query($sql);
-        $this->addHistorial('SE DIO DE ALTA UN DIAGNOSTICO LA FECHA ' . $fecha,'ANTECEDENTES SALUD MENTAL', 'SALUD MENTAL');
+        $this->addHistorialEspecial('SE DIO DE ALTA UN DIAGNOSTICO LA FECHA ' . $fecha,'ANTECEDENTES SALUD MENTAL', $fecha);
 
     }
 

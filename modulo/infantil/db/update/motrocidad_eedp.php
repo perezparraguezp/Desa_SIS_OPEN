@@ -11,6 +11,7 @@ if($val=='true'){
     $val='ALTERADO';
 }
 $paciente = new persona($rut);
+$paciente->fecha_registro = $fecha_registro;
 $paciente->update_eedp_motrocidad($val,$fecha_registro);
 
 echo "ACTUALIZADO";

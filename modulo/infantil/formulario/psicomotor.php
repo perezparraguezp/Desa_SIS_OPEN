@@ -158,7 +158,7 @@ $paciente->definirEdadFecha($fecha_registro);
         ?>
         <?php
         //EEDP
-        if($paciente->total_meses < 24){
+        if($paciente->total_meses < 25){
             ?>
             <div class="col l12 s12 m12">
                 <div class="card-panel eh-open_fondo">

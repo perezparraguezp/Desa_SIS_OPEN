@@ -11,6 +11,7 @@ $column = $_POST['column'];
 $rut = $_POST['rut'];
 $reeval = $_POST['reeval'];
 $paciente = new persona($rut);
+$paciente->fecha_registro = $fecha_registro;
 $paciente->update_Psicomotor($column,$val,$fecha_registro);
 
 if($reeval === 'SI'){

@@ -52,7 +52,7 @@ $sql = "select * from persona
                       and persona.fecha_nacimiento!=''
                    
                  $filtro_tipo ";
-echo $sql;
+
 $res = mysql_query($sql);
 $i = 0;
 

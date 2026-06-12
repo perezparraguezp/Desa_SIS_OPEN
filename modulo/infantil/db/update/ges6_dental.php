@@ -12,6 +12,7 @@ if($val=='true'){
     $val='NO';
 }
 $paciente = new persona($rut);
+$paciente->fecha_registro = $fecha_registro;
 $paciente->update_dental_ges6($val,$fecha_registro);
 
 echo "ACTUALIZADO";

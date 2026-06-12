@@ -20,19 +20,16 @@ if($tipo!='TODOS'){
 }
 
 $sql = "select * from paciente_establecimiento
-                inner join paciente_adultomayor on paciente_establecimiento.rut=paciente_adultomayor.rut
                 where paciente_establecimiento.id_establecimiento='$id_establecimiento' 
-                and paciente_establecimiento.m_adulto_mayor='SI' $filtro";
+                and paciente_establecimiento.m_adulto_mayor='SI' $filtro 
+                group by paciente_establecimiento.rut";
 
 
 $res = mysql_query($sql);
 $i = 0;
 while($row = mysql_fetch_array($res)){
     $rut = trim($row['rut']);
-
-
     $paciente = new persona($rut);
-
     $FECHA = $paciente->getUltimaEval();
     if($FECHA=='PENDIENTE'){
         $pendiente = 'NUNCA';

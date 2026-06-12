@@ -70,7 +70,7 @@ $rut = $_POST['rut'];
             <div class="row">
                 <div class="col l12">
                     <div class="col l12">
-                        <a href="https://sis.eh-open.com/importar/plantillas/antropometria.xlsx"
+                        <a href="https://loncoche.sis-open.com//importar/plantillas/antropometria.xlsx"
                            target="_blank" class="btn green darken-2 col 12 s12 m12 white-text"><i class="mdi-image-grid-on right-align"></i> DESCARGAR PLANTILLA</a>
                     </div>
                 </div>
