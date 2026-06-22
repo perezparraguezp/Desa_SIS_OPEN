@@ -60,9 +60,24 @@ $series = '';
 
 if ($comunal == true) {
     //para todos los sectores comunales
-    $sql1 = "select count(*) as total,'GENERAL' as nombre_base ,sum(DNI='$DNI') as total_indicador,
-                                    SUM(persona.sexo='M' AND antropometria.DNI='$DNI') as hombres,
-                                    SUM(persona.sexo='F' AND antropometria.DNI='$DNI') as mujeres
+    $sql1 = "select count(distinct persona.rut) as total,
+    'TOTAL GENERAL' as nombre_base,
+    count(distinct case
+        when antropometria.DNI='$DNI'
+        then persona.rut
+    end) as total_indicador,
+
+    count(distinct case
+        when antropometria.DNI='$DNI'
+         and persona.sexo='M'
+        then persona.rut
+    end) as hombres,
+
+    count(distinct case
+        when antropometria.DNI='$DNI'
+         and persona.sexo='F'
+        then persona.rut
+    end) as mujeres 
                                     from persona
                                     inner join paciente_establecimiento using (rut)
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
@@ -70,7 +85,8 @@ if ($comunal == true) {
                                     inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal
                                     inner join antropometria on persona.rut=antropometria.rut  
                                     where $filtro_edad 
-                                    and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
+                                    and paciente_establecimiento.id_establecimiento='$id_establecimiento'
+                                      and paciente_establecimiento.m_infancia='SI'
                                     and antropometria.DNI!='' ";
 
     $row1 = mysql_fetch_array(mysql_query($sql1));
@@ -90,10 +106,25 @@ if ($comunal == true) {
 
 
         //para todos los establecimientos pero segun el sector comunal seleccionado
-        $sql1 = "select count(*) as total,sector_comunal.nombre_sector_comunal as nombre_base,
-                                    SUM(persona.sexo='M' AND antropometria.DNI='$DNI') as hombres,
-                                    SUM(persona.sexo='F' AND antropometria.DNI='$DNI') as mujeres,
-                                    centros_internos.id_sector_comunal as id,sum(DNI='$DNI') as total_indicador 
+        $sql1 = "select count(distinct persona.rut) as total,
+       sector_comunal.nombre_sector_comunal as nombre_base,
+                                    count(distinct case
+                                        when antropometria.DNI='$DNI'
+                                         and persona.sexo='M'
+                                        then persona.rut
+                                    end) as hombres,
+                                
+                                    count(distinct case
+                                        when antropometria.DNI='$DNI'
+                                         and persona.sexo='F'
+                                        then persona.rut
+                                    end) as mujeres,
+       
+                                    centros_internos.id_sector_comunal as id,
+                                           count(distinct case
+                                        when antropometria.DNI='$DNI'
+                                        then persona.rut
+                                    end) as total_indicador 
                                     from persona
                                     inner join paciente_establecimiento using (rut)
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
@@ -102,6 +133,7 @@ if ($comunal == true) {
                                     inner join antropometria on persona.rut=antropometria.rut  
                                     where $filtro_edad
                                     and paciente_establecimiento.id_establecimiento='$id_establecimiento'
+                                      and paciente_establecimiento.m_infancia='SI'
                                     and antropometria.DNI!=''  
                                     and (";
         $a = 0;
@@ -142,10 +174,22 @@ if ($comunal == true) {
     } else {
         if ($sectores == true) {
             //para todos los sectores internos
-            $sql1 = "select count(*) as total,centros_internos.nombre_centro_interno as nombre_base,
-                                    SUM(persona.sexo='M' AND antropometria.DNI='$DNI') as hombres,
-                                    SUM(persona.sexo='F' AND antropometria.DNI='$DNI') as mujeres,
-                                    centros_internos.id_centro_interno as id,sum(DNI='$DNI') as total_indicador  
+            $sql1 = "select count(distinct persona.rut) as total,centros_internos.nombre_centro_interno as nombre_base,
+                                    count(distinct case
+                                        when antropometria.DNI='$DNI'
+                                         and persona.sexo='M'
+                                        then persona.rut
+                                    end) as hombres,
+                                
+                                    count(distinct case
+                                        when antropometria.DNI='$DNI'
+                                         and persona.sexo='F'
+                                        then persona.rut
+                                    end) as mujeres,
+                                    centros_internos.id_centro_interno as id,count(distinct case
+                                        when antropometria.DNI='$DNI'
+                                        then persona.rut
+                                    end) as total_indicador  
                                     from persona
                                     inner join paciente_establecimiento using (rut)
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
@@ -154,6 +198,7 @@ if ($comunal == true) {
                                     inner join antropometria on persona.rut=antropometria.rut  
                                     where $filtro_edad
                                     and paciente_establecimiento.id_establecimiento='$id_establecimiento'
+                                      and paciente_establecimiento.m_infancia='SI'
                                     and antropometria.DNI!=''  
                                     and (";
             $a = 0;
@@ -193,12 +238,24 @@ if ($comunal == true) {
         } else {
 
 
-            $sql1 = "select count(*) as total,sectores_centros_internos.nombre_sector_interno as nombre_base,
+            $sql1 = "select count(distinct persona.rut) as total,sectores_centros_internos.nombre_sector_interno as nombre_base,
                                     sectores_centros_internos.id_sector_centro_interno as id,
                                     centros_internos.nombre_centro_interno as nombre_establecimiento,
-                                    SUM(persona.sexo='M' AND antropometria.DNI='$DNI') as hombres,
-                                    SUM(persona.sexo='F' AND antropometria.DNI='$DNI') as mujeres,
-                                    sum(DNI='$DNI') as total_indicador 
+                                    count(distinct case
+                                        when antropometria.DNI='$DNI'
+                                         and persona.sexo='M'
+                                        then persona.rut
+                                    end) as hombres,
+                                
+                                    count(distinct case
+                                        when antropometria.DNI='$DNI'
+                                         and persona.sexo='F'
+                                        then persona.rut
+                                    end) as mujeres,
+                                    count(distinct case
+                                        when antropometria.DNI='$DNI'
+                                        then persona.rut
+                                    end) as total_indicador 
                                     from persona
                                     inner join paciente_establecimiento using (rut)
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
@@ -207,6 +264,7 @@ if ($comunal == true) {
                                     inner join antropometria on persona.rut=antropometria.rut  
                                     where $filtro_edad 
                                     and paciente_establecimiento.id_establecimiento='$id_establecimiento'
+                                      and paciente_establecimiento.m_infancia='SI'
                                     and antropometria.DNI!=''  
                                     and (";
             $a = 0;

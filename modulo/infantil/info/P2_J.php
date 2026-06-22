@@ -186,6 +186,7 @@ $estados_indice_sql = [
                                         inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                         inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno 
                                         where paciente_establecimiento.id_establecimiento='$id_establecimiento' 
+                                        and paciente_establecimiento.m_infancia='SI' 
                                         $filtro_centro ";
 
                             $row = mysql_fetch_array(mysql_query($sql));

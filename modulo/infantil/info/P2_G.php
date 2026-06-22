@@ -77,15 +77,19 @@ $rango_seccion_g = [
                     $tr = '<tr>';
                     $td = '';
                     foreach ($rango_seccion_g as $i => $rango) {
-                        $sql = "select
-                                          sum(RIMALN='$estado' and $rango) as total
-                                        from persona
-                                        inner join antropometria on persona.rut=antropometria.rut 
-                                        inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
-                                        inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
-                                        where paciente_establecimiento.id_establecimiento='$id_establecimiento' 
-                                        $filtro_centro
-                                        ";
+                        $sql = "select COUNT(DISTINCT persona.rut) as total
+                                    from persona
+                                    inner join antropometria 
+                                        on persona.rut = antropometria.rut 
+                                    inner join paciente_establecimiento 
+                                        on persona.rut = paciente_establecimiento.rut
+                                    inner join sectores_centros_internos 
+                                        on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                                    where paciente_establecimiento.id_establecimiento = '$id_establecimiento'
+                                      and paciente_establecimiento.m_infancia = 'SI'
+                                      and antropometria.RIMALN = '$estado'
+                                      and $rango
+                                      $filtro_centro";
                         $row = mysql_fetch_array(mysql_query($sql));
                         if ($row) {
                             $total = $row['total'];

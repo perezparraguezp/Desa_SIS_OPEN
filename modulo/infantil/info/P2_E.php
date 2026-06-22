@@ -78,7 +78,7 @@ $filtro_inasistencia_e = [
                     $rango = $filtro_rango_seccion_e[$i];
                     if ($id_centro != '') {
 
-                        $sql = "select COUNT(*) as total
+                        $sql = "select COUNT(DISTINCT persona.rut) as total
                                 from persona
                                    inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                    inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno,
@@ -92,12 +92,18 @@ where m_infancia = 'SI'
   AND paciente_establecimiento.id_establecimiento = 1
   and sectores_centros_internos.id_centro_interno='$id_centro'
   AND estado_control = 'PENDIENTE'
-  and (mes_proximo_control < month(current_date()) and anio_proximo_control <= year(current_date()))
+  and (
+          agendamiento.anio_proximo_control < year(current_date())
+          or (
+              agendamiento.anio_proximo_control = year(current_date())
+              and agendamiento.mes_proximo_control < month(current_date())
+          )
+      )
 GROUP BY agendamiento.rut) as personas
                                 where personas.rut=persona.rut and $rango ;";
 
                     } else {
-                        $sql = "select COUNT(*) as total
+                        $sql = "select COUNT(DISTINCT persona.rut) as total
                                 from persona
                                    inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                    inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno,
@@ -110,8 +116,13 @@ GROUP BY agendamiento.rut) as personas
                                         where m_infancia = 'SI'
                                           AND paciente_establecimiento.id_establecimiento = 1
                                           AND estado_control = 'PENDIENTE'
-                                          and ( mes_proximo_control < month(current_date()) 
-                                                and anio_proximo_control <= year(current_date()))
+                                          and (
+                                                  agendamiento.anio_proximo_control < year(current_date())
+                                                  or (
+                                                      agendamiento.anio_proximo_control = year(current_date())
+                                                      and agendamiento.mes_proximo_control < month(current_date())
+                                                  )
+                                              )
                                         GROUP BY agendamiento.rut
 
                                  ) as personas
@@ -123,6 +134,7 @@ GROUP BY agendamiento.rut) as personas
 
 //                        echo '<br />'.$sql;
                     $row = mysql_fetch_array(mysql_query($sql));
+
                     if ($row) {
                         $total = $row['total'];
                     } else {

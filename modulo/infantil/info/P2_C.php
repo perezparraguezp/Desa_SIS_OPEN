@@ -28,7 +28,7 @@ $sexo = [
 ];
 
 $rango_seccion_c = [
-    'persona.edad_total_dias>0 and persona.edad_total<=12', //menor 10 dias
+    'persona.edad_total_dias>0 and persona.edad_total<12', //menor 1 año
     'persona.edad_total_dias<10', //menor 10 dias
     'persona.edad_total=1',
     'persona.edad_total=2',
@@ -36,7 +36,7 @@ $rango_seccion_c = [
     'persona.edad_total=4',
     'persona.edad_total=5',
     'persona.edad_total=6',
-    'persona.edad_total>6 and persona.edad_total<=12',
+    'persona.edad_total>6 and persona.edad_total<12',
     'persona.edad_total<=12',
     "persona.pueblo='SI' AND persona.edad_total>0 and persona.edad_total<=12 ",
     "persona.migrante='SI' AND persona.edad_total>0 and persona.edad_total<=12 ",
@@ -109,7 +109,8 @@ $label_rango_seccion_c = [
                                     inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                     where sectores_centros_internos.id_centro_interno='$id_centro' 
-                                    and m_infancia='SI'
+                                    and m_infancia='SI' 
+                                    and paciente_establecimiento.id_establecimiento=1
                                     and $estado AND $rango 
                                     $filtro_centro;";
 
@@ -119,9 +120,11 @@ $label_rango_seccion_c = [
                                     inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                     where m_infancia='SI'
+                                    and paciente_establecimiento.id_establecimiento=1 
                                     and $estado AND $rango ;";
 
                             }
+
 
 
 

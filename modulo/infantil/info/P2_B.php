@@ -87,7 +87,9 @@ $label_rango_seccion_b = [
                                     inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno,
                                          (
-                                            select historial_paciente.rut from historial_paciente
+                                            select historial_paciente.rut, 
+                                            max(historial_paciente.id_historial) as ultimo_historial 
+                                            from historial_paciente
                                             inner join paciente_establecimiento using (rut)
                                             inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                             inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
@@ -117,7 +119,9 @@ $label_rango_seccion_b = [
                                     inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno,
                                          (
-                                            select historial_paciente.rut from historial_paciente
+                                            select historial_paciente.rut, 
+                                            max(historial_paciente.id_historial) as ultimo_historial 
+                                             from historial_paciente
                                             inner join paciente_establecimiento using (rut)
                                             inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                             inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
@@ -144,7 +148,9 @@ $label_rango_seccion_b = [
                                     inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno,
                                          (
-                                            select historial_paciente.rut from historial_paciente
+                                            select historial_paciente.rut, 
+                                            max(historial_paciente.id_historial) as ultimo_historial 
+                                             from historial_paciente
                                             inner join paciente_establecimiento using (rut)
                                             inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                             inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
@@ -171,7 +177,9 @@ $label_rango_seccion_b = [
                                     inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                     inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno,
                                          (
-                                            select historial_paciente.rut from historial_paciente
+                                            select historial_paciente.rut, 
+                                            max(historial_paciente.id_historial) as ultimo_historial 
+                                             from historial_paciente
                                             inner join paciente_establecimiento using (rut)
                                             inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                             inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno

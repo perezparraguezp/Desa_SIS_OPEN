@@ -293,7 +293,13 @@ class mysql {
         if($id_centro!=''){
 
             $sql = "select 
-                    sum($indicador='$valor' and $sexo and $rango) as total 
+                   
+COUNT(DISTINCT CASE 
+    WHEN $indicador='$valor' 
+     AND $sexo
+     AND $rango
+    THEN persona.rut
+END) AS total
                 from $tabla
                     inner join persona using(rut)
                     inner join paciente_establecimiento using (rut) 
@@ -306,7 +312,12 @@ class mysql {
 
         }else{
             $sql = "select 
-                    sum($indicador='$valor' and $sexo and $rango) as total 
+                    COUNT(DISTINCT CASE 
+    WHEN $indicador='$valor' 
+     AND $sexo
+     AND $rango
+    THEN persona.rut
+END) AS total
                     from $tabla
                     inner join persona using(rut)
                     inner join paciente_establecimiento using (rut) 
@@ -317,6 +328,7 @@ class mysql {
                 and paciente_establecimiento.id_establecimiento='1' ";
 
         }
+
 
         $row = mysql_fetch_array(mysql_query($sql));
         if($row){
@@ -331,7 +343,13 @@ class mysql {
         if($id_centro!=''){
 
             $sql = "select 
-                    sum($indicador='$valor' and $sexo and $rango and $indicador1='') as total 
+                    COUNT(DISTINCT CASE 
+    WHEN ($indicador='$valor' or  $indicador1) 
+     AND $sexo
+     AND $rango
+   
+    THEN persona.rut
+END) AS total
                 from $tabla
                     inner join persona using(rut)
                     inner join paciente_establecimiento using (rut) 
@@ -344,7 +362,13 @@ class mysql {
 
         }else{
             $sql = "select 
-                    sum($indicador='$valor' and $sexo and $rango) as total 
+                    COUNT(DISTINCT CASE 
+    WHEN ($indicador='$valor' or  $indicador1) 
+     AND $sexo
+     AND $rango
+    and $indicador1
+    THEN persona.rut
+END) AS total
                     from $tabla
                     inner join persona using(rut)
                     inner join paciente_establecimiento using (rut) 
@@ -368,7 +392,12 @@ class mysql {
         if($id_centro!=''){
 
             $sql = "select 
-                    sum($indicador='$valor' and $sexo and $rango) as total 
+                    COUNT(DISTINCT CASE 
+    WHEN $indicador='$valor' 
+     AND $sexo
+     AND $rango
+    THEN persona.rut
+END) AS total
                 from $tabla
                     inner join persona using(rut)
                     inner join paciente_establecimiento using (rut) 
@@ -381,7 +410,12 @@ class mysql {
 
         }else{
             $sql = "select 
-                    sum($indicador='$valor' and $sexo and $rango) as total 
+                    COUNT(DISTINCT CASE 
+    WHEN $indicador='$valor' 
+     AND $sexo
+     AND $rango
+    THEN persona.rut
+END) AS total
                     from $tabla
                     inner join persona using(rut)
                     inner join paciente_establecimiento using (rut) 

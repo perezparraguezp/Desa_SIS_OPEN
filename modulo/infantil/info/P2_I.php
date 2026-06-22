@@ -98,7 +98,7 @@ $label_rango_seccion_i = [
                 <tr>
                     <td style="background-color: #fdff8b">AMBOS</td>
                     <td style="background-color: #fdff8b">HOMBRES</td>
-                    <td style="background-color: #fdff8b">HOMBRES</td>
+                    <td style="background-color: #fdff8b">MUJERES</td>
                     <?php
                     $label_sexo = ['HOMBRE', 'MUJER'];
                     foreach ($rango_seccion_i as $i => $rango) {
@@ -141,12 +141,11 @@ $label_rango_seccion_i = [
                             $hombres = 0;
                             $mujeres = 0;
                         }
-                        if($i<14){
+                        if($i<16){
                             $total_estado += $hombres+$mujeres;
                             $total_hombres += $hombres;
                             $total_mujeres += $mujeres;
                         }
-
 
                         $td .= '<td>' . $hombres . '</td>';
                         $td .= '<td>' . $mujeres . '</td>';

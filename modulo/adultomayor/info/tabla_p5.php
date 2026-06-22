@@ -151,13 +151,13 @@ $rango_sexos_text_sql = [
                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                   where sectores_centros_internos.id_centro_interno='$id_centro'
-                                  and m_adulto_mayor='SI' and historial_paciente.fecha_registro >= DATE_SUB(NOW(), INTERVAL 1 YEAR) and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
+                                  and m_adulto_mayor='SI'  and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
                         }else{
                             $sql = "select COUNT(DISTINCT persona.rut) as total from persona 
                                   inner join paciente_adultomayor using(rut) inner join historial_paciente on persona.rut=historial_paciente.rut
                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
-                                  where m_adulto_mayor='SI' and historial_paciente.fecha_registro >= DATE_SUB(NOW(), INTERVAL 1 YEAR) and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
+                                  where m_adulto_mayor='SI'  and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
                         }
                         $sql .= 'and '.$edad.' and '.$sexo.$filtro_sql[$TR];
 //                            echo $sql.'<br /><hr />';
@@ -324,13 +324,13 @@ $rango_sexos_text_sql = [
                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                   where sectores_centros_internos.id_centro_interno='$id_centro'
-                                  and m_adulto_mayor='SI' and historial_paciente.fecha_registro >= DATE_SUB(NOW(), INTERVAL 1 YEAR) and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
+                                  and m_adulto_mayor='SI'  and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
                         }else{
                             $sql = "select COUNT(DISTINCT persona.rut) as total from persona 
                                   inner join paciente_adultomayor using(rut) inner join historial_paciente on persona.rut=historial_paciente.rut
                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
-                                  where m_adulto_mayor='SI' and historial_paciente.fecha_registro >= DATE_SUB(NOW(), INTERVAL 1 YEAR) and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
+                                  where m_adulto_mayor='SI'  and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
                         }
                         $sql .= 'and '.$edad.' and '.$sexo.$filtro_sql[$TR];
 //                            echo $sql.'<br /><hr />';
@@ -431,17 +431,20 @@ $rango_sexos_text_sql = [
                     foreach ($rango_sexos_text_sql as $j => $sexo){
                         if($id_centro!=''){
                             $sql = "select COUNT(DISTINCT persona.rut) as total from persona 
-                                  inner join paciente_adultomayor using(rut) inner join historial_paciente on persona.rut=historial_paciente.rut
+                                  inner join paciente_adultomayor using(rut) 
+    
                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                   where sectores_centros_internos.id_centro_interno='$id_centro'
-                                  and m_adulto_mayor='SI' and historial_paciente.fecha_registro >= DATE_SUB(NOW(), INTERVAL 1 YEAR) and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
+                                  and m_adulto_mayor='SI'  
+                                    and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
                         }else{
                             $sql = "select COUNT(DISTINCT persona.rut) as total from persona 
-                                  inner join paciente_adultomayor using(rut) inner join historial_paciente on persona.rut=historial_paciente.rut
+                                  inner join paciente_adultomayor using(rut) 
                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
-                                  where m_adulto_mayor='SI' and historial_paciente.fecha_registro >= DATE_SUB(NOW(), INTERVAL 1 YEAR) and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
+                                  where m_adulto_mayor='SI' 
+                                    and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
                         }
                         $sql .= 'and '.$edad.' and '.$sexo.$filtro_sql[$TR];
 //                            echo $sql.'<br /><hr />';
@@ -539,17 +542,20 @@ $rango_sexos_text_sql = [
                     foreach ($rango_sexos_text_sql as $j => $sexo){
                         if($id_centro!=''){
                             $sql = "select COUNT(DISTINCT persona.rut) as total from persona 
-                                  inner join paciente_adultomayor using(rut) inner join historial_paciente on persona.rut=historial_paciente.rut
+                                  inner join paciente_adultomayor using(rut) 
+                                inner join historial_paciente on persona.rut=historial_paciente.rut
                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                   where sectores_centros_internos.id_centro_interno='$id_centro'
-                                  and m_adulto_mayor='SI' and historial_paciente.fecha_registro >= DATE_SUB(NOW(), INTERVAL 1 YEAR) and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
+                                  and m_adulto_mayor='SI' 
+                                     
+                                    and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
                         }else{
                             $sql = "select COUNT(DISTINCT persona.rut) as total from persona 
                                   inner join paciente_adultomayor using(rut) inner join historial_paciente on persona.rut=historial_paciente.rut
                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
-                                  where m_adulto_mayor='SI' and historial_paciente.fecha_registro >= DATE_SUB(NOW(), INTERVAL 1 YEAR) and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
+                                  where m_adulto_mayor='SI'  and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
                         }
                         $sql .= 'and '.$edad.' and '.$sexo.$filtro_sql[$TR];
 //                            echo $sql.'<br /><hr />';
@@ -651,13 +657,13 @@ $rango_sexos_text_sql = [
                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                   where sectores_centros_internos.id_centro_interno='$id_centro'
-                                  and m_adulto_mayor='SI' and historial_paciente.fecha_registro >= DATE_SUB(NOW(), INTERVAL 1 YEAR) and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
+                                  and m_adulto_mayor='SI'  and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
                         }else{
                             $sql = "select COUNT(DISTINCT persona.rut) as total from persona 
                                   inner join paciente_adultomayor using(rut) inner join historial_paciente on persona.rut=historial_paciente.rut
                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
-                                  where m_adulto_mayor='SI' and historial_paciente.fecha_registro >= DATE_SUB(NOW(), INTERVAL 1 YEAR) and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
+                                  where m_adulto_mayor='SI'  and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
                         }
                         $sql .= 'and '.$edad.' and '.$sexo.$filtro_sql[$TR];
 //                            echo $sql.'<br /><hr />';
@@ -775,13 +781,13 @@ $rango_sexos_text_sql = [
                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
                                   where sectores_centros_internos.id_centro_interno='$id_centro'
-                                  and m_adulto_mayor='SI' and historial_paciente.fecha_registro >= DATE_SUB(NOW(), INTERVAL 1 YEAR) and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
+                                  and m_adulto_mayor='SI'  and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
                         }else{
                             $sql = "select COUNT(DISTINCT persona.rut) as total from persona 
                                   inner join paciente_adultomayor using(rut) inner join historial_paciente on persona.rut=historial_paciente.rut
                                   inner join paciente_establecimiento on persona.rut=paciente_establecimiento.rut
                                   inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
-                                  where m_adulto_mayor='SI' and historial_paciente.fecha_registro >= DATE_SUB(NOW(), INTERVAL 1 YEAR) and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
+                                  where m_adulto_mayor='SI'  and paciente_establecimiento.id_establecimiento='$id_establecimiento' ";
                         }
                         $sql .= 'and '.$edad.' and '.$sexo.$filtro_sql[$TR];
                           //  echo $sql.'<br /><hr />';

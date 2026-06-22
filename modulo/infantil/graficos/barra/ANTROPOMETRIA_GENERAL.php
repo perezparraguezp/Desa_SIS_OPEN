@@ -103,13 +103,23 @@ if ($estado == '') {
     $pendiente = "";
 }
 $sql_column = '';
-$sql_column .= ",sum(antropometria.$indicador='$estado' $pendiente ) as total_indicador";
-$sql_column .= ",sum(antropometria.$indicador='$estado' $pendiente and persona.sexo='M' ) as total_hombres";
-$sql_column .= ",sum(antropometria.$indicador='$estado' $pendiente and persona.sexo='F' ) as total_mujeres";
-$sql_column .= ",sum(antropometria.$indicador!='') as total_cobertura";
+//$sql_column .= ",sum(antropometria.$indicador='$estado' $pendiente ) as total_indicador";
+//$sql_column .= ",sum(antropometria.$indicador='$estado' $pendiente and persona.sexo='M' ) as total_hombres";
+//$sql_column .= ",sum(antropometria.$indicador='$estado' $pendiente and persona.sexo='F' ) as total_mujeres";
+//$sql_column .= ",sum(antropometria.$indicador!='') as total_cobertura";
 
-$sql_total = "select COUNT(*) as total from paciente_establecimiento 
-    inner join persona using(rut) where m_infancia='SI' $filtro_edad; ";
+$sql_column .= ",count(distinct case when antropometria.$indicador='$estado' $pendiente then persona.rut end) as total_indicador";
+$sql_column .= ",count(distinct case when antropometria.$indicador='$estado' $pendiente and persona.sexo='M' then persona.rut end) as total_hombres";
+$sql_column .= ",count(distinct case when antropometria.$indicador='$estado' $pendiente and persona.sexo='F' then persona.rut end) as total_mujeres";
+$sql_column .= ",count(distinct case when antropometria.$indicador!='' then persona.rut end) as total_cobertura";
+
+//$sql_total = "select COUNT(*) as total from paciente_establecimiento
+//    inner join persona using(rut) where m_infancia='SI' $filtro_edad; ";
+
+$sql_total = "select COUNT(DISTINCT persona.rut) as total 
+              from paciente_establecimiento 
+              inner join persona using(rut) 
+              where m_infancia='SI' $filtro_edad";
 
 $row_total = mysql_fetch_array(mysql_query($sql_total));
 if ($row_total) {

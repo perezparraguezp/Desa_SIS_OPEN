@@ -15,11 +15,28 @@ $indicador      = $_POST['indicador'];
 
 $filtro_edad = 'persona.edad_total>=(3*12) ';//desde los 3 años
 
-$sql_column = '';
-$sql_column .= ",sum(antropometria.$indicador='$estado' and $filtro_edad) as total_indicador";
-$sql_column .= ",sum(antropometria.$indicador='$estado' and persona.sexo='M' and  $filtro_edad) as total_hombres";
-$sql_column .= ",sum(antropometria.$indicador='$estado' and persona.sexo='F' and $filtro_edad) as total_mujeres";
-$sql_column .= ",sum(antropometria.$indicador!='' and $filtro_edad) as total_cobertura";
+$sql_column  = "";
+$sql_column .= ",count(distinct case
+                    when antropometria.$indicador='$estado'
+                    then persona.rut
+                 end) as total_indicador";
+
+$sql_column .= ",count(distinct case
+                    when antropometria.$indicador='$estado'
+                     and persona.sexo='M'
+                    then persona.rut
+                 end) as total_hombres";
+
+$sql_column .= ",count(distinct case
+                    when antropometria.$indicador='$estado'
+                     and persona.sexo='F'
+                    then persona.rut
+                 end) as total_mujeres";
+
+$sql_column .= ",count(distinct case
+                    when antropometria.$indicador!=''
+                    then persona.rut
+                 end) as total_cobertura";
 
 
 $filtro = '';
@@ -48,7 +65,7 @@ $json = '';
 
 if($comunal==true){
     //para todos los sectores comunales
-    $sql1 = "select 'GENERAL' as nombre_base,count(*) as total 
+    $sql1 = "select 'GENERAL' as nombre_base,count(distinct persona.rut) as total 
                                     $sql_column
                                     from persona
                                     inner join paciente_establecimiento using (rut)
@@ -58,6 +75,7 @@ if($comunal==true){
                                     inner join antropometria on antropometria.rut=persona.rut 
                                     where $filtro_edad 
                                     and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
+and paciente_establecimiento.m_infancia='SI'
                                     ";
     $row1 = mysql_fetch_array(mysql_query($sql1));
 
@@ -67,8 +85,13 @@ if($comunal==true){
     $total_indicador = $row1['total_indicador']!='' ?$row1['total_indicador']:0;
     $total_cobertura = $row1['total_cobertura']!='' ?$row1['total_cobertura']:0;
 
-    $porcentaje_indicador = number_format(($total_indicador*100/$total),1,'.','');
-    $porcentaje_cobertura = number_format(($total_cobertura*100/$total),1,'.','');
+    $porcentaje_indicador = ($total > 0)
+        ? number_format(($total_indicador * 100 / $total),1,'.','')
+        : 0;
+
+    $porcentaje_cobertura = ($total > 0)
+        ? number_format(($total_cobertura * 100 / $total),1,'.','')
+        : 0;
 
     $rango .= "\n{ Rango:'GENERAL',GENERAL: ".$porcentaje_indicador."},";
     $series .=" \n{ dataField: 'GENERAL', displayText: '$estado',labels: {visible: true,verticalAlignment: 'top',offset: { x: 1, y: -20 } },formatFunction: function (value) {return value + ' %';} ,total_general:$total,total_indicador:$porcentaje_indicador,hombres:$total_hombres,mujeres:$total_mujeres},";
@@ -81,6 +104,7 @@ if($comunal==true){
                         inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal 
                         where $filtro_edad    
                                     and paciente_establecimiento.id_establecimiento='$id_establecimiento'
+and paciente_establecimiento.m_infancia='SI'
                                     group by persona.rut ";
     $res2 = mysql_query($sql2);
     $total_pacientes = 0;
@@ -99,7 +123,10 @@ if($comunal==true){
         $total_pacientes++;
     }
 
-    $porcentaje_cobertura = number_format(($total_cobertura*100/$total_pacientes),1,'.','');
+//    $porcentaje_cobertura = number_format(($total_cobertura*100/$total_pacientes),1,'.','');
+    $porcentaje_cobertura = ($total_pacientes > 0)
+        ? number_format(($total_cobertura * 100 / $total_pacientes),1,'.','')
+        : 0;
 
 
     $rango_cobertura .= "\n{ Estado: 'APLICADO', Porcentaje: $porcentaje_cobertura },";
@@ -111,7 +138,7 @@ if($comunal==true){
         //para todos los establecimientos pero segun el sector comunal seleccionado
         $sql1 = "select sector_comunal.nombre_sector_comunal as nombre_base,
                         sector_comunal.id_sector_comunal as id,
-                        count(*) as total
+                        count(distinct persona.rut) as total
                                    $sql_column
                                     from persona
                                     inner join paciente_establecimiento using (rut)
@@ -121,6 +148,7 @@ if($comunal==true){
                                     inner join antropometria on antropometria.rut=persona.rut  
                                     where $filtro_edad    
                                     and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
+                                      and paciente_establecimiento.m_infancia='SI'
                                     AND (";
 
         $a = 0;
@@ -161,7 +189,10 @@ if($comunal==true){
             $total_indicador = $row1['total_indicador']!='' ?$row1['total_indicador']:0;
             $total_cobertura = $row1['total_cobertura']!='' ?$row1['total_cobertura']:0;
 
-            $porcentaje = number_format(($total_indicador*100/$total),1,'.','');
+
+            $porcentaje = ($total > 0)
+                ? number_format(($total_indicador * 100 / $total),1,'.','')
+                : 0;
 
             $series .=" { dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 1, y: -20 } } ,formatFunction: function (value) {return value + ' %';},total_general:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres},";
             $rango .= ", $id:$porcentaje";
@@ -176,6 +207,7 @@ if($comunal==true){
                         inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal 
                         where $filtro_edad    
                                     and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
+                          and paciente_establecimiento.m_infancia='SI'
                                     AND (";
         $a = 0;
         foreach ($sector_comunal as $i => $id_sector_comunal){
@@ -207,7 +239,10 @@ if($comunal==true){
             $total_pacientes++;
         }
 
-        $porcentaje_cobertura = number_format(($total_cobertura*100/$total_pacientes),1,'.','');
+//        $porcentaje_cobertura = number_format(($total_cobertura*100/$total_pacientes),1,'.','');
+        $porcentaje_cobertura = ($total_pacientes > 0)
+            ? number_format(($total_cobertura * 100 / $total_pacientes),1,'.','')
+            : 0;
 
 
         $rango_cobertura .= "\n{ Estado: 'APLICADO', Porcentaje: $porcentaje_cobertura },";
@@ -218,7 +253,7 @@ if($comunal==true){
     }else{
         if($sectores==true){
             //para todos los centros interno
-            $sql1 = "select count(*) as total,
+            $sql1 = "select count(distinct persona.rut) as total,
                                     centros_internos.nombre_centro_interno as nombre_base,
                                     sector_comunal.nombre_sector_comunal as nombre_establecimiento,
                                     centros_internos.id_centro_interno as id 
@@ -231,6 +266,7 @@ if($comunal==true){
                                     inner join antropometria on persona.rut=antropometria.rut  
                                     where $filtro_edad
                                     and paciente_establecimiento.id_establecimiento='$id_establecimiento'
+                                      and paciente_establecimiento.m_infancia='SI'
                                     and (";
             $a = 0;
             foreach ($centro_interno as $i => $id_centro_interno){
@@ -261,7 +297,10 @@ if($comunal==true){
                 $total_indicador = $row1['total_indicador']!='' ?$row1['total_indicador']:0;
                 $total_cobertura = $row1['total_cobertura']!='' ?$row1['total_cobertura']:0;
 
-                $porcentaje = number_format(($total_indicador*100/$total),1,'.','');
+//                $porcentaje = number_format(($total_indicador*100/$total),1,'.','');
+                $porcentaje = ($total > 0)
+                    ? number_format(($total_indicador * 100 / $total),1,'.','')
+                    : 0;
 
                 $series .=" { dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 1, y: -20 } } ,formatFunction: function (value) {return value + ' %';},total_general:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres},";
                 $rango .= ", $id:$porcentaje";
@@ -275,6 +314,7 @@ if($comunal==true){
                         inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal 
                         where $filtro_edad    
                                     and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
+                          and paciente_establecimiento.m_infancia='SI'
                                     AND (";
             $a = 0;
             foreach ($centro_interno as $i => $id_centro_interno){
@@ -306,7 +346,10 @@ if($comunal==true){
                 $total_pacientes++;
             }
 
-            $porcentaje_cobertura = number_format(($total_cobertura*100/$total_pacientes),1,'.','');
+//            $porcentaje_cobertura = number_format(($total_cobertura*100/$total_pacientes),1,'.','');
+            $porcentaje_cobertura = ($total_pacientes > 0)
+                ? number_format(($total_cobertura * 100 / $total_pacientes),1,'.','')
+                : 0;
 
 
             $rango_cobertura .= "\n{ Estado: 'APLICADO', Porcentaje: $porcentaje_cobertura },";
@@ -319,7 +362,7 @@ if($comunal==true){
             //para todos los sectores internos seleccionados
 
 
-            $sql1 = "select count(*) as total,
+            $sql1 = "select count(distinct persona.rut) as total,
                                     sectores_centros_internos.nombre_sector_interno as nombre_base,
                                     sectores_centros_internos.id_sector_centro_interno as id,
                                     centros_internos.nombre_centro_interno as nombre_establecimiento
@@ -332,6 +375,7 @@ if($comunal==true){
                                     inner join antropometria on persona.rut=antropometria.rut  
                                     where $filtro_edad 
                                     and paciente_establecimiento.id_establecimiento='$id_establecimiento'  
+                                      and paciente_establecimiento.m_infancia='SI'
                                     and (";
             $a = 0;
             foreach ($sector_interno as $i => $id_sector_interno){
@@ -361,7 +405,10 @@ if($comunal==true){
                 $total_indicador = $row1['total_indicador']!='' ?$row1['total_indicador']:0;
                 $total_cobertura = $row1['total_cobertura']!='' ?$row1['total_cobertura']:0;
 
-                $porcentaje = number_format(($total_indicador*100/$total),1,'.','');
+//                $porcentaje = number_format(($total_indicador*100/$total),1,'.','');
+                $porcentaje = ($total > 0)
+                    ? number_format(($total_indicador * 100 / $total),1,'.','')
+                    : 0;
 
                 $series .=" { dataField: '$id', displayText: '$nombre_base',labels: {visible: true,verticalAlignment: 'top',offset: { x: 1, y: -20 } } ,formatFunction: function (value) {return value + ' %';},total_general:$total,total_pacientes:$total,total_indicador:$total_indicador,hombres:$total_hombres,mujeres:$total_mujeres},";
                 $rango .= ", $id:$porcentaje";
@@ -375,7 +422,8 @@ if($comunal==true){
                         inner join centros_internos on sectores_centros_internos.id_centro_interno=centros_internos.id_centro_interno
                         inner join sector_comunal on centros_internos.id_sector_comunal=sector_comunal.id_sector_comunal 
                         where $filtro_edad    
-                                    and paciente_establecimiento.id_establecimiento='$id_establecimiento' 
+                                    and paciente_establecimiento.id_establecimiento='$id_establecimiento'
+                                    and paciente_establecimiento.m_infancia='SI'
                                     AND (";
             $a = 0;
             foreach ($sector_interno as $i => $id_sector_interno){
@@ -407,7 +455,10 @@ if($comunal==true){
                 $total_pacientes++;
             }
 
-            $porcentaje_cobertura = number_format(($total_cobertura*100/$total_pacientes),1,'.','');
+//            $porcentaje_cobertura = number_format(($total_cobertura*100/$total_pacientes),1,'.','');
+            $porcentaje_cobertura = ($total_pacientes > 0)
+                ? number_format(($total_cobertura * 100 / $total_pacientes),1,'.','')
+                : 0;
 
 
             $rango_cobertura .= "\n{ Estado: 'APLICADO', Porcentaje: $porcentaje_cobertura },";

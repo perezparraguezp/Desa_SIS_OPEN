@@ -28,17 +28,20 @@ $sexo = [
 ];
 
 if ($id_centro != '') {
-    $sql1 = "select count(*) as total from antropometria
-                inner join historial_antropometria using(rut)
-                inner join paciente_establecimiento on antropometria.rut=paciente_establecimiento.rut
-                inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
-                where m_infancia='SI'
-                  and historial_antropometria.fecha_registro>=date_sub(str_to_date('2024-01-05','%Y-%m-%d'),interval 6 month)
-                and indicador='EVAL_NUTRICIONISTA'
-                and valor='5 MESES'
+    $sql1 = "select count(distinct antropometria.rut) as total
+                    from antropometria
+                    inner join historial_antropometria using(rut)
+                    inner join paciente_establecimiento 
+                        on antropometria.rut = paciente_establecimiento.rut
+                    inner join sectores_centros_internos 
+                        on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                    where paciente_establecimiento.m_infancia = 'SI'
+                      and historial_antropometria.fecha_registro >= date_sub(str_to_date('2024-01-05','%Y-%m-%d'), interval 6 month)
+                      and historial_antropometria.indicador = 'EVAL_NUTRICIONISTA'
+                      and historial_antropometria.valor = '5 MESES'
                 $filtro_centro
                 group by historial_antropometria.indicador ;";
-    $sql2 = "select count(*) as total from antropometria
+    $sql2 = "select count(distinct antropometria.rut) as total from antropometria
                 inner join historial_antropometria using(rut)
                 inner 
                     join paciente_establecimiento on antropometria.rut=paciente_establecimiento.rut
@@ -51,7 +54,8 @@ if ($id_centro != '') {
                 group by historial_antropometria.indicador ;";
 
 } else {
-    $sql1 = "select count(*) as total from antropometria
+    $sql1 = "select count(distinct antropometria.rut) as total
+                from antropometria
                 inner join historial_antropometria using(rut)
                 inner join paciente_establecimiento on antropometria.rut=paciente_establecimiento.rut
                 inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
@@ -60,7 +64,8 @@ if ($id_centro != '') {
                 and indicador='EVAL_NUTRICIONISTA'
                 and valor='5 MESES'
                 group by historial_antropometria.indicador ;";
-    $sql2 = "select count(*) as total from antropometria
+    $sql2 = "select count(distinct antropometria.rut) as total 
+                from antropometria
                 inner join historial_antropometria using(rut)
                 inner join paciente_establecimiento on antropometria.rut=paciente_establecimiento.rut
                 inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno

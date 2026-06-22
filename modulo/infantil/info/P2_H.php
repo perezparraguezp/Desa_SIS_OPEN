@@ -34,7 +34,7 @@ $rango_seccion_h = [
     'persona.edad_total_dias>=(30*3) and persona.edad_total_dias<(30*4)',//tres meses
     'persona.edad_total_dias>=(30*4) and persona.edad_total_dias<(30*5)',//cuatro meses
     'persona.edad_total_dias>=(30*5) and persona.edad_total_dias<(30*6)',//cinco meses
-    'persona.edad_total_dias>=(30*6) and persona.edad_total_dias<(30*7)',//cinco meses
+    'persona.edad_total_dias>=(30*6) and persona.edad_total_dias<(30*7)',//seiz meses
     'persona.edad_total_dias>=(30*7) and persona.edad_total_dias<(30*12)',//7 a 11 meses
     'persona.edad_total_dias>=(30*12) and persona.edad_total_dias<(30*18)',//12 a 17 meses
     'persona.edad_total_dias>=(30*18) and persona.edad_total_dias<(30*24)',//18 a 23 meses
@@ -42,10 +42,10 @@ $rango_seccion_h = [
     'persona.edad_total_dias>=(30*36) and persona.edad_total_dias<(30*42)',//36 a 41 meses
     'persona.edad_total_dias>=(30*42) and persona.edad_total_dias<(30*48)',//42 a 47 meses
     'persona.edad_total_dias>=(30*48) and persona.edad_total_dias<(30*60)',//48 a 59 meses
-
     'persona.edad_total_dias>=(60*30) and persona.edad_total_dias<(72*30)', //entre 60 meses a 71 meses
-    'persona.edad_total_dias>=(30*12*6) and persona.edad_total_dias<=(30*12*7)',//desde los 6 a 7 años
-    'persona.edad_total_dias>=(30*12*8) and persona.edad_total_dias<=(30*12*9)',//desde los 8 a 9 años
+
+    'persona.edad_total_dias>=(30*12*6) and persona.edad_total_dias<(30*12*8)',//desde los 6 a 7 años
+    'persona.edad_total_dias>=(30*12*8) and persona.edad_total_dias<(30*12*10)',//desde los 8 a 9 años
 
     "persona.edad_total_dias>=0 and persona.edad_total_dias<(30*60) and persona.pueblo!='NO'",//PUEBLOS ORIGINARIOS
     "persona.edad_total_dias>=0 and persona.edad_total_dias<(30*60) and persona.migrante!='NO'",//MIGRANTES
@@ -100,7 +100,7 @@ $label_rango_seccion_h = [
                 <tr>
                     <td style="background-color: #fdff8b">AMBOS</td>
                     <td style="background-color: #fdff8b">HOMBRES</td>
-                    <td style="background-color: #fdff8b">HOMBRES</td>
+                    <td style="background-color: #fdff8b">MUJERES</td>
                     <?php
                     $label_sexo = ['HOMBRE', 'MUJER'];
                     foreach ($rango_seccion_h as $i => $rango) {
@@ -123,26 +123,44 @@ $label_rango_seccion_h = [
                 while ($row = mysql_fetch_array($res1)) {
                     $indicador = trim($row['nanea']);
                     $TOTAL = array();
+                    $TOTAL['HOMBRE'] = 0;
+                    $TOTAL['MUJER'] = 0;
                     $tr = '<tr>
                                         <td>' . $indicador . '</td>';
                     $fila = '';
                     foreach ($rango_seccion_h as $i => $rango) {
-                        foreach ($sexo as $i => $s) {
-                            $sql2 = "select count(*) as total from persona 
-                                            inner join paciente_establecimiento using (rut) 
-                                            inner join sectores_centros_internos on paciente_establecimiento.id_sector=sectores_centros_internos.id_sector_centro_interno
-                                            where id_establecimiento='$id_establecimiento' 
-                                            and m_infancia='SI'  
-                                            and $s and $rango 
-                                            $filtro_centro 
-                                            AND upper(nanea) like '%$indicador%'
-                                            limit 1";
+                        foreach ($sexo as $is => $s) {
+//                            $sql2 = "select count(distinct persona.rut) as total
+//                                             from persona
+//                                             inner join paciente_establecimiento using (rut)
+//                                             inner join sectores_centros_internos
+//                                                on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+//                                             where paciente_establecimiento.id_establecimiento = '$id_establecimiento'
+//                                               and paciente_establecimiento.m_infancia = 'SI'
+//                                               and $s
+//                                               and $rango
+//                                               $filtro_centro
+//                                               and upper(persona.nanea) like '%$indicador%'";
+                            $sql2 = "select count(distinct persona.rut) as total 
+                                             from persona 
+                                             inner join paciente_establecimiento using (rut) 
+                                             inner join sectores_centros_internos 
+                                                on paciente_establecimiento.id_sector = sectores_centros_internos.id_sector_centro_interno
+                                             where paciente_establecimiento.id_establecimiento = '$id_establecimiento' 
+                                               and paciente_establecimiento.m_infancia = 'SI'  
+                                               and $s 
+                                               and $rango 
+                                               $filtro_centro 
+                                               and FIND_IN_SET(
+                                                    UPPER(TRIM('$indicador')),
+                                                    UPPER(REPLACE(persona.nanea, ', ', ','))
+                                               ) > 0";
                             $row2 = mysql_fetch_array(mysql_query($sql2));
-                            if($i<=16){
+                            if ($i <= 16) {
                                 if ($row2) {
-                                    $TOTAL[$label_sexo[$i]] += $row2['total'];
+                                    $TOTAL[$label_sexo[$is]] += $row2['total'];
                                 } else {
-                                    $TOTAL[$label_sexo[$i]] += 0;
+                                    $TOTAL[$label_sexo[$is]] += 0;
                                 }
                             }
 

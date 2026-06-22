@@ -35,10 +35,10 @@ $label_rango_seccion_f = [
     '6 a 9 años',
 ];
 $rango_seccion_f = [
-    'persona.edad_total>=36 and persona.edad_total<=47',//36 a 47 meses
-    'persona.edad_total>=48 and persona.edad_total<=71',//48 6 a 71 meses
-    'persona.edad_total>=(12*6) and persona.edad_total<=(12*9)',//desde los 8 a 9 años
-    "persona.edad_total>=36  and persona.edad_total<=(12*9) and antropometria.atencion_secundaria='SI'",//desde los 8 a 9 años
+    'persona.edad_total>=36 and persona.edad_total<48',//36 a 47 meses
+    'persona.edad_total>=48 and persona.edad_total<72',//48 6 a 71 meses
+    'persona.edad_total>=(12*6) and persona.edad_total<(12*10)',//desde los 8 a 9 años
+    "persona.edad_total>=36  and persona.edad_total<(12*10) and antropometria.atencion_secundaria='SI'",//desde los 8 a 9 años
 ];
 ?>
 <section id="seccion_f" style="width: 100%;overflow-y: scroll;">
@@ -79,8 +79,11 @@ $rango_seccion_f = [
                 <?php
                 $estados = ['NORMAL', 'PRE-HIPERTENSION', 'ETAPA 1', 'ETAPA 2'];
 
+
                 foreach ($estados as $estado) {
                     $total_estado = 0;
+                    $total[$estado]['H'] = 0;
+                    $total[$estado]['M'] = 0;
                     $tr = '<tr>';
                     $td = '';
                     foreach ($rango_seccion_f as $i => $rango) {

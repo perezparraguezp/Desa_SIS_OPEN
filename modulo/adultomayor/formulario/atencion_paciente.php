@@ -10,7 +10,13 @@ if($fecha_registro==''){
     $fecha_registro = date('Y-m-d');
 }
 
-$paciente = new persona($rut);
+function limpiarRUT($rut)
+{
+    $rut = trim($rut);
+    $rut = str_replace(['.', ' '], '', $rut);
+    return strtoupper($rut);
+}
+$paciente = new persona(limpiarRUT($rut));
 $profesional = new profesional($_SESSION['id_usuario']);
 if($paciente->getModuloPaciente('m_adulto_mayor')=='NO'){
     ?>
